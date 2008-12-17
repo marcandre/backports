@@ -1,0 +1,231 @@
+= Packable Library - Intro
+
+If you need to do read and write binary data, there is of course <tt>Array::pack</tt> and <tt>String::unpack</tt>.
+The packable library makes (un)packing nicer, smarter and more powerful.
+In case you are wondering why on earth someone would want to do serious (un)packing when YAML & XML are built-in:
+I wrote this library to read and write FLV files...
+
+== Feature summary:
+
+=== Explicit forms
+Strings, integers & floats have long forms instead of the cryptic letter notation. For example:
+    ["answer", 42].pack("C3n")
+can be written as:
+    ["answer", 42].pack({:bytes => 3}, {:bytes => 2, :endian => :big})
+This can look a bit too verbose, so let's introduce shortcuts right away:
+=== Shortcuts
+Most commonly used options have shortcuts and you can define your own. For example:
+    :unsigned_long  <===> {:bytes => 4, :signed => false, :endian => :big}
+=== IO
+IO classes (File & StringIO) can use (un)packing routines.
+For example:
+    signature, block_len, temperature = my_file >> [String, :bytes=>3] >> Integer >> :float
+The method +each+ also accepts packing options:
+    StringIO.new("\000\001\000\002\000\003").each(:short).to_a  ===>  [1,2,3]
+=== Custom classes
+It's easy to make you own classes (un)packable. All the previous goodies are thus available:
+		File.open("great_flick.flv") do |f|
+			head = f.read(FLV::Header)
+			f.each(FLV::Tag) do |tag|
+				# do something meaningful with each tag...
+			end
+		end
+
+=== Filters
+It's also easy to define special shortcuts that will call blocks to (un)pack any classe.
+As an example, this could be useful to add special packing features to String (without monkey patching String::pack).
+
+== Installation
+
+First, ensure that you're running at least RubyGems 1.2 (check <tt>gem --version</tt> if you're not sure -- to update: <tt>sudo gem update --system</tt>).
+
+Add GitHub to your gem sources (if you haven't already):
+
+  sudo gem sources -a http://gems.github.com
+
+Get the gem:
+
+  sudo gem install mal-packable
+  
+That's it! Simply <tt>require 'packable'</tt> in your code to use it.
+
+Compatibility: Ruby 1.8, 1.9
+
+= Documentation
+
+== Packing and unpacking
+
+The library was designed to be backward compatible, so the usual packing and unpacking methods still work as before.
+All packable objects can also be packed directly (no need to use an array). For example:
+
+  42.pack("n")  ===>  "\000*"
+
+In a similar fashion, unpacking can done using class methods:
+
+  Integer.unpack("\000*", "n")  ===>  42
+
+== Formats
+
+Although the standard string formats can still be used, it is possible to pass a list of options (see example in feature summary).
+These are the options for core types:
+
+=== Integer
++bytes+:: Number of bytes (default is 4) to use.
++endian+:: Either <tt>:big</tt> (default) or <tt>:small</tt>.
++signed+:: Either +true+ (default) or not. This will make a difference only when unpacking.
+
+=== Float
++precision+:: Either <tt>:single</tt> (default) or <tt>:double</tt>.
++endian+:: Either <tt>:big</tt> (default) or <tt>:small</tt>.
+
+=== String
++bytes+:: Total length (default is the full length)
++fill+:: The string to use for filling when packing a string shorter than the specified bytes option. Default is a space.
+
+=== Array
++repeat+:: This option can be used (when packing only) to repeat the current option. A value of <tt>:all</tt> will mean for all remaining elements of the array.
+
+When unpacking, it is necessary to specify the class in addition to any option, like so:
+
+  "AB".unpack(Integer, :bytes => 2, :endian => :big, :signed => false)  ===>  0x3132
+
+== Shortcuts and default values
+
+It's easy to add shortcuts for easier (un)packing:
+
+	String.packers.set :flv_signature, :bytes => 3, :fill => "FLV"
+
+  "x".pack(:flv_signature)  ===>  "xFL"
+
+Two shortcut names have special meanings: +default+ and +merge_all+. +default+ specifies the options to use when
+nothing is specified, while +merge_all+ will be merged with all options. For example:
+
+  String.packers do |c|
+    c.set :merge_all, :fill => "*"	# Unless explicitly specified, :fill will now be "*"
+    c.set :default, :bytes => 8     # If no option is given, this will act as default
+  end
+
+  "ab".pack  ===>  "ab******"
+  "ab".pack(:bytes=>4)  ===>  "ab**"
+  "ab".pack(:fill => "!")  ===>  "ab"     # Not "ab!!"
+
+A shortcut can refer to another shortcut, as so:
+
+  String.packers do |c|
+		c.set :creator, :bytes => 4
+		c.set :app_type, :creator
+	end
+  "hello".pack(:app_type)  ===>  "hell"
+
+The following shortcuts and defaults are built-in the library:
+
+=== Integer
+  :merge_all      =>   :bytes=>4, :signed=>true, :endian=>:big
+  :default        =>   :long
+  :long           =>   {}
+  :short          =>   :bytes=>2
+  :byte           =>   :bytes=>1
+  :unsigned_long  =>   :bytes=>4, :signed=>false
+  :unsigned_short =>   :bytes=>2, :signed=>false
+                       
+=== Float              
+  :merge_all      =>   :precision => :single, :endian => :big
+  :default        =>   :float
+  :double         =>   :precision => :double
+  :float          =>   {}
+                       
+=== String             
+  :merge_all      =>   :fill => " "
+
+== Files and StringIO
+
+All IO objects (in particular files) can deal with packing easily. These examples will all return an array with 3 elements (a string, an integer and another string):
+
+  io >> :flv_signature >> Integer >> [String, {:bytes => 8}]
+  io.read(:flv_signature, Integer, [String, {:bytes => 8}])
+  io.read(:flv_signature, Integer, String, {:bytes => 8})
+  [io.read(:flv_signature), io.read(Integer), io.read(String, :bytes => 8)]
+
+In a similar fashion, these have the same effect although the return value is different
+
+  io << "x".pack(:flv_signature) << 66.pack << "Hello".pack(:bytes => 8)  # returns io
+  io << ["x", 66, "Hello"].pack(:flv_signature, {} , {:bytes => 8})       # returns io
+  io.write("x", :flv_signature, 66, "Hello", {:bytes => 8})               # returns the # of bytes written
+  io.packed << ["x",:flv_signature] << 66 << ["Hello", {:bytes => 8}]     # returns a "packed io"
+
+The last example shows how <tt>io.packed</tt> returns a special IO object (a packing IO) that will pack arguments before writing it.
+This is to insure compatibility with the usual behavior of IO objects:
+	io << 66  ==> appends "66"
+	io.packed << 66  ==> appends "\000\000\000B"
+
+We "cheated" in the previous example; instead of writing <tt>io.packed.write(...)</tt> we used the shorter form.
+This works because we're passing more than one argument; for only one argument we must call <tt>io.packed.write(66)</tt>
+less the usual +write+ method is called.
+
+Since the standard library desn't define the <tt>>></tt> operator for IO objects, we are free to use either <tt>io.packed</tt> or <tt>io</tt> directly.
+Note that reading one value only will return that value directly, not an array containing that value:
+
+  io.read(Integer)  ===>  42, not [42]
+  io.read(Integer,Integer)  ===>  [42,43]
+  io << Integer     ===>  [42]
+
+== Custom classes
+
+Including the mixin +Packable+ will make a class (un)packable. Packable relies on +write_packed+
+and unpacking on +read_packed+. For example:
+
+  class MyHeader
+    include Packable
+    attr_accessor :signature, :nb_blocks
+
+    def write_packed(packedio, options)
+      packedio << [signature, {:bytes=>4}] << [nb_block, :short]
+    end
+    
+    def self.read_packed(packedio, options)
+      h = MyHeader.new
+      h.signature, h.nb_blocks = packedio >> [String, {:bytes => 4}] >> :short
+      h
+    end
+  end
+
+We used the argument name +packedio+ to remind us that these are packed IO objects, i.e.
+they will write their arguments after packing them instead of converting them to string like normal IO objects.
+With this definition, +MyHeader+ can be both packed and unpacked:
+
+  h = MyHeader.new("FLV", 65)
+  h.pack  ===>  "FLV \000A"
+  StringIO.new("FLV \000A") >> Signature  ===>  [a copy of h]
+
+A default <tt>self.read_packed</tt> is provided by the +Packable+ mixin, which allows you to define +read_packed+ as
+an instance method instead of a class method. In that case, +read_packed+ instance method is called with
+the same arguments and should modify +self+ accordingly (instead of returning a new object).
+It is not necessary to return +self+. The previous example can thus be shortened:
+
+  class MyHeader
+    #...
+    def read_packed(packedio, options)
+      signature, nb_blocks = packedio >> [String, {:bytes => 4}] >> :short
+    end
+  end
+
+== Filter
+
+Instead of writing a full-fledge class, sometimes it can be convenient to define a sort of wrapper we'll call filter. Here's an example:
+
+  String.packers.set :length_encoded do |packer|
+    packer.write  { |packedio| packedio << length << self }
+    packer.read   { |packedio| packedio.read(packedio.read(Integer)) }
+  end
+
+	"hello!".pack(:length_encoded)  ===>  "\000\000\000\006hello!"
+	["this", "is", "great!"].pack(*[:length_encoded]*3).unpack(*[:length_encoded]*3)  ===>  ["this", "is", "great!"]
+
+Note that the +write+ block will be executed as an instance method (which is why we could use +length+ & +self+),
+while +read+ is a normal block that must return the newly read object.
+
+= License
+
+packable is licensed under the terms of the (modified) GPL License, see the included LICENSE file.
+
+Author::                 Marc-André Lafortune

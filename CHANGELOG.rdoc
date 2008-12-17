@@ -1,0 +1,5 @@
+= Packable --- History
+
+== Version 1.0 - December 17, 2008
+
+=== Initial release.
