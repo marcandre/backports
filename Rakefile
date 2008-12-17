@@ -9,7 +9,7 @@ begin
     s.name = "packable"
     s.summary = "Extensive packing and unpacking capabilities"
     s.email = "github@marc-andre.ca"
-    s.homepage = "http://github.com/mal/packable"
+    s.homepage = "http://github.com/marcandre/packable"
     s.description = <<-EOS
       If you need to do read and write binary data, there is of course <Array::pack and String::unpack
       The packable library makes (un)packing nicer, smarter and more powerful.
