@@ -25,6 +25,7 @@ class PackableDocTest < Test::Unit::TestCase
   		c.set :creator, :bytes => 4
   		c.set :app_type, :creator
   		c.set :default, {} # Reset to a sensible default...
+      c.set :merge_all, :fill => " "
   	end
     
     assert_equal "hello".pack(:app_type), "hell"
@@ -38,7 +39,7 @@ class PackableDocTest < Test::Unit::TestCase
     ].map {|proc| proc.call(StringIO.new("sig\000\000\000\001hello, world"))}
     
     
-    ex = "xFL\000\000\000BHello***"
+    ex = "xFL\000\000\000BHello   "
     [
     lambda { |io| io << "x".pack(:flv_signature) << 66.pack << "Hello".pack(:bytes => 8)},   # returns io
     lambda { |io| io << ["x", 66, "Hello"].pack(:flv_signature, :default , {:bytes => 8})},  # returns io

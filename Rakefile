@@ -12,7 +12,7 @@ begin
     s.homepage = "http://github.com/mal/packable"
     s.description = <<-EOS
       If you need to do read and write binary data, there is of course <Array::pack and String::unpack
-      The packable library makes (un)packing nicer, smarter and more powerful."
+      The packable library makes (un)packing nicer, smarter and more powerful.
     EOS
     s.authors = ["Marc-André Lafortune"]
   end
