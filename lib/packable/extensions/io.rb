@@ -39,6 +39,7 @@ module Packable
         packedio = clone
         class << packedio
           def << (arg)
+            arg = [arg, :default] unless arg.instance_of?(::Array)
             pack_and_write(*arg)
             self
           end

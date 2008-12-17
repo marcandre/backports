@@ -41,7 +41,9 @@ module Packable
     # * define a class method +unpack_string+ that reads and returns an object from the string. In this case, options[:bytes] should be specified!
     def read_packed(io, options)
       if method_defined? :read_packed
-        obj = new
+        mandatory = instance_method(:initialize).arity
+        mandatory = -1-mandatory if mandatory < 0
+        obj = new(*[nil]*mandatory)
         obj.read_packed(io, options)
         obj
       else

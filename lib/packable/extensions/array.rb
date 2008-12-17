@@ -26,7 +26,7 @@ module Packable
           repeat = options.is_a?(Hash) ? options.delete(:repeat) || 1 : 1
           repeat = length - 1 - current if repeat == :all
           repeat.times do
-            io << [self[current+=1],options]
+            io.write(self[current+=1],options)
           end
         end
       end

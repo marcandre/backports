@@ -1,5 +1,9 @@
 = Packable --- History
 
+== Version 1.1 - December 17, 2008
+Fixed bug when packing objects implementing to_ary
+Added inheritance of shortcuts & filters to documentation
+
 == Version 1.0 - December 17, 2008
 
 === Initial release.

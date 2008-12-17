@@ -1,5 +1,21 @@
 require File.dirname(__FILE__) + '/test_helper'
 # Warning: ugly...
+class MyHeader < Struct.new(:signature, :nb_blocks)
+  include Packable
+  
+  def write_packed(packedio, options)
+    packedio << [signature, {:bytes=>3}] << [nb_blocks, :short]
+  end
+
+  def read_packed(packedio, options)
+    self.signature, self.nb_blocks = packedio >> [String, {:bytes => 3}] >> :short
+  end
+  
+  def ohoh
+    :ahah
+  end
+end
+
 
 class PackableDocTest < Test::Unit::TestCase 
   def test_doc
@@ -68,5 +84,22 @@ class PackableDocTest < Test::Unit::TestCase
     assert_equal "\000\000\000\006hello!", "hello!".pack(:length_encoded)
     assert_equal ["this", "is", "great!"], ["this", "is", "great!"].pack(*[:length_encoded]*3).unpack(*[:length_encoded]*3)
   
+    h = MyHeader.new("FLV", 65)
+    assert_equal "FLV\000A", h.pack
+    h2, = StringIO.new("FLV\000A") >> MyHeader
+    assert_equal h, h2
+    assert_equal h.ohoh, h2.ohoh
+
+
+  
+    Object.packers.set :with_class do |packer|
+      packer.write { |io| io << [self.class.name, :length_encoded] << self }
+      packer.read  do |io|
+        klass = eval(io.read(:length_encoded))
+        io.read(klass)
+      end
+    end
+    ar = [42, MyHeader.new("FLV", 65)]
+    assert_equal ar, ar.pack(:with_class, :with_class).unpack(:with_class, :with_class)
   end
 end

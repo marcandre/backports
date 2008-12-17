@@ -45,7 +45,7 @@ Add GitHub to your gem sources (if you haven't already):
 
 Get the gem:
 
-  sudo gem install mal-packable
+  sudo gem install marcandre-packable
   
 That's it! Simply <tt>require 'packable'</tt> in your code to use it.
 
@@ -174,17 +174,16 @@ Note that reading one value only will return that value directly, not an array c
 Including the mixin +Packable+ will make a class (un)packable. Packable relies on +write_packed+
 and unpacking on +read_packed+. For example:
 
-  class MyHeader
+  class MyHeader < Struct.new(:signature, :nb_blocks)
     include Packable
-    attr_accessor :signature, :nb_blocks
-
+  
     def write_packed(packedio, options)
-      packedio << [signature, {:bytes=>4}] << [nb_block, :short]
+      packedio << [signature, {:bytes=>3}] << [nb_blocks, :short]
     end
-    
+
     def self.read_packed(packedio, options)
       h = MyHeader.new
-      h.signature, h.nb_blocks = packedio >> [String, {:bytes => 4}] >> :short
+      h.signature, h.nb_blocks = packedio >> [String, {:bytes => 3}] >> :short
       h
     end
   end
@@ -194,8 +193,8 @@ they will write their arguments after packing them instead of converting them to
 With this definition, +MyHeader+ can be both packed and unpacked:
 
   h = MyHeader.new("FLV", 65)
-  h.pack  ===>  "FLV \000A"
-  StringIO.new("FLV \000A") >> Signature  ===>  [a copy of h]
+  h.pack  ===>  "FLV\000A"
+  StringIO.new("FLV\000A") >> Signature  ===>  [a copy of h]
 
 A default <tt>self.read_packed</tt> is provided by the +Packable+ mixin, which allows you to define +read_packed+ as
 an instance method instead of a class method. In that case, +read_packed+ instance method is called with
@@ -205,7 +204,7 @@ It is not necessary to return +self+. The previous example can thus be shortened
   class MyHeader
     #...
     def read_packed(packedio, options)
-      signature, nb_blocks = packedio >> [String, {:bytes => 4}] >> :short
+      self.signature, self.nb_blocks = packedio >> [String, {:bytes => 3}] >> :short
     end
   end
 
@@ -223,6 +222,20 @@ Instead of writing a full-fledge class, sometimes it can be convenient to define
 
 Note that the +write+ block will be executed as an instance method (which is why we could use +length+ & +self+),
 while +read+ is a normal block that must return the newly read object.
+
+== Inheritance
+
+A final note to say that packers are inherited in some way. For instance one could define a filter for all objects:
+
+  Object.packers.set :with_class do |packer|
+    packer.write { |io| io << [self.class.name, :length_encoded] << self }
+    packer.read  do |io|
+      klass = eval(io.read(:length_encoded))
+      io.read(klass)
+    end
+  end
+  
+  [42, MyHeader.new("Wow", 1)].pack(:with_class, :with_class).unpack(:with_class, :with_class) ===> [42, MyHeader.new("Wow", 1)]
 
 = License
 
