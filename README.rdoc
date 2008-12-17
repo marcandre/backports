@@ -226,6 +226,6 @@ while +read+ is a normal block that must return the newly read object.
 
 = License
 
-packable is licensed under the terms of the (modified) GPL License, see the included LICENSE file.
+packable is licensed under the terms of the (modified) BSD License, see the included LICENSE file.
 
 Author::                 Marc-André Lafortune
