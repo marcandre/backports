@@ -72,7 +72,7 @@ These are the options for core types:
 === Integer
 [+bytes+]     Number of bytes (default is 4) to use.
 [+endian+]    Either <tt>:big</tt> (or :network, default) or <tt>:little</tt>.
-[+signed+]    Either +true+ (default) or not. This will make a difference only when unpacking.
+[+signed+]    Either +true+ (default) or +false+. This will make a difference only when unpacking.
 
 === Float
 [+precision+] Either <tt>:single</tt> (default) or <tt>:double</tt>.
