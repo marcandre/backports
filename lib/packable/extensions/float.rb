@@ -20,7 +20,7 @@ module Packable
 
       module ClassMethods #:nodoc:
         def pack_option_to_format(options)
-          format = {:big => "G", :small => "E"}[options[:endian]]
+          format = {:big => "G", :network => "G", :little => "E"}[options[:endian]]
           format.downcase! if options[:precision] == :single
           format
         end

@@ -43,7 +43,8 @@ class TestingPack < Test::Unit::TestCase
   end
   
   def test_integer
-    assert_equal "\002\001\000", 258.pack(:bytes => 3, :endian => :small)
+    assert_equal "\002\001\000", 258.pack(:bytes => 3, :endian => :little)
+    assert_equal 258, Integer.unpack("\002\001\000", :bytes => 3, :endian => :little)
     assert_equal (1<<24)-1, -1.pack(:bytes => 3).unpack(Integer, :bytes => 3, :signed => false)
     assert_equal -1, -1.pack(:bytes => 3).unpack(Integer, :bytes => 3, :signed => true)
   end

@@ -25,13 +25,13 @@ module Packable
           val >>= 8
           byte.chr
         end
-        chars.reverse! if options[:endian] == :big
+        chars.reverse! unless options[:endian] == :little
         io << chars.join
       end
 
       module ClassMethods #:nodoc:
         def unpack_string(s,options)
-          s = s.reverse if options[:endian != :big]
+          s = s.reverse if options[:endian] == :little
           r = 0
           s.each_byte {|b| r = (r << 8) + b}
           r -= 1 << (8 * options[:bytes])  if options[:signed] && (1 == r >> (8 * options[:bytes] - 1))
