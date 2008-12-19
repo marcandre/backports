@@ -15,6 +15,10 @@ begin
       The packable library makes (un)packing nicer, smarter and more powerful.
     EOS
     s.authors = ["Marc-André Lafortune"]
+    s.has_rdoc = true
+    s.rdoc_options << '--title' << 'Packable library' <<
+                           '--main' << 'README.rdoc' <<
+                           '--line-numbers' << '--inline-source'
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
