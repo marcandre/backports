@@ -5,11 +5,11 @@ module Packable
         base.class_eval do
           include Packable
           extend ClassMethods
-          packers do |c|
-            c.set :merge_all, :precision => :single, :endian => :big
-            c.set :double   , :precision => :double
-            c.set :float    , {}
-            c.set :default  , :float
+          packers do |p|
+            p.set :merge_all, :precision => :single, :endian => :big
+            p.set :double   , :precision => :double
+            p.set :float    , {}
+            p.set :default  , :float
           end
         end
       end

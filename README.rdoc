@@ -100,9 +100,9 @@ It's easy to add shortcuts for easier (un)packing:
 Two shortcut names have special meanings: +default+ and +merge_all+. +default+ specifies the options to use when
 nothing is specified, while +merge_all+ will be merged with all options. For example:
 
-  String.packers do |c|
-    c.set :merge_all, :fill => "*"	# Unless explicitly specified, :fill will now be "*"
-    c.set :default, :bytes => 8     # If no option is given, this will act as default
+  String.packers do |p|
+    p.set :merge_all, :fill => "*"	# Unless explicitly specified, :fill will now be "*"
+    p.set :default, :bytes => 8     # If no option is given, this will act as default
   end
 
   "ab".pack  ===>  "ab******"
@@ -111,9 +111,9 @@ nothing is specified, while +merge_all+ will be merged with all options. For exa
 
 A shortcut can refer to another shortcut, as so:
 
-  String.packers do |c|
-		c.set :creator, :bytes => 4
-		c.set :app_type, :creator
+  String.packers do |p|
+		p.set :creator, :bytes => 4
+		p.set :app_type, :creator
 	end
   "hello".pack(:app_type)  ===>  "hell"
 

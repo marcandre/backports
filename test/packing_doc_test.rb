@@ -27,9 +27,9 @@ class PackableDocTest < Test::Unit::TestCase
 
     assert_equal "xFL", "x".pack(:flv_signature)
 
-    String.packers do |c|
-      c.set :merge_all, :fill => "*"	# Unless explicitly specified, :fill will now be "*"
-      c.set :default, :bytes => 8     # If no option is given, this will act as default
+    String.packers do |p|
+      p.set :merge_all, :fill => "*"	# Unless explicitly specified, :fill will now be "*"
+      p.set :default, :bytes => 8     # If no option is given, this will act as default
     end
     
     assert_equal "ab******", "ab".pack
@@ -37,11 +37,11 @@ class PackableDocTest < Test::Unit::TestCase
     assert_equal "ab", "ab".pack(:fill => "!")
     assert_equal "ab!!", "ab".pack(:fill => "!", :bytes => 4)
     
-    String.packers do |c|
-  		c.set :creator, :bytes => 4
-  		c.set :app_type, :creator
-  		c.set :default, {} # Reset to a sensible default...
-      c.set :merge_all, :fill => " "
+    String.packers do |p|
+  		p.set :creator, :bytes => 4
+  		p.set :app_type, :creator
+  		p.set :default, {} # Reset to a sensible default...
+      p.set :merge_all, :fill => " "
   	end
     
     assert_equal "hello".pack(:app_type), "hell"

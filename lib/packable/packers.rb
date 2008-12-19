@@ -6,7 +6,7 @@ module Packable
   
     # Usage:
     #   PackableClass.packers.set :shortcut, :option => value, ...
-    #   PackableClass.packers { |c| c.set...; c.set... }
+    #   PackableClass.packers { |p| p.set...; p.set... }
     #   PackableClass.packers.set :shortcut, :another_shortcut
     #   PackableClass.packers.set :shortcut do |packer|
     #     packer.write{|io| io << self.something... }

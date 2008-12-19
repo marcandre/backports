@@ -5,15 +5,15 @@ module Packable
         base.class_eval do
           include Packable
           extend ClassMethods
-          packers do |c|
-            c.set :merge_all      , :bytes=>4, :signed=>true, :endian=>:big
-            c.set :default        , :long
-            c.set :long           , {}
-            c.set :short          , :bytes=>2
-            c.set :char           , :bytes=>1, :signed=>false
-            c.set :byte           , :bytes=>1
-            c.set :unsigned_long  , :bytes=>4, :signed=>false
-            c.set :unsigned_short , :bytes=>2, :signed=>false
+          packers do |p|
+            p.set :merge_all      , :bytes=>4, :signed=>true, :endian=>:big
+            p.set :default        , :long
+            p.set :long           , {}
+            p.set :short          , :bytes=>2
+            p.set :char           , :bytes=>1, :signed=>false
+            p.set :byte           , :bytes=>1
+            p.set :unsigned_long  , :bytes=>4, :signed=>false
+            p.set :unsigned_short , :bytes=>2, :signed=>false
           end
         end
       end
