@@ -42,6 +42,7 @@ class PackableDocTest < Test::Unit::TestCase
   		p.set :app_type, :creator
   		p.set :default, {} # Reset to a sensible default...
       p.set :merge_all, :fill => " "
+      p.set :eigth_bytes, :bytes => 8
   	end
     
     assert_equal "hello".pack(:app_type), "hell"

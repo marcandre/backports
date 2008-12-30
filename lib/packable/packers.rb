@@ -53,6 +53,7 @@ module Packable
       until arg.empty? do
         k, options = original = arg.shift
         k, options = global_lookup(k) if k.is_a? Symbol
+        raise TypeError, "Expected a class or symbol: #{k.inspect}" unless k.instance_of? Class
         options ||= arg.first.is_a?(Hash) ? arg.shift.tap{|o| original = [original, o]} : :default
         r << [k, k.packers.finalize(options), original]
       end

@@ -62,7 +62,7 @@ module Packable
       end
     
       def read_with_packing(*arg)
-        return read_without_packing(*arg) if (arg.length == 0) || arg.first.is_a?(Numeric)
+        return read_without_packing(*arg) if (arg.length == 0) || (arg.first.is_a?(Numeric) && (arg.length == 1))
         return *Packable::Packers.to_class_option_list(*arg).map do |klass, options, original|
           if eof?
             raise EOFError, "End of IO when attempting to read #{klass} with options #{original.inspect}" if @throw_on_eof

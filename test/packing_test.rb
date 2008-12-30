@@ -57,6 +57,10 @@ class TestingPack < Test::Unit::TestCase
     assert_equal "!", io.read
   end
   
+  should "do basic type checking" do
+    assert_raise(TypeError) {"".unpack(42, :short)}
+  end
+  
   context "Filters" do
     context "for Object" do
       Object.packers.set :generic_class_writer do |packer|
