@@ -1,7 +1,50 @@
-= backports
+= Backports Library
 
-Description goes here.
+Essential backports that make it possible to use some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.x
 
-== Copyright
+Conditions for inclusion:
+1. Standard in either rails or ruby
+2. Won't break older code
+3. Simple and self-contained
 
-Copyright (c) 2009 Marc-Andre Lafortune. See LICENSE for details.
+The first and second rules avoids conflicts in future and the past respectively. Because of the second rule, incompatibilities between 1.8 and 1.9 methods are left alone.
+For example, <tt>Module::instance_methods</tt> returns strings in 1.8 and symbols in 1.9; no change can be made without the risk of breaking existing code.
+
+More complex features of activesupport (even things like String::pluralize), won't be included. <tt>require 'activesupport'</tt> if you need them!
+
+I've added those as I need them; pull requests welcome (with tests for ruby 1.9 backports)
+
+= List of backports
+
+* Symbol
+  * +to_proc+ (e.g. <tt>foo.map(&:bar)</tt> )
+* Kernel
+  * +require_relative+
+* Module
+  * +alias_method_chain+
+* Object
+  * +tap+, +returning+
+  * +try+
+* String
+  * +start_with?+, +end_with?+
+  * +camelize+, +underscore+
+  * +dasherize+, +demodulize+
+  * +constantize+
+* Hash
+  * <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt>
+  * +key+
+  * +symbolize_keys+, +symbolize_keys!+
+* Enumerable
+  * +sum+
+  * +find_index+
+  * +take+, +take_while+, +drop+, +drop_while+
+  * +first+
+* Fixnum
+  * +odd?+, +even?+
+
+= License
+
++backports+ is released under the terms of the MIT License, see the included LICENSE file.
+The code for backports was copied from rails when available.
+
+Author::                 Marc-André Lafortune

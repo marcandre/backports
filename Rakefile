@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'rubygems'
 require 'rake'
 
@@ -8,9 +9,17 @@ begin
     gem.summary = %Q{TODO}
     gem.email = "github@marc-andre.ca"
     gem.homepage = "http://github.com/marcandre/backports"
-    gem.authors = ["Marc-Andre Lafortune"]
+    gem.authors = ["Marc-André Lafortune"]
     gem.rubyforge_project = "backports"
   
+    gem.description = <<-EOS
+      Essential backports that make it possible to use some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.
+    EOS
+    gem.has_rdoc = true
+    gem.rdoc_options << '--title' << 'Backports library' <<
+                           '--main' << 'README.rdoc' <<
+                           '--line-numbers' << '--inline-source'
+
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
