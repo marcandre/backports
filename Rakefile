@@ -6,14 +6,14 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "backports"
-    gem.summary = %Q{TODO}
+    gem.summary = "Backports or ruby 1.8.7+ & rails for older ruby."
     gem.email = "github@marc-andre.ca"
     gem.homepage = "http://github.com/marcandre/backports"
     gem.authors = ["Marc-André Lafortune"]
-    gem.rubyforge_project = "backports"
+    gem.rubyforge_project = "marcandre"
   
     gem.description = <<-EOS
-      Essential backports that make it possible to use some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.
+      Essential backports that enable some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.
     EOS
     gem.has_rdoc = true
     gem.rdoc_options << '--title' << 'Backports library' <<
@@ -79,7 +79,7 @@ begin
         )
 
         host = "#{config['username']}@rubyforge.org"
-        remote_dir = "/var/www/gforge-projects/backports/"
+        remote_dir = "/var/www/gforge-projects/marcandre/"
         local_dir = 'rdoc'
 
         Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload

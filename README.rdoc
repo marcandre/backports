@@ -14,6 +14,10 @@ More complex features of activesupport (even things like String::pluralize), won
 
 I've added those as I need them; pull requests welcome (with tests for ruby 1.9 backports)
 
+== Coompatibility
+
+Works with ruby 1.8 & 1.9
+
 = List of backports
 
 * Symbol
@@ -26,7 +30,7 @@ I've added those as I need them; pull requests welcome (with tests for ruby 1.9 
   * +tap+, +returning+
   * +try+
 * String
-  * +start_with?+, +end_with?+
+  * <tt>start_with?</tt>, <tt>end_with?</tt>
   * +camelize+, +underscore+
   * +dasherize+, +demodulize+
   * +constantize+
@@ -40,7 +44,7 @@ I've added those as I need them; pull requests welcome (with tests for ruby 1.9 
   * +take+, +take_while+, +drop+, +drop_while+
   * +first+
 * Fixnum
-  * +odd?+, +even?+
+  * <tt>odd?</tt>, <tt>even?</tt>
 
 = License
 
