@@ -1,4 +1,5 @@
 require 'enumerator'
+Enumerator = Enumerable::Enumerator unless defined?(Enumerator)
 
 module Packable
   module Extensions #:nodoc:
@@ -37,6 +38,7 @@ module Packable
       # Returns (or yields) a modified IO object that will always pack/unpack when writing/reading.
       def packed
         packedio = clone
+        packedio.set_encoding("ascii-8bit") if packedio.respond_to? :set_encoding 
         class << packedio
           def << (arg)
             arg = [arg, :default] unless arg.instance_of?(::Array)
@@ -53,7 +55,7 @@ module Packable
 
       def each_with_packing(*options, &block)
         return each_without_packing(*options, &block) if (Integer === options.first) || (String === options.first)
-        return Enumerable::Enumerator.new(self, :each_with_packing, *options) unless block_given?
+        return Enumerator.new(self, :each_with_packing, *options) unless block_given?
         yield read(*options) until eof?
       end
 
@@ -63,7 +65,7 @@ module Packable
     
       def read_with_packing(*arg)
         return read_without_packing(*arg) if (arg.length == 0) || (arg.first.is_a?(Numeric) && (arg.length == 1))
-        return *Packable::Packers.to_class_option_list(*arg).map do |klass, options, original|
+        values = Packable::Packers.to_class_option_list(*arg).map do |klass, options, original|
           if eof?
             raise EOFError, "End of IO when attempting to read #{klass} with options #{original.inspect}" if @throw_on_eof
             nil
@@ -73,6 +75,7 @@ module Packable
             klass.read_packed(self, options)
           end
         end
+        return values.size > 1 ? values : values.first
       end
       
       def pack_and_write(*arg)

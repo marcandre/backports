@@ -1,5 +1,9 @@
 = Packable --- History
 
+== Version 1.2 - April 2nd, 2009
+Compatible with ruby 1.9.1.
+The 'jungle_survival_kit' is now in its own 'backports' gem.
+
 == Version 1.1 - December 17, 2008
 Fixed bug when packing objects implementing to_ary
 Added inheritance of shortcuts & filters to documentation

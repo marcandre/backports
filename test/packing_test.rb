@@ -50,10 +50,11 @@ class TestingPack < Test::Unit::TestCase
   end
   
   def test_io
-    io = StringIO.new("\000\000\000\006abcd!")
-    n, s = io >> [Fixnum, {:signed=>false}] >> [String, {:bytes => 4}]
-    assert_equal n, 6
-    assert_equal s, "abcd"
+    io = StringIO.new("\000\000\000\006abcdE!")
+    n, s, c = io >> [Fixnum, {:signed=>false}] >> [String, {:bytes => 4}] >> :char
+    assert_equal 6, n
+    assert_equal "abcd", s
+    assert_equal 69, c
     assert_equal "!", io.read
   end
   

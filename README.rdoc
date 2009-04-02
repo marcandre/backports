@@ -49,7 +49,9 @@ Get the gem:
   
 That's it! Simply <tt>require 'packable'</tt> in your code to use it.
 
-Compatibility: Ruby 1.8, 1.9
+== Compatibility
+
+Designed to work with ruby 1.8 & 1.9.
 
 = Documentation
 

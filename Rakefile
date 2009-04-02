@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
@@ -5,20 +6,23 @@ require 'rcov/rcovtask'
 
 begin
   require 'jeweler'
-  Jeweler::Tasks.new do |s|
-    s.name = "packable"
-    s.summary = "Extensive packing and unpacking capabilities"
-    s.email = "github@marc-andre.ca"
-    s.homepage = "http://github.com/marcandre/packable"
-    s.description = <<-EOS
+  Jeweler::Tasks.new do |gem|
+    gem.name = "packable"
+    gem.add_dependency "marcandre-backports"
+    gem.summary = "Extensive packing and unpacking capabilities"
+    gem.email = "github@marc-andre.ca"
+    gem.homepage = "http://github.com/marcandre/packable"
+    gem.description = <<-EOS
       If you need to do read and write binary data, there is of course <Array::pack and String::unpack
       The packable library makes (un)packing nicer, smarter and more powerful.
     EOS
-    s.authors = ["Marc-André Lafortune"]
-    s.has_rdoc = true
-    s.rdoc_options << '--title' << 'Packable library' <<
+    gem.authors = ["Marc-André Lafortune"]
+    gem.rubyforge_project = "marcandre"
+    gem.has_rdoc = true
+    gem.rdoc_options << '--title' << 'Packable library' <<
                            '--main' << 'README.rdoc' <<
                            '--line-numbers' << '--inline-source'
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
@@ -75,6 +79,33 @@ begin
   end
 rescue Gem::LoadError => le
   task :stats do
-    raise RuntimeError, "‘rails’ gem not found - you must install it in order to use this task.n"
+    raise RuntimeError, "'rails' gem not found - you must install it in order to use this task.n"
   end
+end
+
+
+begin
+  require 'rake/contrib/sshpublisher'
+  namespace :rubyforge do
+    
+    desc "Release gem and RDoc documentation to RubyForge"
+    task :release => ["rubyforge:release:gem", "rubyforge:release:docs"]
+    
+    namespace :release do
+      desc "Publish RDoc to RubyForge."
+      task :docs => [:rdoc] do
+        config = YAML.load(
+            File.read(File.expand_path('~/.rubyforge/user-config.yml'))
+        )
+
+        host = "#{config['username']}@rubyforge.org"
+        remote_dir = "/var/www/gforge-projects/marcandre/"
+        local_dir = 'rdoc'
+
+        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
+      end
+    end
+  end
+rescue LoadError
+  puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
 end

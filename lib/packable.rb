@@ -1,5 +1,5 @@
-require File.dirname(__FILE__)+'/packable/jungle_survival_kit'
-
+require 'rubygems'
+require 'backports'
 require_relative 'packable/packers'
 require_relative 'packable/mixin'
 [Object, Array, String, Integer, Float, IO, Proc].each do |klass|
