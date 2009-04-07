@@ -8,7 +8,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "packable"
-    gem.add_dependency "marcandre-backports"
+    gem.add_dependency "backports"
     gem.summary = "Extensive packing and unpacking capabilities"
     gem.email = "github@marc-andre.ca"
     gem.homepage = "http://github.com/marcandre/packable"
