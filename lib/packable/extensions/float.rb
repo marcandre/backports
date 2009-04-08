@@ -19,8 +19,11 @@ module Packable
       end
 
       module ClassMethods #:nodoc:
+        ENDIAN_TO_FORMAT = Hash.new{|h, endian| raise ArgumentError, "Endian #{endian} is not valid. It must be one of #{h.keys.join(', ')}"}.
+          merge!(:big => "G", :network => "G", :little => "E", :native => "F").freeze
+          
         def pack_option_to_format(options)
-          format = {:big => "G", :network => "G", :little => "E"}[options[:endian]]
+          format = ENDIAN_TO_FORMAT[options[:endian]]
           format.downcase! if options[:precision] == :single
           format
         end

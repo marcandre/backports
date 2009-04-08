@@ -47,6 +47,20 @@ class TestingPack < Test::Unit::TestCase
     assert_equal 258, Integer.unpack("\002\001\000", :bytes => 3, :endian => :little)
     assert_equal (1<<24)-1, -1.pack(:bytes => 3).unpack(Integer, :bytes => 3, :signed => false)
     assert_equal -1, -1.pack(:bytes => 3).unpack(Integer, :bytes => 3, :signed => true)
+    assert_equal 42, 42.pack('L').unpack(Integer, :bytes => 4, :endian => :native)
+    assert_raise(ArgumentError){ 42.pack(:endian => "Geronimo")}
+  end
+  
+  def test_bignum
+    assert_equal 1.pack(:long), ((1 << 69) + 1).pack(:long)
+    assert_equal "*" + ("\000" * 15), (42 << (8*15)).pack(:bytes => 16)
+    assert_equal 42 << (8*15), (42 << (8*15)).pack(:bytes => 16).unpack(Integer, :bytes => 16)
+    assert_equal 42 << (8*15), (42 << (8*15)).pack(:bytes => 16).unpack(Bignum, :bytes => 16)
+  end
+  
+  def test_float
+    assert_equal Math::PI.pack(:precision => :double, :endian => :native), Math::PI.pack('F')
+    assert_raise(ArgumentError){ Math::PI.pack(:endian => "Geronimo")}
   end
   
   def test_io

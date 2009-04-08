@@ -73,12 +73,12 @@ These are the options for core types:
 
 === Integer
 [+bytes+]     Number of bytes (default is 4) to use.
-[+endian+]    Either <tt>:big</tt> (or :network, default) or <tt>:little</tt>.
+[+endian+]    Either <tt>:big</tt> (or <tt>:network</tt>, default), <tt>:little</tt> or <tt>:native</tt>.
 [+signed+]    Either +true+ (default) or +false+. This will make a difference only when unpacking.
 
 === Float
 [+precision+] Either <tt>:single</tt> (default) or <tt>:double</tt>.
-[+endian+]    Either <tt>:big</tt> (or :network, default) or <tt>:little</tt>.
+[+endian+]    Either <tt>:big</tt> (or <tt>:network</tt>, default), <tt>:little</tt> or <tt>:native</tt>.
 
 === String
 [+bytes+]     Total length (default is the full length)

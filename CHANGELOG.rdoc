@@ -1,5 +1,10 @@
 = Packable --- History
 
+== Version 1.3 - April 8, 2009
+Added :endian => :native for Integers and Floats (thanks to Jay Daley)
+Raises an exception if :endian is not one of :little, :big, :network or :native
+Added some tests for Bignum
+
 == Version 1.2 - April 2nd, 2009
 Compatible with ruby 1.9.1.
 The 'jungle_survival_kit' is now in its own 'backports' gem.
