@@ -11,10 +11,19 @@ module Enumerable
   end unless method_defined? :sum
 
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def find_index(obj = nil)
-    return index(obj) unless block_given?
-    each_with_index do |element, i|
-      return i if yield(element)
+  def find_index(*args)
+    if args.size == 1
+      obj = args.first
+      each_with_index do |element, i|
+        return i if element == obj
+      end
+    elsif block_given?
+      each_with_index do |element, i|
+        return i if yield element
+      end
+      each_with_index{|o,i| return i if yield o}
+    else
+      raise ArgumentError, "Wrong number of arguments (#{args.size} for 1)"
     end
     nil
   end unless method_defined? :find_index

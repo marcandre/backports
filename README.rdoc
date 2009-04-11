@@ -46,7 +46,7 @@ Works with ruby 1.8 & 1.9
   * +first+
 * Array
   * +flatten+, <tt>flatten!</tt>
-  * +find_index+, +index+
+  * +find_index+, +find+
 * Fixnum
   * <tt>odd?</tt>, <tt>even?</tt>
 

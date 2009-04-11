@@ -53,7 +53,6 @@ class Array
       each_with_index{|o,i| return i if yield o}
       return nil
     end
-    
     alias_method_chain :index, :block
     alias_method :find_index, :index
   end

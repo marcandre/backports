@@ -6,6 +6,10 @@ class BackportsTest < Test::Unit::TestCase
       assert_equal 3, %w{ant bat cat dog}.find_index {|item| item =~ /g/ }
       assert_equal nil, %w{ant bat cat dog}.find_index {|item| item =~ /h/ }
     end
+
+    should "work for enumerables too" do
+      assert_equal 69-42, (42..666).find_index(69)
+    end
   end
 
   context "take" do
