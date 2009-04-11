@@ -10,7 +10,7 @@ begin
     gem.email = "github@marc-andre.ca"
     gem.homepage = "http://github.com/marcandre/backports"
     gem.authors = ["Marc-André Lafortune"]
-    gem.rubyforge_project = "marcandre"
+    gem.rubyforge_project = "backports"
   
     gem.description = <<-EOS
       Essential backports that enable some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.
@@ -79,7 +79,7 @@ begin
         )
 
         host = "#{config['username']}@rubyforge.org"
-        remote_dir = "/var/www/gforge-projects/marcandre/"
+        remote_dir = "/var/www/gforge-projects/backports/"
         local_dir = 'rdoc'
 
         Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload

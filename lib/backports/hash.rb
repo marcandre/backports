@@ -23,4 +23,15 @@ class Hash
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]
   alias_method :key, :index unless method_defined? :key
+  
+  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
+  def reverse_merge(other_hash)
+    other_hash.merge(self)
+  end
+  
+  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
+  def reverse_merge!(other_hash)
+    replace(reverse_merge(other_hash))
+  end
+  
 end

@@ -10,11 +10,11 @@ Conditions for inclusion:
 The first and second rules avoids conflicts in future and the past respectively. Because of the second rule, incompatibilities between 1.8 and 1.9 methods are left alone.
 For example, <tt>Module::instance_methods</tt> returns strings in 1.8 and symbols in 1.9; no change can be made without the risk of breaking existing code.
 
-More complex features of activesupport (even things like String::pluralize), won't be included. <tt>require 'activesupport'</tt> if you need them!
+More complex features of activesupport (even things like <tt>String::pluralize</tt>), won't be included. <tt>require 'activesupport'</tt> if you need them!
 
 I've added those as I need them; pull requests welcome (with tests for ruby 1.9 backports)
 
-== Coompatibility
+== Compatibility
 
 Works with ruby 1.8 & 1.9
 
@@ -37,14 +37,20 @@ Works with ruby 1.8 & 1.9
 * Hash
   * <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt>
   * +key+
-  * +symbolize_keys+, +symbolize_keys!+
+  * +symbolize_keys+, <tt>symbolize_keys!</tt>
+  * +reverse_merge+, <tt>reverse_merge!</tt>
 * Enumerable
   * +sum+
   * +find_index+
   * +take+, +take_while+, +drop+, +drop_while+
   * +first+
+* Array
+  * +flatten+, <tt>flatten!</tt>
+  * +find_index+, +index+
 * Fixnum
   * <tt>odd?</tt>, <tt>even?</tt>
+
+Finally, there is no need to <tt>require 'enumerator'</tt> in older ruby, and +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</p>)
 
 = License
 

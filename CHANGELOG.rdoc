@@ -1,0 +1,14 @@
+= Packable --- History
+
+== Version 1.1 - April 11, 2009
+
+* Array
+  * +flatten+, <tt>flatten!</tt>
+  * +find_index+, +index+
+  
+* Hash
+  * +reverse_merge+, <tt>reverse_merge!</tt>
+
+== Version 1.0 - April 2nd, 2009
+
+=== Initial release.

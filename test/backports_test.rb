@@ -62,4 +62,32 @@ class BackportsTest < Test::Unit::TestCase
       assert_equal({1 => 2, 3 => 4}, Hash[[[1,2],[3,4]]])
     end
   end
+  
+  context "flatten" do
+    should "conform to doc" do
+      s = [ 1, 2, 3 ]           #=> [1, 2, 3]
+      t = [ 4, 5, 6, [7, 8] ]   #=> [4, 5, 6, [7, 8]]
+      a = [ s, t, 9, 10 ]       #=> [[1, 2, 3], [4, 5, 6, [7, 8]], 9, 10]
+      assert_equal [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], a.flatten
+      a = [ 1, 2, [3, [4, 5] ] ]
+      assert_equal [1, 2, 3, [4, 5]], a.flatten(1)
+    end
+  
+    should "conform work for recursive arrays" do
+      x=[]
+      x.push(x,x)
+      4.times {|n| assert_equal 2 << n, x.flatten(n).length}
+      assert_raises(ArgumentError) {x.flatten}
+    end
+  end 
+  
+  context "index" do
+    should "conform to doc" do
+      a = [ "a", "b", "c" ]
+      assert_equal 1, a.index("b")
+      assert_equal nil, a.index("z")
+      assert_equal 1, a.index{|x|x=="b"}
+    end
+  end
+      
 end

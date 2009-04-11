@@ -10,6 +10,6 @@ module Kernel
   end unless method_defined? :require_relative
 end
 
-%w(object module enumerable string symbol fixnum hash).each do |lib|
+%w(object module enumerable array string symbol fixnum hash).each do |lib|
   require_relative "backports/#{lib}"
 end
