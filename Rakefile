@@ -17,7 +17,7 @@ begin
       The packable library makes (un)packing nicer, smarter and more powerful.
     EOS
     gem.authors = ["Marc-André Lafortune"]
-    gem.rubyforge_project = "marcandre"
+    gem.rubyforge_project = "packable"
     gem.has_rdoc = true
     gem.rdoc_options << '--title' << 'Packable library' <<
                            '--main' << 'README.rdoc' <<
@@ -99,7 +99,7 @@ begin
         )
 
         host = "#{config['username']}@rubyforge.org"
-        remote_dir = "/var/www/gforge-projects/marcandre/"
+        remote_dir = "/var/www/gforge-projects/packable/"
         local_dir = 'rdoc'
 
         Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
