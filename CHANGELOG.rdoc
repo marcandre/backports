@@ -1,5 +1,7 @@
 = Packable --- History
 
+== Version 1.2 - April 12, 2009
+
 * Array
   * +reverse_each+
   * +cycle+
