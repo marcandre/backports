@@ -1,19 +1,19 @@
 require 'test_helper'
 
 class BackportsTest < Test::Unit::TestCase
-  context "Enumerable::" do
-    context "find_index" do
+  context "Enumerable" do
+    context "#find_index" do
       should "conform to doc" do
         assert_equal 3, %w{ant bat cat dog}.find_index {|item| item =~ /g/ }
         assert_equal nil, %w{ant bat cat dog}.find_index {|item| item =~ /h/ }
       end
 
-      should "work for enumerables too" do
+      should "#work for enumerables too" do
         assert_equal 69-42, (42..666).find_index(69)
       end
     end
 
-    context "take" do
+    context "#take" do
       should "conform to doc" do
         assert_equal [1, 2, 3], (1..7).take(3)
         assert_equal [["a", 1], ["b", 2]], { 'a'=>1, 'b'=>2, 'c'=>3 }.take(2)
@@ -25,7 +25,7 @@ class BackportsTest < Test::Unit::TestCase
       end
     end
   
-    context "take_while" do
+    context "#take_while" do
       should "conform to doc" do
         assert_equal [1,2], (1..7).take_while {|item| item < 3 }
         assert_equal [2,4,6], [ 2, 4, 6, 9, 11, 16 ].take_while(&:even?)
@@ -36,7 +36,7 @@ class BackportsTest < Test::Unit::TestCase
       end
     end
   
-    context "drop" do
+    context "#drop" do
       should "conform to doc" do
         assert_equal [5, 8, 13], [ 1, 1, 2, 3, 5, 8, 13 ].drop(4)
         assert_equal [], [ 1, 1, 2, 3, 5, 8, 13 ].drop(99)
@@ -47,7 +47,7 @@ class BackportsTest < Test::Unit::TestCase
       end
     end
   
-    context "drop_while" do
+    context "#drop_while" do
       should "conform to doc" do
         assert_equal [8, 13], [ 1, 1, 2, 3, 5, 8, 13 ].drop_while {|item| item < 6 } 
       end
@@ -62,13 +62,13 @@ class BackportsTest < Test::Unit::TestCase
       end
     end
     
-    context "reverse_each" do
+    context "#reverse_each" do
       should "work as expected" do
         assert_equal [4,3,2], (1..4).reverse_each.take(3)
       end
     end
     
-    context "each_slice" do
+    context "#each_slice" do
       should "conform to doc" do
         res = []
         (1..10).each_slice(4){|ar| res << ar}
@@ -77,7 +77,7 @@ class BackportsTest < Test::Unit::TestCase
       end
     end
     
-    context "count" do
+    context "#count" do
       should "conform to doc" do
         assert_equal 4, (1..4).count
         assert_equal 1, (1..4).count(3)
@@ -85,19 +85,19 @@ class BackportsTest < Test::Unit::TestCase
       end
     end
 
-    context "cycle" do
+    context "#cycle" do
       should "conform to doc" do
         assert_equal ["a", "b", "c", "a", "b", "c"], ('a'..'c').cycle(2).to_a
       end
     end
     
-    context "each_cons" do
+    context "#each_cons" do
       should "conform to doc" do
         assert_equal [[1,2],[2,3],[3,4]], (1..4).each_cons(2).to_a
       end
     end
     
-    context "group_by" do
+    context "#group_by" do
       should "conform to doc" do
         x = (1..5).group_by{|item| item.even? ? :even : :odd }
         assert_equal({:even => [2,4], :odd => [1,3,5]}, x)
@@ -106,10 +106,30 @@ class BackportsTest < Test::Unit::TestCase
     end
   end #Enumerable
   
-  context "Array::" do
-    context "reverse_each" do
+  context "Array" do
+    context "#reverse_each" do
       should "return an enumerator when no block is given" do
         assert_equal [4,3,2], [1,2,3,4].reverse_each.take(3)
+      end
+    end
+
+    context "#flatten" do
+      should "conform to doc" do
+        s = [ 1, 2, 3 ]           #=> [1, 2, 3]
+        t = [ 4, 5, 6, [7, 8] ]   #=> [4, 5, 6, [7, 8]]
+        a = [ s, t, 9, 10 ]       #=> [[1, 2, 3], [4, 5, 6, [7, 8]], 9, 10]
+        assert_equal [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], a.flatten
+        a = [ 1, 2, [3, [4, 5] ] ]
+        assert_equal [1, 2, 3, [4, 5]], a.flatten(1)
+      end
+    end
+
+    context "#index" do
+      should "conform to doc" do
+        a = [ "a", "b", "c" ]
+        assert_equal 1, a.index("b")
+        assert_equal nil, a.index("z")
+        assert_equal 1, a.index{|x|x=="b"}
       end
     end
   end
@@ -121,11 +141,12 @@ class BackportsTest < Test::Unit::TestCase
     
     context "#default_proc=" do
       should "conform to doc" do
-        h = {}
+        h = { :foo => :bar }
         h.default = "Go fish"
         h.default_proc=lambda do |hash, key| 
           key + key 
         end 
+        assert_equal :bar, h[:foo]
         assert_equal 4, h[2]
         assert_equal "catcat", h["cat"]
         h.default=nil
@@ -135,24 +156,4 @@ class BackportsTest < Test::Unit::TestCase
     end
   end
   
-  context "flatten" do
-    should "conform to doc" do
-      s = [ 1, 2, 3 ]           #=> [1, 2, 3]
-      t = [ 4, 5, 6, [7, 8] ]   #=> [4, 5, 6, [7, 8]]
-      a = [ s, t, 9, 10 ]       #=> [[1, 2, 3], [4, 5, 6, [7, 8]], 9, 10]
-      assert_equal [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], a.flatten
-      a = [ 1, 2, [3, [4, 5] ] ]
-      assert_equal [1, 2, 3, [4, 5]], a.flatten(1)
-    end
-  end 
-  
-  context "index" do
-    should "conform to doc" do
-      a = [ "a", "b", "c" ]
-      assert_equal 1, a.index("b")
-      assert_equal nil, a.index("z")
-      assert_equal 1, a.index{|x|x=="b"}
-    end
-  end
-      
 end
