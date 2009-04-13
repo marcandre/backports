@@ -34,4 +34,8 @@ class Hash
     replace(reverse_merge(other_hash))
   end
   
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]
+  def default_proc=(proc)
+    replace(Hash.new(&proc).merge!(self))
+  end unless method_defined? :default_proc=
 end

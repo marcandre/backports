@@ -1,5 +1,19 @@
 = Packable --- History
 
+* Array
+  * +reverse_each+
+  * +cycle+
+
+* Enumerable
+  * +reverse_each+
+  * +each_slice+, +each_cons+
+  * +count+
+  * +cycle+
+  * +group_by+
+  
+* Hash
+  * <tt>default_proc=</tt>
+
 == Version 1.1 - April 11, 2009
 
 * Array

@@ -56,4 +56,28 @@ class Array
     alias_method_chain :index, :block
     alias_method :find_index, :index
   end
+  
+  # rindex
+  unless ([1].rindex{true} rescue false)
+    def rindex_with_block(*arg)
+      return rindex_without_block(*arg) unless block_given? && arg.empty?
+      reverse_each.each_with_index{|o,i| return size - 1 - i if yield o}
+      return nil
+    end
+    alias_method_chain :rindex, :block
+  end
+
+  unless ([1].reverse_each rescue false)
+    def reverse_each_with_optional_block(&block)
+      return reverse_each_without_optional_block(&block) if block_given?
+      to_enum(:reverse_each)
+    end
+    alias_method_chain :reverse_each, :optional_block
+  end
+  
+  def cycle(*arg, &block)
+    return to_enum(:cycle, *arg) unless block_given?
+    nb = arg.empty? ? (1/0.0) : arg.first
+    nb.to_i.times{each(&block)}
+  end unless method_defined? :cycle
 end

@@ -39,18 +39,25 @@ Works with ruby 1.8 & 1.9
   * +key+
   * +symbolize_keys+, <tt>symbolize_keys!</tt>
   * +reverse_merge+, <tt>reverse_merge!</tt>
+  * <tt>default_proc=</tt>
 * Enumerable
   * +sum+
   * +find_index+
   * +take+, +take_while+, +drop+, +drop_while+
   * +first+
+  * +reverse_each+
+  * +count+
+  * +cycle+
+  * +group_by+
 * Array
   * +flatten+, <tt>flatten!</tt>
   * +find_index+, +find+
+  * +reverse_each+
+  * +cycle+
 * Fixnum
   * <tt>odd?</tt>, <tt>even?</tt>
 
-Finally, there is no need to <tt>require 'enumerator'</tt> in older ruby, and +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</p>)
+Finally, there is no need to <tt>require 'enumerator'</tt> in older ruby, and +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)
 
 = License
 

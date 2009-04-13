@@ -40,7 +40,7 @@ module Enumerable
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def take_while
-    raise NotImplemented unless block_given? #todo: what should this do?
+    return to_enum(:take_while) unless block_given?
     inject([]) do |array, elem|
       return array unless yield elem
       array << elem
@@ -55,7 +55,7 @@ module Enumerable
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def drop_while(&block)
-    raise NotImplemented unless block_given? #todo: what should this do?
+    return to_enum(:drop_while) unless block_given?
     array = to_a
     array.each_with_index do |element, i|
       return array.drop(i) unless yield(element)
@@ -68,4 +68,57 @@ module Enumerable
       arg.empty? ? take(1)[0] : take(arg.first)
   end unless method_defined? :first
 
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  def reverse_each(&block)
+    return to_enum(:reverse_each) unless block_given?
+    # There is no other way then to convert to an array first... see 1.9's source.
+    to_a.reverse_each(&block)
+    self
+  end unless method_defined? :reverse_each
+  
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  unless ((1..2).each_slice(1) rescue false)
+    def each_slice_with_optional_block(len, &block)
+      raise ArgumentError, "invalid slice size" if len <= 0
+      return to_enum(:each_slice, len) unless block_given?
+      each_slice_without_optional_block(len, &block)
+    end
+    alias_method_chain :each_slice, :optional_block
+  end
+  
+  def count(*arg)
+    result = 0
+    if block_given?
+      each{|o| result += 1 if yield o}
+    elsif arg.empty?
+      each{|o| result += 1}
+    else
+      obj = arg.first
+      each{|o| result += 1 if obj == o}
+    end
+    result
+  end unless method_defined? :count
+  
+  def cycle(*arg, &block)
+    return to_enum(:cycle, *arg) unless block_given?
+    to_a.cycle(*arg, &block)
+  end unless method_defined? :cycle
+  
+  unless ((1..2).each_cons(1) rescue false)
+    def each_cons_with_optional_block(len, &block)
+      raise ArgumentError, "invalid size" if len <= 0
+      return to_enum(:each_cons, len) unless block_given?
+      each_cons_without_optional_block(len, &block)
+    end
+    alias_method_chain :each_cons, :optional_block
+  end
+
+  def group_by
+    return to_enum(:group_by) unless block_given?
+    returning({}) do |result|
+      each do |o|
+        result.fetch(yield o){|key| result[key] = []} << o
+      end
+    end
+  end unless method_defined? :group_by
 end
