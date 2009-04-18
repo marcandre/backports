@@ -1,20 +1,56 @@
 class String
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  def start_with?(prefix)
-    prefix = prefix.to_s
-    self[0, prefix.length] == prefix
+  def start_with?(*prefixes)
+    prefixes.each do |prefix|
+      prefix = prefix.to_s
+      return true if self[0, prefix.length] == prefix
+    end
+    false
   end unless method_defined? :start_with?
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  def end_with?(suffix) 
-    suffix = suffix.to_s
-    self[-suffix.length, suffix.length] == suffix    
+  def end_with?(*suffixes)
+    suffixes.each do |suffix|
+      suffix = suffix.to_s
+      return true if self[-suffix.length, suffix.length] == suffix
+    end
+    false
   end unless method_defined? :end_with?
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def getbyte(i)
     self[i]
   end unless method_defined? :getbyte
+  
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  unless method_defined? :each_char
+    VERY_BASIC_UTF8 = Regexp.new("[\x00-\x7f]|[\xc2-\xdf].|[\xe0-\xef]..|[\xf0-\xf4]...").freeze
+    def each_char(&block)
+      return to_enum(:each_char) unless block_given?
+      scan(VERY_BASIC_UTF8, &block)
+    end 
+  end
+  
+  alias_method :chars, :each_char unless method_defined? :chars
+  
+  
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  unless ("check partition".partition(" ") rescue false)
+    def partition_with_new_meaning(*args, &block)
+      return partition_without_new_meaning(*args, &block) unless args.length == 1
+      pattern = args.first
+      i = index(pattern)
+      return [self, "", ""] unless i
+      unless pattern.instance_of? Regexp
+        last = i+pattern.length
+        [self[0...i], self[i...last], self[last...length]]
+      else
+        match = Regexp.last_match
+        [match.pre_match, match[0], match.post_match]
+      end
+    end
+    alias_method_chain :partition, :new_meaning
+  end
   
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
   def camelize(first_letter = :upper) 

@@ -1,5 +1,19 @@
 = Packable --- History
 
+== Version 1.3 - April 17, 2009
+
+* Enumerable
+  * <tt>none?</tt>
+  
+* Array
+  * +sample+, +shuffle+, +shuffle!+
+
+* String
+  * +each_char+, +chars+
+  * +partition+
+
+Tests and fixes for <tt>String#start_with?</tt> and <tt>String#end_with?</tt>
+
 == Version 1.2 - April 12, 2009
 
 * Array

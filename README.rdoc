@@ -1,22 +1,32 @@
 = Backports Library
 
-Essential backports that make it possible to use some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.x
+Essential backports that make it possible to use some of the really nice features of Ruby 1.8.7, Ruby 1.9 and rails from Ruby 1.8.x
 
 Conditions for inclusion:
-1. Standard in either rails or ruby
+1. Standard in either Ruby or Rails
 2. Won't break older code
 3. Simple and self-contained
 
 The first and second rules avoids conflicts in future and the past respectively. Because of the second rule, incompatibilities between 1.8 and 1.9 methods are left alone.
 For example, <tt>Module::instance_methods</tt> returns strings in 1.8 and symbols in 1.9; no change can be made without the risk of breaking existing code.
 
-More complex features of activesupport (even things like <tt>String::pluralize</tt>), won't be included. <tt>require 'activesupport'</tt> if you need them!
+More complex features of active-support (even things like <tt>String::pluralize</tt>), won't be included. <tt>require 'activesupport'</tt> if you need them and are not in rails!
 
-I've added those as I need them; pull requests welcome (with tests for ruby 1.9 backports)
+I've added these backports as I need them; pull requests welcome (with tests for Ruby 1.9 backports)
 
-== Compatibility
+== Installation & compatibility
 
-Works with ruby 1.8 & 1.9
++backports+ is mirrored on Rubyforge and can thus be installed with:
+
+  sudo gem install backports
+
+To use:
+
+  require 'rubygems'
+  require 'backports'
+  # and off you go!
+
+Compatible with Ruby 1.8 & 1.9.
 
 = List of backports
 
@@ -30,12 +40,14 @@ Works with ruby 1.8 & 1.9
   * +tap+, +returning+
   * +try+
 * String
+  * +each_char+, +chars+
   * <tt>start_with?</tt>, <tt>end_with?</tt>
   * +camelize+, +underscore+
   * +dasherize+, +demodulize+
   * +constantize+
+  * +partition+
 * Hash
-  * <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt>
+  * <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt> (see _note_)
   * +key+
   * +symbolize_keys+, <tt>symbolize_keys!</tt>
   * +reverse_merge+, <tt>reverse_merge!</tt>
@@ -49,6 +61,7 @@ Works with ruby 1.8 & 1.9
   * +count+
   * +cycle+
   * +group_by+
+  * <tt>none?</tt>
 * Array
   * +flatten+, <tt>flatten!</tt>
   * +find_index+, +find+
@@ -57,7 +70,9 @@ Works with ruby 1.8 & 1.9
 * Fixnum
   * <tt>odd?</tt>, <tt>even?</tt>
 
-Finally, there is no need to <tt>require 'enumerator'</tt> in older ruby, and +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)
+Finally, there is no need to <tt>require 'enumerator'</tt> in older Ruby, and +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)
+
+_note_: This usage of <tt>Hash::[]</tt> is not yet documented[http://redmine.ruby-lang.org/issues/show/1385].
 
 = License
 

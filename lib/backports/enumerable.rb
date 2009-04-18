@@ -1,12 +1,11 @@
 module Enumerable
   # Standard in rails... See official documentation[http://api.rubyonrails.org/classes/Enumerable.html]
+  # Modified from rails 2.3 to not rely on size
   def sum(identity = 0, &block)
-    return identity unless size > 0
-
     if block_given?
-      map(&block).sum
+      map(&block).sum(identity)
     else
-      inject { |sum, element| sum + element }
+      inject { |sum, element| sum + element } || identity
     end
   end unless method_defined? :sum
 
@@ -86,6 +85,7 @@ module Enumerable
     alias_method_chain :each_slice, :optional_block
   end
   
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def count(*arg)
     result = 0
     if block_given?
@@ -99,11 +99,13 @@ module Enumerable
     result
   end unless method_defined? :count
   
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def cycle(*arg, &block)
     return to_enum(:cycle, *arg) unless block_given?
     to_a.cycle(*arg, &block)
   end unless method_defined? :cycle
   
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   unless ((1..2).each_cons(1) rescue false)
     def each_cons_with_optional_block(len, &block)
       raise ArgumentError, "invalid size" if len <= 0
@@ -113,12 +115,19 @@ module Enumerable
     alias_method_chain :each_cons, :optional_block
   end
 
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def group_by
     return to_enum(:group_by) unless block_given?
     returning({}) do |result|
       each do |o|
-        result.fetch(yield o){|key| result[key] = []} << o
+        result.fetch(yield(o)){|key| result[key] = []} << o
       end
     end
   end unless method_defined? :group_by
+  
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  def none?(&block)
+    !any?(&block)
+  end unless method_defined? :none?
+
 end

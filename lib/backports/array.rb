@@ -80,4 +80,24 @@ class Array
     nb = arg.empty? ? (1/0.0) : arg.first
     nb.to_i.times{each(&block)}
   end unless method_defined? :cycle
+  
+  def sample(*arg)
+    return self[rand(size)] if arg.empty?
+    n = [arg.first.to_i, size].min
+    index = Array.new(size)
+    n.times do |i|
+      r = i + rand(size - i)
+      index[i], index[r] = index[r] || r, index[i] || i
+    end
+    values_at(*index.first(n))
+  end unless method_defined? :sample
+  
+  def shuffle
+    sample(size)
+  end unless method_defined? :shuffle
+
+  def shuffle!
+    replace(sample(size))
+  end unless method_defined? :shuffle!
+
 end
