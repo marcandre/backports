@@ -45,7 +45,7 @@ Compatible with Ruby 1.8 & 1.9.
   * +camelize+, +underscore+
   * +dasherize+, +demodulize+
   * +constantize+
-  * +partition+
+  * +partition+, +rpartition+
 * Hash
   * <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt> (see _note_)
   * +key+

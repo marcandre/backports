@@ -24,10 +24,9 @@ class String
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless method_defined? :each_char
-    VERY_BASIC_UTF8 = Regexp.new("[\x00-\x7f]|[\xc2-\xdf].|[\xe0-\xef]..|[\xf0-\xf4]...").freeze
     def each_char(&block)
       return to_enum(:each_char) unless block_given?
-      scan(VERY_BASIC_UTF8, &block)
+      scan(/./, &block)
     end 
   end
   
@@ -39,18 +38,35 @@ class String
     def partition_with_new_meaning(*args, &block)
       return partition_without_new_meaning(*args, &block) unless args.length == 1
       pattern = args.first
+      
       i = index(pattern)
       return [self, "", ""] unless i
-      unless pattern.instance_of? Regexp
-        last = i+pattern.length
-        [self[0...i], self[i...last], self[last...length]]
-      else
+      
+      if pattern.is_a? Regexp
         match = Regexp.last_match
         [match.pre_match, match[0], match.post_match]
+      else
+        last = i+pattern.length
+        [self[0...i], self[i...last], self[last...length]]
       end
     end
     alias_method_chain :partition, :new_meaning
   end
+
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  def rpartition(pattern)
+    i = rindex(pattern)
+    return ["", "", self] unless i
+    
+    if pattern.is_a? Regexp
+      match = Regexp.last_match
+      [match.pre_match, match[0], match.post_match]
+    else
+      last = i+pattern.length
+      [self[0...i], self[i...last], self[last...length]]
+    end
+  end unless method_defined? :rpartition
+
   
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
   def camelize(first_letter = :upper) 

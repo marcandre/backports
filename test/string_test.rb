@@ -1,4 +1,5 @@
 # encoding: utf-8
+$KCODE = 'u' if RUBY_VERSION < '1.9'
 require 'test_helper'
 
 class StringTest < Test::Unit::TestCase
@@ -34,6 +35,14 @@ class StringTest < Test::Unit::TestCase
         assert_equal ["THX", "11", "38"], "THX1138".partition("11")
         assert_equal ["THX", "11", "38"], "THX1138".partition(/\d\d/)
         assert_equal ["THX1138", "", ""], "THX1138".partition("99")
+      end
+    end
+    
+    context "#rpartition" do
+      should "conform to doc" do
+        assert_equal ["THX1", "1", "38"], "THX1138".rpartition("1")   
+        assert_equal ["THX1", "13", "8"], "THX1138".rpartition(/1\d/) 
+        assert_equal ["", "", "THX1138"], "THX1138".rpartition("99")
       end
     end
   end
