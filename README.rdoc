@@ -69,6 +69,8 @@ Compatible with Ruby 1.8 & 1.9.
   * +cycle+
 * Fixnum
   * <tt>odd?</tt>, <tt>even?</tt>
+* Prox
+  * +yield+
 
 Finally, there is no need to <tt>require 'enumerator'</tt> in older Ruby, and +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)
 

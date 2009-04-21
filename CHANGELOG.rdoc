@@ -1,5 +1,13 @@
 = Packable --- History
 
+== Version 1.4 - April 21, 2009
+
+* String
+  * +rpartition+
+
+* Proc
+  * +yield+
+
 == Version 1.3 - April 17, 2009
 
 * Enumerable
