@@ -1,4 +1,52 @@
 class Array
+  class << self
+    # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
+    def try_convert(x)
+      x.to_ary if x.respond_to? :to_ary
+    end unless method_defined? :try_convert
+  end
+
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
+  unless ([42].map! rescue false)
+    # Make block optional for...
+    [:collect!, :map!, :each, :each_index, :reverse_each, :reject, :reject!, :delete_if].each do |selector|
+      alias_method_chain(selector, :optional_block) do |aliased_target, punctuation|
+        module_eval <<-end_eval
+          def #{aliased_target}_with_optional_block#{punctuation}(*args, &block)
+            return to_enum(:#{aliased_target}_without_optional_block#{punctuation}, *args) unless block_given?
+            #{aliased_target}_without_optional_block#{punctuation}(*args, &block)
+          end
+        end_eval
+      end
+    end
+  end
+  
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
+  def combination(num)
+    num = num.to_i
+    return to_enum(:combination, num) unless block_given?
+    return self unless (0..size).include? num
+    # Implementation note: slightly tricky.
+                                             # Example: self = 1..7, num = 3
+    picks = (0...num).to_a                   # picks start at 0, 1, 2
+    max = ((size-num)...size).to_a           # max (index for a given pick) is [4, 5, 6]
+    pick_max_pairs = picks.zip(max).reverse  # pick_max_pairs = [[2, 6], [1, 5], [0, 4]]
+    lookup = pick_max_pairs.find(Proc.new{return self})
+    loop do
+      yield values_at(*picks)
+      move = lookup.each{|pick, max| picks[pick] < max}.first
+      new_index = picks[move] + 1
+      picks[move...num] = (new_index...(new_index+num-move)).to_a
+    end
+  end unless method_defined? :combination
+  
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
+  def cycle(*arg, &block)
+    return to_enum(:cycle, *arg) unless block_given?
+    nb = arg.empty? ? (1/0.0) : arg.first
+    nb.to_i.times{each(&block)}
+  end unless method_defined? :cycle
+  
   # flatten & flatten!, standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   unless ([[]].flatten(1) rescue false)
 
@@ -57,6 +105,30 @@ class Array
     alias_method :find_index, :index
   end
   
+  # pop. Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
+  unless ([1].pop(1) rescue false)
+    def pop_with_optional_argument(*arg)
+      return pop_without_optional_argument if arg.empty?
+      n = arg.first.to_i
+      slice!([0,size-n].max, size)
+    end
+    alias_method_chain :pop, :optional_argument
+  end
+  
+  def product(*arg)
+    arg.unshift(self)
+    arg._partial_cartesian_product(arg.size-1, Array.new(arg.size), [])
+  end unless method_defined? :product
+  
+  def _partial_cartesian_product(combi, iterate_index, result)
+    action = iterate_index.zero? ? Proc.new(result << combi.dup) : Proc.new(_sub(combi, iterate_index-1, &block))
+    self[iterate_index].each do |obj|
+      combi[iterate_index] = obj
+      action.call
+    end
+  end
+  private :_partial_cartesian_product
+  
   # rindex
   unless ([1].rindex{true} rescue false)
     def rindex_with_block(*arg)
@@ -66,20 +138,17 @@ class Array
     end
     alias_method_chain :rindex, :block
   end
-
-  unless ([1].reverse_each rescue false)
-    def reverse_each_with_optional_block(&block)
-      return reverse_each_without_optional_block(&block) if block_given?
-      to_enum(:reverse_each)
+  
+  # shift. Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
+  unless ([1].shift(1) rescue false)
+    def shift_with_optional_argument(*arg)
+      return shift_without_optional_argument if arg.empty?
+      n = arg.first.to_i
+      slice!(0, n)
     end
-    alias_method_chain :reverse_each, :optional_block
+    alias_method_chain :shift, :optional_argument
   end
   
-  def cycle(*arg, &block)
-    return to_enum(:cycle, *arg) unless block_given?
-    nb = arg.empty? ? (1/0.0) : arg.first
-    nb.to_i.times{each(&block)}
-  end unless method_defined? :cycle
   
   def sample(*arg)
     return self[rand(size)] if arg.empty?

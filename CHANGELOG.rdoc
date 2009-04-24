@@ -1,5 +1,26 @@
 = Packable --- History
 
+== Version 1.5 - April 24, 2009
+
+* Array (completed)
+  * +combination+
+  * +try_convert+
+  * Optional block for collect!, :map!, :each, :each_index, :reject, :reject!, :delete_if
+  * +pop+, +shift+
+  * +product+
+
+* Fixnum (completed)
+  * +div+, +fdiv+
+  * +succ+
+  * +magnitude+
+
+* Enumerable (completed)
+  * +each_with_object+
+  * +inject+
+  * +max_by+, +min_by+, +minmax+, +minmax_by+
+  * +reduce+
+  * +to_a+
+
 == Version 1.4 - April 21, 2009
 
 * String

@@ -47,29 +47,19 @@ Compatible with Ruby 1.8 & 1.9.
   * +constantize+
   * +partition+, +rpartition+
 * Hash
-  * <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt> (see _note_)
-  * +key+
   * +symbolize_keys+, <tt>symbolize_keys!</tt>
   * +reverse_merge+, <tt>reverse_merge!</tt>
+  * <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt> (see _note_)
+  * +key+
   * <tt>default_proc=</tt>
 * Enumerable
   * +sum+
-  * +find_index+
-  * +take+, +take_while+, +drop+, +drop_while+
-  * +first+
-  * +reverse_each+
-  * +count+
-  * +cycle+
-  * +group_by+
-  * <tt>none?</tt>
+  * complete Ruby 1.8.7 backport
 * Array
-  * +flatten+, <tt>flatten!</tt>
-  * +find_index+, +find+
-  * +reverse_each+
-  * +cycle+
+  * complete Ruby 1.8.7 backport
 * Fixnum
-  * <tt>odd?</tt>, <tt>even?</tt>
-* Prox
+  * complete Ruby 1.8.7 backport
+* Proc
   * +yield+
 
 Finally, there is no need to <tt>require 'enumerator'</tt> in older Ruby, and +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)

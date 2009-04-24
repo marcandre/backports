@@ -9,6 +9,11 @@ class Hash
         arg.first.each{|key, value| h[key] = value}
       end
     end unless (Hash[[[:test, :test]]] rescue false)
+    
+    def try_convert(x)
+      return nil unless x.respond_to? :to_hash
+      x.to_hash
+    end unless method_defined? :to_hash
   end
 
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
