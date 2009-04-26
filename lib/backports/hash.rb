@@ -25,6 +25,16 @@ class Hash
   def symbolize_keys!
     self.replace(self.symbolize_keys)
   end unless method_defined? :symbolize_keys!
+
+  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
+  def stringify_keys
+    Hash[map{|key,value| [key.to_s, value] }]
+  end unless method_defined? :stringify_keys
+
+  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
+  def stringify_keys!
+    self.replace(self.stringify_keys)
+  end unless method_defined? :stringify_keys!
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]
   alias_method :key, :index unless method_defined? :key

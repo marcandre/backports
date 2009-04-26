@@ -10,6 +10,13 @@ module Kernel
   end unless method_defined? :require_relative
 end
 
-%w(object module array enumerable string symbol fixnum hash proc).each do |lib|
+class Array
+  # Standard in rails, and we need it in module.
+  def extract_options!
+    last.is_a?(::Hash) ? pop : {}
+  end unless method_defined? :extract_options!
+end
+
+%w(object module array enumerable enumerator string symbol fixnum hash proc).each do |lib|
   require_relative "backports/#{lib}"
 end

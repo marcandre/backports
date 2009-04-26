@@ -1,13 +1,85 @@
 class String
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  def start_with?(*prefixes)
-    prefixes.each do |prefix|
-      prefix = prefix.to_s
-      return true if self[0, prefix.length] == prefix
-    end
-    false
-  end unless method_defined? :start_with?
+  class << self
+    # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+    def try_convert(x)
+      return nil unless x.respond_do(:to_str)
+      x.to_str
+    end unless method_defined? :try_convert
+  end
+
+  def ascii_only?
+    !(self =~ /[^\x00-\x7f]/)
+  end unless method_defined? :ascii_only?
   
+  alias_method :bytesize, :length unless method_defined? :bytesize
+
+  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
+  def camelize(first_letter = :upper) 
+    if first_letter == :upper
+      gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+    else
+      first.downcase + camelize[1..-1]
+    end
+  end unless method_defined? :camelize
+  
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  def chr
+    chars.first
+  end unless method_defined? :chr?
+
+
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  def clear
+    self[0,length] = ""
+  end unless method_defined? :clear?
+
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  def codepoints
+    return to_enum(:codepoints) unless block_given?
+    each_char.each do |s|
+      utf8 = s.each_byte.to_a
+      utf8[0] &= 0xff >> utf8.size # clear high bits (1 to 4, depending of number of bytes used)
+      yield utf8.inject{|result, b| (result << 6) + (b & 0x3f) }
+    end
+  end unless method_defined? :codepoints
+  
+  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
+  def constantize(camel_cased_word)
+    names = camel_cased_word.split('::')
+    names.shift if names.empty? || names.first.empty?
+  
+    constant = Object
+    names.each do |name|
+      constant = constant.const_defined?(name) ? constant.const_get(name) : constant.const_missing(name)
+    end
+    constant
+  end unless method_defined? :constantize
+  
+  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
+  def dasherize(underscored_word)
+    underscored_word.gsub(/_/, '-')
+  end unless method_defined? :dasherize
+  
+  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
+  def demodulize(class_name_in_module)
+    class_name_in_module.to_s.gsub(/^.*::/, '')
+  end unless method_defined? :demodulize
+
+  make_block_optional :each_byte, :each, :each_line, :test_on => "abc"
+  make_block_optional :gsub, :test_on => "abc", :arg => /./
+  
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  unless method_defined? :each_char
+    def each_char(&block)
+      return to_enum(:each_char) unless block_given?
+      scan(/./, &block)
+    end 
+
+    alias_method :chars, :each_char unless method_defined? :chars
+  end
+  
+  alias_method :each_codepoint, :codepoints unless method_defined? :each_codepoint
+
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def end_with?(*suffixes)
     suffixes.each do |suffix|
@@ -21,17 +93,6 @@ class String
   def getbyte(i)
     self[i]
   end unless method_defined? :getbyte
-  
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  unless method_defined? :each_char
-    def each_char(&block)
-      return to_enum(:each_char) unless block_given?
-      scan(/./, &block)
-    end 
-  end
-  
-  alias_method :chars, :each_char unless method_defined? :chars
-  
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless ("check partition".partition(" ") rescue false)
@@ -68,14 +129,14 @@ class String
   end unless method_defined? :rpartition
 
   
-  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
-  def camelize(first_letter = :upper) 
-    if first_letter == :upper
-      gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
-    else
-      first.downcase + camelize[1..-1]
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  def start_with?(*prefixes)
+    prefixes.each do |prefix|
+      prefix = prefix.to_s
+      return true if self[0, prefix.length] == prefix
     end
-  end unless method_defined? :camelize
+    false
+  end unless method_defined? :start_with?
   
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
   def underscore(camel_cased_word)
@@ -86,26 +147,6 @@ class String
       downcase
   end unless method_defined? :underscore
   
-  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
-  def constantize(camel_cased_word)
-    names = camel_cased_word.split('::')
-    names.shift if names.empty? || names.first.empty?
-  
-    constant = Object
-    names.each do |name|
-      constant = constant.const_defined?(name) ? constant.const_get(name) : constant.const_missing(name)
-    end
-    constant
-  end unless method_defined? :constantize
-  
-  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
-  def dasherize(underscored_word)
-    underscored_word.gsub(/_/, '-')
-  end unless method_defined? :dasherize
-  
-  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
-  def demodulize(class_name_in_module)
-    class_name_in_module.to_s.gsub(/^.*::/, '')
-  end unless method_defined? :demodulize
-  
+  unless ("abc".upto("def", true) rescue false)
+  end
 end

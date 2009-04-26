@@ -56,24 +56,7 @@ module Enumerable
   end unless method_defined? :drop_while
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  unless ((1..2).each_cons(1) rescue false)
-    def each_cons_with_optional_block(len, &block)
-      raise ArgumentError, "invalid size" if len <= 0
-      return to_enum(:each_cons, len) unless block_given?
-      each_cons_without_optional_block(len, &block)
-    end
-    alias_method_chain :each_cons, :optional_block
-  end
-
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  unless ((1..2).each_slice(1) rescue false)
-    def each_slice_with_optional_block(len, &block)
-      raise ArgumentError, "invalid slice size" if len <= 0
-      return to_enum(:each_slice, len) unless block_given?
-      each_slice_without_optional_block(len, &block)
-    end
-    alias_method_chain :each_slice, :optional_block
-  end
+  make_block_optional :each_cons, :each_slice, :test_on => 1..2, :arg => 1
 
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   if instance_method(:each_with_index).arity.zero?
@@ -238,8 +221,4 @@ module Enumerable
     alias_method_chain :to_a, :optional_arguments
   end
   
-end
-
-class Enumerator
-  alias_method :with_object, :each_with_object unless method_defined? :with_object
 end

@@ -4,6 +4,14 @@ require 'test_helper'
 
 class StringTest < Test::Unit::TestCase
   context "String" do
+    context "#ascii_only?" do
+      should "conform to doc" do
+        assert_equal true, "dog".ascii_only?
+        assert_equal false, "δog".ascii_only?
+        assert_equal true, "\x00 to \x7f".ascii_only?
+      end
+    end
+
     context "#chars" do
       should "conform to doc" do
         assert_equal ["d", "o", "g"], "dog".chars.to_a
@@ -11,6 +19,23 @@ class StringTest < Test::Unit::TestCase
         result = [] 
         "δog".chars.each {|b| result << b }
         assert_equal ["δ", "o", "g"], result
+      end
+    end
+    
+    context "#chr" do
+      should "conform to doc" do
+        assert_equal "d", "dog".chr
+        assert_equal "δ", "δog".chr
+      end
+    end
+
+    context "#codepoints" do
+      should "conform to doc" do
+        assert_equal [100, 111, 103], "dog".codepoints.to_a 
+        assert_equal [948, 111, 103], "δog".codepoints.to_a  # Note, there is an error in Pragmatics' book
+        result = [] 
+        assert_equal "δog", "δog".codepoints.each {|b| result << b }
+        assert_equal [948, 111, 103], result
       end
     end
 

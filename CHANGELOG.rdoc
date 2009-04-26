@@ -1,11 +1,35 @@
 = Packable --- History
 
+== Version 1.6 - April 25, 2009
+
+* Array
+  * <tt>extract_options!</tt>
+  
+* Enumerator
+  * +new+
+  * +with_object+
+
+* String
+  * +try_convert+
+  * <tt>ascii_only?</tt>
+  * +bytesize+
+  * +chr+
+  * +clear+
+  * +codepoints+, +each_codepoint+
+  * +stringify_keys+, +stringify_keys!+
+  * +each+, +each_line+, +each_byte+, +gsub+
+
+* Symbol (completed)
+  * <tt><=></tt>, +casecmp+
+  * +capitalize+, +downcase+, +next+, +succ+, +swapcase+, +upcase+
+  * <tt>=~, [], empty?, length, match, size</tt>
+
 == Version 1.5 - April 24, 2009
 
 * Array (completed)
   * +combination+
   * +try_convert+
-  * Optional block for collect!, :map!, :each, :each_index, :reject, :reject!, :delete_if
+  * Optional block for <tt>collect!, :map!, :each, :each_index, :reject, :reject!, :delete_if</tt>
   * +pop+, +shift+
   * +product+
 

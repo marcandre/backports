@@ -7,19 +7,7 @@ class Array
   end
 
   # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
-  unless ([42].map! rescue false)
-    # Make block optional for...
-    [:collect!, :map!, :each, :each_index, :reverse_each, :reject, :reject!, :delete_if].each do |selector|
-      alias_method_chain(selector, :optional_block) do |aliased_target, punctuation|
-        module_eval <<-end_eval
-          def #{aliased_target}_with_optional_block#{punctuation}(*args, &block)
-            return to_enum(:#{aliased_target}_without_optional_block#{punctuation}, *args) unless block_given?
-            #{aliased_target}_without_optional_block#{punctuation}(*args, &block)
-          end
-        end_eval
-      end
-    end
-  end
+  make_block_optional :collect!, :map!, :each, :each_index, :reverse_each, :reject, :reject!, :delete_if, :test_on => [42]
   
   # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   def combination(num)
@@ -46,6 +34,8 @@ class Array
     nb = arg.empty? ? (1/0.0) : arg.first
     nb.to_i.times{each(&block)}
   end unless method_defined? :cycle
+  
+  # extract_options! in backports.rb
   
   # flatten & flatten!, standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   unless ([[]].flatten(1) rescue false)
@@ -116,18 +106,18 @@ class Array
   end
   
   def product(*arg)
-    arg.unshift(self)
-    arg._partial_cartesian_product(arg.size-1, Array.new(arg.size), [])
+    arrays = [self, *arg].each_with_index.to_a.reverse
+    a_combination = Array.new(arrays.size)
+    last_enum = Enumerator.new{|yielder| yielder.yield a_combination.dup}
+    arrays.inject(last_enum) do |enum, (array, index)|
+      Enumerator.new do |yielder|
+        array.each do |obj|
+          a_combination[index] = obj
+          enum.each(&yielder)
+        end
+      end
+    end.to_a
   end unless method_defined? :product
-  
-  def _partial_cartesian_product(combi, iterate_index, result)
-    action = iterate_index.zero? ? Proc.new(result << combi.dup) : Proc.new(_sub(combi, iterate_index-1, &block))
-    self[iterate_index].each do |obj|
-      combi[iterate_index] = obj
-      action.call
-    end
-  end
-  private :_partial_cartesian_product
   
   # rindex
   unless ([1].rindex{true} rescue false)
