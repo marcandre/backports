@@ -19,7 +19,7 @@ class EnumeratorTest < Test::Unit::TestCase
           yielder.yield "This cool new syntax is sponsored by"
           yielder.yield yielder.class
         end
-        assert enum.is_a? Enumerator
+        assert enum.is_a?(Enumerator)
         2.times do
           assert_equal ["This cool new syntax is sponsored by", Enumerator::Yielder], enum.to_a
         end

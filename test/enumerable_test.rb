@@ -83,6 +83,16 @@ class EnumerableTest < Test::Unit::TestCase
       end
     end
 
+    context "#find" do
+      should "not require a block" do
+        assert_equal 3, (1..10).find.each {|item| item > 2 }
+      end
+
+      should "work as expected" do
+        assert_equal 3, (1..10).find {|item| item > 2 }
+      end
+    end
+
     context "#find_index" do
       should "conform to doc" do
         assert_equal 3, %w{ant bat cat dog}.find_index {|item| item =~ /g/ }

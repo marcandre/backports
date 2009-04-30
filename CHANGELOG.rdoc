@@ -1,13 +1,58 @@
 = Packable --- History
 
-== Version 1.6 - April 25, 2009
+== Version 1.6 - April 29, 2009
+
+Completed backport to 1.8.7.
 
 * Array
   * <tt>extract_options!</tt>
-  
+
+* Binding
+  * +eval+
+
+* Dir
+  * +each+, +foreach+
+
 * Enumerator
   * +new+
   * +with_object+
+  * +next+, +rewind+
+
+* Hash
+  * Optional block for <tt>delete_if, each, each_key, each_pair, each_value, reject!, select</tt> (and ENV)
+
+* Integer
+  * moved stuff out of Fixnum
+  * Optional block for +downto+, +times+, +upto+
+
+* IO
+  * Optional block for +each+, +each_line+, +each_byte+, +foreach+ (and ARGF)
+
+* Kernel
+  * +loop+, +StopIteration+
+  * +__method__+, +__callee__+
+
+* Method
+  * +name+, +owner+, +receiver+
+
+* Module
+  * +class_exec+, +module_exec+
+
+* Numeric
+  * +step+
+
+* Object
+  * +define_singleton_method+
+  * +instance_exec+
+
+* ObjectSpace
+  * +each_object+
+
+* Range
+  * Optional block for +each+, +step+
+
+* Regexp
+  * +union+
 
 * String
   * +try_convert+
@@ -17,12 +62,20 @@
   * +clear+
   * +codepoints+, +each_codepoint+
   * +stringify_keys+, +stringify_keys!+
-  * +each+, +each_line+, +each_byte+, +gsub+
+  * +each+, +each_line+, +each_byte+
+  * +gsub+
+  * +upto+
 
-* Symbol (completed)
+* Struct
+  * +each+, +each_pair+
+
+* Symbol
   * <tt><=></tt>, +casecmp+
   * +capitalize+, +downcase+, +next+, +succ+, +swapcase+, +upcase+
   * <tt>=~, [], empty?, length, match, size</tt>
+
+* UnboundMethod
+  * +name+, +owner+
 
 == Version 1.5 - April 24, 2009
 

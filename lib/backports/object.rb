@@ -1,6 +1,7 @@
 require 'enumerator'
 
-class Object
+module Kernel # Did you know that object instance methods are defined in Kernel?
+  
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/Object.html]
   def try(method_id, *args, &block)
     send(method_id, *args, &block) unless self.nil? #todo: check new def
@@ -19,4 +20,15 @@ class Object
   end unless method_defined? :returning
   
   Enumerator = Enumerable::Enumerator unless const_defined? :Enumerator # Standard in ruby 1.9
+  
+  def define_singleton_method(symbol, &block)
+    class << self
+      self
+    end.send(:define_method, symbol, block)
+  end unless method_defined? :define_singleton_method
+  
+  def instance_exec(*arg, &block)
+    define_singleton_method(:"temporary method for instance_exec", &block)
+    send(:"temporary method for instance_exec", *arg)
+  end unless method_defined? :instance_exec
 end

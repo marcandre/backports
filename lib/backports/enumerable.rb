@@ -29,15 +29,7 @@ module Enumerable
     to_a.cycle(*arg, &block)
   end unless method_defined? :cycle
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  unless ([].detect rescue false)
-    def detect_with_optional_block(ifnone = nil, &block)
-      return to_enum(:detect, ifnone) unless block_given?
-      detect_without_optional_block(ifnone, &block)
-    end
-    alias_method_chain :detect, :optional_block
-    alias_method :find, :detect
-  end
+  make_block_optional :detect, :find, :test_on => [42]
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def drop(n)
@@ -76,6 +68,7 @@ module Enumerable
 
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def find_index(*args)
+    raise ArgumentError, "Wrong number of arguments (#{args.size} for 1)" if args.size > 1
     if args.size == 1
       obj = args.first
       each_with_index do |element, i|
@@ -87,7 +80,7 @@ module Enumerable
       end
       each_with_index{|o,i| return i if yield o}
     else
-      raise ArgumentError, "Wrong number of arguments (#{args.size} for 1)"
+      return to_enum(:find_index)
     end
     nil
   end unless method_defined? :find_index

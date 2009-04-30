@@ -62,8 +62,7 @@ class Array
     alias_method_chain :flatten, :optional_argument
     alias_method_chain :flatten!, :optional_argument
 
-    # Helper to recurse through flattening since the method
-    # is not allowed to recurse itself. Detects recursive structures.
+    # Helper to recurse through flattening
     # Adapted from rubinius'; recursion guards are not needed because level is finite
     def recursively_flatten_finite(array, out, level)
       ret = nil
@@ -106,19 +105,19 @@ class Array
   end
   
   def product(*arg)
-    arrays = [self, *arg].each_with_index.to_a.reverse
-    a_combination = Array.new(arrays.size)
-    last_enum = Enumerator.new{|yielder| yielder.yield a_combination.dup}
-    arrays.inject(last_enum) do |enum, (array, index)|
+    arrays = [self, *arg].reverse
+    first_enum = Enumerator.new{|yielder| yielder.yield [] }
+    arrays.inject(first_enum) do |enum, array|
       Enumerator.new do |yielder|
         array.each do |obj|
-          a_combination[index] = obj
-          enum.each(&yielder)
+          enum.each do |partial_product|
+            yielder.yield [obj] + partial_product
+          end
         end
       end
     end.to_a
   end unless method_defined? :product
-  
+
   # rindex
   unless ([1].rindex{true} rescue false)
     def rindex_with_block(*arg)

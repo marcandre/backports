@@ -31,6 +31,7 @@ class String
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def clear
     self[0,length] = ""
+    self
   end unless method_defined? :clear?
 
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
@@ -66,7 +67,14 @@ class String
   end unless method_defined? :demodulize
 
   make_block_optional :each_byte, :each, :each_line, :test_on => "abc"
-  make_block_optional :gsub, :test_on => "abc", :arg => /./
+  
+  unless ("abc".gsub(/./) rescue false)
+    def gsub_with_optional_block(*arg, &block)
+      return to_enum(:gsub_with_optional_block, *arg) unless block_given? || arg.size > 1
+      gsub_without_optional_block(*arg, &block)
+    end
+    alias_method_chain :gsub, :optional_block
+  end
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless method_defined? :each_char
@@ -148,5 +156,12 @@ class String
   end unless method_defined? :underscore
   
   unless ("abc".upto("def", true) rescue false)
+    def upto_with_exclusive(to, excl=false, &block)
+      enum = Range.new(self, to, excl).to_enum
+      return enum unless block_given?
+      enum.each(&block)
+      self
+    end
+    alias_method_chain :upto, :exclusive
   end
 end

@@ -30,45 +30,95 @@ Compatible with Ruby 1.8 & 1.9.
 
 = List of backports
 
+== Ruby 1.8.7
+
+Complete Ruby 1.8.7 backporting. Refer to the official list of changes[http://svn.ruby-lang.org/repos/ruby/tags/v1_8_7/NEWS]. All builtin classes are compatible with Ruby 1.8.7: 
+* Array
+* Binding
+* Dir
+* Enumerable
+* Enumerator
+* Fixnum
+* Hash
+* Integer
+* IO (& ARGF)
+* Method
+* Numeric
+* Object
+* ObjectSpace
+* Range
+* Regexp
 * Symbol
-  * +to_proc+ (e.g. <tt>foo.map(&:bar)</tt> )
+* UnboundMethod
+
+Only exceptions:
+* GC.stress=
+* Process.exec
+* recursive data handling (Array and Hash)
+
+As in Ruby 1.8.7+, there is no need to <tt>require 'enumerator'</tt> in older Ruby, and +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)
+
+== Ruby 1.9
+
+Additionally, the following Ruby 1.9 have been backported:
+
+* Array
+  * +sample+
+
+* Enumerable
+  * +each_with_object+
+  * +reverse_each+
+
+* Enumerator
+  * +new+ (with block)
+
+* Hash
+  * <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt> (see _note_)
+  * <tt>default_proc=</tt>
+
 * Kernel
   * +require_relative+
-* Module
-  * +alias_method_chain+
+
 * Object
-  * +tap+, +returning+
-  * +try+
-* String
-  * +each_char+, +chars+
-  * <tt>start_with?</tt>, <tt>end_with?</tt>
-  * +camelize+, +underscore+
-  * +dasherize+, +demodulize+
-  * +constantize+
-  * +partition+, +rpartition+
-* Hash
-  * +symbolize_keys+, <tt>symbolize_keys!</tt>
-  * +reverse_merge+, <tt>reverse_merge!</tt>
-  * <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt> (see _note_)
-  * +key+
-  * <tt>default_proc=</tt>
-* Enumerable
-  * +sum+
-  * complete Ruby 1.8.7 backport
-* Array
-  * complete Ruby 1.8.7 backport
-* Fixnum
-  * complete Ruby 1.8.7 backport
+  * +define_singleton_method+
+
 * Proc
   * +yield+
 
-Finally, there is no need to <tt>require 'enumerator'</tt> in older Ruby, and +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)
+* String
+  * +try_convert+
+  * <tt>ascii_only?</tt>
+  * +chr+
+  * +clear+
+  * +codepoints+, +each_codepoint+
 
 _note_: This usage of <tt>Hash::[]</tt> is not yet documented[http://redmine.ruby-lang.org/issues/show/1385].
+
+== Rails
+
+Some generic methods from Rails methods have been copied:
+
+* Enumerable
+  * +sum+
+
+* Hash
+  * +symbolize_keys+, <tt>symbolize_keys!</tt>
+  * +reverse_merge+, <tt>reverse_merge!</tt>
+
+* Module
+  * +alias_method_chain+
+
+* Object
+  * +try+
+  * +returning+
+
+* String
+  * +camelize+, +underscore+
+  * +dasherize+, +demodulize+
+  * +constantize+
 
 = License
 
 +backports+ is released under the terms of the MIT License, see the included LICENSE file.
-The code for backports was copied from rails when available.
 
 Author::                 Marc-André Lafortune

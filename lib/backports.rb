@@ -11,12 +11,12 @@ module Kernel
 end
 
 class Array
-  # Standard in rails, and we need it in module.
+  # Standard in rails, and we use it in module.
   def extract_options!
     last.is_a?(::Hash) ? pop : {}
   end unless method_defined? :extract_options!
 end
 
-%w(object module array enumerable enumerator string symbol fixnum hash proc).each do |lib|
+%w(object module kernel object_space array enumerable enumerator string symbol integer fixnum hash proc binding dir io method regexp struct).each do |lib|
   require_relative "backports/#{lib}"
 end

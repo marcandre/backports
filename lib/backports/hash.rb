@@ -16,6 +16,26 @@ class Hash
     end unless method_defined? :to_hash
   end
 
+  make_block_optional :delete_if, :each, :each_key, :each_pair, :each_value, :reject!, :select, :test_on => {:hello => "world!"}
+  
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]
+  def default_proc=(proc)
+    replace(Hash.new(&proc).merge!(self))
+  end unless method_defined? :default_proc=
+
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]
+  alias_method :key, :index unless method_defined? :key
+  
+  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
+  def reverse_merge(other_hash)
+    other_hash.merge(self)
+  end
+  
+  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
+  def reverse_merge!(other_hash)
+    replace(reverse_merge(other_hash))
+  end
+  
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
   def symbolize_keys
     Hash[map{|key,value| [(key.to_sym rescue key) || key, value] }]
@@ -35,22 +55,8 @@ class Hash
   def stringify_keys!
     self.replace(self.stringify_keys)
   end unless method_defined? :stringify_keys!
-  
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]
-  alias_method :key, :index unless method_defined? :key
-  
-  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
-  def reverse_merge(other_hash)
-    other_hash.merge(self)
-  end
-  
-  # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
-  def reverse_merge!(other_hash)
-    replace(reverse_merge(other_hash))
-  end
-  
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]
-  def default_proc=(proc)
-    replace(Hash.new(&proc).merge!(self))
-  end unless method_defined? :default_proc=
+end
+
+class << ENV
+  make_block_optional :delete_if, :each, :each_key, :each_pair, :each_value, :reject!, :select, :test_on => ENV
 end
