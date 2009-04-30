@@ -105,13 +105,12 @@ class Array
   end
   
   def product(*arg)
-    arrays = [self, *arg].reverse
-    first_enum = Enumerator.new{|yielder| yielder.yield [] }
-    arrays.inject(first_enum) do |enum, array|
+    trivial_enum = Enumerator.new{|yielder| yielder.yield [] }
+    [self, *arg].inject(trivial_enum) do |enum, array|
       Enumerator.new do |yielder|
-        array.each do |obj|
-          enum.each do |partial_product|
-            yielder.yield [obj] + partial_product
+        enum.each do |partial_product|
+          array.each do |obj|
+            yielder.yield partial_product + [obj]
           end
         end
       end
