@@ -70,7 +70,7 @@ class String
   
   unless ("abc".gsub(/./) rescue false)
     def gsub_with_optional_block(*arg, &block)
-      return to_enum(:gsub_with_optional_block, *arg) unless block_given? || arg.size > 1
+      return to_enum(:gsub_with_optional_block, *arg, &block) unless block_given? || arg.size > 1
       gsub_without_optional_block(*arg, &block)
     end
     alias_method_chain :gsub, :optional_block

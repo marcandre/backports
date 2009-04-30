@@ -21,14 +21,17 @@ module Kernel # Did you know that object instance methods are defined in Kernel?
     obj
   end unless method_defined? :returning
   
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Object.html]
   def define_singleton_method(symbol, &block)
     class << self
       self
     end.send(:define_method, symbol, block)
   end unless method_defined? :define_singleton_method
   
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Object.html]
   def instance_exec(*arg, &block)
     define_singleton_method(:"temporary method for instance_exec", &block)
     send(:"temporary method for instance_exec", *arg)
   end unless method_defined? :instance_exec
+  
 end
