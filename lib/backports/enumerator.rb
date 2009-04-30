@@ -7,7 +7,7 @@ class Enumerator
     raise StopIteration unless @generator.next?
     @generator.next
   end unless method_defined? :next
-
+  
   def rewind
     require 'generator'
     @generator ||= Generator.new(self)
@@ -21,12 +21,12 @@ class Enumerator
       def initialize(&block)
         @main_block = block
       end
-
+  
       def each(&block)
         @final_block = block
         @main_block.call(self)
       end
-
+  
       def yield(*arg)
         @final_block.yield(*arg)
       end

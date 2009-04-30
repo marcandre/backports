@@ -1,4 +1,6 @@
 require 'enumerator'
+# Must be defined outside of Kernel for jruby, see http://jira.codehaus.org/browse/JRUBY-3609
+Enumerator = Enumerable::Enumerator unless Kernel.const_defined? :Enumerator # Standard in ruby 1.9
 
 module Kernel # Did you know that object instance methods are defined in Kernel?
   
@@ -18,8 +20,6 @@ module Kernel # Did you know that object instance methods are defined in Kernel?
     yield obj
     obj
   end unless method_defined? :returning
-  
-  Enumerator = Enumerable::Enumerator unless const_defined? :Enumerator # Standard in ruby 1.9
   
   def define_singleton_method(symbol, &block)
     class << self
