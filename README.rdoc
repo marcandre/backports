@@ -52,6 +52,7 @@ Complete Ruby 1.8.7 backporting. Refer to the official list of changes[http://sv
 * UnboundMethod
 
 Only exceptions:
+* String#gsub
 * GC.stress=
 * Process.exec
 * recursive data handling (Array and Hash)
