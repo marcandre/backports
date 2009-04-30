@@ -68,13 +68,13 @@ class String
 
   make_block_optional :each_byte, :each, :each_line, :test_on => "abc"
   
-  unless ("abc".gsub(/./) rescue false)
-    def gsub_with_optional_block(*arg, &block)
-      return to_enum(:gsub_with_optional_block, *arg, &block) unless block_given? || arg.size > 1
-      gsub_without_optional_block(*arg, &block)
-    end
-    alias_method_chain :gsub, :optional_block
-  end
+  # unless ("abc".gsub(/./) rescue false)
+  #   def gsub_with_optional_block(*arg, &block)
+  #     return to_enum(:gsub_with_optional_block, *arg, &block) unless block_given? || arg.size > 1
+  #     gsub_without_optional_block(*arg, &block)
+  #   end
+  #   alias_method_chain :gsub, :optional_block
+  # end
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless method_defined? :each_char
