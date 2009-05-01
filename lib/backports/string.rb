@@ -45,8 +45,8 @@ class String
   end unless method_defined? :codepoints
   
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
-  def constantize(camel_cased_word)
-    names = camel_cased_word.split('::')
+  def constantize
+    names = split('::')
     names.shift if names.empty? || names.first.empty?
   
     constant = Object
@@ -57,13 +57,13 @@ class String
   end unless method_defined? :constantize
   
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
-  def dasherize(underscored_word)
-    underscored_word.gsub(/_/, '-')
+  def dasherize
+    gsub(/_/, '-')
   end unless method_defined? :dasherize
   
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
-  def demodulize(class_name_in_module)
-    class_name_in_module.to_s.gsub(/^.*::/, '')
+  def demodulize
+    gsub(/^.*::/, '')
   end unless method_defined? :demodulize
 
   make_block_optional :each_byte, :each, :each_line, :test_on => "abc"
@@ -147,8 +147,8 @@ class String
   end unless method_defined? :start_with?
   
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
-  def underscore(camel_cased_word)
-    camel_cased_word.to_s.gsub(/::/, '/').
+  def underscore
+    gsub(/::/, '/').
       gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
       gsub(/([a-z\d])([A-Z])/,'\1_\2').
       tr("-", "_").
