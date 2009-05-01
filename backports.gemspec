@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{backports}
-  s.version = "1.6.7"
+  s.version = "1.6.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marc-Andr\303\251 Lafortune"]
@@ -51,6 +51,7 @@ Gem::Specification.new do |s|
     "test/object_test.rb",
     "test/regexp_test.rb",
     "test/string_test.rb",
+    "test/symbol_test.rb",
     "test/test_helper.rb"
   ]
   s.has_rdoc = true
@@ -72,6 +73,7 @@ Gem::Specification.new do |s|
     "test/object_test.rb",
     "test/regexp_test.rb",
     "test/string_test.rb",
+    "test/symbol_test.rb",
     "test/test_helper.rb"
   ]
 
