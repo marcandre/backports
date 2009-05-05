@@ -1,6 +1,6 @@
 module Kernel
   unless const_defined? :StopIteration
-    
+
     class StopIteration < IndexError; end
 
     def loop_with_stop_iteration(&block)

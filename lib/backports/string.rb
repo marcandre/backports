@@ -157,6 +157,7 @@ class String
   
   unless ("abc".upto("def", true) rescue false)
     def upto_with_exclusive(to, excl=false, &block)
+      return upto_without_exclusive(to, &block) if block_given? && !excl
       enum = Range.new(self, to, excl).to_enum
       return enum unless block_given?
       enum.each(&block)

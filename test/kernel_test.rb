@@ -8,14 +8,15 @@ end
 class KernelTest < Test::Unit::TestCase
   context "Kernel" do
     context ".loop" do
-      should "conform to doc" do
-        enum1 = [1, 2, 3].to_enum 
-        enum2 = [10, 20].to_enum 
+      should "catch StopIteration" do
+        i = 0
         r = []
         loop do 
-          r << enum1.next + enum2.next 
+          r << i
+          i += 1
+          raise StopIteration if i > 2
         end
-        assert_equal [11,22], r
+        assert_equal [0, 1, 2], r
       end
     end
     

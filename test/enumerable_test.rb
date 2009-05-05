@@ -99,7 +99,7 @@ class EnumerableTest < Test::Unit::TestCase
         assert_equal nil, %w{ant bat cat dog}.find_index {|item| item =~ /h/ }
       end
 
-      should "#work for enumerables too" do
+      should "work for enumerables too" do
         assert_equal 69-42, (42..666).find_index(69)
       end
     end

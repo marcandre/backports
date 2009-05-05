@@ -25,5 +25,14 @@ class EnumeratorTest < Test::Unit::TestCase
         end
       end
     end
+    
+    context "#next" do
+      should "conform to doc" do
+        enum = [10, 20].to_enum 
+        assert_equal 10, enum.next
+        assert_equal 20, enum.next
+        assert_raise(StopIteration){ enum.next} 
+      end
+    end
   end
 end
