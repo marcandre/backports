@@ -29,10 +29,14 @@ class Array
   end unless method_defined? :combination
   
   # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
-  def cycle(*arg, &block)
-    return to_enum(:cycle, *arg) unless block_given?
-    nb = arg.empty? ? (1/0.0) : arg.first
-    nb.to_i.times{each(&block)}
+  def cycle(n = nil, &block)
+    return to_enum(:cycle, n) unless block_given?
+    if n.nil?
+      loop(&block)
+    else
+      n.to_i.times{each(&block)}
+    end
+    nil
   end unless method_defined? :cycle
   
   # extract_options! in backports.rb

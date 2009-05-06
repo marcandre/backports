@@ -24,9 +24,18 @@ module Enumerable
   end unless method_defined? :count
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def cycle(*arg, &block)
-    return to_enum(:cycle, *arg) unless block_given?
-    to_a.cycle(*arg, &block)
+  def cycle(n = nil, &block)
+    return to_enum :cycle, n unless block_given?
+    if n == nil
+      loop(&block)
+    elsif n >= 1
+      cache = []
+      each do |elem|
+        cache << elem
+        block.call(elem)
+      end
+      cache.cycle(n-1, &block)
+    end
   end unless method_defined? :cycle
   
   make_block_optional :detect, :find, :test_on => [42]
