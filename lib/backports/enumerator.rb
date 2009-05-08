@@ -9,6 +9,7 @@ class Enumerator
   end unless method_defined? :next
   
   def rewind
+    @object.rewind if @object.respond_to? :rewind
     require 'generator'
     @generator ||= Generator.new(self)
     @generator.rewind
@@ -33,6 +34,7 @@ class Enumerator
     end
     
     def initialize_with_optional_block(*arg, &block)
+      @object = arg.first
       return initialize_without_optional_block(*arg, &nil) unless arg.empty?  # Ruby 1.9 apparently ignores the block if any argument is present
       initialize_without_optional_block(Yielder.new(&block))
     end

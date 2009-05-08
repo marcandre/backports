@@ -49,11 +49,12 @@ module Enumerable
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def drop_while(&block)
     return to_enum(:drop_while) unless block_given?
-    array = to_a
-    array.each_with_index do |element, i|
-      return array.drop(i) unless yield(element)
+    ary = []
+    dropping = true
+    each do |obj|
+      ary << obj unless dropping &&= yield(obj)
     end
-    []
+    ary
   end unless method_defined? :drop_while
   
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]

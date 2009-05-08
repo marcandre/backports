@@ -103,14 +103,14 @@ class Array
     def pop_with_optional_argument(*arg)
       return pop_without_optional_argument if arg.empty?
       n = arg.first.to_i
-      slice!([0,size-n].max, size)
+      slice!([0,size-n].max, size).to_a
     end
     alias_method_chain :pop, :optional_argument
   end
   
   def product(*arg)
     trivial_enum = Enumerator.new{|yielder| yielder.yield [] }
-    [self, *arg].inject(trivial_enum) do |enum, array|
+    [self, *arg].map(&:to_ary).inject(trivial_enum) do |enum, array|
       Enumerator.new do |yielder|
         enum.each do |partial_product|
           array.each do |obj|
@@ -141,7 +141,7 @@ class Array
     alias_method_chain :shift, :optional_argument
   end
   
-  
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   def sample(*arg)
     return self[rand(size)] if arg.empty?
     n = [arg.first.to_i, size].min
@@ -153,12 +153,18 @@ class Array
     values_at(*index.first(n))
   end unless method_defined? :sample
   
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   def shuffle
-    sample(size)
+    Array.new(self).shuffle!
   end unless method_defined? :shuffle
 
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   def shuffle!
-    replace(sample(size))
+    size.times do |i|
+      r = i + rand(size - i)
+      self[i], self[r] = self[r], self[i]
+    end
+    self
   end unless method_defined? :shuffle!
 
 end
