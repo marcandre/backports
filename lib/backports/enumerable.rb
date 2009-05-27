@@ -9,26 +9,25 @@ module Enumerable
     end
   end unless method_defined? :sum
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def count(*arg)
-    result = 0
-    if block_given?
-      each{|o| result += 1 if yield o}
-    elsif arg.empty?
-      each{|o| result += 1}
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  def count(item = Undefined)
+    seq = 0
+    if item != Undefined
+      each { |o| seq += 1 if item == o }
+    elsif block_given?
+      each { |o| seq += 1 if yield(o) }
     else
-      obj = arg.first
-      each{|o| result += 1 if obj == o}
+      each { seq += 1 }
     end
-    result
+    seq
   end unless method_defined? :count
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def cycle(n = nil, &block)
-    return to_enum :cycle, n unless block_given?
-    if n == nil
-      loop(&block)
-    elsif n >= 1
+    return to_enum(:cycle, n) unless block_given?
+    return loop(&block) if nil == n
+    n = Type.coerce_to(n, Fixnum, :to_int)
+    if n >= 1
       cache = []
       each do |elem|
         cache << elem
@@ -38,15 +37,18 @@ module Enumerable
     end
   end unless method_defined? :cycle
   
-  make_block_optional :detect, :find, :test_on => [42]
+  make_block_optional :detect, :find, :find_all, :select, :sort_by, :partition, :reject, :test_on => 1..2
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def drop(n)
-    array = to_a
-    array[n...array.size] || []
+    n = Type.coerce_to(n, Fixnum, :to_int)
+    raise ArgumentError, "attempt to drop negative size" if n < 0
+    ary = to_a
+    return [] if n > ary.size
+    ary[n...ary.size]
   end unless method_defined? :drop
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def drop_while(&block)
     return to_enum(:drop_while) unless block_given?
     ary = []
@@ -57,30 +59,30 @@ module Enumerable
     ary
   end unless method_defined? :drop_while
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   make_block_optional :each_cons, :each_slice, :test_on => 1..2, :arg => 1
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   if instance_method(:each_with_index).arity.zero?
     def each_with_index_with_optional_args_and_block(*args, &block)
       return to_enum(:each_with_index, *args) unless block_given?
-      to_enum(:each, *args).each_with_index_without_optional_args_and_block(&block)
+      idx = 0
+      each(*args) { |o| yield(o, idx); idx += 1 }
+      self
     end
     alias_method_chain :each_with_index, :optional_args_and_block
   end
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def each_with_object(memo, &block)
     return to_enum(:each_with_object, memo) unless block_given?
     each {|obj| block.call(obj, memo)}
     memo
   end unless method_defined? :each_with_object
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def find_index(*args)
-    raise ArgumentError, "Wrong number of arguments (#{args.size} for 1)" if args.size > 1
-    if args.size == 1
-      obj = args.first
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  def find_index(obj = Undefined)
+    if obj != Undefined
       each_with_index do |element, i|
         return i if element == obj
       end
@@ -88,19 +90,20 @@ module Enumerable
       each_with_index do |element, i|
         return i if yield element
       end
-      each_with_index{|o,i| return i if yield o}
     else
       return to_enum(:find_index)
     end
     nil
   end unless method_defined? :find_index
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def first(*arg)
-    arg.empty? ? take(1)[0] : take(arg.first)
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  def first(n = Undefined)
+    return take(n) unless n == Undefined
+    each{|obj| return obj}
+    nil
   end unless method_defined? :first
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def group_by
     return to_enum(:group_by) unless block_given?
     returning({}) do |result|
@@ -110,13 +113,11 @@ module Enumerable
     end
   end unless method_defined? :group_by
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   unless ((1..2).inject(:+) rescue false)
     def inject_with_symbol(*args, &block)
       return inject_without_symbol(*args, &block) if block_given?
       method = args.pop
-      raise TypeError, "#{method} is not a symbol" unless method.respond_to? :to_sym
-      method = method.to_sym
       inject_without_symbol(*args) {|memo, obj| memo.send(method, obj)}
     end
     alias_method_chain :inject, :symbol
@@ -133,19 +134,19 @@ module Enumerable
     end
   end
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def max_by(&block)
     return to_enum(:max_by) unless block_given?
     minmax_by(&block)[1]
   end unless method_defined? :max_by
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def min_by(&block)
     return to_enum(:min_by) unless block_given?
     minmax_by(&block).first
   end unless method_defined? :min_by
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def minmax
     return minmax{|a,b| a <=> b} unless block_given?
     first_time = true
@@ -162,7 +163,7 @@ module Enumerable
     [min, max]
   end unless method_defined? :minmax
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def minmax_by(&block)
     return to_enum(:minmax_by) unless block_given?
     min_object, min_result = nil, MOST_EXTREME_OBJECT_EVER
@@ -175,20 +176,35 @@ module Enumerable
     [min_object, max_object]
   end unless method_defined? :minmax_by
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def none?(&block)
     !any?(&block)
   end unless method_defined? :none?
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def one?(&block)
-    return one?{|o| o} unless block_given?
-    1 == count(&block)
+    found_one = false
+    if block_given?
+      each do |o|
+        if yield(o)
+          return false if found_one
+          found_one = true
+        end
+      end
+    else
+      each do |o|
+        if o
+          return false if found_one
+          found_one = true
+        end
+      end
+    end
+    found_one
   end unless method_defined? :one?
 
   alias_method :reduce, :inject unless method_defined? :reduce
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def reverse_each(&block)
     return to_enum(:reverse_each) unless block_given?
     # There is no other way then to convert to an array first... see 1.9's source.
@@ -196,17 +212,19 @@ module Enumerable
     self
   end unless method_defined? :reverse_each
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def take(n)
+    n = Type.coerce_to(n, Fixnum, :to_int)
+    raise ArgumentError, "attempt to take negative size: #{n}" if n < 0
     returning([]) do |array|
       each do |elem|
-        array << elem
         break if array.size >= n
+        array << elem
       end unless n <= 0
     end
   end unless method_defined? :take
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def take_while
     return to_enum(:take_while) unless block_given?
     inject([]) do |array, elem|
@@ -215,13 +233,15 @@ module Enumerable
     end
   end unless method_defined? :take_while
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   if instance_method(:to_a).arity.zero?
     def to_a_with_optional_arguments(*args)
       return to_a_without_optional_arguments if args.empty?
       to_enum(:each, *args).to_a
     end
     alias_method_chain :to_a, :optional_arguments
+    
+    alias_method :entries, :to_a
   end
   
 end

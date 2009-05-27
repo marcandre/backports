@@ -10,13 +10,6 @@ module Kernel
   end unless method_defined? :require_relative
 end
 
-class Array
-  # Standard in rails, and we use it in module.
-  def extract_options!
-    last.is_a?(::Hash) ? pop : {}
-  end unless method_defined? :extract_options!
-end
-
-%w(object module kernel object_space array enumerable enumerator string symbol integer fixnum hash proc binding dir io method regexp struct).each do |lib|
+%w(core_ext module kernel array enumerable enumerator string symbol integer numeric fixnum hash proc binding dir io method regexp struct float object_space argf gc env process).each do |lib|
   require_relative "backports/#{lib}"
 end

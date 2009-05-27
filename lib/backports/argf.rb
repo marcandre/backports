@@ -1,22 +1,22 @@
 if RUBY_VERSION < '1.8.7'
-  class IO
+  class << ARGF
+    # Standard in Ruby 1.8.7.
     make_block_optional :each, :each_line, :each_byte
-    class << self
-      make_block_optional :foreach
-    end
   end
-
 end
 
-class IO
+class << ARGF
+  # Standard in Ruby 1.8.7.
   def bytes
     to_enum :each_byte
   end unless method_defined? :bytes
-  
+
+  # Standard in Ruby 1.8.7.
   def chars
     to_enum :each_char
   end unless method_defined? :chars
-  
+
+  # Standard in Ruby 1.8.7.
   def each_char
     return to_enum(:each_char) unless block_given?
     if $KCODE == "UTF-8"
@@ -42,13 +42,16 @@ class IO
     end
 
     self
-  end
+  end unless method_defined? :each_char
 
-  alias_method :getbyte, :getc  unless method_defined? :getbyte
-  alias_method :readbyte, :readchar unless method_defined? :readchar
-  
+  # Standard in Ruby 1.8.7.
+  alias_method :getbyte, :getc
+
+  # Standard in Ruby 1.8.7.
+  alias_method :readbyte, :readchar
+
+  # Standard in Ruby 1.8.7.
   def lines(*args)
     to_enum :each_line, *args
   end unless method_defined? :lines
 end
-  

@@ -1,16 +1,18 @@
 class String
   class << self
-    # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+    # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
     def try_convert(x)
       return nil unless x.respond_do(:to_str)
       x.to_str
     end unless method_defined? :try_convert
   end
 
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def ascii_only?
     !(self =~ /[^\x00-\x7f]/)
   end unless method_defined? :ascii_only?
   
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   alias_method :bytesize, :length unless method_defined? :bytesize
 
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
@@ -22,19 +24,18 @@ class String
     end
   end unless method_defined? :camelize
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def chr
     chars.first
-  end unless method_defined? :chr?
+  end unless method_defined? :chr
 
-
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def clear
     self[0,length] = ""
     self
   end unless method_defined? :clear?
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def codepoints
     return to_enum(:codepoints) unless block_given?
     each_char.each do |s|
@@ -68,15 +69,11 @@ class String
 
   make_block_optional :each_byte, :each, :each_line, :test_on => "abc"
   
-  # unless ("abc".gsub(/./) rescue false)
-  #   def gsub_with_optional_block(*arg, &block)
-  #     return to_enum(:gsub_with_optional_block, *arg, &block) unless block_given? || arg.size > 1
-  #     gsub_without_optional_block(*arg, &block)
-  #   end
-  #   alias_method_chain :gsub, :optional_block
-  # end
+  # gsub: Left alone because of $~, $1, etc... which needs to be "pushed" up one level
+  # It's possible to do so, but it's a method that is used everywhere so i felt
+  # the performance hit was too big compared to the dubious gain.
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless method_defined? :each_char
     def each_char(&block)
       return to_enum(:each_char) unless block_given?
@@ -86,31 +83,31 @@ class String
     alias_method :chars, :each_char unless method_defined? :chars
   end
   
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   alias_method :each_codepoint, :codepoints unless method_defined? :each_codepoint
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def end_with?(*suffixes)
     suffixes.each do |suffix|
-      suffix = suffix.to_s
+      next unless suffix.respond_to? :to_str
+      suffix = suffix.to_str
       return true if self[-suffix.length, suffix.length] == suffix
     end
     false
   end unless method_defined? :end_with?
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def getbyte(i)
     self[i]
   end unless method_defined? :getbyte
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless ("check partition".partition(" ") rescue false)
-    def partition_with_new_meaning(*args, &block)
-      return partition_without_new_meaning(*args, &block) unless args.length == 1
-      pattern = args.first
-      
+    def partition_with_new_meaning(pattern = Undefined, &block)
+      return partition_without_new_meaning(&block) if pattern == Undefined
+      pattern = Type.coerce_to(pattern, String, :to_str) unless pattern.is_a? Regexp      
       i = index(pattern)
       return [self, "", ""] unless i
-      
       if pattern.is_a? Regexp
         match = Regexp.last_match
         [match.pre_match, match[0], match.post_match]
@@ -122,8 +119,9 @@ class String
     alias_method_chain :partition, :new_meaning
   end
 
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def rpartition(pattern)
+    pattern = Type.coerce_to(pattern, String, :to_str) unless pattern.is_a? Regexp
     i = rindex(pattern)
     return ["", "", self] unless i
     
@@ -137,10 +135,11 @@ class String
   end unless method_defined? :rpartition
 
   
-  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def start_with?(*prefixes)
     prefixes.each do |prefix|
-      prefix = prefix.to_s
+      next unless prefix.respond_to? :to_str
+      prefix = prefix.to_str
       return true if self[0, prefix.length] == prefix
     end
     false
