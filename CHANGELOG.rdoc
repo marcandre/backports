@@ -1,5 +1,13 @@
 = Packable --- History
 
+== Version 1.7 - May 27, 2009
+
+Porting all 1.8.7 features to rubinius was quite enlightening (http://blog.marc-andre.ca/2009/05/schizo-ruby-puzzle.html ).
+Many improvements were made to be consistent with MRI, e.g. converting arguments using to_int if needed, etc...
+The changes are now reflected in 'backports'.
+
+Some IO and ARGF methods were missing and are now complete.
+
 == Version 1.6.6 - April 30, 2009
 
 Important bug fix. String#gsub is left alone until I find a good way to modify it.
