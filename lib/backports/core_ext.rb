@@ -48,6 +48,13 @@ module Type
       ret
     end unless method_defined? :coerce_to
   end
+  
+  def self.coerce_to_comparison(a, b, cmp = (a <=> b))
+    raise ArgumentError, "comparison of #{a} with #{b} failed" if cmp.nil?
+    return 1 if cmp > 0
+    return -1 if cmp < 0
+    0
+  end unless method_defined? :coerce_to_comparison
 end
 
 # From Rubinius

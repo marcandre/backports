@@ -116,7 +116,7 @@ module Enumerable
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   unless ((1..2).inject(:+) rescue false)
     def inject_with_symbol(*args, &block)
-      return inject_without_symbol(*args, &block) if block_given?
+      return inject_without_symbol(*args, &block) if block_given? && args.size <= 1
       method = args.pop
       inject_without_symbol(*args) {|memo, obj| memo.send(method, obj)}
     end
@@ -156,8 +156,8 @@ module Enumerable
         min = max = object
         first_time = false
       else
-        min = object if yield(min, object) > 0
-        max = object if yield(max, object) < 0
+        min = object if Type.coerce_to_comparison(min, object, yield(min, object)) > 0
+        max = object if Type.coerce_to_comparison(max, object, yield(max, object)) < 0
       end
     end
     [min, max]
@@ -240,8 +240,15 @@ module Enumerable
       to_enum(:each, *args).to_a
     end
     alias_method_chain :to_a, :optional_arguments
-    
-    alias_method :entries, :to_a
+  end
+  
+  # alias_method gives a warning, so instead copy-paste:
+  if instance_method(:entries).arity.zero?
+    def entries_with_optional_arguments(*args)
+      return entries_without_optional_arguments if args.empty?
+      to_enum(:each, *args).entries
+    end
+    alias_method_chain :entries, :optional_arguments
   end
   
 end
