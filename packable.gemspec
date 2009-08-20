@@ -30,7 +30,6 @@ Gem::Specification.new do |s|
      "lib/packable/extensions/string.rb",
      "lib/packable/mixin.rb",
      "lib/packable/packers.rb",
-     "packable.gemspec",
      "test/packing_doc_test.rb",
      "test/packing_test.rb",
      "test/test_helper.rb"
