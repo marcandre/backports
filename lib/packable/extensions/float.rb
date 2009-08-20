@@ -19,9 +19,12 @@ module Packable
       end
 
       module ClassMethods #:nodoc:
-        ENDIAN_TO_FORMAT = Hash.new{|h, endian| raise ArgumentError, "Endian #{endian} is not valid. It must be one of #{h.keys.join(', ')}"}.
+        ENDIAN_TO_FORMAT = Hash.new{|h, endian| raise ArgumentError, "Endian #{endian} is not valid. It must be one of #{h.keys.join(', ')}."}.
           merge!(:big => "G", :network => "G", :little => "E", :native => "F").freeze
-          
+        
+        PRECISION = Hash.new{|h, precision| raise ArgumentError, "Precision #{precision} is not valid. It must be one of #{h.keys.join(', ')}."}.
+          merge!(:single => 4, :double => 8).freeze
+
         def pack_option_to_format(options)
           format = ENDIAN_TO_FORMAT[options[:endian]]
           format.downcase! if options[:precision] == :single
@@ -29,9 +32,8 @@ module Packable
         end
 
         def read_packed(io, options)
-          io.read({:single => 4, :double => 8}[options[:precision]])   \
-            .unpack(pack_option_to_format(options))   \
-            .first
+          s = io.read_exactly(PRECISION[options[:precision]]).
+          s.unpack(pack_option_to_format(options)).first unless s.nil?
         end
       end
       

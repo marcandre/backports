@@ -52,8 +52,8 @@ module Packable
         obj
       else
         len = options[:bytes]
-        s = len ? io.read(len) : io.read
-        unpack_string(s, options)
+        s = len ? io.read_exactly(len) : io.read
+        unpack_string(s, options) unless s.nil?
       end
     end
 

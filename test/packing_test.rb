@@ -76,6 +76,18 @@ class TestingPack < Test::Unit::TestCase
     assert_raise(TypeError) {"".unpack(42, :short)}
   end
   
+  context "Reading beyond" do
+    should "return nil" do
+      assert_nil "".unpack(:double)
+      assert_nil "".unpack(:short)
+      assert_nil "x".unpack(:double)
+      assert_nil "x".unpack(:short)
+      io = StringIO.new
+      assert_nil io.read(:double)
+      assert_nil io.read(String, :bytes => 4)
+    end
+  end
+  
   context "Filters" do
     context "for Object" do
       Object.packers.set :generic_class_writer do |packer|

@@ -74,6 +74,12 @@ module Packable
         return values.size > 1 ? values : values.first
       end
       
+      def read_exactly(n)
+        return "" if n.zero?
+        s = read_without_packing(n)
+        s unless s.nil? || s.length < n
+      end
+      
       def pack_and_write(*arg)
         original_pos = pos
         Packable::Packers.to_object_option_list(*arg).each do |obj, options|
