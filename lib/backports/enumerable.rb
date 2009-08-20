@@ -218,8 +218,8 @@ module Enumerable
     raise ArgumentError, "attempt to take negative size: #{n}" if n < 0
     returning([]) do |array|
       each do |elem|
-        break if array.size >= n
         array << elem
+        break if array.size >= n
       end unless n <= 0
     end
   end unless method_defined? :take
