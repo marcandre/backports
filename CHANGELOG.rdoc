@@ -1,5 +1,9 @@
 = Packable --- History
 
+== Version 1.7.1 - August 20, 2009
+
+Enumerable#take and Enumerable#first(n) are now returning as soon as possible. Previously, #each was yielding one element too many. See redmine issue #1554.
+
 == Version 1.7 - May 27, 2009
 
 Porting all 1.8.7 features to rubinius was quite enlightening (http://blog.marc-andre.ca/2009/05/schizo-ruby-puzzle.html ).
