@@ -2,36 +2,38 @@
 
 Gem::Specification.new do |s|
   s.name = %q{packable}
-  s.version = "1.3.0"
+  s.version = "1.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marc-Andr\303\251 Lafortune"]
-  s.date = %q{2009-04-13}
+  s.date = %q{2009-08-19}
   s.description = %q{If you need to do read and write binary data, there is of course <Array::pack and String::unpack The packable library makes (un)packing nicer, smarter and more powerful.}
   s.email = %q{github@marc-andre.ca}
   s.extra_rdoc_files = [
     "LICENSE",
-    "README.rdoc"
+     "README.rdoc"
   ]
   s.files = [
-    "CHANGELOG.rdoc",
-    "LICENSE",
-    "README.rdoc",
-    "Rakefile",
-    "VERSION.yml",
-    "lib/packable.rb",
-    "lib/packable/extensions/array.rb",
-    "lib/packable/extensions/float.rb",
-    "lib/packable/extensions/integer.rb",
-    "lib/packable/extensions/io.rb",
-    "lib/packable/extensions/object.rb",
-    "lib/packable/extensions/proc.rb",
-    "lib/packable/extensions/string.rb",
-    "lib/packable/mixin.rb",
-    "lib/packable/packers.rb",
-    "test/packing_doc_test.rb",
-    "test/packing_test.rb",
-    "test/test_helper.rb"
+    ".gitignore",
+     "CHANGELOG.rdoc",
+     "LICENSE",
+     "README.rdoc",
+     "Rakefile",
+     "VERSION.yml",
+     "lib/packable.rb",
+     "lib/packable/extensions/array.rb",
+     "lib/packable/extensions/float.rb",
+     "lib/packable/extensions/integer.rb",
+     "lib/packable/extensions/io.rb",
+     "lib/packable/extensions/object.rb",
+     "lib/packable/extensions/proc.rb",
+     "lib/packable/extensions/string.rb",
+     "lib/packable/mixin.rb",
+     "lib/packable/packers.rb",
+     "packable.gemspec",
+     "test/packing_doc_test.rb",
+     "test/packing_test.rb",
+     "test/test_helper.rb"
   ]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/marcandre/packable}
@@ -42,8 +44,8 @@ Gem::Specification.new do |s|
   s.summary = %q{Extensive packing and unpacking capabilities}
   s.test_files = [
     "test/packing_doc_test.rb",
-    "test/packing_test.rb",
-    "test/test_helper.rb"
+     "test/packing_test.rb",
+     "test/test_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
