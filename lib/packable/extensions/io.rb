@@ -74,10 +74,12 @@ module Packable
         return values.size > 1 ? values : values.first
       end
       
+      # returns a string of exactly n bytes, or else raises an EOFError
       def read_exactly(n)
         return "" if n.zero?
         s = read_without_packing(n)
-        s unless s.nil? || s.length < n
+        raise EOFError if s.nil? || s.length < n
+        s
       end
       
       def pack_and_write(*arg)

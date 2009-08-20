@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{packable}
-  s.version = "1.3.1"
+  s.version = "1.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marc-Andr\303\251 Lafortune"]
-  s.date = %q{2009-08-19}
+  s.date = %q{2009-08-20}
   s.description = %q{If you need to do read and write binary data, there is of course <Array::pack and String::unpack The packable library makes (un)packing nicer, smarter and more powerful.}
   s.email = %q{github@marc-andre.ca}
   s.extra_rdoc_files = [

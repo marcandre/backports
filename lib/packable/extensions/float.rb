@@ -32,8 +32,8 @@ module Packable
         end
 
         def read_packed(io, options)
-          s = io.read_exactly(PRECISION[options[:precision]]).
-          s.unpack(pack_option_to_format(options)).first unless s.nil?
+          s = io.read_exactly(PRECISION[options[:precision]])
+          s && s.unpack(pack_option_to_format(options)).first
         end
       end
       

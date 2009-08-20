@@ -76,15 +76,21 @@ class TestingPack < Test::Unit::TestCase
     assert_raise(TypeError) {"".unpack(42, :short)}
   end
   
-  context "Reading beyond" do
-    should "return nil" do
+  context "Reading beyond the eof" do
+    should "raises an EOFError when reading" do
+      ["", "x"].each do |s|
+        io = StringIO.new(s)
+        assert_raise(EOFError) {io.read(:double)}
+        assert_raise(EOFError) {io.read(:short)}
+        assert_raise(EOFError) {io.read(String, :bytes => 4)}
+      end
+    end
+  
+    should "return nil for unpacking" do
       assert_nil "".unpack(:double)
       assert_nil "".unpack(:short)
       assert_nil "x".unpack(:double)
       assert_nil "x".unpack(:short)
-      io = StringIO.new
-      assert_nil io.read(:double)
-      assert_nil io.read(String, :bytes => 4)
     end
   end
   

@@ -21,6 +21,8 @@ module Packable
       def unpack_with_long_form(*arg)
         return unpack_without_long_form(*arg) if arg.first.is_a? String
         StringIO.new(self).packed.read(*arg)
+      rescue EOFError
+        nil
       end
 
       module ClassMethods #:nodoc:
