@@ -5,8 +5,8 @@ Gem::Specification.new do |s|
   s.version = "1.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Marc-André Lafortune"]
-  s.date = %q{2009-04-08}
+  s.authors = ["Marc-Andr\303\251 Lafortune"]
+  s.date = %q{2009-04-13}
   s.description = %q{If you need to do read and write binary data, there is of course <Array::pack and String::unpack The packable library makes (un)packing nicer, smarter and more powerful.}
   s.email = %q{github@marc-andre.ca}
   s.extra_rdoc_files = [
@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/marcandre/packable}
   s.rdoc_options = ["--charset=UTF-8", "--title", "Packable library", "--main", "README.rdoc", "--line-numbers", "--inline-source"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = %q{marcandre}
+  s.rubyforge_project = %q{packable}
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Extensive packing and unpacking capabilities}
   s.test_files = [

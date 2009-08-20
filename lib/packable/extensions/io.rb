@@ -8,7 +8,6 @@ module Packable
         base.alias_method_chain :read, :packing
         base.alias_method_chain :write, :packing
         base.alias_method_chain :each, :packing
-        attr_accessor :throw_on_error
       end
       
       # Returns the change in io.pos caused by the block.
@@ -66,10 +65,7 @@ module Packable
       def read_with_packing(*arg)
         return read_without_packing(*arg) if (arg.length == 0) || (arg.first.is_a?(Numeric) && (arg.length == 1))
         values = Packable::Packers.to_class_option_list(*arg).map do |klass, options, original|
-          if eof?
-            raise EOFError, "End of IO when attempting to read #{klass} with options #{original.inspect}" if @throw_on_eof
-            nil
-          elsif options[:read_packed]
+          if options[:read_packed]
             options[:read_packed].call(self)
           else
             klass.read_packed(self, options)

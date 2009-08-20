@@ -19,9 +19,11 @@ module Packable
   end
 
   module PackersClassMethod
-    # Returns or yields a the Packers.for(class)
+
+    # Returns or yields the <tt>Packers.for(class)</tt>
     # Normal use is packers.set ...
     # (see docs or Packers::set for usage)
+    #
     def packers
       yield packers if block_given?
       Packers.for(self) 
@@ -29,6 +31,7 @@ module Packable
   end
 
   module ClassMethods    
+
     def unpack(s, options = :default)
       return s.unpack(options).first if options.is_a? String
       StringIO.new(s).packed.read(self, options)
@@ -39,6 +42,7 @@ module Packable
     # * define a class method +read_packed+ that returns the newly read object
     # * define an instance method +read_packed+ which reads the io into +self+
     # * define a class method +unpack_string+ that reads and returns an object from the string. In this case, options[:bytes] should be specified!
+    #
     def read_packed(io, options)
       if method_defined? :read_packed
         mandatory = instance_method(:initialize).arity
