@@ -1,18 +1,32 @@
 = Backports Library
 
-Essential backports that make it possible to use some of the really nice features of Ruby 1.8.7, Ruby 1.9 and rails from Ruby 1.8.x
+Would you like to use features of Ruby 1.8.7 without the need of having 1.8.7 installed? Simply
 
-Conditions for inclusion:
-1. Standard in either Ruby or Rails
-2. Won't break older code
-3. Simple and self-contained
+  require 'backports/1.8.7'
 
-The first and second rules avoids conflicts in future and the past respectively. Because of the second rule, incompatibilities between 1.8 and 1.9 methods are left alone.
-For example, <tt>Module::instance_methods</tt> returns strings in 1.8 and symbols in 1.9; no change can be made without the risk of breaking existing code.
+All 1.8.7 features are now available! Some of the features of 1.9 are also available with
+
+  require 'backports/1.9'
+
+Finally, some features of rails' active-support are also available with
+
+  require 'backports/rails'
+  
+If you want them all:
+
+  require 'backports'
+
+== What's inside
+
+All features of 1.8.7 are backported (well, almost all, see the exception list bellow).
+
+Conditions for inclusion of ruby 1.9 and activesupport features:
+1. Won't break older code
+2. Simple and self-contained
+
+For example, <tt>Module::instance_methods</tt> returns strings in 1.8 and symbols in 1.9; no change can be made without the risk of breaking existing code. Such incompatibilities between 1.8 and 1.9 methods are left unchanged.
 
 More complex features of active-support (even things like <tt>String::pluralize</tt>), won't be included. <tt>require 'activesupport'</tt> if you need them and are not in rails!
-
-I've added these backports as I need them; pull requests welcome (with tests for Ruby 1.9 backports)
 
 == Installation & compatibility
 
@@ -23,58 +37,39 @@ I've added these backports as I need them; pull requests welcome (with tests for
 To use:
 
   require 'rubygems'
-  require 'backports'
+  require 'backports'   # or a subset like "backports/1.8.7"
   # and off you go!
 
-Compatible with Ruby 1.8 & 1.9.
+Compatible with Ruby 1.8 & 1.9, jruby and rubinius.
 
-= List of backports
+= Complete List of backports
 
 == Ruby 1.8.7
 
-Complete Ruby 1.8.7 backporting. Refer to the official list of changes[http://svn.ruby-lang.org/repos/ruby/tags/v1_8_7/NEWS]. All builtin classes are compatible with Ruby 1.8.7: 
-* Array
-* Binding
-* Dir
-* Enumerable
-* Enumerator
-* Fixnum
-* Hash
-* Integer
-* IO (& ARGF)
-* Method
-* Numeric
-* Object
-* ObjectSpace
-* Range
-* Regexp
-* Symbol
-* UnboundMethod
+Complete Ruby 1.8.7 backporting. Refer to the official list of changes[http://svn.ruby-lang.org/repos/ruby/tags/v1_8_7/NEWS].
 
 Only exceptions:
 * String#gsub
 * GC.stress=
 * Process.exec
+* Array#choice (use Array#sample instead)
 * recursive data handling (Array and Hash)
-
-As in Ruby 1.8.7+, there is no need to <tt>require 'enumerator'</tt> in older Ruby, and +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)
 
 == Ruby 1.9
 
 Additionally, the following Ruby 1.9 have been backported:
 
 * Array
-  * +sample+
+  * +try_convert+
 
 * Enumerable
   * +each_with_object+
-  * +reverse_each+
 
 * Enumerator
   * +new+ (with block)
 
 * Hash
-  * <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt> (see _note_)
+  * +try_convert+
   * <tt>default_proc=</tt>
 
 * Kernel
@@ -93,7 +88,7 @@ Additionally, the following Ruby 1.9 have been backported:
   * +clear+
   * +codepoints+, +each_codepoint+
 
-_note_: This usage of <tt>Hash::[]</tt> is not yet documented[http://redmine.ruby-lang.org/issues/show/1385].
++Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)
 
 == Rails
 

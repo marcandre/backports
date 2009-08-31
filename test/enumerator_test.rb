@@ -16,12 +16,12 @@ class EnumeratorTest < Test::Unit::TestCase
     context "#new" do
       should "should accept block" do
         enum = Enumerator.new do |yielder|
-          yielder.yield "This cool new syntax is sponsored by"
-          yielder.yield yielder.class
+          yielder.yield "This syntax is"
+          yielder.yield "cool!"
         end
         assert enum.is_a?(Enumerator)
         2.times do
-          assert_equal ["This cool new syntax is sponsored by", Enumerator::Yielder], enum.to_a
+          assert_equal ["This syntax is", "cool!"], enum.to_a
         end
       end
     end

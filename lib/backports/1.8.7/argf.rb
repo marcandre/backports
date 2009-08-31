@@ -1,22 +1,22 @@
 if RUBY_VERSION < '1.8.7'
   class << ARGF
-    # Standard in Ruby 1.8.7.
-    make_block_optional :each, :each_line, :each_byte
+    # No official documentation...
+    Backports.make_block_optional self, :each, :each_line, :each_byte
   end
 end
 
 class << ARGF
-  # Standard in Ruby 1.8.7.
+  # No official documentation...
   def bytes
     to_enum :each_byte
   end unless method_defined? :bytes
 
-  # Standard in Ruby 1.8.7.
+  # No official documentation...
   def chars
     to_enum :each_char
   end unless method_defined? :chars
 
-  # Standard in Ruby 1.8.7.
+  # No official documentation...
   def each_char
     return to_enum(:each_char) unless block_given?
     if $KCODE == "UTF-8"
@@ -44,13 +44,13 @@ class << ARGF
     self
   end unless method_defined? :each_char
 
-  # Standard in Ruby 1.8.7.
+  # No official documentation...
   alias_method :getbyte, :getc
 
-  # Standard in Ruby 1.8.7.
+  # No official documentation...
   alias_method :readbyte, :readchar
 
-  # Standard in Ruby 1.8.7.
+  # No official documentation...
   def lines(*args)
     to_enum :each_line, *args
   end unless method_defined? :lines

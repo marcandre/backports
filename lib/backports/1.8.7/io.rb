@@ -1,22 +1,22 @@
-if RUBY_VERSION < '1.8.7'
-  class IO
-    make_block_optional :each, :each_line, :each_byte
+class IO
+  if RUBY_VERSION < '1.8.7'
+    Backports.make_block_optional self, :each, :each_line, :each_byte
     class << self
-      make_block_optional :foreach
+      Backports.make_block_optional self, :foreach
     end
   end
 
-end
-
-class IO
+  # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/IO.html]
   def bytes
     to_enum :each_byte
   end unless method_defined? :bytes
   
+  # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/IO.html]
   def chars
     to_enum :each_char
   end unless method_defined? :chars
   
+  # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/IO.html]
   def each_char
     return to_enum(:each_char) unless block_given?
     if $KCODE == "UTF-8"
@@ -47,6 +47,7 @@ class IO
   alias_method :getbyte, :getc  unless method_defined? :getbyte
   alias_method :readbyte, :readchar unless method_defined? :readchar
   
+  # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/IO.html]
   def lines(*args)
     to_enum :each_line, *args
   end unless method_defined? :lines

@@ -1,18 +1,9 @@
+require 'enumerator'
 module Enumerable
-  # Standard in rails... See official documentation[http://api.rubyonrails.org/classes/Enumerable.html]
-  # Modified from rails 2.3 to not rely on size
-  def sum(identity = 0, &block)
-    if block_given?
-      map(&block).sum(identity)
-    else
-      inject { |sum, element| sum + element } || identity
-    end
-  end unless method_defined? :sum
-
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def count(item = Undefined)
+  def count(item = Backports::Undefined)
     seq = 0
-    if item != Undefined
+    if item != Backports::Undefined
       each { |o| seq += 1 if item == o }
     elsif block_given?
       each { |o| seq += 1 if yield(o) }
@@ -26,7 +17,7 @@ module Enumerable
   def cycle(n = nil, &block)
     return to_enum(:cycle, n) unless block_given?
     return loop(&block) if nil == n
-    n = Type.coerce_to(n, Fixnum, :to_int)
+    n = Backports.coerce_to(n, Fixnum, :to_int)
     if n >= 1
       cache = []
       each do |elem|
@@ -37,11 +28,14 @@ module Enumerable
     end
   end unless method_defined? :cycle
   
-  make_block_optional :detect, :find, :find_all, :select, :sort_by, :partition, :reject, :test_on => 1..2
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  Backports.make_block_optional self, :each_cons, :each_slice, :test_on => 1..2, :arg => 1
+
+  Backports.make_block_optional self, :detect, :find, :find_all, :select, :sort_by, :partition, :reject, :test_on => 1..2
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def drop(n)
-    n = Type.coerce_to(n, Fixnum, :to_int)
+    n = Backports.coerce_to(n, Fixnum, :to_int)
     raise ArgumentError, "attempt to drop negative size" if n < 0
     ary = to_a
     return [] if n > ary.size
@@ -60,9 +54,6 @@ module Enumerable
   end unless method_defined? :drop_while
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  make_block_optional :each_cons, :each_slice, :test_on => 1..2, :arg => 1
-
-  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   if instance_method(:each_with_index).arity.zero?
     def each_with_index_with_optional_args_and_block(*args, &block)
       return to_enum(:each_with_index, *args) unless block_given?
@@ -70,19 +61,12 @@ module Enumerable
       each(*args) { |o| yield(o, idx); idx += 1 }
       self
     end
-    alias_method_chain :each_with_index, :optional_args_and_block
+    Backports.alias_method_chain self, :each_with_index, :optional_args_and_block
   end
-  
-  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def each_with_object(memo, &block)
-    return to_enum(:each_with_object, memo) unless block_given?
-    each {|obj| block.call(obj, memo)}
-    memo
-  end unless method_defined? :each_with_object
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def find_index(obj = Undefined)
-    if obj != Undefined
+  def find_index(obj = Backports::Undefined)
+    if obj != Backports::Undefined
       each_with_index do |element, i|
         return i if element == obj
       end
@@ -97,8 +81,8 @@ module Enumerable
   end unless method_defined? :find_index
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def first(n = Undefined)
-    return take(n) unless n == Undefined
+  def first(n = Backports::Undefined)
+    return take(n) unless n == Backports::Undefined
     each{|obj| return obj}
     nil
   end unless method_defined? :first
@@ -106,7 +90,7 @@ module Enumerable
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def group_by
     return to_enum(:group_by) unless block_given?
-    returning({}) do |result|
+    {}.tap do |result|
       each do |o|
         result.fetch(yield(o)){|key| result[key] = []} << o
       end
@@ -120,7 +104,7 @@ module Enumerable
       method = args.pop
       inject_without_symbol(*args) {|memo, obj| memo.send(method, obj)}
     end
-    alias_method_chain :inject, :symbol
+    Backports.alias_method_chain self, :inject, :symbol
   end
   
   MOST_EXTREME_OBJECT_EVER = Object.new # :nodoc:
@@ -156,8 +140,8 @@ module Enumerable
         min = max = object
         first_time = false
       else
-        min = object if Type.coerce_to_comparison(min, object, yield(min, object)) > 0
-        max = object if Type.coerce_to_comparison(max, object, yield(max, object)) < 0
+        min = object if Backports.coerce_to_comparison(min, object, yield(min, object)) > 0
+        max = object if Backports.coerce_to_comparison(max, object, yield(max, object)) < 0
       end
     end
     [min, max]
@@ -214,9 +198,9 @@ module Enumerable
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def take(n)
-    n = Type.coerce_to(n, Fixnum, :to_int)
+    n = Backports.coerce_to(n, Fixnum, :to_int)
     raise ArgumentError, "attempt to take negative size: #{n}" if n < 0
-    returning([]) do |array|
+    [].tap do |array|
       each do |elem|
         array << elem
         break if array.size >= n
@@ -239,7 +223,7 @@ module Enumerable
       return to_a_without_optional_arguments if args.empty?
       to_enum(:each, *args).to_a
     end
-    alias_method_chain :to_a, :optional_arguments
+    Backports.alias_method_chain self, :to_a, :optional_arguments
   end
   
   # alias_method gives a warning, so instead copy-paste:
@@ -248,7 +232,7 @@ module Enumerable
       return entries_without_optional_arguments if args.empty?
       to_enum(:each, *args).entries
     end
-    alias_method_chain :entries, :optional_arguments
+    Backports.alias_method_chain self, :entries, :optional_arguments
   end
   
 end

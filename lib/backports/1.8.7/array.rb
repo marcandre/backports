@@ -1,19 +1,7 @@
 class Array
-  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
-  class << self
-    # Try to convert obj into an array, using to_ary method.
-    # Returns converted array or nil if obj cannot be converted
-    # for any reason. This method is to check if an argument is an array.
-    def try_convert(obj)
-      return nil unless obj.respond_to?(:to_ary)
-      Type.coerce_to(obj, Array, :to_ary)
-    end
-  end
-
-
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   def combination(num)
-    num = Type.coerce_to num, Fixnum, :to_int
+    num = Backports.coerce_to num, Fixnum, :to_int
     return to_enum(:combination, num) unless block_given?
     return self unless (0..size).include? num
     # Implementation note: slightly tricky.
@@ -36,19 +24,14 @@ class Array
     if n.nil?
       loop(&block)
     else
-      n = Type.coerce_to n, Fixnum, :to_int
+      n = Backports.coerce_to n, Fixnum, :to_int
       n.times{each(&block)}
     end
     nil
   end unless method_defined? :cycle
 
-  # Standard in rails, and we use it here...
-  def extract_options!
-    last.is_a?(::Hash) ? pop : {}
-  end unless method_defined? :extract_options!
-
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
-  make_block_optional :collect!, :map!, :each, :each_index, :reverse_each, :reject, :reject!, :delete_if, :test_on => [42]
+  Backports.make_block_optional self, :collect!, :map!, :each, :each_index, :reverse_each, :reject, :reject!, :delete_if, :test_on => [42]
 
   # flatten & flatten!, standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   unless ([[]].flatten(1) rescue false)
@@ -63,7 +46,7 @@ class Array
     # made, returns nil, otherwise self.
     # Adapted from rubinius'
     def flatten_with_optional_argument!(level=-1)
-      level = Type.coerce_to(level, Integer, :to_int)
+      level = Backports.coerce_to(level, Integer, :to_int)
       return flatten_without_optional_argument! unless level >= 0
 
       ret, out = nil, []
@@ -72,8 +55,8 @@ class Array
       ret
     end
 
-    alias_method_chain :flatten, :optional_argument
-    alias_method_chain :flatten!, :optional_argument
+    Backports.alias_method_chain self, :flatten, :optional_argument
+    Backports.alias_method_chain self, :flatten!, :optional_argument
 
     # Helper to recurse through flattening
     # Adapted from rubinius'; recursion guards are not needed because level is finite
@@ -103,57 +86,57 @@ class Array
       each_with_index{|o,i| return i if yield o}
       return nil
     end
-    alias_method_chain :index, :block
+    Backports.alias_method_chain self, :index, :block
     alias_method :find_index, :index
   end
 
   # pop. Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   unless ([1].pop(1) rescue false)
-    def pop_with_optional_argument(n = Undefined)
-      return pop_without_optional_argument if n == Undefined
-      n = Type.coerce_to(n, Fixnum, :to_int)
+    def pop_with_optional_argument(n = Backports::Undefined)
+      return pop_without_optional_argument if n == Backports::Undefined
+      n = Backports.coerce_to(n, Fixnum, :to_int)
       raise ArgumentError, "negative array size" if n < 0
       first = size - n
       first = 0 if first < 0
       slice!(first..size).to_a
     end
-    alias_method_chain :pop, :optional_argument
+    Backports.alias_method_chain self, :pop, :optional_argument
   end
 
-  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   def product(*arg)
     # Implementation notes: We build an enumerator for all the combinations
     # by building it up successively using "inject" and starting from a trivial enumerator.
     # It would be easy to have "product" yield to a block but the standard
     # simply returns an array, so you'll find a simple call to "to_a" at the end.
     #
-    trivial_enum = Enumerator.new{|yielder| yielder.yield [] }
-    [self, *arg].map{|x| Type.coerce_to(x, Array, :to_ary)}.
+    trivial_enum = Enumerator.new(Backports::Yielder.new{|yielder| yielder.yield [] })  # Enumerator.new{...} is 1.9+ only
+    [self, *arg].map{|x| Backports.coerce_to(x, Array, :to_ary)}.
       inject(trivial_enum) do |enum, array|
-        Enumerator.new do |yielder|
+        Enumerator.new(Backports::Yielder.new do |yielder|   # Enumerator.new{...} is 1.9+ only
           enum.each do |partial_product|
             array.each do |obj|
               yielder.yield partial_product + [obj]
             end
           end
-        end
+        end)
     end.to_a
   end unless method_defined? :product
 
-  # rindex
+  # rindex. Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   unless ([1].rindex{true} rescue false)
     def rindex_with_block(*arg)
       return rindex_without_block(*arg) unless block_given? && arg.empty?
       reverse_each.each_with_index{|o,i| return size - 1 - i if yield o}
       return nil
     end
-    alias_method_chain :rindex, :block
+    Backports.alias_method_chain self, :rindex, :block
   end
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
-  def sample(n = Undefined)
-    return self[rand(size)] if n == Undefined
-    n = Type.coerce_to(n, Fixnum, :to_int)
+  def sample(n = Backports::Undefined)
+    return self[rand(size)] if n == Backports::Undefined
+    n = Backports.coerce_to(n, Fixnum, :to_int)
     raise ArgumentError, "negative array size" if n < 0
     n = size if n > size
     result = Array.new(self)
@@ -164,16 +147,16 @@ class Array
     result[n..size] = []
     result
   end unless method_defined? :sample
-
+  
   # shift. Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   unless ([1].shift(1) rescue false)
-    def shift_with_optional_argument(n = Undefined)
-      return shift_without_optional_argument if n == Undefined
-      n = Type.coerce_to(n, Fixnum, :to_int)
+    def shift_with_optional_argument(n = Backports::Undefined)
+      return shift_without_optional_argument if n == Backports::Undefined
+      n = Backports.coerce_to(n, Fixnum, :to_int)
       raise ArgumentError, "negative array size" if n < 0
       slice!(0, n)
     end
-    alias_method_chain :shift, :optional_argument
+    Backports.alias_method_chain self, :shift, :optional_argument
   end
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
