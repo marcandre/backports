@@ -23,6 +23,8 @@ class String
     alias_method :chars, :each_char unless method_defined? :chars
   end
   
+  alias_method :lines, :each_line unless method_defined? :lines
+  
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def end_with?(*suffixes)
     suffixes.each do |suffix|
