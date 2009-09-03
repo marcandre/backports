@@ -1,6 +1,6 @@
 = Packable --- History
 
-== Version 1.8.2 - September 3rd, 2009
+== Version 1.8.4 - September 3rd, 2009
 
 Added Dir.mktmpdir for older version of 1.8.6
 
