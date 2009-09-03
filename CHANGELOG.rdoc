@@ -1,5 +1,20 @@
 = Packable --- History
 
+== Version 1.8.2 - September 3rd, 2009
+
+Added Dir.mktmpdir for older version of 1.8.6
+
+== Version 1.8.1 - September 1st, 2009
+
+Added the alias String#lines (Ruby 1.8.7)
+
+== Version 1.8 - August 30, 2009
+
+Backports can be required selectively:
+* backports/1.8.7
+* backports/1.9 (which include 1.8.7)
+* rails
+
 == Version 1.8 - August 30, 2009
 
 Backports can be required selectively:
