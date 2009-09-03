@@ -4,7 +4,7 @@ class Dir
     Backports.make_block_optional self, :foreach, :test_on => Dir, :arg => "."
     
     def mktmpdir(prefix_suffix=nil, tmpdir=nil)
-      raise NoMethodError, "undefined method `mktmpdir' for Dir:Class; you must require 'tmpdir'" unless Dir.method_defined? :tmpdir
+      raise NoMethodError, "undefined method `mktmpdir' for Dir:Class; you must require 'tmpdir'" unless method_defined? :tmpdir
       
       case prefix_suffix
       when nil
