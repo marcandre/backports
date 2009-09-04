@@ -7,24 +7,26 @@ class String
     chars.first
   end unless method_defined? :chr
 
-  Backports.make_block_optional self, :each_byte, :each, :each_line, :test_on => "abc"
-  
+  Backports.make_block_optional self, :each_byte, :each_line, :test_on => "abc"
+
+  Backports.make_block_optional self, :each, :test_on => "abc" if "is there still an each?".respond_to? :each
+
   # gsub: Left alone because of $~, $1, etc... which needs to be "pushed" up one level
   # It's possible to do so, but gsub is used everywhere so i felt
   # the performance hit was too big compared to the dubious gain.
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless method_defined? :each_char
     def each_char(&block)
       return to_enum(:each_char) unless block_given?
       scan(/./, &block)
-    end 
+    end
 
     alias_method :chars, :each_char unless method_defined? :chars
   end
-  
+
   alias_method :lines, :each_line unless method_defined? :lines
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def end_with?(*suffixes)
     suffixes.each do |suffix|
@@ -34,12 +36,12 @@ class String
     end
     false
   end unless method_defined? :end_with?
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless ("check partition".partition(" ") rescue false)
     def partition_with_new_meaning(pattern = Backports::Undefined, &block)
       return partition_without_new_meaning(&block) if pattern == Backports::Undefined
-      pattern = Backports.coerce_to(pattern, String, :to_str) unless pattern.is_a? Regexp      
+      pattern = Backports.coerce_to(pattern, String, :to_str) unless pattern.is_a? Regexp
       i = index(pattern)
       return [self, "", ""] unless i
       if pattern.is_a? Regexp
@@ -58,7 +60,7 @@ class String
     pattern = Backports.coerce_to(pattern, String, :to_str) unless pattern.is_a? Regexp
     i = rindex(pattern)
     return ["", "", self] unless i
-    
+
     if pattern.is_a? Regexp
       match = Regexp.last_match
       [match.pre_match, match[0], match.post_match]
@@ -67,7 +69,7 @@ class String
       [self[0...i], self[i...last], self[last...length]]
     end
   end unless method_defined? :rpartition
- 
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def start_with?(*prefixes)
     prefixes.each do |prefix|
@@ -77,7 +79,7 @@ class String
     end
     false
   end unless method_defined? :start_with?
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless ("abc".upto("def", true) rescue false)
     def upto_with_exclusive(to, excl=false, &block)
