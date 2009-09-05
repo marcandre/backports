@@ -1,6 +1,6 @@
 = Packable --- History
 
-== Version 1.8.5 - September 4th, 2009
+== Version 1.9.0 - September 4th, 2009
 
 * In Ruby 1.9, most class methods of File accept filenames as String, or convertible via #to_str or #to_path.
 File#to_path is also an alias to File#path. These have been backported.
