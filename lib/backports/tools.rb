@@ -4,12 +4,12 @@ module Backports
   # Adapted from Pragmatic's "Programming Ruby" (since their version was buggy...)
   def self.require_relative(relative_feature)
     file = caller.first.split(/:\d/,2).first
-    if /\A\((.*)\)/ =~ file # eval, etc. 
-      raise LoadError, "require_relative is called in #{$1}" 
-    end 
+    if /\A\((.*)\)/ =~ file # eval, etc.
+      raise LoadError, "require_relative is called in #{$1}"
+    end
     require File.expand_path(relative_feature, File.dirname(file))
   end
-  
+
   # Metaprogramming utility to make block optional.
   # Tests first if block is already optional when given options
   def self.make_block_optional mod,*methods
@@ -23,7 +23,7 @@ module Backports
         test_on = options[:test_on] || self.new
         next if (test_on.send(selector, *options.fetch(:arg, [])) rescue false)
       end
-      
+
       arity = mod.instance_method(selector).arity
       last_arg = []
       if arity < 0
@@ -41,6 +41,55 @@ module Backports
         end_eval
       end
     end
+  end
+
+  # Metaprogramming utility to convert the first file argument to path
+  def self.convert_first_argument_to_path mod,*methods
+    methods.each do |selector|
+      unless mod.method_defined? selector
+        warn "#{mod}##{selector} is not defined, so argument can't converted to path"
+        next
+      end
+      arity = mod.instance_method(selector).arity
+      last_arg = []
+      if arity < 0
+        last_arg = ["*rest"]
+        arity = -1-arity
+      end
+      arg_sequence = (["file"] + (1...arity).map{|i| "arg_#{i}"} + last_arg + ["&block"]).join(", ")
+
+      alias_method_chain(mod, selector, :potential_path_argument) do |aliased_target, punctuation|
+        mod.module_eval <<-end_eval
+          def #{aliased_target}_with_potential_path_argument#{punctuation}(#{arg_sequence})
+            file = Backports.convert_to_path(file)
+            #{aliased_target}_without_potential_path_argument#{punctuation}(#{arg_sequence})
+          end
+        end_eval
+      end
+    end
+  end
+
+  # Metaprogramming utility to convert all file arguments to paths
+  def self.convert_all_arguments_to_path mod, skip, *methods
+    methods.each do |selector|
+      unless mod.method_defined? selector
+        warn "#{mod}##{selector} is not defined, so arguments can't converted to path"
+        next
+      end
+      first_args = (1..skip).map{|i| "arg_#{i}"}.join(",") + (skip > 0 ? "," : "")
+      alias_method_chain(mod, selector, :potential_path_arguments) do |aliased_target, punctuation|
+        mod.module_eval <<-end_eval
+          def #{aliased_target}_with_potential_path_arguments#{punctuation}(#{first_args}*files, &block)
+            files = files.map{|f| Backports.convert_to_path f}
+            #{aliased_target}_without_potential_path_arguments#{punctuation}(#{first_args}*files, &block)
+          end
+        end_eval
+      end
+    end
+  end
+
+  def self.convert_to_path(file_or_path)
+    coerce_to(file_or_path, String, :to_str) rescue coerce_to(file_or_path, String, :to_path) rescue file_or_path
   end
 
   # Modified to avoid polluting Module if so desired
@@ -67,10 +116,10 @@ module Backports
       end
     end
   end
-  
+
   # Helper method to coerce a value into a specific class.
   # Raises a TypeError if the coercion fails or the returned value
-  # is not of the right class. 
+  # is not of the right class.
   # (from Rubinius)
   def self.coerce_to(obj, cls, meth)
     return obj if obj.kind_of?(cls)
@@ -84,7 +133,7 @@ module Backports
     raise TypeError, "Coercion error: obj.#{meth} did NOT return a #{cls} (was #{ret.class})" unless ret.kind_of? cls
     ret
   end
-  
+
   # Checks for a failed comparison (in which case it throws an ArgumentError)
   # Additionally, it maps any negative value to -1 and any positive value to +1
   # (from Rubinius)
@@ -98,7 +147,7 @@ module Backports
   # Used internally to make it easy to deal with optional arguments
   # (from Rubinius)
   Undefined = Object.new
-  
+
   # A simple class which allows the construction of Enumerator from a block
   class Yielder
     def initialize(&block)

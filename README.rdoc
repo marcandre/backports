@@ -68,6 +68,10 @@ Additionally, the following Ruby 1.9 have been backported:
 * Enumerator
   * +new+ (with block)
 
+* File
+  * +to_path+
+  * All class methods accepting filenames will accept files or anything with a #to_path method.
+
 * Hash
   * +try_convert+
   * <tt>default_proc=</tt>
