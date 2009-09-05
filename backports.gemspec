@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{backports}
-  s.version = "1.8.4"
+  s.version = "1.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marc-Andr\303\251 Lafortune"]
-  s.date = %q{2009-09-03}
+  s.date = %q{2009-09-05}
   s.description = %q{      Essential backports that enable some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.
 }
   s.email = %q{github@marc-andre.ca}
@@ -57,11 +57,14 @@ Gem::Specification.new do |s|
      "lib/backports/1.9/array.rb",
      "lib/backports/1.9/enumerable.rb",
      "lib/backports/1.9/enumerator.rb",
+     "lib/backports/1.9/file.rb",
      "lib/backports/1.9/hash.rb",
      "lib/backports/1.9/integer.rb",
+     "lib/backports/1.9/io.rb",
      "lib/backports/1.9/kernel.rb",
      "lib/backports/1.9/string.rb",
      "lib/backports/1.9/symbol.rb",
+     "lib/backports/basic_object.rb",
      "lib/backports/rails.rb",
      "lib/backports/rails/array.rb",
      "lib/backports/rails/enumerable.rb",
@@ -71,6 +74,7 @@ Gem::Specification.new do |s|
      "lib/backports/rails/string.rb",
      "lib/backports/tools.rb",
      "test/array_test.rb",
+     "test/basic_object_test.rb",
      "test/binding_test.rb",
      "test/enumerable_test.rb",
      "test/enumerator_test.rb",
@@ -92,6 +96,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Backports or ruby 1.8.7+ & rails for older ruby.}
   s.test_files = [
     "test/array_test.rb",
+     "test/basic_object_test.rb",
      "test/binding_test.rb",
      "test/enumerable_test.rb",
      "test/enumerator_test.rb",
