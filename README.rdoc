@@ -69,6 +69,7 @@ Additionally, the following Ruby 1.9 have been backported:
   * +new+ (with block)
 
 * File
+  * +binread+
   * +to_path+
   * All class methods accepting filenames will accept files or anything with a #to_path method.
 
@@ -93,6 +94,10 @@ Additionally, the following Ruby 1.9 have been backported:
   * +codepoints+, +each_codepoint+
 
 +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)
+
+Moreover, a pretty good imitation of BasicObject is available, but it must be required explicitely:
+
+  require 'backports/basic_object'
 
 == Rails
 

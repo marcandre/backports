@@ -2,8 +2,12 @@
 
 == Version 1.8.5 - September 4th, 2009
 
-In Ruby 1.9, most class methods of File accept filenames as String, or convertible via #to_str or #to_path.
+* In Ruby 1.9, most class methods of File accept filenames as String, or convertible via #to_str or #to_path.
 File#to_path is also an alias to File#path. These have been backported.
+
+* File.binread (actually IO.binread)
+
+* BasicObject available via "require 'backports/basic_object"
 
 == Version 1.8.4 - September 3rd, 2009
 
