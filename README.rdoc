@@ -63,6 +63,7 @@ Additionally, the following Ruby 1.9 have been backported:
 
 * Enumerable
   * +each_with_object+
+  * +chunk+
 
 * Enumerator
   * +new+ (with block)
@@ -81,6 +82,7 @@ Additionally, the following Ruby 1.9 have been backported:
 
 * Object
   * +define_singleton_method+
+  * +respond_to_missing?+
 
 * Proc
   * +yield+

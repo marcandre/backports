@@ -1,8 +1,10 @@
 = Packable --- History
 
-== Version 1.9.1 - September 4th, 2009
+== Version 1.9.1 - September 29th, 2009
 
-* Added respond_to_missing? (Ruby 1.9)
+* Added Enumerable#chunk (Ruby 1.9)
+
+* Added Kernel#respond_to_missing? (Ruby 1.9)
 
 * Completed Process.exec (Ruby 1.8.7)
 
