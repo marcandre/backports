@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{backports}
-  s.version = "1.9.0"
+  s.version = "1.10.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marc-Andr\303\251 Lafortune"]
-  s.date = %q{2009-09-05}
+  s.date = %q{2009-09-29}
   s.description = %q{      Essential backports that enable some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.
 }
   s.email = %q{github@marc-andre.ca}
@@ -55,6 +55,7 @@ Gem::Specification.new do |s|
      "lib/backports/1.8.7/symbol.rb",
      "lib/backports/1.9.rb",
      "lib/backports/1.9/array.rb",
+     "lib/backports/1.9/dir.rb",
      "lib/backports/1.9/enumerable.rb",
      "lib/backports/1.9/enumerator.rb",
      "lib/backports/1.9/file.rb",
@@ -62,6 +63,7 @@ Gem::Specification.new do |s|
      "lib/backports/1.9/integer.rb",
      "lib/backports/1.9/io.rb",
      "lib/backports/1.9/kernel.rb",
+     "lib/backports/1.9/method.rb",
      "lib/backports/1.9/string.rb",
      "lib/backports/1.9/symbol.rb",
      "lib/backports/basic_object.rb",
@@ -80,6 +82,7 @@ Gem::Specification.new do |s|
      "test/enumerator_test.rb",
      "test/hash_test.rb",
      "test/kernel_test.rb",
+     "test/method_missing_test.rb",
      "test/method_test.rb",
      "test/module_test.rb",
      "test/object_test.rb",
@@ -102,6 +105,7 @@ Gem::Specification.new do |s|
      "test/enumerator_test.rb",
      "test/hash_test.rb",
      "test/kernel_test.rb",
+     "test/method_missing_test.rb",
      "test/method_test.rb",
      "test/module_test.rb",
      "test/object_test.rb",
