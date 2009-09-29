@@ -46,13 +46,15 @@ Compatible with Ruby 1.8 & 1.9, jruby and rubinius.
 
 == Ruby 1.8.7
 
-Complete Ruby 1.8.7 backporting. Refer to the official list of changes[http://svn.ruby-lang.org/repos/ruby/tags/v1_8_7/NEWS].
+Complete Ruby 1.8.7 backporting (core language). Refer to the official list of changes[http://svn.ruby-lang.org/repos/ruby/tags/v1_8_7/NEWS].
 
 Only exceptions:
 * String#gsub
 * GC.stress=
 * Array#choice (use Array#sample instead)
 * recursive data handling (Array, Hash, ...)
+
+Libraries have not been backported. See at the end for list of known library backports
 
 == Ruby 1.9
 
@@ -122,6 +124,14 @@ Some generic methods from Rails methods have been copied:
   * +camelize+, +underscore+
   * +dasherize+, +demodulize+
   * +constantize+
+
+== Libraries
+
+Libraries have not been backported. I am aware of following the backport gems:
+
+* Net::SMTP for Ruby 1.8.6: smtp_tls[http://seattlerb.rubyforge.org/smtp_tls/]
+
+* Let me know of others...
 
 = License
 
