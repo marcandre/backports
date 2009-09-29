@@ -5,7 +5,7 @@ class Hash
     def try_convert(x)
       return nil unless x.respond_to? :to_hash
       x.to_hash
-    end unless method_defined? :to_hash
+    end unless method_defined? :try_convert
   end
   
   # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]

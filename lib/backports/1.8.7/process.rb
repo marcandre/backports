@@ -1,5 +1,3 @@
 module Process
-  def self.exec(*args)
-    raise NotImplementedError
-  end
+  module_function :exec unless class << self; method_defined? :exec; end
 end

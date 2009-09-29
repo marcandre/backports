@@ -7,8 +7,8 @@ class Array
     # Implementation note: slightly tricky.
                                              # Example: self = 1..7, num = 3
     picks = (0...num).to_a                   # picks start at 0, 1, 2
-    max = ((size-num)...size).to_a           # max (index for a given pick) is [4, 5, 6]
-    pick_max_pairs = picks.zip(max).reverse  # pick_max_pairs = [[2, 6], [1, 5], [0, 4]]
+    max_index = ((size-num)...size).to_a           # max (index for a given pick) is [4, 5, 6]
+    pick_max_pairs = picks.zip(max_index).reverse  # pick_max_pairs = [[2, 6], [1, 5], [0, 4]]
     lookup = pick_max_pairs.find(Proc.new{return self})
     loop do
       yield values_at(*picks)

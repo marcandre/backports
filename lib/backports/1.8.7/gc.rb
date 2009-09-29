@@ -1,9 +1,11 @@
 module GC
-  def self.stress
-    false
-  end
+  class << self
+    def stress
+      false
+    end unless method_defined? :stress
 
-  def self.stress=(flag)
-    raise NotImplementedError
+    def stress=(flag)
+      raise NotImplementedError
+    end unless method_defined? :stress=
   end
 end

@@ -51,9 +51,8 @@ Complete Ruby 1.8.7 backporting. Refer to the official list of changes[http://sv
 Only exceptions:
 * String#gsub
 * GC.stress=
-* Process.exec
 * Array#choice (use Array#sample instead)
-* recursive data handling (Array and Hash)
+* recursive data handling (Array, Hash, ...)
 
 == Ruby 1.9
 

@@ -1,5 +1,9 @@
 = Packable --- History
 
+== Version 1.9.1 - September 4th, 2009
+
+* Completed Process.exec (Ruby 1.8.7)
+
 == Version 1.9.0 - September 4th, 2009
 
 * In Ruby 1.9, most class methods of File accept filenames as String, or convertible via #to_str or #to_path.

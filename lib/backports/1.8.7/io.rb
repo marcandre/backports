@@ -42,7 +42,7 @@ class IO
     end
 
     self
-  end
+  end unless method_defined? :each_char
 
   alias_method :getbyte, :getc  unless method_defined? :getbyte
   alias_method :readbyte, :readchar unless method_defined? :readchar

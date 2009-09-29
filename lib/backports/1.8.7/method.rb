@@ -24,7 +24,7 @@ unless Method.method_defined? :name
     Backports.alias_method_chain self, :bind, :additional_info
   end
 
-  class Object
+  module Kernel
     def method_with_additional_info(name)
       method_without_additional_info(name).tap do |bound|
         bound.name = name.to_sym
