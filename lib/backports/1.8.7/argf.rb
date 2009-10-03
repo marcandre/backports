@@ -45,10 +45,10 @@ class << ARGF
   end unless method_defined? :each_char
 
   # No official documentation...
-  alias_method :getbyte, :getc
+  alias_method :getbyte, :getc unless method_defined? :getbyte
 
   # No official documentation...
-  alias_method :readbyte, :readchar
+  alias_method :readbyte, :readchar unless method_defined? :readbyte
 
   # No official documentation...
   def lines(*args)

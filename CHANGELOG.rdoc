@@ -1,6 +1,6 @@
 = Packable --- History
 
-== Version 1.9.1 - September 29th, 2009
+== Version 1.10.0 - September 29th, 2009
 
 * Added Enumerable#chunk (Ruby 1.9)
 
