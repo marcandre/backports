@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION.yml",
+     "backports.gemspec",
      "lib/backports.rb",
      "lib/backports/1.8.7.rb",
      "lib/backports/1.8.7/argf.rb",
