@@ -79,8 +79,8 @@ unless Kernel.method_defined? :respond_to_missing?
       false
     end
 
-    def respond_to_with_call_to_respond_to_missing? method
-      respond_to_without_call_to_respond_to_missing?(method) || respond_to_missing?(method)
+    def respond_to_with_call_to_respond_to_missing? method, include_priv=false
+      respond_to_without_call_to_respond_to_missing?(method, include_priv) || respond_to_missing?(method)
     end
     Backports.alias_method_chain self, :respond_to?, :call_to_respond_to_missing
 

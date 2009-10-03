@@ -7,30 +7,36 @@ module Enumerable
   end unless method_defined? :each_with_object
 
   def chunk(initial_state = nil, &original_block)
-    Enumerator.new do |yielder|
-      previous = Backports::Undefined
+    raise ArgumentError, "no block given" unless block_given?
+    ::Enumerator.new do |yielder|
+      previous = nil
       accumulate = []
       block = initial_state.nil? ? original_block : Proc.new{|val| original_block.yield(val, initial_state.clone)}
       each do |val|
-        case key = block.yield(val)
-        when nil, :_separator
-          next
-        when :_singleton
-          yielder.yield previous, accumulate unless accumulate.empty?
-          yielder.yield key, [val]
+        key = block.yield(val)
+        if key.nil? || (key.is_a?(Symbol) && key.to_s[0,1] == "_")
+          yielder.yield [previous, accumulate] unless accumulate.empty?
           accumulate = []
-          previous = Backports::Undefined
-        when previous, Backports::Undefined
-          accumulate << val
-          previous = key
+          previous = nil
+          case key
+          when nil, :_separator
+          when :_singleton
+            yielder.yield [key, [val]]
+          else
+            raise RuntimeError, "symbol beginning with an underscore are reserved"
+          end
         else
-          yielder.yield previous, accumulate unless accumulate.empty?
-          accumulate = [val]
+          if previous.nil? || previous == key
+            accumulate << val
+          else
+            yielder.yield [previous, accumulate] unless accumulate.empty?
+            accumulate = [val]
+          end
           previous = key
         end
       end
       # what to do in case of a break?
-      yielder.yield previous, accumulate unless accumulate.empty?
+      yielder.yield [previous, accumulate] unless accumulate.empty?
     end
-  end
+  end unless method_defined? :chunk
 end

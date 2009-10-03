@@ -199,7 +199,30 @@ class EnumerableTest < Test::Unit::TestCase
             [1, [3,4,5]],
             [0, [6,7]]], e.to_a
         end
+
+        should "should pass two arguments to the block" do
+          e = (1..7).chunk{|i| (i/3) % 2}
+          e.each do |key, val|
+            assert_equal 0, key
+            assert_equal [1,2], val
+            break
+          end
+        end
+
+        should "handles nil & :_symbol" do
+          a = [1,1,nil,1,:_separator, 1, :_singleton, 1]
+          e = a.size.times.chunk{|i| a[i]}
+          assert_equal [
+            [1,[0,1]],
+            [1,[3]],
+            [1,[5]],
+            [:_singleton, [6]],
+            [1,[7]]
+          ], e.to_a
+        end
+
       end
+
       context "given an initial_state argument" do
         should "give a new copy" do
           a = []
