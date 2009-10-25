@@ -6,6 +6,7 @@ module Enumerable
     memo
   end unless method_defined? :each_with_object
 
+  # Standard in Ruby 1.9.2 See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def chunk(initial_state = nil, &original_block)
     raise ArgumentError, "no block given" unless block_given?
     ::Enumerator.new do |yielder|
@@ -39,4 +40,11 @@ module Enumerable
       yielder.yield [previous, accumulate] unless accumulate.empty?
     end
   end unless method_defined? :chunk
+
+  # Standard in Ruby 1.9.2 See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  def flat_map(&block)
+    return to_enum :flat_map unless block_given?
+    map(&block).flatten(1)
+  end unless method_defined? :flat_map
+  alias_method :collect_concat, :flat_map unless method_defined? :collect_concat
 end
