@@ -9,6 +9,14 @@ module Kernel
     require File.expand_path(relative_feature, File.dirname(file))
   end unless method_defined? :require_relative
 
+  def public_method(meth)
+    if respond_to?(meth) && !protected_methods.include?(meth.to_s)
+      method(meth)
+    else
+      raise NameError, "undefined method `#{meth}' for class `#{self.class}'"
+    end
+  end unless method_defined? :public_method
+
   def public_send(method, *args, &block)
     if respond_to?(method) && !protected_methods.include?(method.to_s)
       send(method, *args, &block)
