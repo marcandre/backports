@@ -7,7 +7,7 @@ module Kernel
       raise LoadError, "require_relative is called in #{$1}" 
     end 
     require File.expand_path(relative_feature, File.dirname(file))
-  end
+  end unless method_defined? :require_relative
 
   def public_send(method, *args, &block)
     if respond_to?(method) && !protected_methods.include?(method.to_s)
