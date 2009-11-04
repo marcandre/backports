@@ -6,13 +6,6 @@ module Kernel
   end unless (__method__ || true rescue false)
 
   # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Object.html]
-  def define_singleton_method(*args, &block)
-    class << self
-      self
-    end.send(:define_method, *args, &block)
-  end unless method_defined? :define_singleton_method
-
-  # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Object.html]
   def instance_exec(*arg, &block)
     define_singleton_method(:"temporary method for instance_exec", &block)
     send(:"temporary method for instance_exec", *arg)

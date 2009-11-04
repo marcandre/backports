@@ -1,5 +1,15 @@
 = Packable --- History
 
+== Version 1.11.0 - November 4th, 2009
+
+* Added Enumerable#flat_map / collect_concat (Ruby 1.9)
+
+* Added Object#public_send (Ruby 1.9)
+
+* Added Object#public_method (Ruby 1.9)
+
+* bug fixes
+
 == Version 1.10.0 - September 29th, 2009
 
 * Added Enumerable#chunk (Ruby 1.9)

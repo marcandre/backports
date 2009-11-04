@@ -1,6 +1,14 @@
 module Kernel
   alias_method :__callee__, :__method__  unless (__callee__ || true rescue false)
-  
+
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Object.html]
+  def define_singleton_method(*args, &block)
+    class << self
+      self
+    end.send(:define_method, *args, &block)
+  end unless method_defined? :define_singleton_method
+
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Object.html]
   def require_relative(relative_feature)
     file = caller.first.split(/:\d/,2).first
     if /\A\((.*)\)/ =~ file # eval, etc. 
@@ -8,7 +16,9 @@ module Kernel
     end 
     require File.expand_path(relative_feature, File.dirname(file))
   end unless method_defined? :require_relative
+  private :require_relative
 
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Object.html]
   def public_method(meth)
     if respond_to?(meth) && !protected_methods.include?(meth.to_s)
       method(meth)
@@ -17,6 +27,7 @@ module Kernel
     end
   end unless method_defined? :public_method
 
+  # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Object.html]
   def public_send(method, *args, &block)
     if respond_to?(method) && !protected_methods.include?(method.to_s)
       send(method, *args, &block)
