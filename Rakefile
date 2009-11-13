@@ -21,6 +21,7 @@ begin
                            '--line-numbers' << '--inline-source'
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    Jeweler::GemcutterTasks.new
   end
   Jeweler::RubyforgeTasks.new do |rubyforge|
     rubyforge.doc_task = "rdoc"
