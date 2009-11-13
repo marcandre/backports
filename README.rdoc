@@ -69,6 +69,7 @@ Additionally, the following Ruby 1.9 have been backported:
 
 * Enumerator
   * +new+ (with block)
+  * +flat_map+, +collect_concat+
 
 * File
   * +binread+
@@ -84,7 +85,6 @@ Additionally, the following Ruby 1.9 have been backported:
 
 * Object
   * +define_singleton_method+
-  * +flat_map+, +collect_concat+
   * +public_method+
   * +public_send+
   * <tt>respond_to_missing?</tt>
