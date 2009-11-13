@@ -21,7 +21,7 @@ class String
   # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def codepoints
     return to_enum(:codepoints) unless block_given?
-    each_char.each do |s|
+    each_char do |s|
       utf8 = s.each_byte.to_a
       utf8[0] &= 0xff >> utf8.size # clear high bits (1 to 4, depending of number of bytes used)
       yield utf8.inject{|result, b| (result << 6) + (b & 0x3f) }

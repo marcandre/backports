@@ -9,6 +9,9 @@ class String
 
   Backports.make_block_optional self, :each_byte, :each_line, :test_on => "abc"
 
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  alias_method :bytes, :each_byte unless method_defined? :bytes
+
   Backports.make_block_optional self, :each, :test_on => "abc" if "is there still an each?".respond_to? :each
 
   # gsub: Left alone because of $~, $1, etc... which needs to be "pushed" up one level

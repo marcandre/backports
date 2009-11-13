@@ -43,7 +43,7 @@ module Enumerable
 
   # Standard in Ruby 1.9.2 See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def flat_map(&block)
-    return to_enum :flat_map unless block_given?
+    return to_enum(:flat_map) unless block_given?
     map(&block).flatten(1)
   end unless method_defined? :flat_map
   alias_method :collect_concat, :flat_map unless method_defined? :collect_concat
