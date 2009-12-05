@@ -10,6 +10,17 @@ module Backports
     require File.expand_path(relative_feature, File.dirname(file))
   end
 
+  def self.require_relative_dir(relative_dir)
+    dir = File.expand_path(relative_dir, File.dirname(caller.first.split(/:\d/,2).first))
+    Dir.entries(dir).
+        map{|f| Regexp.last_match(1) if /^(.*)\.rb$/ =~ f}.
+        compact.
+        sort.
+        each do |f|
+          require File.expand_path(f, dir)
+        end
+  end
+
   # Metaprogramming utility to make block optional.
   # Tests first if block is already optional when given options
   def self.make_block_optional mod,*methods
