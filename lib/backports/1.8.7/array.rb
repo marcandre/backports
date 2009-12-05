@@ -134,6 +134,7 @@ class Array
   end
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
+  # Note: was named #choice in 1.8.7 and renamed in later versions
   def sample(n = Backports::Undefined)
     return self[rand(size)] if n == Backports::Undefined
     n = Backports.coerce_to(n, Fixnum, :to_int)

@@ -1,4 +1,4 @@
-# Standard in Ruby 1.9.2. How do you call the backport of a future feature?
+# Standard in Ruby 1.9.2.
 unless Kernel.method_defined? :respond_to_missing?
   module MissingMethod
     attr_reader :name

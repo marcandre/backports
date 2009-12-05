@@ -1,5 +1,5 @@
 # Must be defined outside of Kernel for jruby, see http://jira.codehaus.org/browse/JRUBY-3609
-Enumerator = Enumerable::Enumerator unless Kernel.const_defined? :Enumerator # Standard in ruby 1.9
+Enumerator = Enumerable::Enumerator unless Object.const_defined? :Enumerator # Standard in ruby 1.9
 
 class Enumerator
   # new with block, standard in Ruby 1.9

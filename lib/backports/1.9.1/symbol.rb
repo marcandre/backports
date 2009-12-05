@@ -28,5 +28,5 @@ class Symbol
     include Comparable
     alias_method :==,  :dont_override_equal_please
   end
-    
+  
 end

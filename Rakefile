@@ -6,12 +6,10 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "backports"
-    gem.summary = "Backports or ruby 1.8.7+ & rails for older ruby."
+    gem.summary = "Backports of Ruby 1.8.7+ for older ruby."
     gem.email = "github@marc-andre.ca"
     gem.homepage = "http://github.com/marcandre/backports"
     gem.authors = ["Marc-André Lafortune"]
-    gem.rubyforge_project = "backports"
-  
     gem.description = <<-EOS
       Essential backports that enable some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.
     EOS
@@ -21,10 +19,8 @@ begin
                            '--line-numbers' << '--inline-source'
 
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.rubyforge_project = "backports"
     Jeweler::GemcutterTasks.new
-  end
-  Jeweler::RubyforgeTasks.new do |rubyforge|
-    rubyforge.doc_task = "rdoc"
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"

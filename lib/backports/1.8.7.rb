@@ -1,4 +1,4 @@
+# require this file to load all the backports of Ruby 1.8.7
+
 require File.expand_path(File.dirname(__FILE__) + "/tools")
-%w(module kernel array enumerable enumerator string symbol integer numeric fixnum hash proc binding dir io method range regexp struct float object_space argf gc env process).each do |lib|
-  Backports.require_relative "1.8.7/#{lib}"
-end
+Backports.require_relative_dir "1.8.7"
