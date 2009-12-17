@@ -136,13 +136,13 @@ class Array
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   # Note: was named #choice in 1.8.7 and renamed in later versions
   def sample(n = Backports::Undefined)
-    return self[rand(size)] if n == Backports::Undefined
+    return self[Kernel.rand(size)] if n == Backports::Undefined
     n = Backports.coerce_to(n, Fixnum, :to_int)
     raise ArgumentError, "negative array size" if n < 0
     n = size if n > size
     result = Array.new(self)
     n.times do |i|
-      r = i + rand(size - i)
+      r = i + Kernel.rand(size - i)
       result[i], result[r] = result[r], result[i]
     end
     result[n..size] = []
@@ -168,7 +168,7 @@ class Array
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   def shuffle!
     size.times do |i|
-      r = i + rand(size - i)
+      r = i + Kernel.rand(size - i)
       self[i], self[r] = self[r], self[i]
     end
     self

@@ -23,7 +23,7 @@ class Dir
       t = Time.now.strftime("%Y%m%d")
       n = nil
       begin
-        path = "#{tmpdir}/#{prefix}#{t}-#{$$}-#{rand(0x100000000).to_s(36)}"
+        path = "#{tmpdir}/#{prefix}#{t}-#{$$}-#{Kernel.rand(0x100000000).to_s(36)}"
         path << "-#{n}" if n
         path << suffix
         Dir.mkdir(path, 0700)
