@@ -27,9 +27,9 @@ unless Method.method_defined? :name
   module Kernel
     def method_with_additional_info(name)
       method_without_additional_info(name).tap do |bound|
-        bound.name = name.to_sym
+        bound.name = name.to_s
         bound.receiver = self
-        bound.owner = self.class.ancestors.find{|mod| mod.instance_methods(false).include? name.to_s}
+        bound.owner = self.class.ancestors.find{|mod| mod.instance_methods(false).include? bound.name}
       end
     end
     Backports.alias_method_chain self, :method, :additional_info
@@ -38,8 +38,8 @@ unless Method.method_defined? :name
   class Module
     def instance_method_with_additional_info(name)
       instance_method_without_additional_info(name).tap do |unbound|
-        unbound.name = name.to_sym
-        unbound.owner = ancestors.find{|mod| mod.instance_methods(false).include? name.to_s}
+        unbound.name = name.to_s
+        unbound.owner = ancestors.find{|mod| mod.instance_methods(false).include? unbound.name}
       end
     end
     Backports.alias_method_chain self, :instance_method, :additional_info
