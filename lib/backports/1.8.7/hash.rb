@@ -1,19 +1,21 @@
 class Hash
   # New Ruby 1.8.7+ constructor -- not documented, see redmine # 1385
   # <tt>Hash[[[:foo, :bar],[:hello, "world"]]] ==> {:foo => :bar, :hello => "world"}</tt>
-  class << self
-    alias_method :original_constructor, :[]
-    def [](*args)
-      return original_constructor(*args) unless args.length == 1 && args.first.is_a?(Array)
-      {}.tap do |h|
+  unless (Hash[[[:test, :test]]] rescue false)
+    class << self
+      alias_method :constructor_without_key_value_pair_form, :[]
+      def [](*args)
+        return constructor_without_key_value_pair_form(*args) unless args.length == 1 && args.first.is_a?(Array)
+        h = {}
         args.first.each do |arr|
           next unless arr.respond_to? :to_ary
           arr = arr.to_ary
           next unless (1..2).include? arr.size
           h[arr.at(0)] = arr.at(1)
         end
+        h
       end
-    end unless (Hash[[[:test, :test]]] rescue false)
+    end
   end
 
   Backports.make_block_optional self, :delete_if, :each, :each_key, :each_pair, :each_value, :reject, :reject!, :select, :test_on => {:hello => "world!"}
