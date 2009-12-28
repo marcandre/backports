@@ -4,7 +4,7 @@ class String
     if first_letter == :upper
       gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
     else
-      first.downcase + camelize[1..-1]
+      self[0..0].downcase + camelize[1..-1]
     end
   end unless method_defined? :camelize
 
