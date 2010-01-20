@@ -90,6 +90,31 @@ class Array
     alias_method :find_index, :index
   end
 
+  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
+  def permutation(num = Backports::Undefined, &block)
+    return to_enum(:permutation, num) unless block_given?
+    num = num.equal?(Backports::Undefined) ?
+          size :
+          Backports.coerce_to(num, Fixnum, :to_int)
+    return self unless (0..size).include? num
+
+    final_lambda = lambda do |partial, remain|
+      yield partial
+    end
+
+    outer_lambda = num.times.inject(final_lambda) do |proc, ignore|
+      lambda do |partial, remain|
+        remain.each_with_index do |val, i|
+          new_remain = remain.dup
+          new_remain.delete_at(i)
+          proc.call(partial.dup << val, new_remain)
+        end
+      end
+    end
+
+    outer_lambda.call([], self)
+  end unless method_defined? :permutation
+
   # pop. Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   unless ([1].pop(1) rescue false)
     def pop_with_optional_argument(n = Backports::Undefined)
@@ -105,22 +130,27 @@ class Array
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   def product(*arg)
-    # Implementation notes: We build an enumerator for all the combinations
-    # by building it up successively using "inject" and starting from a trivial enumerator.
-    # It would be easy to have "product" yield to a block but the standard
-    # simply returns an array, so you'll find a simple call to "to_a" at the end.
+    # Implementation notes: We build a block that will generate all the combinations
+    # by building it up successively using "inject" and starting with one
+    # responsible to append the values.
     #
-    trivial_enum = Enumerator.new(Backports::Yielder.new{|yielder| yielder.yield [] })  # Enumerator.new{...} is 1.9+ only
-    [self, *arg].map{|x| Backports.coerce_to(x, Array, :to_ary)}.
-      inject(trivial_enum) do |enum, array|
-        Enumerator.new(Backports::Yielder.new do |yielder|   # Enumerator.new{...} is 1.9+ only
-          enum.each do |partial_product|
-            array.each do |obj|
-              yielder.yield partial_product + [obj]
-            end
-          end
-        end)
-    end.to_a
+    result = []
+
+    arg.map!{|x| Type.coerce_to(x, Array, :to_ary)}
+    arg.reverse! # to get the results in the same order as in MRI, vary the last argument first
+    arg.push self
+
+    outer_lambda = arg.inject(result.method(:push)) do |proc, values|
+      lambda do |partial|
+        values.each do |val|
+          proc.call(partial.dup << val)
+        end
+      end
+    end
+
+    outer_lambda.call([])
+
+    result
   end unless method_defined? :product
 
   # rindex. Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
