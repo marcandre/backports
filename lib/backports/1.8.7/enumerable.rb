@@ -186,7 +186,7 @@ module Enumerable
     found_one
   end unless method_defined? :one?
 
-  alias_method :reduce, :inject unless method_defined? :reduce
+  Backports.alias_method self, :reduce, :inject
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def reverse_each(&block)

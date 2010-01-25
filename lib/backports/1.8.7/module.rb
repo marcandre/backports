@@ -3,5 +3,5 @@ class Module
   def module_exec(*arg, &block)
     instance_exec(*arg, &block)
   end unless method_defined? :module_exec
-  alias_method :class_exec, :module_exec unless method_defined? :class_exec
+  Backports.alias_method self, :class_exec, :module_exec
 end

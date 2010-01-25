@@ -3,7 +3,7 @@ class File
     stat.size
   end unless method_defined? :size
 
-  alias_method :to_path, :path unless method_defined? :to_path
+  Backports.alias_method self, :to_path, :path
 
   class << self
     if RUBY_VERSION < '1.9' # can't see any other reasonable way to test than this

@@ -15,6 +15,6 @@ class String
   public :codepoints  # Definition in 1.8.8/string.rb
 
   # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  alias_method :each_codepoint, :codepoints unless method_defined? :each_codepoint
+  Backports.alias_method self, :each_codepoint, :codepoints
 
 end

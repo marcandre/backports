@@ -8,10 +8,10 @@ class String
   end
 
   # Standard in Ruby 1.8.8. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  alias_method :getbyte, :[] unless method_defined? :getbyte
+  Backports.alias_method self, :getbyte, :[]
 
   # Standard in Ruby 1.8.8. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  alias_method :setbyte, :[]= unless method_defined? :setbyte
+  Backports.alias_method self, :setbyte, :[]=
 
   # Let's define this here, we can use it for ord:
   unless method_defined? :codepoints

@@ -11,5 +11,5 @@ class Enumerator
     Backports.alias_method_chain self, :initialize, :optional_block
   end
 
-  alias_method :with_object, :each_with_object unless method_defined? :with_object
+  Backports.alias_method self, :with_object, :each_with_object
 end

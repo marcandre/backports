@@ -39,5 +39,5 @@ class Hash
   Backports.make_block_optional self, :delete_if, :each, :each_key, :each_pair, :each_value, :reject, :reject!, :select, :test_on => {:hello => "world!"}
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]
-  alias_method :key, :index unless method_defined? :key
+  Backports.alias_method self, :key, :index
 end

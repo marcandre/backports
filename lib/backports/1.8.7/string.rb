@@ -1,6 +1,6 @@
 class String
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  alias_method :bytesize, :length unless method_defined? :bytesize
+  Backports.alias_method self, :bytesize, :length
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def chr
@@ -10,7 +10,7 @@ class String
   Backports.make_block_optional self, :each_byte, :each_line, :test_on => "abc"
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  alias_method :bytes, :each_byte unless method_defined? :bytes
+  Backports.alias_method self, :bytes, :each_byte
 
   Backports.make_block_optional self, :each, :test_on => "abc" if "is there still an each?".respond_to? :each
 
@@ -25,10 +25,10 @@ class String
       scan(/./, &block)
     end
 
-    alias_method :chars, :each_char unless method_defined? :chars
+    Backports.alias_method self, :chars, :each_char
   end
 
-  alias_method :lines, :each_line unless method_defined? :lines
+  Backports.alias_method self, :lines, :each_line
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def end_with?(*suffixes)

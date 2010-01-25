@@ -1,3 +1,3 @@
 class Range
-  alias_method :cover?, :include? unless method_defined? :cover?
+  Backports.alias_method self, :cover?, :include?
 end

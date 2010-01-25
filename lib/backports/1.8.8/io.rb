@@ -7,5 +7,5 @@ class IO
     end unless method_defined? :try_convert
   end
 
-  alias_method :ungetbyte, :ungetc unless method_defined? :ungetbyte
+  Backports.alias_method self, :ungetbyte, :ungetc
 end

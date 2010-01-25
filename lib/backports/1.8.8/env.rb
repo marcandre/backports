@@ -1,3 +1,3 @@
 class << ENV
-  alias_method :key, :index unless method_defined? :key
+  Backports.alias_method self, :key, :index
 end

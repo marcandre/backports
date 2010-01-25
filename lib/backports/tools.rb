@@ -159,6 +159,14 @@ module Backports
   # (from Rubinius)
   Undefined = Object.new
 
+  # Used internally.
+  # Safe alias_method that will only alias if the source exists and destination doesn't
+  def self.alias_method(mod, new_name, old_name)
+    mod.class_eval do
+      alias_method new_name, old_name if method_defined?(old_name) and not method_defined?(new_name)
+    end
+  end
+
   # A simple class which allows the construction of Enumerator from a block
   class Yielder
     def initialize(&block)

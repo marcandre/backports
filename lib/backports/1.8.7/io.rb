@@ -44,8 +44,8 @@ class IO
     self
   end unless method_defined? :each_char
 
-  alias_method :getbyte, :getc  unless method_defined? :getbyte
-  alias_method :readbyte, :readchar unless method_defined? :readchar
+  Backports.alias_method self, :getbyte, :getc 
+  Backports.alias_method self, :readbyte, :readchar
   
   # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/IO.html]
   def lines(*args)

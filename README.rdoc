@@ -1,6 +1,10 @@
 = Backports Library
 
-Can't remember if you can use Array#sample? One of your client is stuck with Ruby 1.8.6 but you want to use a gem using some features of 1.8.7? This gem is for you!
+* Can't remember if you can use Array#sample?
+* One of your client is stuck with Ruby 1.8.6 but you want to use a gem using some features of 1.8.7?
+* Yearning to use some of the new cool features in 1.9, (even the upcoming 1.9.2)?
+
+This gem is for you!
 
 The goal of 'backports' is to make it easier to write ruby code that runs across different versions of Ruby. All you need to bring any version of Ruby up to today's standards:
 

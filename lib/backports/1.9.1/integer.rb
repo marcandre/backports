@@ -1,3 +1,3 @@
 class Integer
-  alias_method :magnitude, :abs unless method_defined? :magnitude
+  Backports.alias_method self, :magnitude, :abs
 end

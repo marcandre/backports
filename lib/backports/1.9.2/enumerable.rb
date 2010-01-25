@@ -39,5 +39,5 @@ module Enumerable
     return to_enum(:flat_map) unless block_given?
     map(&block).flatten(1)
   end unless method_defined? :flat_map
-  alias_method :collect_concat, :flat_map unless method_defined? :collect_concat
+  Backports.alias_method self, :collect_concat, :flat_map
 end
