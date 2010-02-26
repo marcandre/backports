@@ -136,7 +136,7 @@ class Array
     #
     result = []
 
-    arg.map!{|x| Type.coerce_to(x, Array, :to_ary)}
+    arg.map!{|x| Backports.coerce_to(x, Array, :to_ary)}
     arg.reverse! # to get the results in the same order as in MRI, vary the last argument first
     arg.push self
 
