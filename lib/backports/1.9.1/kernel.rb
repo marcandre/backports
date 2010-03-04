@@ -15,7 +15,7 @@ module Kernel
       raise LoadError, "require_relative is called in #{$1}"
     end
     require File.expand_path(relative_feature, File.dirname(file))
-  end unless method_defined? :require_relative
+  end unless private_method_defined? :require_relative
   private :require_relative
 
   # Standard in ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Object.html]

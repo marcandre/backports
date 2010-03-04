@@ -1,5 +1,24 @@
 = Packable --- History
 
+== Version 1.14.0 - March 3rd, 2010
+
+* Added some features of 1.9.2:
+
+  * Array#rotate, rotate!
+  * Array#keep_if, select!
+  * Array#sort_by!
+  * Enumerable#join
+  * Enumerable#slice_before
+  * Float::INFINITY, NAN
+  * MatchData#==
+
+== Version 1.13.0 - January 20th, 2010
+
+* Missing for 1.8.7 were
+  * Array#permutation
+  * Hash#hash  (was only inherited)
+  * Hash#eql?  (was only inherited)
+
 == Version 1.12.0 - December 4th, 2009
 
 * Finer grain includes (see README)

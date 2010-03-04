@@ -62,7 +62,7 @@ Complete Ruby 1.8.8 backporting (core language). In case you are wondering: no, 
 Only exception:
 * Enumerator#rewind (incompatible change, so won't be implemented)
 
-To include _only_ these backports and those preceeding, <tt>require "backports/1.8.8"</tt>.
+To include _only_ these backports and those preceding, <tt>require "backports/1.8.8"</tt>.
 
 == Ruby 1.9.1
 
@@ -106,14 +106,23 @@ but since it is only an imitation, it must be required explicitly:
 
   Finally, some Ruby 1.9.2 features have been backported. As this version has not been feature frozen yet, changes are still possible.
 
+* Array
+  * <tt>rotate, rotate!</tt>
+  * <tt>keep_if, select!</tt>
+  * <tt>sort_by!</tt>
+
 * Enumerable
-  * +flat_map+, +collect_concat+
   * +chunk+
+  * +flat_map+, +collect_concat+
+  * +join+
+  * +slice_before+
+
+* Float::INFINITY, NAN
 
 * Object
   * <tt>respond_to_missing?</tt>
 
-To include all Ruby backports but not those of Rails, <tt>require "backports/1.9.2"</tt>.
+To include all Ruby backports but not those of Rails, <tt>require "backports/1.9.2"</tt> (or "backports/1.9")
 
 == Rails
 

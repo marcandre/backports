@@ -34,10 +34,45 @@ module Enumerable
     end
   end unless method_defined? :chunk
 
-  # Standard in Ruby 1.9.2 See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
+  def each_entry(*pass)
+    return to_enum :each_entry, *pass unless block_given?
+    each(*pass) do |*args|
+      yield args.size == 1 ? args[0] : args
+    end
+    self
+  end unless method_defined? :each_entry
+
   def flat_map(&block)
     return to_enum(:flat_map) unless block_given?
     map(&block).flatten(1)
   end unless method_defined? :flat_map
   Backports.alias_method self, :collect_concat, :flat_map
+
+  def join(*args)
+    to_a.join(*args)
+  end unless method_defined? :join
+
+  def slice_before(arg = Backports::Undefined, &block)
+    if block_given?
+      has_init = not(arg.equal? Backports::Undefined)
+    else
+      raise ArgumentError, "wrong number of arguments (0 for 1)" if arg.equal? Backports::Undefined
+      block = Proc.new{|elem| arg === elem }
+    end
+    Enumerator.new do |yielder|
+      init = arg.dup if has_init
+      accumulator = nil
+      each do |elem|
+        start_new = has_init ? block.yield(elem, init) : block.yield(elem)
+        if start_new
+          yielder.yield accumulator if accumulator
+          accumulator = [elem]
+        else
+          accumulator ||= []
+          accumulator << elem
+        end
+      end
+      yielder.yield accumulator if accumulator
+    end
+  end unless method_defined? :slice_before
 end
