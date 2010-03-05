@@ -54,7 +54,7 @@ module Enumerable
 
   def slice_before(arg = Backports::Undefined, &block)
     if block_given?
-      has_init = not(arg.equal? Backports::Undefined)
+      has_init = !(arg.equal? Backports::Undefined)
     else
       raise ArgumentError, "wrong number of arguments (0 for 1)" if arg.equal? Backports::Undefined
       block = Proc.new{|elem| arg === elem }
