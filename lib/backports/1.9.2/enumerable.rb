@@ -35,7 +35,7 @@ module Enumerable
   end unless method_defined? :chunk
 
   def each_entry(*pass)
-    return to_enum :each_entry, *pass unless block_given?
+    return to_enum(:each_entry, *pass) unless block_given?
     each(*pass) do |*args|
       yield args.size == 1 ? args[0] : args
     end

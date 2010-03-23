@@ -121,6 +121,7 @@ but since it is only an imitation, it must be required explicitly:
 
 * Object
   * <tt>respond_to_missing?</tt>
+  * <tt>singleton_class</tt>
 
 To include all Ruby backports but not those of Rails, <tt>require "backports/1.9.2"</tt> (or "backports/1.9")
 
