@@ -145,6 +145,14 @@ module Backports
     ret
   end
 
+  def self.coerce_to_int(obj)
+    coerce_to(obj, Integer, :to_int)
+  end
+
+  def self.coerce_to_ary(obj)
+    coerce_to(obj, Array, :to_ary)
+  end
+
   # Checks for a failed comparison (in which case it throws an ArgumentError)
   # Additionally, it maps any negative value to -1 and any positive value to +1
   # (from Rubinius)

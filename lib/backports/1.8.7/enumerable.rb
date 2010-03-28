@@ -17,7 +17,7 @@ module Enumerable
   def cycle(n = nil, &block)
     return to_enum(:cycle, n) unless block_given?
     return loop(&block) if nil == n
-    n = Backports.coerce_to(n, Fixnum, :to_int)
+    n = Backports.coerce_to_int(n)
     if n >= 1
       cache = []
       each do |elem|
@@ -35,7 +35,7 @@ module Enumerable
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def drop(n)
-    n = Backports.coerce_to(n, Fixnum, :to_int)
+    n = Backports.coerce_to_int(n)
     raise ArgumentError, "attempt to drop negative size" if n < 0
     ary = to_a
     return [] if n > ary.size
@@ -198,7 +198,7 @@ module Enumerable
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def take(n)
-    n = Backports.coerce_to(n, Fixnum, :to_int)
+    n = Backports.coerce_to_int(n)
     raise ArgumentError, "attempt to take negative size: #{n}" if n < 0
     [].tap do |array|
       each do |elem|

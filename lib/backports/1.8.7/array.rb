@@ -1,7 +1,7 @@
 class Array
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   def combination(num)
-    num = Backports.coerce_to num, Fixnum, :to_int
+    num = Backports.coerce_to_int(num)
     return to_enum(:combination, num) unless block_given?
     return self unless (0..size).include? num
     # Implementation note: slightly tricky.
@@ -24,7 +24,7 @@ class Array
     if n.nil?
       loop(&block)
     else
-      n = Backports.coerce_to n, Fixnum, :to_int
+      n = Backports.coerce_to_int(n)
       n.times{each(&block)}
     end
     nil
@@ -46,7 +46,7 @@ class Array
     # made, returns nil, otherwise self.
     # Adapted from rubinius'
     def flatten_with_optional_argument!(level=-1)
-      level = Backports.coerce_to(level, Integer, :to_int)
+      level = Backports.coerce_to_int(level)
       return flatten_without_optional_argument! unless level >= 0
 
       ret, out = nil, []
@@ -95,7 +95,7 @@ class Array
     return to_enum(:permutation, num) unless block_given?
     num = num.equal?(Backports::Undefined) ?
           size :
-          Backports.coerce_to(num, Fixnum, :to_int)
+          Backports.coerce_to_int(num)
     return self unless (0..size).include? num
 
     final_lambda = lambda do |partial, remain|
@@ -119,7 +119,7 @@ class Array
   unless ([1].pop(1) rescue false)
     def pop_with_optional_argument(n = Backports::Undefined)
       return pop_without_optional_argument if n == Backports::Undefined
-      n = Backports.coerce_to(n, Fixnum, :to_int)
+      n = Backports.coerce_to_int(n)
       raise ArgumentError, "negative array size" if n < 0
       first = size - n
       first = 0 if first < 0
@@ -136,7 +136,7 @@ class Array
     #
     result = []
 
-    arg.map!{|x| Backports.coerce_to(x, Array, :to_ary)}
+    arg.map! &Backports.instance_method(:coerce_to_ary)
     arg.reverse! # to get the results in the same order as in MRI, vary the last argument first
     arg.push self
 
@@ -167,7 +167,7 @@ class Array
   # Note: was named #choice in 1.8.7 and renamed in later versions
   def sample(n = Backports::Undefined)
     return self[Kernel.rand(size)] if n == Backports::Undefined
-    n = Backports.coerce_to(n, Fixnum, :to_int)
+    n = Backports.coerce_to_int(n)
     raise ArgumentError, "negative array size" if n < 0
     n = size if n > size
     result = Array.new(self)
@@ -183,7 +183,7 @@ class Array
   unless ([1].shift(1) rescue false)
     def shift_with_optional_argument(n = Backports::Undefined)
       return shift_without_optional_argument if n == Backports::Undefined
-      n = Backports.coerce_to(n, Fixnum, :to_int)
+      n = Backports.coerce_to_int(n)
       raise ArgumentError, "negative array size" if n < 0
       slice!(0, n)
     end
