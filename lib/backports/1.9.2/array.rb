@@ -24,5 +24,27 @@ class Array
     return to_enum(:sort_by!) unless block_given?
     replace sort_by(&block)
   end unless method_defined? :sort_by!
+
+  unless [1,2].uniq!{}
+    def uniq_with_block!(&block)
+      return uniq_without_block! unless block_given?
+      u = uniq(&block)
+      replace u unless u.size == size
+    end
+    Backports.alias_method_chain self, :uniq!, :block
+  end
+
+  unless [1,2].uniq{}.size == 1
+    def uniq_with_block
+      return uniq_without_block unless block_given?
+      h = {}
+      each do |elem|
+        h[yield elem] ||= elem
+      end
+      h.values
+    end
+    Backports.alias_method_chain self, :uniq, :block
+  end
+
 end
     
