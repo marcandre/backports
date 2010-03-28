@@ -39,7 +39,7 @@ class Array
       return uniq_without_block unless block_given?
       h = {}
       each do |elem|
-        h[yield elem] ||= elem
+        h[yield(elem)] ||= elem
       end
       h.values
     end

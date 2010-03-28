@@ -3,7 +3,7 @@ class Regexp
   class << self
     def self.try_convert(obj)
       return nil unless obj.respond_to?(:to_regexp)
-      Backports.coerce_to(obj, Array, :to_regexp)
+      Backports.coerce_to(obj, Regexp, :to_regexp)
     end unless method_defined? :try_convert
   end
 end

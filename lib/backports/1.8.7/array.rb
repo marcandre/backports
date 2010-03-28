@@ -136,7 +136,7 @@ class Array
     #
     result = []
 
-    arg.map! &Backports.instance_method(:coerce_to_ary)
+    arg.map!(&Backports.method(:coerce_to_ary))
     arg.reverse! # to get the results in the same order as in MRI, vary the last argument first
     arg.push self
 
