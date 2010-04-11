@@ -104,13 +104,16 @@ but since it is only an imitation, it must be required explicitly:
 
 == Ruby 1.9.2
 
-  Finally, some Ruby 1.9.2 features have been backported. As this version has not been feature frozen yet, changes are still possible.
+  Finally, most of Ruby 1.9.2 features have been backported. As this version has not been feature frozen yet, changes are still possible.
 
 * Array
   * <tt>rotate, rotate!</tt>
   * <tt>keep_if, select!</tt>
   * <tt>sort_by!</tt>
   * <tt>uniq, #uniq!</tt> (with block)
+
+* Dir
+  * +home+
 
 * Enumerable
   * +chunk+

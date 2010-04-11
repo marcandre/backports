@@ -1,11 +1,12 @@
 = Packable --- History
 
-== Version 1.16.0 - April 11th, 2010
+== Version 1.16.1 - April 11th, 2010
 
 * Added a features of 1.9.2:
 
-  * Hash#keep_if, select!
   * Array#uniq, #uniq! (with block)
+  * Dir.home
+  * Hash#keep_if, select!
   * Random (new class)
 
 == Version 1.15.0 - March 23rd, 2010

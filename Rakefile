@@ -17,13 +17,11 @@ begin
     gem.rdoc_options << '--title' << 'Backports library' <<
                            '--main' << 'README.rdoc' <<
                            '--line-numbers' << '--inline-source'
-
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
     gem.rubyforge_project = "backports"
-    Jeweler::GemcutterTasks.new
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
-  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
 require 'rake/testtask'
