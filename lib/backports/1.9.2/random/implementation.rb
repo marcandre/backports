@@ -46,6 +46,10 @@ class Random
         state == other.send(:state)
     end
 
+    def inspect
+      "#<#{self.class.name}:#{object_id}>"
+    end
+
   private
     def state
       @mt.to_bignum
