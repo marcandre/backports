@@ -5,6 +5,28 @@ class Array
     delete_if{|elem| !yield elem}
   end unless method_defined? :keep_if
 
+  if [1].product([2]){break false}
+    def product_with_block(*arg, &block)
+      return product_without_block(*arg) unless block_given?
+      # Same implementation as 1.8.7, but yielding
+      arg.map!{|ary| Backports.coerce_to_ary(ary)}
+      arg.reverse! # to get the results in the same order as in MRI, vary the last argument first
+      arg.push self
+
+      outer_lambda = arg.inject(block) do |proc, values|
+        lambda do |partial|
+          values.each do |val|
+            proc.call(partial.dup << val)
+          end
+        end
+      end
+
+      outer_lambda.call([])
+      self
+    end
+    Backports.alias_method_chain self, :product, :block
+  end
+
   def rotate(n=1)
     dup.rotate!(n)
   end unless method_defined? :rotate
