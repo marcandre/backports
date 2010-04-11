@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{backports}
-  s.version = "1.15.0"
+  s.version = "1.16.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marc-Andr\303\251 Lafortune"]
-  s.date = %q{2010-03-23}
+  s.date = %q{2010-04-11}
   s.description = %q{      Essential backports that enable some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.
 }
   s.email = %q{github@marc-andre.ca}
@@ -77,9 +77,15 @@ Gem::Specification.new do |s|
      "lib/backports/1.9.2/array.rb",
      "lib/backports/1.9.2/enumerable.rb",
      "lib/backports/1.9.2/float.rb",
+     "lib/backports/1.9.2/hash.rb",
      "lib/backports/1.9.2/kernel.rb",
      "lib/backports/1.9.2/match_data.rb",
      "lib/backports/1.9.2/method.rb",
+     "lib/backports/1.9.2/random.rb",
+     "lib/backports/1.9.2/random/MT19937.rb",
+     "lib/backports/1.9.2/random/bits_and_bytes.rb",
+     "lib/backports/1.9.2/random/implementation.rb",
+     "lib/backports/1.9.2/random/load.rb",
      "lib/backports/1.9.rb",
      "lib/backports/basic_object.rb",
      "lib/backports/rails.rb",

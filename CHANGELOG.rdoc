@@ -6,6 +6,7 @@
 
   * Hash#keep_if, select!
   * Array#uniq, #uniq! (with block)
+  * Random (new class)
 
 == Version 1.15.0 - March 23rd, 2010
 
