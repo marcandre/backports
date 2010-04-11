@@ -7,5 +7,10 @@ class Random
   class << self
     include Implementation
   end
+
+  def inspect
+    "#<#{self.class.name}:#{object_id}>"
+  end
+
   srand
 end
