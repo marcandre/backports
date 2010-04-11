@@ -116,6 +116,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/marcandre/backports}
   s.rdoc_options = ["--charset=UTF-8", "--title", "Backports library", "--main", "README.rdoc", "--line-numbers", "--inline-source"]
   s.require_paths = ["lib"]
+  s.rubyforge_project = %q{backports}
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Backports of Ruby 1.8.7+ for older ruby.}
   s.test_files = [
