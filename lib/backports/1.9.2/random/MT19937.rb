@@ -5,8 +5,6 @@ class Random
     LAST_STATE = STATE_SIZE - 1
     PAD_32_BITS = 0xffffffff
 
-    attr_reader :state, :last_read
-
     # See seed=
     def initialize(seed)
       self.seed = seed

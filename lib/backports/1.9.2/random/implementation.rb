@@ -46,13 +46,23 @@ class Random
         state == other.send(:state)
     end
 
+    def marshal_dump
+      @mt.marshal_dump << @seed
+    end
+
+    def marshal_load(ary)
+      @seed = ary.pop
+      @mt = MT19937.allocate
+      @mt.marshal_load(ary)
+    end
+
   private
     def state
-      @mt.to_bignum
+      @mt.state_as_bignum
     end
 
     def left
-      MT19937::STATE_SIZE - @mt.last_read
+      @mt.left
     end
 
     def _rand_range(limit)

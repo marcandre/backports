@@ -35,12 +35,30 @@ class Random
       random.pack("L" * nb_32_bits)[0, nb]
     end
 
-    def to_bignum
+    def state_as_bignum
       b = 0
-      state.each_with_index do |val, i|
+      @state.each_with_index do |val, i|
         b |= val << (32 * i)
       end
       b
+    end
+
+    def left # It's actually the number of words left + 1, as per MRI...
+      MT19937::STATE_SIZE - @last_read
+    end
+
+    def marshal_dump
+      [state_as_bignum, left]
+    end
+
+    def marshal_load(ary)
+      b, left = ary
+      @last_read = MT19937::STATE_SIZE - left
+      @state = Array.new(STATE_SIZE)
+      STATE_SIZE.times do |i|
+        @state[i] = b & PAD_32_BITS
+        b >>= 32
+      end
     end
 
     # Convert an Integer seed of arbitrary size to either a single 32 bit integer, or an Array of 32 bit integers
