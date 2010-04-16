@@ -31,7 +31,7 @@ class Array
   end unless method_defined? :cycle
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
-  Backports.make_block_optional self, :collect!, :map!, :each, :each_index, :reverse_each, :reject, :reject!, :delete_if, :test_on => [42]
+  Backports.make_block_optional self, :collect!, :map!, :each, :each_index, :reverse_each, :reject, :reject!, :delete_if, :select, :test_on => [42]
 
   # flatten & flatten!, standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   unless ([[]].flatten(1) rescue false)
