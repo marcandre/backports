@@ -6,17 +6,6 @@ class IO
     end
   end
 
-  # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/IO.html]
-  def bytes
-    to_enum :each_byte
-  end unless method_defined? :bytes
-  
-  # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/IO.html]
-  def chars
-    to_enum :each_char
-  end unless method_defined? :chars
-  
-  # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/IO.html]
   def each_char
     return to_enum(:each_char) unless block_given?
     if $KCODE == "UTF-8"
@@ -44,12 +33,11 @@ class IO
     self
   end unless method_defined? :each_char
 
+  Backports.alias_method self, :bytes, :each_byte
+  Backports.alias_method self, :chars, :each_char
+  Backports.alias_method self, :lines, :each_line
+
   Backports.alias_method self, :getbyte, :getc 
   Backports.alias_method self, :readbyte, :readchar
-  
-  # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/IO.html]
-  def lines(*args)
-    to_enum :each_line, *args
-  end unless method_defined? :lines
 end
   

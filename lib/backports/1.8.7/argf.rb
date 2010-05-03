@@ -7,16 +7,6 @@ end
 
 class << ARGF
   # No official documentation...
-  def bytes
-    to_enum :each_byte
-  end unless method_defined? :bytes
-
-  # No official documentation...
-  def chars
-    to_enum :each_char
-  end unless method_defined? :chars
-
-  # No official documentation...
   def each_char
     return to_enum(:each_char) unless block_given?
     if $KCODE == "UTF-8"
@@ -50,8 +40,7 @@ class << ARGF
   # No official documentation...
   Backports.alias_method self, :readbyte, :readchar
 
-  # No official documentation...
-  def lines(*args)
-    to_enum :each_line, *args
-  end unless method_defined? :lines
+  Backports.alias_method self, :bytes, :each_byte
+  Backports.alias_method self, :chars, :each_char
+  Backports.alias_method self, :lines, :each_line
 end
