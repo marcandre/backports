@@ -27,6 +27,43 @@ class Array
     Backports.alias_method_chain self, :product, :block
   end
 
+  # Note: Combinations are not yielded in the same order as MRI.
+  # This is not a bug; the spec states that the order is implementation dependent
+  def repeated_combination(num, &block)
+    return to_enum :repeated_combination, num unless block_given?
+    num = Backports.coerce_to_int(num)
+    if num <= 0
+      yield [] if num == 0
+    else
+      indices = Array.new(num, 0)
+      indices[-1] = size
+      while dec = indices.find_index(&:nonzero?)
+        indices[0..dec] = Array.new dec+1, indices[dec]-1
+        yield values_at(*indices)
+      end
+    end
+    self
+  end unless method_defined? :repeated_combination
+
+  # Note: Permutations are not yielded in the same order as MRI.
+  # This is not a bug; the spec states that the order is implementation dependent
+  def repeated_permutation(num, &block)
+    return to_enum :repeated_permutation, num unless block_given?
+    num = Backports.coerce_to_int(num)
+    if num <= 0
+      yield [] if num == 0
+    else
+      indices = Array.new(num, 0)
+      indices[-1] = size
+      while dec = indices.find_index(&:nonzero?)
+        indices[0...dec] = Array.new dec, size-1
+        indices[dec] -= 1
+        yield values_at(*indices)
+      end
+    end
+    self
+  end unless method_defined? :repeated_permutation
+
   def rotate(n=1)
     dup.rotate!(n)
   end unless method_defined? :rotate

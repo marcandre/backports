@@ -1,8 +1,14 @@
 = Packable --- History
 
+== Version 1.17.0 - May 17th, 2010
+
+* Added some features of 1.9.2:
+
+  * Array#repeated_combination, #repeated_permutation
+
 == Version 1.16.2 - April 11th, 2010
 
-* Added a features of 1.9.2:
+* Added some features of 1.9.2:
 
   * Array#uniq, #uniq! (with block)
   * Array#product (with block)

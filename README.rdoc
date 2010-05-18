@@ -110,6 +110,7 @@ but since it is only an imitation, it must be required explicitly:
   * <tt>rotate, rotate!</tt>
   * <tt>keep_if, select!</tt>
   * +product+ (with block)
+  * +repeated_combination+, +repeated_permutation+
   * <tt>sort_by!</tt>
   * <tt>uniq, #uniq!</tt> (with block)
 
