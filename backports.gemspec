@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{backports}
-  s.version = "1.17.0"
+  s.version = "1.17.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marc-Andr\303\251 Lafortune"]
-  s.date = %q{2010-05-17}
+  s.date = %q{2010-06-07}
   s.description = %q{      Essential backports that enable some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.
 }
   s.email = %q{github@marc-andre.ca}
@@ -108,7 +108,6 @@ Gem::Specification.new do |s|
      "test/method_test.rb",
      "test/module_test.rb",
      "test/object_test.rb",
-     "test/random_marshal_test.rb",
      "test/regexp_test.rb",
      "test/string_test.rb",
      "test/symbol_test.rb",
@@ -132,7 +131,6 @@ Gem::Specification.new do |s|
      "test/method_test.rb",
      "test/module_test.rb",
      "test/object_test.rb",
-     "test/random_marshal_test.rb",
      "test/regexp_test.rb",
      "test/string_test.rb",
      "test/symbol_test.rb",

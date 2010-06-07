@@ -30,7 +30,7 @@ class Array
   # Note: Combinations are not yielded in the same order as MRI.
   # This is not a bug; the spec states that the order is implementation dependent
   def repeated_combination(num, &block)
-    return to_enum :repeated_combination, num unless block_given?
+    return to_enum(:repeated_combination, num) unless block_given?
     num = Backports.coerce_to_int(num)
     if num <= 0
       yield [] if num == 0
@@ -48,7 +48,7 @@ class Array
   # Note: Permutations are not yielded in the same order as MRI.
   # This is not a bug; the spec states that the order is implementation dependent
   def repeated_permutation(num, &block)
-    return to_enum :repeated_permutation, num unless block_given?
+    return to_enum(:repeated_permutation, num) unless block_given?
     num = Backports.coerce_to_int(num)
     if num <= 0
       yield [] if num == 0
