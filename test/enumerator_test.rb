@@ -26,6 +26,13 @@ class EnumeratorTest < Test::Unit::TestCase
       end
     end
     
+    context "#each" do
+      should "should not require block" do
+        assert_nothing_raised { [42].to_enum.each }
+        assert_equal [42], [42].to_enum.each.to_a
+      end
+    end
+    
     context "#next" do
       should "conform to doc" do
         enum = [10, 20].to_enum 

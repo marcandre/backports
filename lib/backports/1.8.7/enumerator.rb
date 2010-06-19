@@ -2,6 +2,9 @@ require 'enumerator'
 if (Enumerable::Enumerator rescue false)
   module Enumerable
     class Enumerator
+      # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerator.html]
+      Backports.make_block_optional self, :each, :test_on => [42].to_enum
+
       def next
         require 'generator'
         @generator ||= Generator.new(self)
