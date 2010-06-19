@@ -98,6 +98,7 @@ Gem::Specification.new do |s|
      "lib/backports/rails/module.rb",
      "lib/backports/rails/string.rb",
      "lib/backports/tools.rb",
+     "test/_README",
      "test/array_test.rb",
      "test/basic_object_test.rb",
      "test/binding_test.rb",
