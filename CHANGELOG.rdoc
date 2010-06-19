@@ -1,5 +1,13 @@
 = Packable --- History
 
+== Version 1.18.0 - June 19th, 2010
+
+* Added some features of 1.9.1:
+
+  * Math#log2, Math#log with base
+
+* Also fixed Enumerator#each in 1.8.6.
+
 == Version 1.17.0 - May 17th, 2010
 
 * Added some features of 1.9.2:

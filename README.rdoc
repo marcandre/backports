@@ -2,7 +2,7 @@
 
 * Can't remember if you can use Array#sample?
 * One of your client is stuck with Ruby 1.8.6 but you want to use a gem using some features of 1.8.7?
-* Yearning to use some of the new cool features in 1.9, (even the upcoming 1.9.2)?
+* Yearning to use some of the new cool features in 1.9.2 while using 1.8.x?
 
 This gem is for you!
 
@@ -79,6 +79,10 @@ Additionally, the following Ruby 1.9 features have been backported:
 * Kernel
   * +require_relative+
 
+* Math
+  * +log+ (with base)
+  * +log2+
+
 * Object
   * +define_singleton_method+
   * +public_method+
@@ -104,7 +108,7 @@ but since it is only an imitation, it must be required explicitly:
 
 == Ruby 1.9.2
 
-  Finally, most of Ruby 1.9.2 features have been backported. As this version has not been feature frozen yet, changes are still possible.
+Finally, most of Ruby 1.9.2 features have been backported:
 
 * Array
   * <tt>rotate, rotate!</tt>
@@ -168,6 +172,13 @@ Libraries have not been backported. I am aware of the following backport gems:
 * Net::SMTP for Ruby 1.8.6: smtp_tls[http://seattlerb.rubyforge.org/smtp_tls/]
 
 * Let me know of others...
+
+== Thanks
+
+Thanks for the bug reports and patches, in particular the repeat offenders:
+
+* Arto Bendiken ( bendiken[http://github.com/bendiken] )
+* Roger Pack ( rdp[http://github.com/rdp] )
 
 = License
 
