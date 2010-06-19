@@ -10,7 +10,7 @@ module Math
           log_without_optional_base(numeric)
         else
           # Math.log(n, b) in 1.9.1 does not accept string arguments:
-          raise TypeError, "TypeError: can't convert String into Float" if numeric.is_a?(String) || base.is_a?(String)
+          raise TypeError, "can't convert String into Float" if numeric.is_a?(String) || base.is_a?(String)
           log_without_optional_base(numeric) / log_without_optional_base(base)
         end
       end
@@ -20,7 +20,7 @@ module Math
     # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Math.html]
     def log2(numeric)
       # Math.log2(n) in 1.9.1 does not accept string arguments:
-      raise TypeError, "TypeError: can't convert String into Float" if numeric.is_a?(String)
+      raise TypeError, "can't convert String into Float" if numeric.is_a?(String)
       log(numeric) / log(2)
     end unless method_defined? :log2
   end
