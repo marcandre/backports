@@ -1,8 +1,8 @@
 = Backports Library
 
-* Can't remember if you can use Array#sample?
-* One of your client is stuck with Ruby 1.8.6 but you want to use a gem using some features of 1.8.7?
 * Yearning to use some of the new cool features in 1.9.2 while using 1.8.x?
+* One of your client is stuck with Ruby 1.8.6 but you want to use a gem using some features of 1.8.7?
+* Can't remember if you can use Array#sample or String#each_char on a friend's box?
 
 This gem is for you!
 
@@ -10,7 +10,7 @@ The goal of 'backports' is to make it easier to write ruby code that runs across
 
   require 'backports'
   
-Actually, it's tomorrow's standard, since this will bring Ruby 1.8.6 or 1.8.7 up to date with the upcoming Ruby 1.8.8, as well as include many features of Ruby 1.9.1 and the upcoming Ruby 1.9.2!
+This will bring Ruby 1.8.6 or 1.8.7 up to date with the upcoming Ruby 1.8.8, as well as include many features of Ruby 1.9.1 and Ruby 1.9.2!
 
 +Note+: Although I am a Ruby committer, this gem is a personal project and is not endorsed by ruby-core.
 
@@ -116,7 +116,7 @@ Finally, most of Ruby 1.9.2 features have been backported:
   * +product+ (with block)
   * +repeated_combination+, +repeated_permutation+
   * <tt>sort_by!</tt>
-  * <tt>uniq, #uniq!</tt> (with block)
+  * <tt>uniq, uniq!</tt> (with block)
 
 * Dir
   * +home+
