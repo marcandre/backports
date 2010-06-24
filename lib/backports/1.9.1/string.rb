@@ -6,6 +6,11 @@ class String
   end unless method_defined? :ascii_only?
 
   # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
+  def chr
+    chars.first || ""
+  end unless method_defined? :chr
+
+  # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def clear
     self[0,length] = ""
     self

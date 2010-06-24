@@ -2,11 +2,6 @@ class String
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   Backports.alias_method self, :bytesize, :length
 
-  # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  def chr
-    chars.first
-  end unless method_defined? :chr
-
   Backports.make_block_optional self, :each_byte, :each_line, :test_on => "abc"
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
