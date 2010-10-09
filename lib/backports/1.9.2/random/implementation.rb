@@ -66,26 +66,22 @@ class Random
     end
 
     def _rand_range(limit)
-      if limit.end.is_a?(Float)
-        from = Backports.coerce_to(limit.begin, Float, :to_f)
-        to = limit.end
-        range = to - from
+      range = limit.end - limit.begin
+      if (!range.is_a?(Float)) && range.respond_to?(:to_int) && range = Backports.coerce_to_int(range)
+        range += 1 unless limit.exclude_end?
+        limit.begin + @mt.random_integer(range) unless range <= 0
+      elsif range = Backports.coerce_to(range, Float, :to_f)
         if range < 0
           nil
         elsif limit.exclude_end?
-          from + @mt.random_float * range unless range <= 0
+          limit.begin + @mt.random_float * range unless range <= 0
         else
           # cheat a bit... this will reduce the nb of random bits
           loop do
             r = @mt.random_float * range * 1.0001
-            break from + r unless r > range
+            break limit.begin + r unless r > range
           end
         end
-      else
-        from, to = [limit.begin, limit.end].map(&Backports.method(:coerce_to_int))
-        to += 1 unless limit.exclude_end?
-        range = to - from
-        from + @mt.random_integer(range) unless range <= 0
       end
     end
   end
