@@ -23,7 +23,7 @@ module Backports
 
   # Metaprogramming utility to make block optional.
   # Tests first if block is already optional when given options
-  def self.make_block_optional mod,*methods
+  def self.make_block_optional(mod, *methods)
     options = methods.last.is_a?(Hash) ? methods.pop : {}
     methods.each do |selector|
       unless mod.method_defined? selector
@@ -55,7 +55,7 @@ module Backports
   end
 
   # Metaprogramming utility to convert the first file argument to path
-  def self.convert_first_argument_to_path mod,*methods
+  def self.convert_first_argument_to_path(mod, *methods)
     methods.each do |selector|
       unless mod.method_defined? selector
         warn "#{mod}##{selector} is not defined, so argument can't converted to path"
@@ -81,7 +81,7 @@ module Backports
   end
 
   # Metaprogramming utility to convert all file arguments to paths
-  def self.convert_all_arguments_to_path mod, skip, *methods
+  def self.convert_all_arguments_to_path(mod, skip, *methods)
     methods.each do |selector|
       unless mod.method_defined? selector
         warn "#{mod}##{selector} is not defined, so arguments can't converted to path"

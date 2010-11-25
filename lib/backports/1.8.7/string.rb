@@ -27,12 +27,12 @@ class String
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def end_with?(*suffixes)
-    suffixes.each do |suffix|
-      next unless suffix.respond_to? :to_str
-      suffix = suffix.to_str
-      return true if self[-suffix.length, suffix.length] == suffix
+    suffixes.any? do |suffix|
+      if suffix.respond_to? :to_str
+        suffix = suffix.to_str
+        self[-suffix.length, suffix.length] == suffix
+      end
     end
-    false
   end unless method_defined? :end_with?
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
@@ -70,12 +70,12 @@ class String
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   def start_with?(*prefixes)
-    prefixes.each do |prefix|
-      next unless prefix.respond_to? :to_str
-      prefix = prefix.to_str
-      return true if self[0, prefix.length] == prefix
+    prefixes.any? do |prefix|
+      if prefix.respond_to? :to_str
+        prefix = prefix.to_str
+        self[0, prefix.length] == prefix
+      end
     end
-    false
   end unless method_defined? :start_with?
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
