@@ -14,18 +14,24 @@ module Enumerable
   end unless method_defined? :count
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def cycle(n = nil, &block)
+  def cycle(n = nil)
     return to_enum(:cycle, n) unless block_given?
-    return loop(&block) if nil == n
-    n = Backports.coerce_to_int(n)
-    if n >= 1
-      cache = []
-      each do |elem|
-        cache << elem
-        block.call(elem)
+    if n.nil?
+      each{|e| yield e } until false
+    else
+      n = Backports.coerce_to_int(n)
+      if n >= 1
+        cache = []
+        each do |elem|
+          cache << elem
+          yield elem
+        end
+        (n-1).times do
+          cache.each{|e| yield e }
+        end
       end
-      cache.cycle(n-1, &block)
     end
+    nil
   end unless method_defined? :cycle
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]

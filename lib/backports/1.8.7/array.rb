@@ -19,13 +19,13 @@ class Array
   end unless method_defined? :combination
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
-  def cycle(n = nil, &block)
+  def cycle(n = nil)
     return to_enum(:cycle, n) unless block_given?
     if n.nil?
-      loop(&block)
+      each{|e| yield e } until false
     else
       n = Backports.coerce_to_int(n)
-      n.times{each(&block)}
+      n.times{each{|e| yield e }}
     end
     nil
   end unless method_defined? :cycle
