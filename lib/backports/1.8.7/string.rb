@@ -15,9 +15,9 @@ class String
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless method_defined? :each_char
-    def each_char(&block)
+    def each_char
       return to_enum(:each_char) unless block_given?
-      scan(/./, &block)
+      scan(/./) {|c| yield c}
     end
 
     Backports.alias_method self, :chars, :each_char
@@ -37,8 +37,8 @@ class String
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless ("check partition".partition(" ") rescue false)
-    def partition_with_new_meaning(pattern = Backports::Undefined, &block)
-      return partition_without_new_meaning(&block) if pattern == Backports::Undefined
+    def partition_with_new_meaning(pattern = Backports::Undefined)
+      return partition_without_new_meaning{|c| yield c} if pattern == Backports::Undefined
       pattern = Backports.coerce_to(pattern, String, :to_str) unless pattern.is_a? Regexp
       i = index(pattern)
       return [self, "", ""] unless i
@@ -80,11 +80,11 @@ class String
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
   unless ("abc".upto("def", true) rescue false)
-    def upto_with_exclusive(to, excl=false, &block)
-      return upto_without_exclusive(to, &block) if block_given? && !excl
+    def upto_with_exclusive(to, excl=false)
+      return upto_without_exclusive(to){|s| yield s} if block_given? && !excl
       enum = Range.new(self, to, excl).to_enum
       return enum unless block_given?
-      enum.each(&block)
+      enum.each{|s| yield s}
       self
     end
     Backports.alias_method_chain self, :upto, :exclusive

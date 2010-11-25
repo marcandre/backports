@@ -91,7 +91,7 @@ class Array
   end
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
-  def permutation(num = Backports::Undefined, &block)
+  def permutation(num = Backports::Undefined)
     return to_enum(:permutation, num) unless block_given?
     num = num.equal?(Backports::Undefined) ?
           size :

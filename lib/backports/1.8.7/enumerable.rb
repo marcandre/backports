@@ -49,7 +49,7 @@ module Enumerable
   end unless method_defined? :drop
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def drop_while(&block)
+  def drop_while
     return to_enum(:drop_while) unless block_given?
     ary = []
     dropping = true
@@ -61,7 +61,7 @@ module Enumerable
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   if instance_method(:each_with_index).arity.zero?
-    def each_with_index_with_optional_args_and_block(*args, &block)
+    def each_with_index_with_optional_args_and_block(*args)
       return to_enum(:each_with_index, *args) unless block_given?
       idx = 0
       each(*args) { |o| yield(o, idx); idx += 1 }
@@ -154,7 +154,7 @@ module Enumerable
   end unless method_defined? :minmax
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def minmax_by(&block)
+  def minmax_by
     return to_enum(:minmax_by) unless block_given?
     min_object, min_result = nil, MOST_EXTREME_OBJECT_EVER
     max_object, max_result = nil, MOST_EXTREME_OBJECT_EVER
@@ -172,7 +172,7 @@ module Enumerable
   end unless method_defined? :none?
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def one?(&block)
+  def one?
     found_one = false
     if block_given?
       each do |o|
@@ -195,10 +195,10 @@ module Enumerable
   Backports.alias_method self, :reduce, :inject
   
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
-  def reverse_each(&block)
+  def reverse_each
     return to_enum(:reverse_each) unless block_given?
     # There is no other way then to convert to an array first... see 1.9's source.
-    to_a.reverse_each(&block)
+    to_a.reverse_each{|e| yield e}
     self
   end unless method_defined? :reverse_each
   

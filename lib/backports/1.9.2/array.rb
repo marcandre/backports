@@ -29,7 +29,7 @@ class Array
 
   # Note: Combinations are not yielded in the same order as MRI.
   # This is not a bug; the spec states that the order is implementation dependent
-  def repeated_combination(num, &block)
+  def repeated_combination(num)
     return to_enum(:repeated_combination, num) unless block_given?
     num = Backports.coerce_to_int(num)
     if num <= 0
@@ -47,7 +47,7 @@ class Array
 
   # Note: Permutations are not yielded in the same order as MRI.
   # This is not a bug; the spec states that the order is implementation dependent
-  def repeated_permutation(num, &block)
+  def repeated_permutation(num)
     return to_enum(:repeated_permutation, num) unless block_given?
     num = Backports.coerce_to_int(num)
     if num <= 0
@@ -74,20 +74,20 @@ class Array
     concat(slice!(0, n))
   end unless method_defined? :rotate!
 
-  def select!(&block)
+  def select!
     return to_enum(:select!) unless block_given?
     reject!{|elem| ! yield elem}
   end unless method_defined? :select!
 
-  def sort_by!(&block)
+  def sort_by!
     return to_enum(:sort_by!) unless block_given?
-    replace sort_by(&block)
+    replace sort_by{|e| yield e}
   end unless method_defined? :sort_by!
 
   unless [1,2].uniq!{}
-    def uniq_with_block!(&block)
+    def uniq_with_block!
       return uniq_without_block! unless block_given?
-      u = uniq(&block)
+      u = uniq{|e| yield e}
       replace u unless u.size == size
     end
     Backports.alias_method_chain self, :uniq!, :block
