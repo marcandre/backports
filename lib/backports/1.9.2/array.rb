@@ -81,12 +81,14 @@ class Array
 
   def sort_by!
     return to_enum(:sort_by!) unless block_given?
+    raise "can't modify frozen array" if frozen?
     replace sort_by{|e| yield e}
   end unless method_defined? :sort_by!
 
   unless [1,2].uniq!{}
     def uniq_with_block!
       return uniq_without_block! unless block_given?
+      replace self if frozen? # force error
       u = uniq{|e| yield e}
       replace u unless u.size == size
     end
