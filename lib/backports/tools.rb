@@ -100,7 +100,12 @@ module Backports
   end
 
   def self.convert_to_path(file_or_path)
-    coerce_to(file_or_path, String, :to_str) rescue coerce_to(file_or_path, String, :to_path) rescue file_or_path
+    begin
+      file_or_path = file_or_path.to_path
+    rescue NoMethodError
+      # ignore
+    end
+    coerce_to(file_or_path, String, :to_str)
   end
 
   # Modified to avoid polluting Module if so desired
