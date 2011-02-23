@@ -32,7 +32,7 @@ It's easy to make you own classes (un)packable. All the previous goodies are thu
 		end
 
 === Filters
-It's also easy to define special shortcuts that will call blocks to (un)pack any classe.
+It's also easy to define special shortcuts that will call blocks to (un)pack any class.
 As an example, this could be useful to add special packing features to String (without monkey patching String::pack).
 
 == Installation

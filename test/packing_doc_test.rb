@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/test_helper'
+require File.expand_path(File.dirname(__FILE__) + '/test_helper')
 # Warning: ugly...
 class MyHeader < Struct.new(:signature, :nb_blocks)
   include Packable
