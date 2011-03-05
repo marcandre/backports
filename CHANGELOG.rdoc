@@ -1,5 +1,13 @@
 = Packable --- History
 
+== Version 2.0.0 - December 5th, 2010
+
+Change of major version because of two small changes that are not quite compatible and because the minor version was getting quite high!
+
+* Remove attempt at faking the new method missing. Unless you used `respond_to_missing` *and* `method(:some_method_handled_with_method_missing)`, you won't see a difference, except better performance (see issue #32) and this fixes some errors (see issue #34)
+
+* Change behavior of array.flatten(0) to match Ruby 1.9 (i.e. return a dup of array, instead of array itself)
+
 == Version 1.18.0 - June 19th, 2010
 
 * Added some features of 1.9.1:
