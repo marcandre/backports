@@ -11,7 +11,7 @@ module Kernel
       self
     end.send(:define_method, :"temporary method for instance_exec", &block)
     send(:"temporary method for instance_exec", *arg)
-  end unless method_defined? :instance_exec
+  end unless Object.method_defined?(:instance_exec)
 
   # Standard in ruby 1.8.7. See official documentation[http://ruby-doc.org/core-1.9/classes/Object.html]
   def tap
