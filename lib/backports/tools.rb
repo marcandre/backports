@@ -102,7 +102,7 @@ module Backports
   def self.convert_to_path(file_or_path)
     begin
       file_or_path = file_or_path.to_path
-    rescue NoMethodError
+    rescue NameError
       # ignore
     end
     coerce_to(file_or_path, String, :to_str)
