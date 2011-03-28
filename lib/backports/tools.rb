@@ -100,12 +100,7 @@ module Backports
   end
 
   def self.convert_to_path(file_or_path)
-    begin
-      file_or_path = file_or_path.to_path
-    rescue NameError
-      # ignore
-    end
-    coerce_to(file_or_path, String, :to_str)
+    file_or_path.respond_to?(:to_path) ? file_or_path.to_path  : file_or_path
   end
 
   # Modified to avoid polluting Module if so desired
