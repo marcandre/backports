@@ -175,6 +175,14 @@ module Backports
     end
   end
 
+  # Used internally to propagate #lambda?
+  def self.track_lambda(from, to, default = false)
+    is_lambda = from.send :is_lambda
+    is_lambda = default if is_lambda.nil?
+    to.send :is_lambda=, is_lambda
+    to
+  end
+
   # A simple class which allows the construction of Enumerator from a block
   class Yielder
     def initialize(&block)

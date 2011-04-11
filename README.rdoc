@@ -90,6 +90,8 @@ Additionally, the following Ruby 1.9 features have been backported:
 
 * Proc
   * +yield+
+  * +lambda?+
+  * +curry+
 
 * String
   * <tt>ascii_only?</tt>
