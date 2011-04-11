@@ -10,6 +10,10 @@ class ProcTest < Test::Unit::TestCase
     define_method(:e, &proc {})
   end
 
+  def implicit
+    Proc.new
+  end
+
   context "Proc" do
     context "#lambda?" do
       context "basic usage" do
@@ -34,6 +38,11 @@ class ProcTest < Test::Unit::TestCase
           assert n(&lambda {})
           assert !n(&proc {})
           assert !n(&Proc.new {})
+        end
+
+        should "not break Proc.new" do
+          implicit { }
+          implicit(&proc {})
         end
       end
 

@@ -7,13 +7,6 @@ unless Proc.method_defined? :lambda?
 
     attr_accessor :is_lambda
     private :is_lambda, :is_lambda=
-
-    class << self
-      def new_with_lambda_tracking(&block)
-        Backports.track_lambda block, new_without_lambda_tracking(&block)
-      end
-      Backports.alias_method_chain self, :new, :lambda_tracking
-    end
   end
 
   class Method
