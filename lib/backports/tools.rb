@@ -190,4 +190,60 @@ module Backports
       @final_block.yield(*arg)
     end
   end
+
+  # Helpers for patching the Ruby standard library.
+  module Stdlib
+    # make sure we get a copy of the paths before we add our own paths
+    LOAD_PATH  = $LOAD_PATH.dup  unless defined? LOAD_PATH
+    EXTENSIONS = %w[rb so o dll] unless defined? EXTENSIONS
+
+    # Sets up hooks for standard library patches for the given version.
+    # Also checks for libs that already have been loaded.
+    #
+    # Example:
+    #   Backports::Stdlib.setup "1.9.2"
+    def self.setup(version)
+      path = File.expand_path("../stdlib/#{version}", __FILE__)
+      $LOAD_PATH.unshift path
+      Dir.glob "#{path}/*{/**,}.rb" do |file|
+        load file if required? file[path.length+1..-4]
+      end
+    end
+
+    # Used to require a file from the standard library rather than from
+    # backports. If you create a `backports/stdlib/1.9.2/foo.rb`, make sure
+    # you have `Backports::Stdlib.require "foo"` in that file.
+    def self.require(file)
+      super find(file) unless required? file
+    end
+
+    # Checks whether a file has been loaded from the standard library.
+    #
+    # Example:
+    #   Backports::Stdlib.required? 'foo'
+    def self.required?(file)
+      # Be aware that 1.9 is storing expanded paths in $LOADED_FEATURES, while
+      # 1.8 doesn't.
+      paths = names_for(file) << find(file)
+      paths.any? { |p| $LOADED_FEATURES.include? p }
+    end
+
+    # Given a file name, finds the corresponding file in the standard library.
+    #
+    # Example:
+    #   Backports::Stdlib.find "date" # => "..../lib/ruby/1.8/date.rb"
+    def self.find(lib)
+      LOAD_PATH.each do |dir|
+        names_for(lib).each do |file|
+          path = File.expand_path(file, dir)
+          return path if File.exist? path
+        end
+      end
+      false
+    end
+
+    def self.names_for(file, also = [])
+      EXTENSIONS.map { |e| "#{file}.#{e}" }
+    end
+  end
 end
