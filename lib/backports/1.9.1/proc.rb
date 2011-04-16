@@ -2,17 +2,14 @@ unless Proc.method_defined? :lambda?
   class Proc
     # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Proc.html]
     def lambda?
-      !!is_lambda
+      !!@is_lambda
     end
-
-    attr_accessor :is_lambda
-    private :is_lambda, :is_lambda=
   end
 
   class Method
     def to_proc_with_lambda_tracking
       proc = to_proc_without_lambda_tracking
-      proc.send :is_lambda=, true
+      proc.instance_variable_set :@is_lambda, true
       proc
     end
     Backports.alias_method_chain self, :to_proc, :lambda_tracking

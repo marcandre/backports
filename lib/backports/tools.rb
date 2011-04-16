@@ -177,9 +177,9 @@ module Backports
 
   # Used internally to propagate #lambda?
   def self.track_lambda(from, to, default = false)
-    is_lambda = from.send :is_lambda
+    is_lambda = from.instance_variable_get :@is_lambda
     is_lambda = default if is_lambda.nil?
-    to.send :is_lambda=, is_lambda
+    to.instance_variable_set :@is_lambda, is_lambda
     to
   end
 
