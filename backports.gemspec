@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{backports}
-  s.version = "2.0.3"
+  s.version = "2.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marc-Andr\303\251 Lafortune"]
-  s.date = %q{2011-03-28}
+  s.date = %q{2011-04-16}
   s.description = %q{      Essential backports that enable some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.
 }
   s.email = %q{github@marc-andre.ca}
@@ -119,7 +119,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8", "--title", "Backports library", "--main", "README.rdoc", "--line-numbers", "--inline-source"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{backports}
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.6.0}
   s.summary = %q{Backports of Ruby 1.8.7+ for older ruby.}
   s.test_files = [
     "test/array_test.rb",
@@ -134,6 +134,7 @@ Gem::Specification.new do |s|
      "test/method_test.rb",
      "test/module_test.rb",
      "test/object_test.rb",
+     "test/proc_test.rb",
      "test/regexp_test.rb",
      "test/string_test.rb",
      "test/symbol_test.rb",
@@ -141,7 +142,6 @@ Gem::Specification.new do |s|
   ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
