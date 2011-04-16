@@ -34,14 +34,15 @@ class Proc
   def curry(argc = nil)
     min_argc = arity < 0 ? -arity - 1 : arity
     argc ||= min_argc
-    if lambda? and arity < 0 ? -argc - 1 > arity : argc != arity
+    if lambda? and arity < 0 ? argc < min_argc : argc != arity
       raise ArgumentError, "wrong number of arguments (#{argc} for #{min_argc})"
     end
-    block = proc do |*args|
+    creator = lambda? ? :lambda : :proc
+    block = send(creator) do |*args|
       if args.count >= argc
         call(*args)
       else
-        proc do |*more_args|
+        send(creator) do |*more_args|
           args += more_args
           block.call(*args)
         end
