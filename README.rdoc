@@ -179,6 +179,7 @@ Libraries have not been backported. I am aware of the following backport gems:
 Thanks for the bug reports and patches, in particular the repeat offenders:
 
 * Arto Bendiken ( bendiken[http://github.com/bendiken] )
+* Konstantin Haase ( rkh[https://github.com/rkh])
 * Roger Pack ( rdp[http://github.com/rdp] )
 
 The best way to submit a patch is to also submit a patch to RubySpec[https://github.com/rubyspec/rubyspec] and then a patch to backports that make it pass the spec. To test rubyspec along with backports, one way to test this is:
