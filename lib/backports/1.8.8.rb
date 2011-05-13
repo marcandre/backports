@@ -2,4 +2,3 @@
 
 require File.expand_path(File.dirname(__FILE__) + "/tools")
 Backports.require_relative "1.8.7"
-Backports.require_relative_dir "1.8.8"
