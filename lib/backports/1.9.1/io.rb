@@ -6,5 +6,12 @@ class IO
         f.read(*arg)
       end
     end unless method_defined? :binread
+
+    def try_convert(obj)
+      return nil unless obj.respond_to?(:to_io)
+      Backports.coerce_to(obj, IO, :to_io)
+    end unless method_defined? :try_convert
   end
+
+  Backports.alias_method self, :ungetbyte, :ungetc
 end

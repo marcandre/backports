@@ -1,5 +1,15 @@
 = Packable --- History
 
+== Version 2.2.0 - May 13th, 2011
+
+* Ruby 1.8.8 was officially cancelled; code was moved to Ruby 1.9.1 and README updated.
+
+* <tt>"".ord</tt> now raises an error.
+
+== Version 2.1.0 - April 16th, 2011
+
+* Proc#curry, #lambda (thanks Konstantine Haase)
+
 == Version 2.0.0 - December 5th, 2010
 
 Change of major version because of two small changes that are not quite compatible and because the minor version was getting quite high!

@@ -10,7 +10,7 @@ The goal of 'backports' is to make it easier to write ruby code that runs across
 
   require 'backports'
   
-This will bring Ruby 1.8.6 or 1.8.7 up to date with the upcoming Ruby 1.8.8, as well as include many features of Ruby 1.9.1 and Ruby 1.9.2!
+This will bring in all the features of 1.8.7 (for Ruby 1.8.6) and many features of Ruby 1.9.1 (for Ruby 1.8.x) and Ruby 1.9.2 (for all earlier versions)!
 
 +Note+: Although I am a Ruby committer, this gem is a personal project and is not endorsed by ruby-core.
 
@@ -25,7 +25,7 @@ Let's be a bit more precise about the breaking code business. It is of course en
 
 A real incompatibility is, for example, <tt>Module::instance_methods</tt> which returns strings in 1.8 and symbols in 1.9. No change can be made without the risk of breaking existing code. Such incompatibilities are left unchanged.
 
-All features of 1.8.7 & 1.8.8 are backported (well, almost all, see the exception list bellow), and many of 1.9 are also.
+All features of 1.8.7 are backported (well, almost all, see the exception list bellow), and many of 1.9 are also.
 
 Some generic and self-contained features of active-support are also included. By simple I mean that String#camelcase is there, but #pluralize isn't.
 
@@ -40,7 +40,7 @@ To use:
   require 'rubygems'
   require 'backports'   # or a subset, see next section
 
-Compatible with Ruby 1.8.6, 1.8.7, 1.9.1, JRuby and Rubinius, as well as the upcoming Ruby 1.8.8 and 1.9.2
+Compatible with Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2, JRuby and Rubinius.
 
 = Complete List of backports
 
@@ -57,24 +57,33 @@ To include _only_ these backports, <tt>require "backports/1.8.7"</tt>
 
 == Ruby 1.8.8
 
-Complete Ruby 1.8.8 backporting (core language). In case you are wondering: no, it's not out yet :-). Refer to the official list of changes[http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8/NEWS].
-
-Only exception:
-* Enumerator#rewind (incompatible change, so won't be implemented)
-
-To include _only_ these backports and those preceding, <tt>require "backports/1.8.8"</tt>.
+Ruby 1.8.8 has been officially cancelled. As of version 2.2, <tt>require "backports/1.8.8"</tt> does nothing.
 
 == Ruby 1.9.1
 
 Additionally, the following Ruby 1.9 features have been backported:
+* Array
+  * +try_convert+
+
+* Enumerable
+  * +each_with_object+
+
+* Enumerator
+  * +new+ (with block)
 
 * File
   * +binread+
   * +to_path+
-  * All class methods accepting filenames will accept files or anything with a #to_path method.
+  * All class methods accepting filenames will accept files or anything with a <tt>#to_path</tt> method.
+
+* Hash
+  * +try_convert+
+  * <tt>default_proc=</tt>
 
 * IO
   * +bin_read+
+  * +try_convert+
+  * +ungetbyte+
 
 * Kernel
   * +require_relative+
@@ -92,12 +101,22 @@ Additionally, the following Ruby 1.9 features have been backported:
   * +yield+
   * +lambda?+
   * +curry+
+  * <tt>===</tt>
+
+* Range
+  * <tt>cover?</tt>
+
+* Regexp
+  * +try_convert+
 
 * String
   * <tt>ascii_only?</tt>
   * +chr+
   * +clear+
   * +codepoints+, +each_codepoint+
+  * +get_byte+, +set_byte+
+  * +ord+
+  * +try_convert+
 
 +Enumerator+ can be accessed directly (instead of <tt>Enumerable::Enumerator</tt>)
 

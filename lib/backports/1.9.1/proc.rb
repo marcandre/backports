@@ -49,4 +49,6 @@ class Proc
       end
     end
   end unless method_defined? :curry
+
+  alias_method :===, :call unless Proc.new{true} === 42
 end
