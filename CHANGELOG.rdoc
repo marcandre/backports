@@ -1,5 +1,9 @@
 = Packable --- History
 
+== Version 2.3.0 - May 13th, 2011
+
+* Added Enumerator::Yielder#<<
+
 == Version 2.2.0 - May 13th, 2011
 
 * Ruby 1.8.8 was officially cancelled; code was moved to Ruby 1.9.1 and README updated.

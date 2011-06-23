@@ -182,20 +182,4 @@ module Backports
     to.instance_variable_set :@is_lambda, is_lambda
     to
   end
-
-  # A simple class which allows the construction of Enumerator from a block
-  class Yielder
-    def initialize(&block)
-      @main_block = block
-    end
-
-    def each(&block)
-      @final_block = block
-      @main_block.call(self)
-    end
-
-    def yield(*arg)
-      @final_block.yield(*arg)
-    end
-  end
 end
