@@ -3,3 +3,4 @@
 require File.expand_path(File.dirname(__FILE__) + "/tools")
 Backports.require_relative "1.8"
 Backports.require_relative_dir "1.9.1"
+Backports::Stdlib.setup "1.9.1"
