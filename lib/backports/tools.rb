@@ -21,6 +21,55 @@ module Backports
         end
   end
 
+  module StdLib
+    class LoadedFeatures
+      if RUBY_VERSION >= "1.9"
+        # Full paths are recorded in $LOADED_FEATURES.
+        def initialize
+          # Assume backported features are Ruby libraries (i.e. not C)
+          @loaded = $LOADED_FEATURES.group_by{|p| File.basename(p, ".rb")}
+        end
+
+        # Check loaded features for one that matches "#{any of the load path}/#{feature}"
+        def include?(feature)
+          if fullpaths = @loaded[feature]
+            fullpaths.any?{|fullpath|
+              base_dir, = fullpath.partition("/#{feature}")
+              $LOAD_PATH.include?(base_dir)
+            }
+          end
+        end
+      else
+        # Requested features are recorded in $LOADED_FEATURES
+        def include?(feature)
+          # Assume backported features are Ruby libraries (i.e. not C)
+          $LOADED_FEATURES.include?("#{feature}.rb")
+        end
+      end
+    end
+
+    class << self
+      attr_accessor :extended_lib
+
+      def extend relative_dir="stdlib"
+        loaded = Backports::StdLib::LoadedFeatures.new
+        dir = File.expand_path(relative_dir, File.dirname(caller.first.split(/:\d/,2).first))
+        Dir.entries(dir).
+          map{|f| Regexp.last_match(1) if /^(.*)\.rb$/ =~ f}.
+          compact.
+          each do |f|
+            path = File.expand_path(f, dir)
+            if loaded.include?(f)
+              require path
+            else
+              @extended_lib[Regexp.last_match(1)] << path
+            end
+          end
+      end
+    end
+    self.extended_lib ||= Hash.new{|h, k| h[k] = []}
+  end
+
   # Metaprogramming utility to make block optional.
   # Tests first if block is already optional when given options
   def self.make_block_optional(mod, *methods)
@@ -182,4 +231,16 @@ module Backports
     to.instance_variable_set :@is_lambda, is_lambda
     to
   end
+end
+
+module Kernel
+  def require_with_backports(lib)
+    if r = require_without_backports(lib) and paths = Backports::StdLib.extended_lib.fetch(lib, nil)
+      paths.each do |path|
+        require_without_backports(path)
+      end
+    end
+    r
+  end
+  Backports.alias_method_chain self, :require, :backports
 end
