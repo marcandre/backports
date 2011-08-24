@@ -76,9 +76,16 @@ Additionally, the following Ruby 1.9 features have been backported:
   * +to_path+
   * All class methods accepting filenames will accept files or anything with a <tt>#to_path</tt> method.
 
+* Float
+  * +round+
+
 * Hash
   * +try_convert+
   * <tt>default_proc=</tt>
+
+* Integer
+  * +magnitude+
+  * +round+
 
 * IO
   * +bin_read+
@@ -91,6 +98,9 @@ Additionally, the following Ruby 1.9 features have been backported:
 * Math
   * +log+ (with base)
   * +log2+
+
+* Numeric
+  * +round+
 
 * Object
   * +define_singleton_method+
