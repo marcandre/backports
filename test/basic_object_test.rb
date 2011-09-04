@@ -7,7 +7,8 @@ class BasicObjectTest < Test::Unit::TestCase
       # written in one big test because sequence matters
       # and defining classes / methods can't really be undone
 
-      assert_equal 3, BasicObject.instance_methods.size
+      size = BasicObject.instance_methods.size
+      assert size <= 7
       
       class Subclass < BasicObject
         def foo
@@ -15,7 +16,7 @@ class BasicObjectTest < Test::Unit::TestCase
         end
       end
       
-      assert_equal 4, Subclass.instance_methods.size
+      assert_equal size + 1, Subclass.instance_methods.size
       
       module ::Kernel
         def bar
@@ -23,7 +24,7 @@ class BasicObjectTest < Test::Unit::TestCase
         end
       end
       
-      assert Subclass.method_defined?(:bar) # for now
+      assert Subclass.method_defined?(:bar) if RUBY_VERSION < '1.9' # for now
       
       class ForceCleanup < Subclass
       end
