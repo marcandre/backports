@@ -16,8 +16,9 @@ require File.expand_path(File.dirname(__FILE__) + "/tools")
 Backports.require_relative '1.8.7'
 
 class BasicObject
-  KEEP = [:instance_eval, :instance_exec, :__send__,
-          "instance_eval", "instance_exec", "__send__"]
+  KEEP = %w[== equal? ! != instance_eval instance_exec __send__]
+  KEEP.concat KEEP.map { |e| e.to_sym }
+
   # undefine almost all instance methods
   begin
     old_verbose, $VERBOSE = $VERBOSE, nil # silence the warning for undefining __id__

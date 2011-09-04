@@ -10,7 +10,7 @@ class ArrayTest < Test::Unit::TestCase
     
     context "#name" do
       should "conform to doc" do
-        assert_equal "upcase", @bound.name
+        assert_equal "upcase", @bound.name.to_s
       end
     end
   
@@ -33,7 +33,7 @@ class ArrayTest < Test::Unit::TestCase
       
       context "#name" do
         should "conform to doc" do
-          assert_equal "upcase", @unbound.name
+          assert_equal "upcase", @unbound.name.to_s
         end
       end
   
@@ -51,7 +51,7 @@ class ArrayTest < Test::Unit::TestCase
         
         context "#name" do
           should "conform to doc" do
-            assert_equal "upcase", @bound_again.name
+            assert_equal "upcase", @bound_again.name.to_s
           end
         end
   

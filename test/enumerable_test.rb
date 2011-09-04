@@ -219,7 +219,7 @@ class EnumerableTest < Test::Unit::TestCase
             [:_singleton, [6]],
             [1,[7]]
           ], e.to_a
-        end
+        end unless RUBY_VERSION > '1.9'
 
       end
 
@@ -236,7 +236,7 @@ class EnumerableTest < Test::Unit::TestCase
             [:_singleton, [2]],
             [:_singleton, [3]]], e.to_a
         end
-      end
+      end unless RUBY_VERSION > '1.9'
 
     end
 
