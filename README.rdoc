@@ -149,6 +149,9 @@ Finally, most of Ruby 1.9.2 features have been backported:
   * <tt>sort_by!</tt>
   * <tt>uniq, uniq!</tt> (with block)
 
+* Complex
+  * +to_r+
+
 * Dir
   * +home+
 
