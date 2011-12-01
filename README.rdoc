@@ -160,6 +160,13 @@ Finally, most of Ruby 1.9.2 features have been backported:
 
 To include all Ruby backports but not those of Rails, <tt>require "backports/1.9.2"</tt> (or "backports/1.9")
 
+== Ruby 1.9.3
+
+Some features of Ruby 1.9.3 have been backported:
+
+* IO
+  * +write+, +binwrite+
+
 == Rails
 
 Some generic methods from Rails methods have been copied:
