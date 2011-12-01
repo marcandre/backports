@@ -21,6 +21,25 @@ class HashTest < Test::Unit::TestCase
         assert_equal nil, h["cat"]
       end
     end
+
+    context '#assoc' do
+      should 'return the corresponding pair' do
+        assert_equal [:foo, :bar], {:foo => :bar}.assoc(:foo)
+      end
+
+      should 'return nil if missing' do
+        assert_equal nil, {:foo => :bar}.assoc(:bar)
+      end
+    end
+
+    context '#rassoc' do
+      should 'return the corresponding pair' do
+        assert_equal [:foo, :bar], {:foo => :bar}.rassoc(:bar)
+      end
+
+      should 'return nil if missing' do
+        assert_equal nil, {:foo => :bar}.rassoc(:foo)
+      end
+    end
   end
-  
 end
