@@ -84,6 +84,7 @@ Additionally, the following Ruby 1.9 features have been backported:
   * +bin_read+
   * +try_convert+
   * +ungetbyte+
+  * <tt>IO.open</tt> accepts an options hash.
 
 * Kernel
   * +require_relative+
