@@ -75,6 +75,7 @@ Additionally, the following Ruby 1.9 features have been backported:
   * +binread+
   * +to_path+
   * All class methods accepting filenames will accept files or anything with a <tt>#to_path</tt> method.
+  * <tt>File.open</tt> accepts an options hash.
 
 * Float
   * +round+
@@ -92,6 +93,7 @@ Additionally, the following Ruby 1.9 features have been backported:
   * +bin_read+
   * +try_convert+
   * +ungetbyte+
+  * <tt>IO.open</tt> accepts an options hash.
 
 * Kernel
   * +require_relative+
@@ -173,6 +175,13 @@ Finally, most of Ruby 1.9.2 features have been backported:
 * Random (new class)
 
 To include all Ruby backports but not those of Rails, <tt>require "backports/1.9.2"</tt> (or "backports/1.9")
+
+== Ruby 1.9.3
+
+Some features of Ruby 1.9.3 have been backported:
+
+* IO
+  * +write+, +binwrite+
 
 == Rails
 

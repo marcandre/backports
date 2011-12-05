@@ -19,5 +19,17 @@ class File
         :split, :stat, :sticky?, :symlink, :symlink?, :truncate, :writable?,
         :writable_real?, :zero?
     end
+
+    begin
+      File.open(__FILE__, :mode => 'r').close
+    rescue StandardError
+      def open_with_options_hash(file, mode = nil, perm = nil, options = {}, &block)
+        perm, options = nil, perm if Hash === perm
+        mode, options = nil, mode if Hash === mode
+        open_without_options_hash(file, mode || options[:mode], perm || options[:perm], &block)
+      end
+
+      Backports.alias_method_chain self, :open, :options_hash
+    end
   end
 end
