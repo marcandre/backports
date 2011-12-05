@@ -75,6 +75,7 @@ Additionally, the following Ruby 1.9 features have been backported:
   * +binread+
   * +to_path+
   * All class methods accepting filenames will accept files or anything with a <tt>#to_path</tt> method.
+  * <tt>File.open</tt> accepts an options hash.
 
 * Hash
   * +try_convert+
