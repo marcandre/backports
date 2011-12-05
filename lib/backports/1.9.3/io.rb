@@ -2,20 +2,19 @@ class IO
   # Standard in Ruby 1.9.3 See official documentation[http://ruby-doc.org/core-1.9.3/IO.html#method-c-write]
   def self.write(name, string, offset = nil, open_args = {})
     offset, open_args = nil, offset if Hash === offset and open_args.empty?
-    binary, mode, args, encoding, perm = open_args.values_at :binary, :mode, :open_args, :encoding, :perm
 
-    args = Array(args).dup
-    args << {:encoding => encoding} if encoding and defined? Encoding
+    options = open_args.dup
+    binary  = options.delete(:binary)
+    args    = Array(options.delete(:open_args)) + [options]
 
-    perm ||= 0644
-
-    if mode.nil?
+    if options[:mode].nil?
       mode  = WRONLY | CREAT
       mode |= BINARY if binary
       mode |= TRUNC  if offset.nil?
+      args.unshift mode
     end
 
-    File.open(name, mode, perm, *args) do |f|
+    File.open(name, *args) do |f|
       f.binmode if binary and f.respond_to? :binmode
       f.seek(offset, SEEK_SET) unless offset.nil?
       f.write(string)
