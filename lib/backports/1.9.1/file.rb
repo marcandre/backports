@@ -19,5 +19,25 @@ class File
         :split, :stat, :sticky?, :symlink, :symlink?, :truncate, :writable?,
         :writable_real?, :zero?
     end
+
+    begin
+      File.open(__FILE__, :mode => 'r').close
+    rescue StandardError
+      def open_with_options_hash(file, mode = nil, perm = Backports::Undefined, options = Backports::Undefined)
+        mode, perm = Backports.combine_mode_perm_and_option(mode, perm, options)
+        if block_given?
+          open_without_options_hash(file, mode, perm){|f| yield f}
+        else
+          open_without_options_hash(file, mode, perm)
+        end
+      end
+
+      Backports.alias_method_chain self, :open, :options_hash
+    end
+  end
+
+  module Constants
+    # In Ruby 1.8, it is defined only on Windows
+    BINARY = 0 unless const_defined?(:BINARY)
   end
 end

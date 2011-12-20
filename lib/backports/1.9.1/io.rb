@@ -11,6 +11,22 @@ class IO
       return nil unless obj.respond_to?(:to_io)
       Backports.coerce_to(obj, IO, :to_io)
     end unless method_defined? :try_convert
+
+    begin
+      File.open(__FILE__) { |f| IO.open(f.fileno, :mode => 'r').close }
+    rescue StandardError
+      def open_with_options_hash(fd, mode = nil, options = Backports::Undefined)
+        mode = Backports.combine_mode_and_option(mode, options)
+        # Can't backport autoclose, {internal|external|}encoding
+        if block_given?
+          open_without_options_hash(fd, mode){|f| yield f}
+        else
+          open_without_options_hash(fd, mode)
+        end
+      end
+
+      Backports.alias_method_chain self, :open, :options_hash
+    end
   end
 
   Backports.alias_method self, :ungetbyte, :ungetc
