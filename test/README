@@ -1,0 +1,13 @@
+Backports should be run against RubySpec. Check https://github.com/rubyspec/rubyspec for installation instructions.
+
+Use the `--unguarded` option to run all specs, including those of versions higher than the current Ruby. Use the `-r` option to require backports.
+
+For example:
+
+    cd YOUR_PATH_TO/rubyspec
+    rvm use 1.8.7
+    mspec core/range/cover_spec.rb --unguarded -r YOUR_PATH_TO/backports/lib/backports
+
+This will run the specs for Range#cover for Ruby 1.8.7 after loading backports.
+
+You need to check which tests fail to decide if it's OK that they do or not. For example it is to be expected that specs checking for encoding behavior will fail, as backports does not support the Ruby 1.9 encoding functionality.
