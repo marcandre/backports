@@ -65,13 +65,12 @@ class Array
   end unless method_defined? :repeated_permutation
 
   def rotate(n=1)
-    dup.rotate!(n)
+    Array.new(self).rotate!(n)
   end unless method_defined? :rotate
 
   def rotate!(n=1)
-    return self if empty?
-    n %= size
-    concat(slice!(0, n))
+    n = Backports.coerce_to_int(n) % (empty? ? 1 : size)
+    concat(shift(n))
   end unless method_defined? :rotate!
 
   def select!
