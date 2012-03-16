@@ -32,18 +32,27 @@ module Backports
 
         # Check loaded features for one that matches "#{any of the load path}/#{feature}"
         def include?(feature)
-          if fullpaths = @loaded[feature]
+          if fullpaths = @loaded[File.basename(feature, ".rb")]
             fullpaths.any?{|fullpath|
               base_dir, = fullpath.partition("/#{feature}")
               $LOAD_PATH.include?(base_dir)
             }
           end
         end
+
+        def self.mark_as_loaded(feature)
+          # Nothing to do, the full path will be OK
+        end
+
       else
         # Requested features are recorded in $LOADED_FEATURES
         def include?(feature)
           # Assume backported features are Ruby libraries (i.e. not C)
-          $LOADED_FEATURES.include?("#{feature}.rb")
+          $LOADED_FEATURES.include?("#{File.basename(feature, '.rb')}.rb")
+        end
+
+        def self.mark_as_loaded(feature)
+          $LOADED_FEATURES << "#{File.basename(feature, '.rb')}.rb"
         end
       end
     end
@@ -293,12 +302,20 @@ end
 
 module Kernel
   def require_with_backports(lib)
-    if r = require_without_backports(lib) and paths = Backports::StdLib.extended_lib.fetch(lib, nil)
+    begin
+      return false unless require_without_backports(lib)
+      paths = Backports::StdLib.extended_lib.fetch(lib, nil)
+    rescue LoadError
+      return false if Backports::StdLib::LoadedFeatures.new.include?(lib)
+      raise unless paths = Backports::StdLib.extended_lib.fetch(lib, nil)
+      Backports::StdLib::LoadedFeatures.mark_as_loaded(lib)
+    end
+    if paths
       paths.each do |path|
         require_without_backports(path)
       end
     end
-    r
+    true
   end
   Backports.alias_method_chain self, :require, :backports
 end
