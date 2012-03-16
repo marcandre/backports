@@ -202,6 +202,14 @@ module Backports
     coerce_to(obj, Array, :to_ary)
   end
 
+  def self.try_convert(obj, cls, meth)
+    return obj if obj.kind_of?(cls)
+    return nil unless obj.respond_to?(meth)
+    ret = obj.__send__(meth)
+    raise TypeError, "Coercion error: obj.#{meth} did NOT return a #{cls} (was #{ret.class})" unless ret.nil? || ret.kind_of?(cls)
+    ret
+  end
+
   # Checks for a failed comparison (in which case it throws an ArgumentError)
   # Additionally, it maps any negative value to -1 and any positive value to +1
   # (from Rubinius)

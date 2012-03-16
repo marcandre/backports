@@ -3,8 +3,7 @@ class String
   class << self
     # Standard in Ruby 1.8.8. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
     def try_convert(x)
-      return nil unless x.respond_do(:to_str)
-      x.to_str
+      Backports.try_convert(x, String, :to_str)
     end unless method_defined? :try_convert
   end
 

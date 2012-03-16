@@ -8,8 +8,7 @@ class IO
     end unless method_defined? :binread
 
     def try_convert(obj)
-      return nil unless obj.respond_to?(:to_io)
-      Backports.coerce_to(obj, IO, :to_io)
+      Backports.try_convert(obj, IO, :to_io)
     end unless method_defined? :try_convert
 
     begin
