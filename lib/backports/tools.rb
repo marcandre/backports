@@ -90,7 +90,7 @@ module Backports
       end
       unless options.empty?
         test_on = options[:test_on] || self.new
-        next if (test_on.send(selector, *options.fetch(:arg, [])) rescue false)
+        next if (test_on.send(selector, *options.fetch(:arg, []).is_a?(Enumerator)) rescue false)
       end
 
       arity = mod.instance_method(selector).arity
