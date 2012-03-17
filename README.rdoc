@@ -23,7 +23,7 @@ Features in this gem:
 
 Let's be a bit more precise about the breaking code business. It is of course entirely possible that code will break, for example some core methods are monkeypatched or if the code relies on a certain call raising an exception. Example: <tt>[42].sample rescue "dum example"</tt> will return <tt>"dum example"</tt> without this gem and <tt>42</tt> with it.
 
-A real incompatibility is, for example, <tt>Module::instance_methods</tt> which returns strings in 1.8 and symbols in 1.9. No change can be made without the risk of breaking existing code. Such incompatibilities are left unchanged.
+A real incompatibility is, for example, <tt>Module::instance_methods</tt> which returns strings in 1.8 and symbols in 1.9. No change can be made without the risk of breaking existing code. Such incompatibilities are left unchanged, although you can require some of these changes in addition (see below)
 
 All features of 1.8.7 are backported (well, almost all, see the exception list bellow), and many of 1.9 are also.
 
@@ -210,11 +210,40 @@ To include _only_ these Rails backports but not those of Ruby, <tt>require "back
 
 == Libraries
 
-Libraries have not been backported. I am aware of the following backport gems:
+Libraries are slowly being backported. You simply require them as usual, ideally (but not necessarily) after requiring backports.
+
+  require "backports"
+  require "prime"
+  42.prime? # => false, even in Ruby 1.8.x
+
+The following libraries are up to date with Ruby 1.9.3:
+
+* Matrix
+* Prime
+* Set
+
+I am aware of the following backport gem which will hopefully be part of backports soon:
 
 * Net::SMTP for Ruby 1.8.6: smtp_tls[http://seattlerb.rubyforge.org/smtp_tls/]
 
-* Let me know of others...
+== Forcing incompatibilities
+
+Some backports would create incompatibilities in their current Ruby version but could be useful in some projects. It is possible to request such incompatible changes. Backports currently supports the following:
+
+* Hash
+  * +select+ (returns a Hash instead of an Array)
+
+* Enumerable / Array
+  * +map+ (returns an enumerator when called without a block)
+
+* String
+  * +length+, +size+ (for UTF-8 support)
+
+These must be imported in addition to the backports gem, for example:
+
+  require "backports"
+  require "backports/force/hash_select"
+  {}.select{} # => {}, even in Ruby 1.8
 
 == Thanks
 
