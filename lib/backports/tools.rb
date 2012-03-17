@@ -60,7 +60,7 @@ module Backports
     class << self
       attr_accessor :extended_lib
 
-      def extend relative_dir="stdlib"
+      def extend_relative relative_dir="stdlib"
         loaded = Backports::StdLib::LoadedFeatures.new
         dir = File.expand_path(relative_dir, File.dirname(caller.first.split(/:\d/,2).first))
         Dir.entries(dir).

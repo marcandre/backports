@@ -1,1 +1,1 @@
-Backports::StdLib.extend
+Backports::StdLib.extend_relative
