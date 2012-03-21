@@ -17,7 +17,7 @@ class String
   unless method_defined? :each_char
     def each_char
       return to_enum(:each_char) unless block_given?
-      scan(/./) {|c| yield c}
+      scan(/./m) {|c| yield c}
     end
 
     Backports.alias_method self, :chars, :each_char
