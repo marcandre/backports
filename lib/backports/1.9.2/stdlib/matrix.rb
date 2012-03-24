@@ -32,79 +32,101 @@ end
 # == Method Catalogue
 #
 # To create a matrix:
-# * <tt> Matrix[*rows]                  </tt>
-# * <tt> Matrix.[](*rows)               </tt>
-# * <tt> Matrix.rows(rows, copy = true) </tt>
-# * <tt> Matrix.columns(columns)        </tt>
-# * <tt> Matrix.build(row_size, column_size, &block) </tt>
-# * <tt> Matrix.diagonal(*values)       </tt>
-# * <tt> Matrix.scalar(n, value)        </tt>
-# * <tt> Matrix.identity(n)             </tt>
-# * <tt> Matrix.unit(n)                 </tt>
-# * <tt> Matrix.I(n)                    </tt>
-# * <tt> Matrix.zero(n)                 </tt>
-# * <tt> Matrix.row_vector(row)         </tt>
-# * <tt> Matrix.column_vector(column)   </tt>
+# * Matrix[*rows]
+# * Matrix.[](*rows)
+# * Matrix.rows(rows, copy = true)
+# * Matrix.columns(columns)
+# * Matrix.build(row_size, column_size, &block)
+# * Matrix.diagonal(*values)
+# * Matrix.scalar(n, value)
+# * Matrix.identity(n)
+# * Matrix.unit(n)
+# * Matrix.I(n)
+# * Matrix.zero(n)
+# * Matrix.row_vector(row)
+# * Matrix.column_vector(column)
 #
 # To access Matrix elements/columns/rows/submatrices/properties:
-# * <tt>  [](i, j)                      </tt>
-# * <tt> #row_size                      </tt>
-# * <tt> #column_size                   </tt>
-# * <tt> #row(i)                        </tt>
-# * <tt> #column(j)                     </tt>
-# * <tt> #collect                       </tt>
-# * <tt> #map                           </tt>
-# * <tt> #each                          </tt>
-# * <tt> #each_with_index               </tt>
-# * <tt> #minor(*param)                 </tt>
+# * #[](i, j)
+# * #row_size
+# * #column_size
+# * #row(i)
+# * #column(j)
+# * #collect
+# * #map
+# * #each
+# * #each_with_index
+# * #find_index
+# * #minor(*param)
 #
 # Properties of a matrix:
-# * <tt> #empty?                        </tt>
-# * <tt> #real?                         </tt>
-# * <tt> #regular?                      </tt>
-# * <tt> #singular?                     </tt>
-# * <tt> #square?                       </tt>
+# * #diagonal?
+# * #empty?
+# * #hermitian?
+# * #lower_triangular?
+# * #normal?
+# * #orthogonal?
+# * #permutation?
+# * #real?
+# * #regular?
+# * #singular?
+# * #square?
+# * #symmetric?
+# * #unitary?
+# * #upper_triangular?
+# * #zero?
 #
 # Matrix arithmetic:
-# * <tt>  *(m)                          </tt>
-# * <tt>  +(m)                          </tt>
-# * <tt>  -(m)                          </tt>
-# * <tt> #/(m)                          </tt>
-# * <tt> #inverse                       </tt>
-# * <tt> #inv                           </tt>
-# * <tt>  **                            </tt>
+# * #*(m)
+# * #+(m)
+# * #-(m)
+# * #/(m)
+# * #inverse
+# * #inv
+# * #**
 #
 # Matrix functions:
-# * <tt> #determinant                   </tt>
-# * <tt> #det                           </tt>
-# * <tt> #rank                          </tt>
-# * <tt> #trace                         </tt>
-# * <tt> #tr                            </tt>
-# * <tt> #transpose                     </tt>
-# * <tt> #t                             </tt>
+# * #determinant
+# * #det
+# * #rank
+# * #round
+# * #trace
+# * #tr
+# * #transpose
+# * #t
+#
+# Matrix decompositions:
+# * #eigen
+# * #eigensystem
+# * #lup
+# * #lup_decomposition
 #
 # Complex arithmetic:
-# * <tt> conj                           </tt>
-# * <tt> conjugate                      </tt>
-# * <tt> imag                           </tt>
-# * <tt> imaginary                      </tt>
-# * <tt> real                           </tt>
-# * <tt> rect                           </tt>
-# * <tt> rectangular                    </tt>
+# * conj
+# * conjugate
+# * imag
+# * imaginary
+# * real
+# * rect
+# * rectangular
 #
 # Conversion to other data types:
-# * <tt> #coerce(other)                 </tt>
-# * <tt> #row_vectors                   </tt>
-# * <tt> #column_vectors                </tt>
-# * <tt> #to_a                          </tt>
+# * #coerce(other)
+# * #row_vectors
+# * #column_vectors
+# * #to_a
 #
 # String representations:
-# * <tt> #to_s                          </tt>
-# * <tt> #inspect                       </tt>
+# * #to_s
+# * #inspect
 #
 class Matrix
   include Enumerable
   include ExceptionForMatrix
+  unless autoload?(:EigenvalueDecomposition)
+    autoload :EigenvalueDecomposition, File.expand_path("../matrix/eigenvalue_decomposition", __FILE__) if 42.respond_to?(:conj)
+    autoload :LUPDecomposition, File.expand_path("../matrix/lup_decomposition", __FILE__)
+  end
 
   # instance creations
   private_class_method :new
@@ -118,7 +140,7 @@ class Matrix
   #          -1 66
   #
   def Matrix.[](*rows)
-    Matrix.rows(rows, false)
+    rows(rows, false)
   end
 
   #
@@ -148,7 +170,7 @@ class Matrix
   #          93 66
   #
   def Matrix.columns(columns)
-    Matrix.rows(columns, false).transpose
+    rows(columns, false).transpose
   end
 
   #
@@ -200,7 +222,7 @@ class Matrix
   #        0 5
   #
   def Matrix.scalar(n, value)
-    Matrix.diagonal(*Array.new(n, value))
+    diagonal(*Array.new(n, value))
   end
 
   #
@@ -210,7 +232,7 @@ class Matrix
   #        0 1
   #
   def Matrix.identity(n)
-    Matrix.scalar(n, 1)
+    scalar(n, 1)
   end
   class << Matrix
     alias unit identity
@@ -218,13 +240,14 @@ class Matrix
   end
 
   #
-  # Creates an +n+ by +n+ zero matrix.
+  # Creates a zero matrix.
   #   Matrix.zero(2)
   #     => 0 0
   #        0 0
   #
-  def Matrix.zero(n)
-    Matrix.scalar(n, 0)
+  def Matrix.zero(row_size, column_size = row_size)
+    rows = Array.new(row_size){Array.new(column_size, 0)}
+    new rows, column_size
   end
 
   #
@@ -283,7 +306,7 @@ class Matrix
   end
 
   def new_matrix(rows, column_size = rows[0].size) # :nodoc:
-    Matrix.send(:new, rows, column_size) # bypass privacy of Matrix.new
+    self.class.send(:new, rows, column_size) # bypass privacy of Matrix.new
   end
   private :new_matrix
 
@@ -365,40 +388,161 @@ class Matrix
 
   #
   # Yields all elements of the matrix, starting with those of the first row,
-  # or returns an Enumerator is no block given
+  # or returns an Enumerator is no block given.
+  # Elements can be restricted by passing an argument:
+  # * :all (default): yields all elements
+  # * :diagonal: yields only elements on the diagonal
+  # * :off_diagonal: yields all elements except on the diagonal
+  # * :lower: yields only elements on or below the diagonal
+  # * :strict_lower: yields only elements below the diagonal
+  # * :strict_upper: yields only elements above the diagonal
+  # * :upper: yields only elements on or above the diagonal
+  #
   #   Matrix[ [1,2], [3,4] ].each { |e| puts e }
   #     # => prints the numbers 1 to 4
+  #   Matrix[ [1,2], [3,4] ].each(:strict_lower).to_a # => [3]
   #
-  def each(&block) # :yield: e
-    return to_enum(:each) unless block_given?
-    @rows.each do |row|
-      row.each(&block)
+  def each(which = :all) # :yield: e
+    return to_enum :each, which unless block_given?
+    last = column_size - 1
+    case which
+    when :all
+      block = Proc.new
+      @rows.each do |row|
+        row.each(&block)
+      end
+    when :diagonal
+      @rows.each_with_index do |row, row_index|
+        yield row.fetch(row_index){return self}
+      end
+    when :off_diagonal
+      @rows.each_with_index do |row, row_index|
+        column_size.times do |col_index|
+          yield row[col_index] unless row_index == col_index
+        end
+      end
+    when :lower
+      @rows.each_with_index do |row, row_index|
+        0.upto([row_index, last].min) do |col_index|
+          yield row[col_index]
+        end
+      end
+    when :strict_lower
+      @rows.each_with_index do |row, row_index|
+        [row_index, column_size].min.times do |col_index|
+          yield row[col_index]
+        end
+      end
+    when :strict_upper
+      @rows.each_with_index do |row, row_index|
+        (row_index+1).upto(last) do |col_index|
+          yield row[col_index]
+        end
+      end
+    when :upper
+      @rows.each_with_index do |row, row_index|
+        row_index.upto(last) do |col_index|
+          yield row[col_index]
+        end
+      end
+    else
+      Matrix.Raise ArgumentError, "expected #{which.inspect} to be one of :all, :diagonal, :off_diagonal, :lower, :strict_lower, :strict_upper or :upper"
     end
     self
   end
 
   #
-  # Yields all elements of the matrix, starting with those of the first row,
-  # along with the row index and column index,
-  # or returns an Enumerator is no block given
+  # Same as #each, but the row index and column index in addition to the element
+  #
   #   Matrix[ [1,2], [3,4] ].each_with_index do |e, row, col|
   #     puts "#{e} at #{row}, #{col}"
   #   end
-  #     # => 1 at 0, 0
-  #     # => 2 at 0, 1
-  #     # => 3 at 1, 0
-  #     # => 4 at 1, 1
+  #     # => Prints:
+  #     #    1 at 0, 0
+  #     #    2 at 0, 1
+  #     #    3 at 1, 0
+  #     #    4 at 1, 1
   #
-  def each_with_index(&block) # :yield: e, row, column
-    return to_enum(:each_with_index) unless block_given?
-    @rows.each_with_index do |row, row_index|
-      row.each_with_index do |e, col_index|
-        yield e, row_index, col_index
+  def each_with_index(which = :all) # :yield: e, row, column
+    return to_enum :each_with_index, which unless block_given?
+    last = column_size - 1
+    case which
+    when :all
+      @rows.each_with_index do |row, row_index|
+        row.each_with_index do |e, col_index|
+          yield e, row_index, col_index
+        end
       end
+    when :diagonal
+      @rows.each_with_index do |row, row_index|
+        yield row.fetch(row_index){return self}, row_index, row_index
+      end
+    when :off_diagonal
+      @rows.each_with_index do |row, row_index|
+        column_size.times do |col_index|
+          yield row[col_index], row_index, col_index unless row_index == col_index
+        end
+      end
+    when :lower
+      @rows.each_with_index do |row, row_index|
+        0.upto([row_index, last].min) do |col_index|
+          yield row[col_index], row_index, col_index
+        end
+      end
+    when :strict_lower
+      @rows.each_with_index do |row, row_index|
+        [row_index, column_size].min.times do |col_index|
+          yield row[col_index], row_index, col_index
+        end
+      end
+    when :strict_upper
+      @rows.each_with_index do |row, row_index|
+        (row_index+1).upto(last) do |col_index|
+          yield row[col_index], row_index, col_index
+        end
+      end
+    when :upper
+      @rows.each_with_index do |row, row_index|
+        row_index.upto(last) do |col_index|
+          yield row[col_index], row_index, col_index
+        end
+      end
+    else
+      Matrix.Raise ArgumentError, "expected #{which.inspect} to be one of :all, :diagonal, :off_diagonal, :lower, :strict_lower, :strict_upper or :upper"
     end
     self
   end
 
+  SELECTORS = {:all => true, :diagonal => true, :off_diagonal => true, :lower => true, :strict_lower => true, :strict_upper => true, :upper => true}.freeze
+  #
+  # :call-seq:
+  #   index(value, selector = :all) -> [row, column]
+  #   index(selector = :all){ block } -> [row, column]
+  #   index(selector = :all) -> an_enumerator
+  #
+  # The index method is specialized to return the index as [row, column]
+  # It also accepts an optional +selector+ argument, see #each for details.
+  #
+  #   Matrix[ [1,2], [3,4] ].index(&:even?) # => [0, 1]
+  #   Matrix[ [1,1], [1,1] ].index(1, :strict_lower) # => [1, 0]
+  #
+  def index(*args)
+    raise ArgumentError, "wrong number of arguments(#{args.size} for 0-2)" if args.size > 2
+    which = (args.size == 2 || SELECTORS.include?(args.last)) ? args.pop : :all
+    return to_enum :find_index, which, *args unless block_given? || args.size == 1
+    if args.size == 1
+      value = args.first
+      each_with_index(which) do |e, row_index, col_index|
+        return row_index, col_index if e == value
+      end
+    else
+      each_with_index(which) do |e, row_index, col_index|
+        return row_index, col_index if yield e
+      end
+    end
+    nil
+  end
+  alias_method :find_index, :index
   #
   # Returns a section of the matrix.  The parameters are either:
   # *  start_row, nrows, start_col, ncols; OR
@@ -450,11 +594,98 @@ class Matrix
   #++
 
   #
+  # Returns +true+ is this is a diagonal matrix.
+  # Raises an error if matrix is not square.
+  #
+  def diagonal?
+    Matrix.Raise ErrDimensionMismatch unless square?
+    each(:off_diagonal).all?(&:zero?)
+  end
+
+  #
   # Returns +true+ if this is an empty matrix, i.e. if the number of rows
   # or the number of columns is 0.
   #
   def empty?
     column_size == 0 || row_size == 0
+  end
+
+  
+  #
+  # Returns +true+ is this is an hermitian matrix.
+  # Raises an error if matrix is not square.
+  #
+  
+  def hermitian?
+    Matrix.Raise ErrDimensionMismatch unless square?
+    each_with_index(:strict_upper).all? do |e, row, col|
+      e == rows[col][row].conj
+    end
+  end if 42.respond_to?(:conj)
+
+  #
+  # Returns +true+ is this is a lower triangular matrix.
+  #
+  def lower_triangular?
+    each(:strict_upper).all?(&:zero?)
+  end
+
+  #
+  # Returns +true+ is this is a normal matrix.
+  # Raises an error if matrix is not square.
+  #
+  def normal?
+    Matrix.Raise ErrDimensionMismatch unless square?
+    rows.each_with_index do |row_i, i|
+      rows.each_with_index do |row_j, j|
+        s = 0
+        rows.each_with_index do |row_k, k|
+          s += row_i[k] * row_j[k].conj - row_k[i].conj * row_k[j]
+        end
+        return false unless s == 0
+      end
+    end
+    true
+  end if 42.respond_to?(:conj)
+
+  #
+  # Returns +true+ is this is an orthogonal matrix
+  # Raises an error if matrix is not square.
+  #
+  def orthogonal?
+    Matrix.Raise ErrDimensionMismatch unless square?
+    rows.each_with_index do |row, i|
+      column_size.times do |j|
+        s = 0
+        row_size.times do |k|
+          s += row[k] * rows[k][j]
+        end
+        return false unless s == (i == j ? 1 : 0)
+      end
+    end
+    true
+  end
+
+  #
+  # Returns +true+ is this is a permutation matrix
+  # Raises an error if matrix is not square.
+  #
+  def permutation?
+    Matrix.Raise ErrDimensionMismatch unless square?
+    cols = Array.new(column_size)
+    rows.each_with_index do |row, i|
+      found = false
+      row.each_with_index do |e, j|
+        if e == 1
+          return false if found || cols[j]
+          found = cols[j] = true
+        elsif e != 0
+          return false
+        end
+      end
+      return false unless found
+    end
+    true
   end
 
   #
@@ -483,6 +714,50 @@ class Matrix
   #
   def square?
     column_size == row_size
+  end
+
+  #
+  # Returns +true+ is this is a symmetric matrix.
+  # Raises an error if matrix is not square.
+  #
+  def symmetric?
+    Matrix.Raise ErrDimensionMismatch unless square?
+    each_with_index(:strict_upper) do |e, row, col|
+      return false if e != rows[col][row]
+    end
+    true
+  end
+
+  #
+  # Returns +true+ is this is a unitary matrix
+  # Raises an error if matrix is not square.
+  #
+  def unitary?
+    Matrix.Raise ErrDimensionMismatch unless square?
+    rows.each_with_index do |row, i|
+      column_size.times do |j|
+        s = 0
+        row_size.times do |k|
+          s += row[k].conj * rows[k][j]
+        end
+        return false unless s == (i == j ? 1 : 0)
+      end
+    end
+    true
+  end if 42.respond_to?(:conj)
+
+  #
+  # Returns +true+ is this is an upper triangular matrix.
+  #
+  def upper_triangular?
+    each(:strict_lower).all?(&:zero?)
+  end
+
+  #
+  # Returns +true+ is this is a matrix with only zero elements
+  #
+  def zero?
+    all?(&:zero?)
   end
 
   #--
@@ -538,7 +813,7 @@ class Matrix
       }
       return new_matrix rows, column_size
     when Vector
-      m = Matrix.column_vector(m)
+      m = self.class.column_vector(m)
       r = self * m
       return r.column(0)
     when Matrix
@@ -568,7 +843,7 @@ class Matrix
     when Numeric
       Matrix.Raise ErrOperationNotDefined, "+", self.class, m.class
     when Vector
-      m = Matrix.column_vector(m)
+      m = self.class.column_vector(m)
     when Matrix
     else
       return apply_through_coercion(m, __method__)
@@ -595,7 +870,7 @@ class Matrix
     when Numeric
       Matrix.Raise ErrOperationNotDefined, "-", self.class, m.class
     when Vector
-      m = Matrix.column_vector(m)
+      m = self.class.column_vector(m)
     when Matrix
     else
       return apply_through_coercion(m, __method__)
@@ -639,7 +914,7 @@ class Matrix
   #
   def inverse
     Matrix.Raise ErrDimensionMismatch unless square?
-    Matrix.I(row_size).send(:inverse_from, self)
+    self.class.I(row_size).send(:inverse_from, self)
   end
   alias inv inverse
 
@@ -689,8 +964,10 @@ class Matrix
   private :inverse_from
 
   #
-  # Matrix exponentiation.  Currently implemented for integer powers only.
+  # Matrix exponentiation.
   # Equivalent to multiplying the matrix by itself N times.
+  # Non integer exponents will be handled by diagonalizing the matrix.
+  #
   #   Matrix[[7,6], [3,9]] ** 2
   #     => 67 96
   #        48 99
@@ -701,7 +978,7 @@ class Matrix
       x = self
       if other <= 0
         x = self.inverse
-        return Matrix.identity(self.column_size) if other == 0
+        return self.class.identity(self.column_size) if other == 0
         other = -other
       end
       z = nil
@@ -710,8 +987,9 @@ class Matrix
         return z if (other >>= 1).zero?
         x *= x
       end
-    when Float, Rational
-      Matrix.Raise ErrOperationNotImplemented, "**", self.class, other.class
+    when Numeric
+      v, d, v_inv = eigensystem
+      v * self.class.diagonal(*d.each(:diagonal).map{|e| e ** other}) * v_inv
     else
       Matrix.Raise ErrOperationNotDefined, "**", self.class, other.class
     end
@@ -834,7 +1112,6 @@ class Matrix
     a = to_a
     last_column = column_size - 1
     last_row = row_size - 1
-    rank = 0
     pivot_row = 0
     previous_pivot = 1
     0.upto(last_column) do |k|
@@ -865,6 +1142,12 @@ class Matrix
     rank
   end
 
+  # Returns a matrix with entries rounded to the given precision
+  # (see Float#round)
+  #
+  def round(ndigits=0)
+    map{|e| e.round(ndigits)}
+  end
 
   #
   # Returns the trace (sum of diagonal elements) of the matrix.
@@ -890,11 +1173,44 @@ class Matrix
   #        2 4 6
   #
   def transpose
-    return Matrix.empty(column_size, 0) if row_size.zero?
+    return self.class.empty(column_size, 0) if row_size.zero?
     new_matrix @rows.transpose, row_size
   end
   alias t transpose
 
+  #--
+  # DECOMPOSITIONS -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  #++
+
+  #
+  # Returns the Eigensystem of the matrix; see +EigenvalueDecomposition+.
+  #   m = Matrix[[1, 2], [3, 4]]
+  #   v, d, v_inv = m.eigensystem
+  #   d.diagonal? # => true
+  #   v.inv == v_inv # => true
+  #   (v * d * v_inv).round(5) == m # => true
+  #
+  def eigensystem
+    EigenvalueDecomposition.new(self)
+  end
+  alias eigen eigensystem
+
+  #
+  # Returns the LUP decomposition of the matrix; see +LUPDecomposition+.
+  #   a = Matrix[[1, 2], [3, 4]]
+  #   l, u, p = a.lup
+  #   l.lower_triangular? # => true
+  #   u.upper_triangular? # => true
+  #   p.permutation?      # => true
+  #   l * u == a * p      # => true
+  #   a.lup.solve([2, 5]) # => Vector[(1/1), (1/2)]
+  #
+  def lup
+    LUPDecomposition.new(self)
+  end
+  alias lup_decomposition lup
+
+if 42.respond_to?(:conj)
   #--
   # COMPLEX ARITHMETIC -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   #++
@@ -950,7 +1266,7 @@ class Matrix
     [real, imag]
   end
   alias rectangular rect
-
+end
   #--
   # CONVERTING -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   #++
@@ -1020,9 +1336,9 @@ class Matrix
   #
   def to_s
     if empty?
-      "Matrix.empty(#{row_size}, #{column_size})"
+      "#{self.class}.empty(#{row_size}, #{column_size})"
     else
-      "Matrix[" + @rows.collect{|row|
+      "#{self.class}[" + @rows.collect{|row|
         "[" + row.collect{|e| e.to_s}.join(", ") + "]"
       }.join(", ")+"]"
     end
@@ -1033,9 +1349,9 @@ class Matrix
   #
   def inspect
     if empty?
-      "Matrix.empty(#{row_size}, #{column_size})"
+      "#{self.class}.empty(#{row_size}, #{column_size})"
     else
-      "Matrix#{@rows.inspect}"
+      "#{self.class}#{@rows.inspect}"
     end
   end
 
@@ -1189,37 +1505,40 @@ end
 # == Method Catalogue
 #
 # To create a Vector:
-# * <tt>  Vector.[](*array)                   </tt>
-# * <tt>  Vector.elements(array, copy = true) </tt>
+# * Vector.[](*array)
+# * Vector.elements(array, copy = true)
 #
 # To access elements:
-# * <tt>  [](i)                               </tt>
+# * #[](i)
 #
 # To enumerate the elements:
-# * <tt> #each2(v)                            </tt>
-# * <tt> #collect2(v)                         </tt>
+# * #each2(v)
+# * #collect2(v)
 #
 # Vector arithmetic:
-# * <tt>  *(x) "is matrix or number"          </tt>
-# * <tt>  +(v)                                </tt>
-# * <tt>  -(v)                                </tt>
+# * #*(x) "is matrix or number"
+# * #+(v)
+# * #-(v)
 #
 # Vector functions:
-# * <tt> #inner_product(v)                    </tt>
-# * <tt> #collect                             </tt>
-# * <tt> #map                                 </tt>
-# * <tt> #map2(v)                             </tt>
-# * <tt> #r                                   </tt>
-# * <tt> #size                                </tt>
+# * #inner_product(v)
+# * #collect
+# * #magnitude
+# * #map
+# * #map2(v)
+# * #norm
+# * #normalize
+# * #r
+# * #size
 #
 # Conversion to other data types:
-# * <tt> #covector                            </tt>
-# * <tt> #to_a                                </tt>
-# * <tt> #coerce(other)                       </tt>
+# * #covector
+# * #to_a
+# * #coerce(other)
 #
 # String representations:
-# * <tt> #to_s                                </tt>
-# * <tt> #inspect                             </tt>
+# * #to_s
+# * #inspect
 #
 class Vector
   include ExceptionForMatrix
@@ -1237,7 +1556,7 @@ class Vector
   #   Vector[7, 4, ...]
   #
   def Vector.[](*array)
-    new convert_to_array(array, copy = false)
+    new convert_to_array(array, false)
   end
 
   #
@@ -1341,7 +1660,7 @@ class Vector
   # Return a copy of the vector.
   #
   def clone
-    Vector.elements(@elements)
+    self.class.elements(@elements)
   end
 
   #
@@ -1362,7 +1681,7 @@ class Vector
     case x
     when Numeric
       els = @elements.collect{|e| e * x}
-      Vector.elements(els, false)
+      self.class.elements(els, false)
     when Matrix
       Matrix.column_vector(self) * x
     when Vector
@@ -1382,7 +1701,7 @@ class Vector
       els = collect2(v) {|v1, v2|
         v1 + v2
       }
-      Vector.elements(els, false)
+      self.class.elements(els, false)
     when Matrix
       Matrix.column_vector(self) + v
     else
@@ -1400,7 +1719,7 @@ class Vector
       els = collect2(v) {|v1, v2|
         v1 - v2
       }
-      Vector.elements(els, false)
+      self.class.elements(els, false)
     when Matrix
       Matrix.column_vector(self) - v
     else
@@ -1415,7 +1734,7 @@ class Vector
     case x
     when Numeric
       els = @elements.collect{|e| e / x}
-      Vector.elements(els, false)
+      self.class.elements(els, false)
     when Matrix, Vector
       Vector.Raise ErrOperationNotDefined, "/", self.class, x.class
     else
@@ -1447,9 +1766,19 @@ class Vector
   def collect(&block) # :yield: e
     return to_enum(:collect) unless block_given?
     els = @elements.collect(&block)
-    Vector.elements(els, false)
+    self.class.elements(els, false)
   end
   alias map collect
+
+  #
+  # Returns the modulus (Pythagorean distance) of the vector.
+  #   Vector[5,8,2].r => 9.643650761
+  #
+  def magnitude
+    Math.sqrt(@elements.inject(0) {|v, e| v + e*e})
+  end
+  alias r magnitude
+  alias norm magnitude
 
   #
   # Like Vector#collect2, but returns a Vector instead of an Array.
@@ -1457,15 +1786,21 @@ class Vector
   def map2(v, &block) # :yield: e1, e2
     return to_enum(:map2, v) unless block_given?
     els = collect2(v, &block)
-    Vector.elements(els, false)
+    self.class.elements(els, false)
   end
 
+  class ZeroVectorError < StandardError
+  end
   #
-  # Returns the modulus (Pythagorean distance) of the vector.
-  #   Vector[5,8,2].r => 9.643650761
+  # Returns a new vector with the same direction but with norm 1.
+  #   v = Vector[5,8,2].normalize
+  #   # => Vector[0.5184758473652127, 0.8295613557843402, 0.20739033894608505]
+  #   v.norm => 1.0
   #
-  def r
-    Math.sqrt(@elements.inject(0) {|v, e| v + e*e})
+  def normalize
+    n = magnitude
+    raise ZeroVectorError, "Zero vectors can not be normalized" if n == 0
+    self / n
   end
 
   #--
@@ -1532,6 +1867,6 @@ class Vector
   # Overrides Object#inspect
   #
   def inspect
-    str = "Vector"+@elements.inspect
+    "Vector" + @elements.inspect
   end
 end
