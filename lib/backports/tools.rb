@@ -71,7 +71,7 @@ module Backports
             if loaded.include?(f)
               require path
             else
-              @extended_lib[Regexp.last_match(1)] << path
+              @extended_lib[f] << path
             end
           end
       end
