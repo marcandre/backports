@@ -180,6 +180,8 @@ To include all Ruby backports but not those of Rails, <tt>require "backports/1.9
 
 Some features of Ruby 1.9.3 have been backported:
 
+* File
+  * +NULL+
 * IO
   * +write+, +binwrite+
 * String
