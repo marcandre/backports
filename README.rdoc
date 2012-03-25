@@ -183,6 +183,7 @@ Some features of Ruby 1.9.3 have been backported:
 * IO
   * +write+, +binwrite+
 * String
+  * +byteslice+
   * +prepend+
 
 == Rails
