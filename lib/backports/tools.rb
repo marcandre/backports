@@ -211,6 +211,10 @@ module Backports
     coerce_to(obj, Array, :to_ary)
   end
 
+  def self.coerce_to_str(obj)
+    coerce_to(obj, String, :to_str)
+  end
+
   def self.try_convert(obj, cls, meth)
     return obj if obj.kind_of?(cls)
     return nil unless obj.respond_to?(meth)
