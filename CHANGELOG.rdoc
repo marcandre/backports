@@ -1,5 +1,30 @@
 = Packable --- History
 
+== Version 2.5.0 - March 25th, 2012
+
+* Added some features of 1.9.3:
+  * IO::NULL
+  * IO#advise
+  * String#byteslice
+  * String#prepend
+
+== Version 2.4.0 - March 24th, 2012
+
+* Add backporting for libraries
+
+* Bring libraries up to date:
+  * Matrix
+  * Prime
+  * Set
+
+* Added some features of 1.9.3:
+  * IO.write, IO.binwrite
+
+* Add forcing backports (must be required explicitly):
+  * Hash#select (returns a Hash instead of an Array)
+  * Enumerable / Array#map (returns an enumerator when called without a block)
+  * String#length, size (for UTF-8 support)
+
 == Version 2.3.0 - May 13th, 2011
 
 * Added Enumerator::Yielder#<<
