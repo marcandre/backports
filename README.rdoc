@@ -1,6 +1,6 @@
 = Backports Library
 
-* Yearning to use some of the new cool features in 1.9.2 while using 1.8.x?
+* Yearning to use some of the new cool features in 1.9.3 while using 1.8.6?
 * One of your client is stuck with Ruby 1.8.6 but you want to use a gem using some features of 1.8.7?
 * Can't remember if you can use Array#sample or String#each_char on a friend's box?
 
@@ -10,7 +10,7 @@ The goal of 'backports' is to make it easier to write ruby code that runs across
 
   require 'backports'
   
-This will bring in all the features of 1.8.7 (for Ruby 1.8.6) and many features of Ruby 1.9.1 (for Ruby 1.8.x) and Ruby 1.9.2 (for all earlier versions)!
+This will bring in all the features of 1.8.7 (for Ruby 1.8.6) and many features of Ruby 1.9.1 (for Ruby 1.8.x), Ruby 1.9.2 and Ruby 1.9.3 (for all earlier versions)!
 
 +Note+: Although I am a Ruby committer, this gem is a personal project and is not endorsed by ruby-core.
 
@@ -40,7 +40,7 @@ To use:
   require 'rubygems'
   require 'backports'   # or a subset, see next section
 
-Compatible with Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2, JRuby and Rubinius.
+Compatible with Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2, 1.9.3, JRuby and Rubinius.
 
 = Complete List of backports
 
