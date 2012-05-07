@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "backports"
-  s.version = "2.5.2"
+  s.version = "2.5.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Marc-Andr\u{e9} Lafortune"]
@@ -13,14 +13,14 @@ Gem::Specification.new do |s|
   s.description = "      Essential backports that enable some of the really nice features of ruby 1.8.7, ruby 1.9 and rails from ruby 1.8.6 and earlier.\n"
   s.email = "github@marc-andre.ca"
   s.extra_rdoc_files = [
-    "LICENSE",
+    "LICENSE.txt",
     "README.rdoc"
   ]
   s.files = [
     ".document",
     ".irbrc",
     "CHANGELOG.rdoc",
-    "LICENSE",
+    "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION.yml",
@@ -119,7 +119,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--title", "Backports library", "--main", "README.rdoc", "--line-numbers", "--inline-source"]
   s.require_paths = ["lib"]
   s.rubyforge_project = "backports"
-  s.rubygems_version = "1.8.19"
+  s.rubygems_version = "1.8.24"
   s.summary = "Backports of Ruby 1.8.7+ for older ruby."
 
   if s.respond_to? :specification_version then
