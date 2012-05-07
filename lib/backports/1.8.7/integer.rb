@@ -1,5 +1,6 @@
 class Integer
-  Backports.make_block_optional self, :downto, :times, :upto, :test_on => 42, :arg => 42
+  Backports.make_block_optional self, :downto, :upto, :test_on => 42, :arg => 42
+  Backports.make_block_optional self, :times, :test_on => 42
 
   # Standard in ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Fixnum.html]
   def even?

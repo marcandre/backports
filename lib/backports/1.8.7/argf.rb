@@ -1,12 +1,10 @@
-if RUBY_VERSION < '1.8.7'
-  class << ARGF
-    # No official documentation...
-    Backports.make_block_optional self, :each, :each_line, :each_byte
-  end
-end
-
 class << ARGF
   # No official documentation...
+
+  if RUBY_VERSION < '1.8.7' # Can't test without block, as this hangs
+    Backports.make_block_optional self, :each, :each_line, :each_byte, :force => true
+  end
+
   def each_char
     return to_enum(:each_char) unless block_given?
     if $KCODE == "UTF-8"

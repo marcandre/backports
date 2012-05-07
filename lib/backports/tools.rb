@@ -1,5 +1,4 @@
 # Methods used internally by the backports.
-
 module Backports
   # Adapted from Pragmatic's "Programming Ruby" (since their version was buggy...)
   def self.require_relative(relative_feature)
@@ -88,11 +87,16 @@ module Backports
         warn "#{mod}##{selector} is not defined, so block can't be made optional"
         next
       end
-      unless options.empty?
-        test_on = options[:test_on] || self.new
-        next if (test_on.send(selector, *options.fetch(:arg, []).is_a?(Enumerator)) rescue false)
+      unless options[:force]
+        # Check if needed
+        test_on = options.fetch(:test_on)
+        result =  begin
+                    test_on.send(selector, *options.fetch(:arg, []))
+                  rescue LocalJumpError
+                    false
+                  end
+        next if result.class.name =~ /Enumerator$/
       end
-
       arity = mod.instance_method(selector).arity
       last_arg = []
       if arity < 0

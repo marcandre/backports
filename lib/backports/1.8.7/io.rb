@@ -1,8 +1,8 @@
 class IO
   if RUBY_VERSION < '1.8.7'
-    Backports.make_block_optional self, :each, :each_line, :each_byte
+    Backports.make_block_optional self, :each, :each_line, :each_byte, :force => true
     class << self
-      Backports.make_block_optional self, :foreach
+      Backports.make_block_optional self, :foreach, :force => true
     end
   end
 
