@@ -48,10 +48,6 @@ module Enumerable
   end unless method_defined? :flat_map
   Backports.alias_method self, :collect_concat, :flat_map
 
-  def join(*args)
-    to_a.join(*args)
-  end unless method_defined? :join
-
   def slice_before(arg = Backports::Undefined, &block)
     if block_given?
       has_init = !(arg.equal? Backports::Undefined)

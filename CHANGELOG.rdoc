@@ -1,5 +1,9 @@
 = Packable --- History
 
+== Version 2.6.0 - May 29th, 2012
+
+* Removed Enumerable#join
+
 == Version 2.5.0 - March 25th, 2012
 
 * Added some features of 1.9.3:
@@ -281,7 +285,7 @@ Completed backport to 1.8.7.
 
 * Enumerable
   * <tt>none?</tt>
-  
+
 * Array
   * +sample+, +shuffle+, +shuffle!+
 
@@ -303,7 +307,7 @@ Tests and fixes for <tt>String#start_with?</tt> and <tt>String#end_with?</tt>
   * +count+
   * +cycle+
   * +group_by+
-  
+
 * Hash
   * <tt>default_proc=</tt>
 
@@ -312,7 +316,7 @@ Tests and fixes for <tt>String#start_with?</tt> and <tt>String#end_with?</tt>
 * Array
   * +flatten+, <tt>flatten!</tt>
   * +find_index+, +index+
-  
+
 * Hash
   * +reverse_merge+, <tt>reverse_merge!</tt>
 
