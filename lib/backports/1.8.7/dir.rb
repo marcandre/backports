@@ -1,11 +1,20 @@
 class Dir
-  Backports.make_block_optional self, :each, :test_on => Dir.new(".")
+  begin
+    Backports.make_block_optional self, :each, :test_on => Dir.new('.')
+  rescue # We may not be able to read the current directory, issue #58
+    Backports.make_block_optional self, :each, :force => true if RUBY_VERSION < '1.8.7'
+  end
+
   class << self
-    Backports.make_block_optional self, :foreach, :test_on => Dir, :arg => "."
-    
+    begin
+      Backports.make_block_optional self, :foreach, :test_on => Dir, :arg => '.'
+    rescue # We may not be able to read the current directory, issue #58
+      Backports.make_block_optional self, :foreach, :force => true if RUBY_VERSION < '1.8.7'
+    end
+
     def mktmpdir(prefix_suffix=nil, tmpdir=nil)
       raise NoMethodError, "undefined method `mktmpdir' for Dir:Class; you must require 'tmpdir'" unless respond_to? :tmpdir
-      
+
       case prefix_suffix
       when nil
         prefix = "d"
@@ -43,7 +52,7 @@ class Dir
         path
       end
     end unless method_defined? :mktmpdir
-    
+
   end
 end
-  
+
