@@ -1,6 +1,6 @@
 class File
   NULL =  case RUBY_PLATFORM
-          when /mswin/i
+          when /mswin|mingw/i
             'NUL'
           when /amiga/i
             'NIL:'
