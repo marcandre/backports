@@ -1,6 +1,8 @@
-class File
-  NULL =  case RUBY_PLATFORM
-          when /mswin/i
+module File::Constants
+  platform = RUBY_PLATFORM
+  platform = RbConfig::CONFIG['host_os'] if platform == 'java'
+  NULL =  case platform
+          when /mswin|mingw/i
             'NUL'
           when /amiga/i
             'NIL:'
