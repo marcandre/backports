@@ -18,10 +18,8 @@ module ExceptionForMatrix # :nodoc:
   def_e2message(TypeError, "wrong argument type %s (expected %s)")
   def_e2message(ArgumentError, "Wrong # of arguments(%d for %d)")
 
-  def_exception("ErrDimensionMismatch", "\#{self.name} dimension mismatch")
-  def_exception("ErrNotRegular", "Not Regular Matrix")
-  def_exception("ErrOperationNotDefined", "Operation(%s) can\\'t be defined: %s op %s")
-  def_exception("ErrOperationNotImplemented", "Sorry, Operation(%s) not implemented: %s op %s")
+  def_exception("ErrOperationNotDefined", "Operation(%s) can\\'t be defined: %s op %s") unless const_defined?(:ErrOperationNotDefined, false)
+  def_exception("ErrOperationNotImplemented", "Sorry, Operation(%s) not implemented: %s op %s") unless const_defined?(:ErrOperationNotImplemented, false)
 end
 
 #
@@ -513,7 +511,7 @@ class Matrix
     self
   end
 
-  SELECTORS = {:all => true, :diagonal => true, :off_diagonal => true, :lower => true, :strict_lower => true, :strict_upper => true, :upper => true}.freeze
+  SELECTORS = {:all => true, :diagonal => true, :off_diagonal => true, :lower => true, :strict_lower => true, :strict_upper => true, :upper => true}.freeze unless const_defined?(:SELECTORS)
   #
   # :call-seq:
   #   index(value, selector = :all) -> [row, column]
@@ -610,12 +608,12 @@ class Matrix
     column_size == 0 || row_size == 0
   end
 
-  
+
   #
   # Returns +true+ is this is an hermitian matrix.
   # Raises an error if matrix is not square.
   #
-  
+
   def hermitian?
     Matrix.Raise ErrDimensionMismatch unless square?
     each_with_index(:strict_upper).all? do |e, row, col|
