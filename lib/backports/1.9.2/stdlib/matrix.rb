@@ -18,8 +18,8 @@ module ExceptionForMatrix # :nodoc:
   def_e2message(TypeError, "wrong argument type %s (expected %s)")
   def_e2message(ArgumentError, "Wrong # of arguments(%d for %d)")
 
-  def_exception("ErrOperationNotDefined", "Operation(%s) can\\'t be defined: %s op %s") unless const_defined?(:ErrOperationNotDefined, false)
-  def_exception("ErrOperationNotImplemented", "Sorry, Operation(%s) not implemented: %s op %s") unless const_defined?(:ErrOperationNotImplemented, false)
+  def_exception("ErrOperationNotDefined", "Operation(%s) can\\'t be defined: %s op %s") unless const_defined?(:ErrOperationNotDefined)
+  def_exception("ErrOperationNotImplemented", "Sorry, Operation(%s) not implemented: %s op %s") unless const_defined?(:ErrOperationNotImplemented)
 end
 
 #
