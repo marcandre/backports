@@ -40,6 +40,8 @@ To use:
   require 'rubygems'
   require 'backports'   # or a subset, see next section
 
+Note that you'll typically want to require backports early (or put it at the top of your Gemfile), as otherwise you may encounter 'already initialized constant' warnings and other (harmless but unnecessary) noise.
+
 Compatible with Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2, 1.9.3, JRuby and Rubinius.
 
 = Complete List of backports
