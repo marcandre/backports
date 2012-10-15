@@ -81,6 +81,7 @@ end
 #   it is suitable for factorizing an integer which is not large but
 #   has many prime factors. e.g. for Prime#prime? .
 class Prime
+unless Prime.const_defined? :OldCompatibility
   include Enumerable
   @the_instance = Prime.new
 
@@ -492,4 +493,5 @@ class Prime
       end
     end
   end
+end
 end
