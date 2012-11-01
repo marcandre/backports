@@ -1,4 +1,4 @@
-require 'rubygems'
+require "packable/version"
 require 'backports'
 require_relative 'packable/packers'
 require_relative 'packable/mixin'
