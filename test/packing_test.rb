@@ -13,7 +13,7 @@ class XYZ
 end
 
 class TestingPack < Test::Unit::TestCase
-  
+
   context "Original form" do
     should "pack like before" do
       assert_equal "a  \000\000\000\001", ["a",1,66].pack("A3N")
@@ -23,17 +23,17 @@ class TestingPack < Test::Unit::TestCase
       assert_equal ["a",1,2.34, 66].pack({:bytes=>3}, {:bytes=>4, :endian=>:big}, {:precision=>:double, :endian=>:big}), ["a",1,2.34, 66].pack("A3NG")
     end
   end
-  
+
   def test_shortcuts
     assert_equal 0x123456.pack(:short), 0x123456.pack(:bytes => 2)
     assert_equal 0x3456, 0x123456.pack(:short).unpack(:short)
   end
-  
+
   def test_custom_form
-    assert_equal "xyz", XYZ.new.pack 
+    assert_equal "xyz", XYZ.new.pack
     assert_equal XYZ, "xyz".unpack(XYZ).class
   end
-  
+
   def test_pack_default
     assert_equal "\000\000\000\006", 6.pack
     assert_equal "abcd", "abcd".pack
@@ -41,7 +41,7 @@ class TestingPack < Test::Unit::TestCase
     String.packers.set :flv_signature, :bytes => 3, :fill => "FLV"
     assert_equal "xFL", "x".pack(:flv_signature)
   end
-  
+
   def test_integer
     assert_equal "\002\001\000", 258.pack(:bytes => 3, :endian => :little)
     assert_equal 258, Integer.unpack("\002\001\000", :bytes => 3, :endian => :little)
@@ -50,19 +50,23 @@ class TestingPack < Test::Unit::TestCase
     assert_equal 42, 42.pack('L').unpack(Integer, :bytes => 4, :endian => :native)
     assert_raise(ArgumentError){ 42.pack(:endian => "Geronimo")}
   end
-  
+
   def test_bignum
     assert_equal 1.pack(:long), ((1 << 69) + 1).pack(:long)
     assert_equal "*" + ("\000" * 15), (42 << (8*15)).pack(:bytes => 16)
     assert_equal 42 << (8*15), (42 << (8*15)).pack(:bytes => 16).unpack(Integer, :bytes => 16)
     assert_equal 42 << (8*15), (42 << (8*15)).pack(:bytes => 16).unpack(Bignum, :bytes => 16)
   end
-  
+
   def test_float
-    assert_equal Math::PI.pack(:precision => :double, :endian => :native), Math::PI.pack('F')
     assert_raise(ArgumentError){ Math::PI.pack(:endian => "Geronimo")}
+    assert_equal Math::PI, Math::PI.pack(:precision => :double, :endian => :native).unpack(Float, :precision => :double, :endian => :native)
+    # Issue #1
+    assert_equal Math::PI.pack(:precision => :double), Math::PI.pack('G')
+    assert_equal Math::PI.pack(:precision => :single), Math::PI.pack('g')
+    assert_equal Math::PI.pack(:precision => :double), Math::PI.pack('G')
   end
-  
+
   def test_io
     io = StringIO.new("\000\000\000\006abcdE!")
     n, s, c = io >> [Fixnum, {:signed=>false}] >> [String, {:bytes => 4}] >> :char
@@ -71,11 +75,11 @@ class TestingPack < Test::Unit::TestCase
     assert_equal 69, c
     assert_equal "!", io.read
   end
-  
+
   should "do basic type checking" do
     assert_raise(TypeError) {"".unpack(42, :short)}
   end
-  
+
   context "Reading beyond the eof" do
     should "raises an EOFError when reading" do
       ["", "x"].each do |s|
@@ -85,7 +89,7 @@ class TestingPack < Test::Unit::TestCase
         assert_raise(EOFError) {io.read(String, :bytes => 4)}
       end
     end
-  
+
     should "return nil for unpacking" do
       assert_nil "".unpack(:double)
       assert_nil "".unpack(:short)
@@ -93,7 +97,7 @@ class TestingPack < Test::Unit::TestCase
       assert_nil "x".unpack(:short)
     end
   end
-  
+
   context "Filters" do
     context "for Object" do
       Object.packers.set :generic_class_writer do |packer|
@@ -121,5 +125,5 @@ class TestingPack < Test::Unit::TestCase
       end
     end
   end
-    
+
 end

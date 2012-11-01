@@ -13,21 +13,23 @@ module Packable
           end
         end
       end
-      
+
       def write_packed(io, options)
         io << pack(self.class.pack_option_to_format(options))
       end
 
       module ClassMethods #:nodoc:
         ENDIAN_TO_FORMAT = Hash.new{|h, endian| raise ArgumentError, "Endian #{endian} is not valid. It must be one of #{h.keys.join(', ')}."}.
-          merge!(:big => "G", :network => "G", :little => "E", :native => "F").freeze
-        
+          merge!(:big => "G", :network => "G", :little => "E", :native => "D").freeze
+
+        FORMAT_TO_SINGLE_PRECISION = {'G' => 'g', 'E' => 'e', 'D' => 'f'}.freeze
+
         PRECISION = Hash.new{|h, precision| raise ArgumentError, "Precision #{precision} is not valid. It must be one of #{h.keys.join(', ')}."}.
           merge!(:single => 4, :double => 8).freeze
 
         def pack_option_to_format(options)
           format = ENDIAN_TO_FORMAT[options[:endian]]
-          format.downcase! if options[:precision] == :single
+          format = FORMAT_TO_SINGLE_PRECISION[format] if options[:precision] == :single
           format
         end
 
@@ -36,7 +38,7 @@ module Packable
           s && s.unpack(pack_option_to_format(options)).first
         end
       end
-      
+
     end
   end
 end
