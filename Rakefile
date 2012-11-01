@@ -2,7 +2,6 @@
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
-require 'rcov/rcovtask'
 
 begin
   require 'jeweler'
@@ -40,72 +39,4 @@ Rake::RDocTask.new do |rdoc|
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
-end
-
-Rcov::RcovTask.new do |t|
-  t.libs << 'test'
-  t.test_files = FileList['test/**/*_test.rb']
-  t.verbose = true
-end
-
-task :default => :rcov
-
-# stats
-begin
-  gem 'rails'
-  require 'code_statistics'
-  namespace :spec do
-    desc "Use Rails's rake:stats task for a gem"
-    task :statsetup do
-      class CodeStatistics
-        def calculate_statistics
-          @pairs.inject({}) do |stats, pair|
-            if 3 == pair.size
-              stats[pair.first] = calculate_directory_statistics(pair[1], pair[2]); stats
-            else
-              stats[pair.first] = calculate_directory_statistics(pair.last); stats
-            end
-          end
-        end
-      end
-      ::STATS_DIRECTORIES = [['Libraries',   'lib',  /.(sql|rhtml|erb|rb|yml)$/],
-                   ['Tests',     'test', /.(sql|rhtml|erb|rb|yml)$/]]
-      ::CodeStatistics::TEST_TYPES << "Tests"
-    end
-  end
-  desc "Report code statistics (KLOCs, etc) from the application"
-  task :stats => "spec:statsetup" do
-    CodeStatistics.new(*STATS_DIRECTORIES).to_s
-  end
-rescue Gem::LoadError => le
-  task :stats do
-    raise RuntimeError, "'rails' gem not found - you must install it in order to use this task.n"
-  end
-end
-
-
-begin
-  require 'rake/contrib/sshpublisher'
-  namespace :rubyforge do
-    
-    desc "Release gem and RDoc documentation to RubyForge"
-    task :release => ["rubyforge:release:gem", "rubyforge:release:docs"]
-    
-    namespace :release do
-      desc "Publish RDoc to RubyForge."
-      task :docs => [:rdoc] do
-        config = YAML.load(
-            File.read(File.expand_path('~/.rubyforge/user-config.yml'))
-        )
-
-        host = "#{config['username']}@rubyforge.org"
-        remote_dir = "/var/www/gforge-projects/packable/"
-        local_dir = 'rdoc'
-
-        Rake::SshDirPublisher.new(host, remote_dir, local_dir).upload
-      end
-    end
-  end
-rescue LoadError
-  puts "Rake SshDirPublisher is unavailable or your rubyforge environment is not configured."
 end
