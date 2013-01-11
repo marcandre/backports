@@ -66,8 +66,8 @@ class Array
         out.concat(array)
       else
         array.each do |o|
-          if o.respond_to? :to_ary
-            recursively_flatten_finite(o.to_ary, out, level - 1)
+          if ary = Backports.is_array?(o)
+            recursively_flatten_finite(ary, out, level - 1)
             ret = self
           else
             out << o
@@ -178,7 +178,7 @@ class Array
     result[n..size] = []
     result
   end unless method_defined? :sample
-  
+
   # shift. Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Array.html]
   unless ([1].shift(1) rescue false)
     def shift_with_optional_argument(n = Backports::Undefined)
