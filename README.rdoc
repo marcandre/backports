@@ -1,6 +1,6 @@
 = Backports Library
 
-* Yearning to use some of the new cool features in 1.9.3 while using 1.8.6?
+* Yearning to use some of the new cool features in Ruby 2.0.0 while using 1.8.6?
 * One of your client is stuck with Ruby 1.8.6 but you want to use a gem using some features of 1.8.7?
 * Can't remember if you can use Array#sample or String#each_char on a friend's box?
 
@@ -25,7 +25,7 @@ Let's be a bit more precise about the breaking code business. It is of course en
 
 A real incompatibility is, for example, <tt>Module::instance_methods</tt> which returns strings in 1.8 and symbols in 1.9. No change can be made without the risk of breaking existing code. Such incompatibilities are left unchanged, although you can require some of these changes in addition (see below)
 
-All features of 1.8.7 are backported (well, almost all, see the exception list bellow), and many of 1.9 are also.
+All features of 1.8.7 are backported (well, almost all, see the exception list bellow), and many of 1.9 are also. Some features of 2.0.0 are backported, but not loaded until a final version of Ruby 2.0.0 is released.
 
 Some generic and self-contained features of active-support are also included. By simple I mean that String#camelcase is there, but #pluralize isn't.
 
@@ -190,6 +190,16 @@ Some features of Ruby 1.9.3 have been backported:
   * +prepend+
 
 To include all Ruby backports but not those of Rails, <tt>require "backports/1.9.3"</tt> (or "backports/1.9")
+
+== Ruby 2.0.0
+
+Some features of Ruby 2.0.0 have been backported:
+
+* Enumerable
+  * +lazy+
+* Enumerator::Lazy
+
+*Note*: Ruby 2.0.0 will not included by default until 2.0.0 is released (and specs are thus finalized). To play around with these today, <tt>require "backports/2.0"</tt>.
 
 == Rails
 
