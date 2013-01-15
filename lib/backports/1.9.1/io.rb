@@ -14,13 +14,15 @@ class IO
     begin
       File.open(__FILE__) { |f| IO.open(f.fileno, :mode => 'r').close }
     rescue StandardError
-      def open_with_options_hash(fd, mode = nil, options = Backports::Undefined)
-        mode = Backports.combine_mode_and_option(mode, options)
-        # Can't backport autoclose, {internal|external|}encoding
+      def open_with_options_hash(*args)
+        if args.size > 2 || args[1].is_a?(Hash)
+          fd, mode, options = (args << Backports::Undefined)
+          args = [fd, Backports.combine_mode_and_option(mode, options)]
+        end
         if block_given?
-          open_without_options_hash(fd, mode){|f| yield f}
+          open_without_options_hash(*args){|f| yield f}
         else
-          open_without_options_hash(fd, mode)
+          open_without_options_hash(*args)
         end
       end
 
