@@ -16,20 +16,18 @@ module Enumerable
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def cycle(n = nil)
     return to_enum(:cycle, n) unless block_given?
-    if n.nil?
-      each{|e| yield e } until false
-    else
-      n = Backports.coerce_to_int(n)
-      if n >= 1
-        cache = []
-        each do |elem|
-          cache << elem
-          yield elem
-        end
-        (n-1).times do
-          cache.each{|e| yield e }
-        end
+    n = n && Backports.coerce_to_int(n)
+    if n == nil || n >= 1
+      cache = []
+      each do |elem|
+        cache << elem
+        yield elem
       end
+      if n
+        (n-1).times { cache.each{|e| yield e } }
+      else
+        loop        { cache.each{|e| yield e } }
+      end unless cache.empty?
     end
     nil
   end unless method_defined? :cycle
