@@ -12,7 +12,7 @@ module Enumerable
     end
     seq
   end unless method_defined? :count
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def cycle(n = nil)
     return to_enum(:cycle, n) unless block_given?
@@ -33,12 +33,12 @@ module Enumerable
     end
     nil
   end unless method_defined? :cycle
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   Backports.make_block_optional self, :each_cons, :each_slice, :test_on => 1..2, :arg => 1
 
   Backports.make_block_optional self, :detect, :find, :find_all, :select, :sort_by, :partition, :reject, :test_on => 1..2
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def drop(n)
     n = Backports.coerce_to_int(n)
@@ -47,7 +47,7 @@ module Enumerable
     return [] if n > ary.size
     ary[n...ary.size]
   end unless method_defined? :drop
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def drop_while
     return to_enum(:drop_while) unless block_given?
@@ -58,7 +58,7 @@ module Enumerable
     end
     ary
   end unless method_defined? :drop_while
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   if instance_method(:each_with_index).arity.zero?
     def each_with_index_with_optional_args_and_block(*args)
@@ -85,7 +85,7 @@ module Enumerable
     end
     nil
   end unless method_defined? :find_index
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def first(n = Backports::Undefined)
     return take(n) unless n == Backports::Undefined
@@ -102,7 +102,7 @@ module Enumerable
       end
     end
   end unless method_defined? :group_by
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   unless ((1..2).inject(:+) rescue false)
     def inject_with_symbol(*args, &block)
@@ -112,7 +112,7 @@ module Enumerable
     end
     Backports.alias_method_chain self, :inject, :symbol
   end
-  
+
   MOST_EXTREME_OBJECT_EVER = Object.new # :nodoc:
   class << MOST_EXTREME_OBJECT_EVER
     def < (whatever)
@@ -162,7 +162,7 @@ module Enumerable
     end
     [min, max]
   end unless method_defined? :minmax
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def minmax_by
     return to_enum(:minmax_by) unless block_given?
@@ -203,7 +203,7 @@ module Enumerable
   end unless method_defined? :one?
 
   Backports.alias_method self, :reduce, :inject
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def reverse_each
     return to_enum(:reverse_each) unless block_given?
@@ -211,7 +211,7 @@ module Enumerable
     to_a.reverse_each{|e| yield e}
     self
   end unless method_defined? :reverse_each
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def take(n)
     n = Backports.coerce_to_int(n)
@@ -223,7 +223,7 @@ module Enumerable
       end unless n <= 0
     end
   end unless method_defined? :take
-  
+
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/Enumerable.html]
   def take_while
     return to_enum(:take_while) unless block_given?
@@ -241,7 +241,7 @@ module Enumerable
     end
     Backports.alias_method_chain self, :to_a, :optional_arguments
   end
-  
+
   # alias_method gives a warning, so instead copy-paste:
   if instance_method(:entries).arity.zero?
     def entries_with_optional_arguments(*args)
@@ -250,5 +250,5 @@ module Enumerable
     end
     Backports.alias_method_chain self, :entries, :optional_arguments
   end
-  
+
 end
