@@ -143,7 +143,7 @@ class Enumerator
         end
       else
         Lazy.new(self) do |yielder, *values|
-          enums = yielder.backports_memo ||= args.map(&:each)
+          enums = yielder.backports_memo ||= args.map(&:to_enum)
           values = values.first unless values.size > 1
           others = enums.map do |arg|
             begin
