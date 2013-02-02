@@ -195,9 +195,14 @@ To include all Ruby backports but not those of Rails, <tt>require "backports/1.9
 
 Some features of Ruby 2.0.0 have been backported:
 
+* Array
+  * +bsearch+
 * Enumerable
   * +lazy+
 * Enumerator::Lazy
+  * all methods
+* Range
+  * +bsearch+
 
 *Note*: Ruby 2.0.0 will not included by default until 2.0.0 is released (and specs are thus finalized). To play around with these today, <tt>require "backports/2.0"</tt>.
 

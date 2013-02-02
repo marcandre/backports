@@ -1,5 +1,11 @@
 = Backports --- History
 
+== Version 2.8.0 - February 3rd, 2013
+
+* Added some features of 2.0.0 (must be required explicitly until official release):
+  * Array#bsearch
+  * Range#bsearch
+
 == Version 2.7.0 - January 14th, 2013
 
 * Added some features of 2.0.0 (must be required explicitly until official release):
