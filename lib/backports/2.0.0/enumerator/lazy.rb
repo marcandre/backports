@@ -115,8 +115,9 @@ class Enumerator
       raise ArgumentError, "tried to call lazy flat_map without a block" unless block_given?
       Lazy.new(self) do |yielder, *values|
         result = yield(*values)
-        if ary = Backports.is_array?(result) || (result.respond_to?(:each) && result.respond_to?(:force))
-          ary.each{|x| yielder << x }
+        ary = Backports.is_array?(result)
+        if ary || (result.respond_to?(:each) && result.respond_to?(:force))
+          (ary || result).each{|x| yielder << x }
         else
           yielder << result
         end
