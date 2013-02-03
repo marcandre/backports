@@ -1,6 +1,6 @@
 class Array
   def bsearch
-    return to_enum __method__ unless block_given?
+    return to_enum(__method__) unless block_given?
     from = 0
     to   = size - 1
     satisfied = nil

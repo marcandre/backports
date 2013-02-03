@@ -9,7 +9,7 @@ class Enumerator
   end
 
   class Lazy < Enumerator
-    @@done = Object.new   # used internally to bail out of an iteration
+    @@done = :__backports_lazy_enumeration_done__   # used internally to bail out of an iteration
 
     alias_method :non_lazy_cycle, :cycle # cycle must be handled in a tricky way
     @@cycler = Struct.new(:object, :n)
@@ -75,7 +75,7 @@ class Enumerator
     def drop(n)
       n = Backports::coerce_to_int(n)
       Lazy.new(self) do |yielder, *values|
-        data = yielder.backports_memo ||= {remain: n}
+        data = yielder.backports_memo ||= {:remain => n}
         if data[:remain] > 0
           data[:remain] -= 1
         else
@@ -87,7 +87,7 @@ class Enumerator
     def drop_while
       raise ArgumentError, "tried to call lazy drop_while without a block" unless block_given?
       Lazy.new(self) do |yielder, *values|
-        data = yielder.backports_memo ||= {dropping: true}
+        data = yielder.backports_memo ||= {:dropping => true}
         yielder.yield(*values) unless data[:dropping] &&= yield(*values)
       end
     end
@@ -97,7 +97,7 @@ class Enumerator
       raise ArgumentError, 'attempt to take negative size' if n < 0
       return Lazy.new([]){} if n == 0
       Lazy.new(self) do |yielder, *values|
-        data = yielder.backports_memo ||= {remain: n}
+        data = yielder.backports_memo ||= {:remain => n}
         yielder.yield(*values)
         throw @@done if (data[:remain] -= 1) == 0
       end
@@ -137,7 +137,7 @@ class Enumerator
         # Handle trivial case of multiple array arguments separately
         # by avoiding Enumerator#next for efficiency & compatibility
         Lazy.new(self) do |yielder, *values|
-          data = yielder.backports_memo ||= {iter: 0}
+          data = yielder.backports_memo ||= {:iter => 0}
           values = values.first unless values.size > 1
           yielder << arys.map{|ary| ary[data[:iter]]}.unshift(values)
           data[:iter] += 1

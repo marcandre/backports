@@ -1,6 +1,6 @@
 class Range
   def bsearch
-    return to_enum __method__ unless block_given?
+    return to_enum(__method__) unless block_given?
     from = self.begin
     to   = self.end
     unless from.is_a?(Numeric) && to.is_a?(Numeric)
@@ -9,9 +9,9 @@ class Range
 
     midpoint = nil
     if from.is_a?(Integer) && to.is_a?(Integer)
-      convert = ->{ midpoint }
+      convert = Proc.new{ midpoint }
     else
-      map = ->(pk, unpk, nb) do
+      map = Proc.new do |pk, unpk, nb|
         result, = [nb.abs].pack(pk).unpack(unpk)
         nb < 0 ? -result : result
       end.curry
@@ -19,7 +19,7 @@ class Range
       f2i = map['D', 'q']
       from = f2i[from.to_f]
       to = f2i[to.to_f]
-      convert = -> { i2f[midpoint] }
+      convert = Proc.new{ i2f[midpoint] }
     end
     to -= 1 if exclude_end?
     satisfied = nil
