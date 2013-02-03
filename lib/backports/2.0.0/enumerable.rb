@@ -5,5 +5,5 @@ module Enumerable
 end
 
 class Enumerator
-  autoload :Lazy, File.expand_path(File.dirname(__FILE__) + "/enumerator/lazy")
+  require_relative 'enumerator/lazy' unless const_defined? :Lazy
 end
