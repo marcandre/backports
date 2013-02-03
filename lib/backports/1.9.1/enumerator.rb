@@ -7,12 +7,7 @@ class Enumerator
       # A simple class which allows the construction of Enumerator from a block
     class Yielder
       def initialize(&block)
-        @main_block = block
-      end
-
-      def each(&block)
         @final_block = block
-        @main_block.call(self)
       end
 
       def yield(*arg)
@@ -25,9 +20,19 @@ class Enumerator
       end
     end
 
+    class Generator
+      def initialize(&block)
+        @main_block = block
+      end
+
+      def each(&block)
+        @main_block.call(Yielder.new(&block))
+      end
+    end
+
     def initialize_with_optional_block(*arg, &block)
       return initialize_without_optional_block(*arg, &nil) unless arg.empty?  # Ruby 1.9 apparently ignores the block if any argument is present
-      initialize_without_optional_block(Yielder.new(&block))
+      initialize_without_optional_block(Generator.new(&block))
     end
     Backports.alias_method_chain self, :initialize, :optional_block
   end
