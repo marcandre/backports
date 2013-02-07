@@ -248,7 +248,7 @@ module Backports
   # Used internally.
   # Safe alias_method that will only alias if the source exists and destination doesn't
   def self.alias_method(mod, new_name, old_name)
-    mod.class_eval do
+    mod.instance_eval do
       alias_method new_name, old_name if method_defined?(old_name) and not method_defined?(new_name)
     end
   end
