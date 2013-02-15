@@ -8,7 +8,12 @@ class Hash
 
   # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]
   def default_proc=(proc)
-    replace(Hash.new(&Backports.coerce_to(proc, Proc, :to_proc)).merge!(self))
+    if proc == nil # nil accepted in Ruby 2.0
+      self.default = nil
+      self
+    else
+      replace(Hash.new(&Backports.coerce_to(proc, Proc, :to_proc)).merge!(self))
+    end
   end unless method_defined? :default_proc=
 
   # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Hash.html]

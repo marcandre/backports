@@ -201,6 +201,8 @@ Some features of Ruby 2.0.0 have been backported:
   * +lazy+
 * Enumerator::Lazy
   * all methods
+* Hash
+  * <tt>default_proc=</tt> (with nil argument)
 * Range
   * +bsearch+
 
