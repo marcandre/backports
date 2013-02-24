@@ -20,7 +20,7 @@ class Enumerator
       end
     end
 
-    class Generator
+    class GeneratorBP # Avoid conflict with 1.8's ::Generator class
       def initialize(&block)
         @main_block = block
       end
@@ -32,7 +32,7 @@ class Enumerator
 
     def initialize_with_optional_block(*arg, &block)
       return initialize_without_optional_block(*arg, &nil) unless arg.empty?  # Ruby 1.9 apparently ignores the block if any argument is present
-      initialize_without_optional_block(Generator.new(&block))
+      initialize_without_optional_block(GeneratorBP.new(&block))
     end
     Backports.alias_method_chain self, :initialize, :optional_block
   end

@@ -10,13 +10,16 @@ class Enumerator
 
   class Lazy < Enumerator
     @@done = :__backports_lazy_enumeration_done__   # used internally to bail out of an iteration
-
-    alias_method :non_lazy_cycle, :cycle # cycle must be handled in a tricky way
-    @@cycler = Struct.new(:object, :n)
+    @@lazy_with_no_block = Struct.new(:object, :method, :args) # used internally to create lazy without block
 
     def initialize(obj)
-      return super(obj.object, :non_lazy_cycle, obj.n) if obj.is_a?(@@cycler)
+      if obj.is_a?(@@lazy_with_no_block)
+        @inspect_info = obj
+        return super(@receiver = obj.object, @method = obj.method || :each, * @args = obj.args)
+      end
       raise ArgumentError, "must supply a block" unless block_given?
+      @receiver = obj
+      @method = caller[1][/`([^']*)'/, 1]
       super() do |yielder, *args|
         catch @@done do
           obj.each(*args) do |*x|
@@ -31,6 +34,41 @@ class Enumerator
     def lazy
       self
     end
+
+    def to_enum(method = :each, *args)
+      Lazy.new(@@lazy_with_no_block.new(self, method, args))
+    end
+    alias_method :enum_for, :to_enum
+
+    def inspect
+      suff = ''
+      suff << ":#{@method}" unless @method == :each
+      suff << "(#{@args.inspect[1...-1]})" if @args && !@args.empty?
+      "#<#{self.class}: #{@receiver.inspect}#{suff}>"
+    end
+
+    {
+      :slice_before => //,
+      :with_index => [],
+      :cycle => [],
+      :each_with_object => 42,
+      :each_slice => 42,
+      :each_entry => [],
+      :each_cons => 42,
+    }.each do |method, args|
+      unless [].lazy.send(method, *args).is_a?(Lazy) # Nothing to do if already backported, since it would use to_enum...
+        module_eval <<-EOT, __FILE__, __LINE__ + 1
+          def #{method}(*args)                                     # def cycle(*args)
+            return to_enum(:#{method}, *args) unless block_given?  #   return to_enum(:cycle, *args) unless block_given?
+            super                                                  #   super
+          end                                                      # end
+        EOT
+      end
+    end
+
+    def chunk(*)
+      super.lazy
+    end unless [].lazy.chunk{}.is_a?(Lazy)
 
     def map
       raise ArgumentError, "tried to call lazy map without a block" unless block_given?
@@ -69,7 +107,7 @@ class Enumerator
           values = values.first unless values.size > 1
           yielder.yield(values) if pattern === values
         end
-      end
+      end.__set_inspect([pattern])
     end
 
     def drop(n)
@@ -81,7 +119,7 @@ class Enumerator
         else
           yielder.yield(*values)
         end
-      end
+      end.__set_inspect([n])
     end
 
     def drop_while
@@ -95,12 +133,11 @@ class Enumerator
     def take(n)
       n = Backports::coerce_to_int(n)
       raise ArgumentError, 'attempt to take negative size' if n < 0
-      return Lazy.new([]){} if n == 0
-      Lazy.new(self) do |yielder, *values|
+      Lazy.new(n == 0 ? [] : self) do |yielder, *values|
         data = yielder.backports_memo ||= {:remain => n}
         yielder.yield(*values)
         throw @@done if (data[:remain] -= 1) == 0
-      end
+      end.__set_inspect([n], self)
     end
 
     def take_while
@@ -125,11 +162,6 @@ class Enumerator
     end
     alias_method :collect_concat, :flat_map
 
-    def cycle(n = nil)
-      return super if block_given?
-      Lazy.new(@@cycler.new(self, n))
-    end
-
     def zip(*args)
       return super if block_given?
       arys = args.map{ |arg| Backports.is_array?(arg) }
@@ -143,6 +175,9 @@ class Enumerator
           data[:iter] += 1
         end
       else
+        args.each do |a|
+          raise TypeError, "wrong argument type #{a.class} (must respond to :each)" unless a.respond_to? :each
+        end
         Lazy.new(self) do |yielder, *values|
           enums = yielder.backports_memo ||= args.map(&:to_enum)
           values = values.first unless values.size > 1
@@ -155,7 +190,14 @@ class Enumerator
           end
           yielder << others.unshift(values)
         end
-      end
+      end.__set_inspect(args)
+    end
+
+    protected
+    def __set_inspect(args, receiver = nil)
+      @args = args
+      @receiver = receiver if receiver
+      self
     end
   end
 end
