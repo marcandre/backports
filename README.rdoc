@@ -21,7 +21,7 @@ Features in this gem:
 2. Pure Ruby (no C extensions)
 3. Pass RubySpec[http://github.com/rubyspec/rubyspec]
 
-Let's be a bit more precise about the breaking code business. It is of course entirely possible that code will break, for example some core methods are monkeypatched or if the code relies on a certain call raising an exception. Example: <tt>[42].sample rescue "dum example"</tt> will return <tt>"dum example"</tt> without this gem and <tt>42</tt> with it.
+Let's be a bit more precise about the "breaking code" business. It is of course entirely possible that code will break, for example some core methods are monkeypatched or if the code relies on a certain call raising an exception. Example: <tt>[42].sample rescue "dum example"</tt> will return <tt>"dum example"</tt> without this gem and <tt>42</tt> with it.
 
 A real incompatibility is, for example, <tt>Module::instance_methods</tt> which returns strings in 1.8 and symbols in 1.9. No change can be made without the risk of breaking existing code. Such incompatibilities are left unchanged, although you can require some of these changes in addition (see below)
 
