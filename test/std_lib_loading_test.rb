@@ -14,24 +14,24 @@ module Kernel
   end
 end
 
-require 'matrix'
+require 'set'
 require File.expand_path(File.dirname(__FILE__) + "/test_helper")
 
 class StdLibLoadingTest < Test::Unit::TestCase
   def test_load_correctly_after_requiring_backports
-    path = File.expand_path("../../lib/backports/1.9.2/stdlib/set.rb", __FILE__)
+    path = File.expand_path("../../lib/backports/1.9.2/stdlib/matrix.rb", __FILE__)
     assert_equal false,  $LOADED_FEATURES.include?(path)
-    assert_equal true,  require('set')
-    assert_equal true,  $bogus.include?("set")
+    assert_equal true,  require('matrix')
+    assert_equal true,  $bogus.include?("matrix")
     assert_equal true,  $LOADED_FEATURES.include?(path)
-    assert_equal false, require('set')
+    assert_equal false, require('matrix')
   end
 
   def test_load_correctly_before_requiring_backports_test
-    assert_equal true,  $bogus.include?("matrix")
-    path = File.expand_path("../../lib/backports/1.9.2/stdlib/matrix.rb", __FILE__)
+    assert_equal true,  $bogus.include?("set")
+    path = File.expand_path("../../lib/backports/1.9.2/stdlib/set.rb", __FILE__)
     assert_equal true,  $LOADED_FEATURES.include?(path)
-    assert_equal false, require('matrix')
+    assert_equal false, require('set')
   end
 
   def test_not_interfere_for_libraries_without_backports_test
