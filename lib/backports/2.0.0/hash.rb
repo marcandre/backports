@@ -1,7 +1,7 @@
 class Hash
   def to_h
     self
-  end unless method_defined :to_h
+  end unless method_defined? :to_h
 
   def default_proc_with_nil=(proc)
     if proc == nil
