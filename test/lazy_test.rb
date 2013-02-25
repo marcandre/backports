@@ -207,7 +207,8 @@ class TestLazyEnumerator < Test::Unit::TestCase
   def test_zip_short_arg
     a = Step.new(1..5)
     assert_equal([5, nil], a.zip("a".."c").last)
-    assert_equal([5, nil], a.lazy.zip("a".."c").force.last)
+    enum = [42].to_enum.next
+    assert_equal([5, nil], a.lazy.zip("a".."d").force.last)  ### Backport: modified to avoid fact that 1.8.x's Enumerator auto-rewind
   end
 
   def test_zip_without_arg
@@ -388,7 +389,7 @@ class TestLazyEnumerator < Test::Unit::TestCase
     assert_equal(<<EOS.chomp, l.inspect)
 #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: 1..10>:map>:map>:flat_map>:flat_map>:select>:select>:reject>:grep(1)>:zip("a".."c")>:take(10)>:take_while>:drop(3)>:drop_while>:cycle(3)>
 EOS
-  end
+  end if Enumerator.to_s == "Enumerator"
 
   def test_lazy_to_enum
     lazy = [1, 2, 3].lazy
