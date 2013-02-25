@@ -1,7 +1,7 @@
 module Math
-  class << self
+  unless (log(2, 2) rescue false)
     # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Math.html]
-    unless (log(2, 2) rescue false)
+    class << self
       def log_with_optional_base(numeric, base = Backports::Undefined)
         if base.equal?(Backports::Undefined)
           # Math.log(n) in 1.9.1 no longer accepts string arguments as it
@@ -15,11 +15,11 @@ module Math
         end
       end
       Backports.alias_method_chain self, :log, :optional_base
-    end
 
-    # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Math.html]
-    def log2(numeric)
-      log(numeric, 2)
-    end unless method_defined? :log2
+      # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Math.html]
+      def log2(numeric)
+        log(numeric, 2)
+      end unless method_defined? :log2
+    end
   end
 end

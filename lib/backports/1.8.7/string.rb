@@ -79,7 +79,7 @@ class String
   end unless method_defined? :start_with?
 
   # Standard in Ruby 1.8.7+. See official documentation[http://ruby-doc.org/core-1.9/classes/String.html]
-  unless ("abc".upto("def", true) rescue false)
+  unless ("abc".upto("def", true){} rescue false)
     def upto_with_exclusive(to, excl=false)
       return upto_without_exclusive(to){|s| yield s} if block_given? && !excl
       enum = Range.new(self, to, excl).to_enum
