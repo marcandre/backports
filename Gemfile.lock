@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    backports (3.0.3)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    rake (10.0.3)
+
+PLATFORMS
+  java
+
+DEPENDENCIES
+  backports!
+  rake
