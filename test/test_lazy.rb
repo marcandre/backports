@@ -1,6 +1,7 @@
 # This is copied & modified from MRI
 require 'test/unit'
 #require_relative 'envutil'
+require './lib/backports'
 
 class TestLazyEnumerator < Test::Unit::TestCase
   class Step
