@@ -3,9 +3,7 @@ class Hash
     self
   end unless method_defined? :to_h
 
-  begin
-    {}.default_proc = nil
-  rescue
+  if (({}.default_proc = nil) rescue true)
     def default_proc_with_nil=(proc)
       if proc == nil
         self.default = nil
@@ -14,6 +12,7 @@ class Hash
         self.default_proc_without_nil=(proc)
       end
     end
+    Backports.alias_method_chain(self, :default_proc=, :nil)
   end
 end
 
