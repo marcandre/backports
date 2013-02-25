@@ -19,7 +19,6 @@ class Enumerator
       end
       raise ArgumentError, "must supply a block" unless block_given?
       @receiver = obj
-      @method = caller[1][/`([^']*)'/, 1]
       super() do |yielder, *args|
         catch @@done do
           obj.each(*args) do |*x|
@@ -42,7 +41,7 @@ class Enumerator
 
     def inspect
       suff = ''
-      suff << ":#{@method}" unless @method == :each
+      suff << ":#{@method}" unless @method.nil? || @method == :each
       suff << "(#{@args.inspect[1...-1]})" if @args && !@args.empty?
       "#<#{self.class}: #{@receiver.inspect}#{suff}>"
     end
@@ -74,7 +73,7 @@ class Enumerator
       raise ArgumentError, "tried to call lazy map without a block" unless block_given?
       Lazy.new(self) do |yielder, *values|
         yielder << yield(*values)
-      end
+      end.__set_inspect :map
     end
     alias_method :collect, :map
 
@@ -83,7 +82,7 @@ class Enumerator
       Lazy.new(self) do |yielder, *values|
         values = values.first unless values.size > 1
         yielder.yield values if yield values
-      end
+      end.__set_inspect :select
     end
     alias_method :find_all, :select
 
@@ -92,7 +91,7 @@ class Enumerator
       Lazy.new(self) do |yielder, *values|
         values = values.first unless values.size > 1
         yielder.yield(values) unless yield values
-      end
+      end.__set_inspect :reject
     end
 
     def grep(pattern)
@@ -107,7 +106,7 @@ class Enumerator
           values = values.first unless values.size > 1
           yielder.yield(values) if pattern === values
         end
-      end.__set_inspect([pattern])
+      end.__set_inspect :grep, [pattern]
     end
 
     def drop(n)
@@ -119,7 +118,7 @@ class Enumerator
         else
           yielder.yield(*values)
         end
-      end.__set_inspect([n])
+      end.__set_inspect :drop, [n]
     end
 
     def drop_while
@@ -127,7 +126,7 @@ class Enumerator
       Lazy.new(self) do |yielder, *values|
         data = yielder.backports_memo ||= {:dropping => true}
         yielder.yield(*values) unless data[:dropping] &&= yield(*values)
-      end
+      end.__set_inspect :drop_while
     end
 
     def take(n)
@@ -137,7 +136,7 @@ class Enumerator
         data = yielder.backports_memo ||= {:remain => n}
         yielder.yield(*values)
         throw @@done if (data[:remain] -= 1) == 0
-      end.__set_inspect([n], self)
+      end.__set_inspect :take, [n], self
     end
 
     def take_while
@@ -145,7 +144,7 @@ class Enumerator
       Lazy.new(self) do |yielder, *values|
         throw @@done unless yield(*values)
         yielder.yield(*values)
-      end
+      end.__set_inspect :take_while
     end
 
     def flat_map
@@ -158,7 +157,7 @@ class Enumerator
         else
           yielder << result
         end
-      end
+      end.__set_inspect :flat_map
     end
     alias_method :collect_concat, :flat_map
 
@@ -190,11 +189,12 @@ class Enumerator
           end
           yielder << others.unshift(values)
         end
-      end.__set_inspect(args)
+      end.__set_inspect :zip, args
     end
 
     protected
-    def __set_inspect(args, receiver = nil)
+    def __set_inspect(method, args = nil, receiver = nil)
+      @method = method
       @args = args
       @receiver = receiver if receiver
       self
