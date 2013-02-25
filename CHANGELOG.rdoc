@@ -1,5 +1,16 @@
 = Backports --- History
 
+== Version 3.0.0 - February 24th, 2013
+
+* Features of 2.0.0 are now required when requiring 'backports'.
+
+* Additional features of 2.0.0
+  * Struct#to_h, NilClass#to_h, Hash#to_h
+  * Hash#default_proc = nil
+  * OpenStruct lib
+
+* 1.8.7's Enumerator#with_index (it wasn't in the 1.8.7 NEWS file...)
+
 == Version 2.8.0 - February 3rd, 2013
 
 * Added some features of 2.0.0 (must be required explicitly until official release):

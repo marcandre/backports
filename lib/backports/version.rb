@@ -1,3 +1,3 @@
 module Backports
-  VERSION = "2.8.2"
+  VERSION = "3.0.0"
 end

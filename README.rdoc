@@ -189,7 +189,7 @@ Some features of Ruby 1.9.3 have been backported:
   * +byteslice+
   * +prepend+
 
-To include all Ruby backports but not those of Rails, <tt>require "backports/1.9.3"</tt> (or "backports/1.9")
+To include all Ruby backports but not those of Ruby 2.0 or Rails, <tt>require "backports/1.9.3"</tt> (or "backports/1.9")
 
 == Ruby 2.0.0
 
@@ -203,10 +203,14 @@ Some features of Ruby 2.0.0 have been backported:
   * all methods
 * Hash
   * <tt>default_proc=</tt> (with nil argument)
+  * +to_h+
+* nil.to_h
 * Range
   * +bsearch+
+* Struct
+  * +to_h+
 
-*Note*: Ruby 2.0.0 will not included by default until 2.0.0 is released (and specs are thus finalized). To play around with these today, <tt>require "backports/2.0"</tt>.
+To include all Ruby backports but not those of Rails, <tt>require "backports/2.0"</tt> (or "backports/2.0.0")
 
 == Rails
 
@@ -247,7 +251,11 @@ The following libraries are up to date with Ruby 1.9.3:
 * Prime
 * Set
 
-I am aware of the following backport gem which will hopefully be part of backports soon:
+The following library is to date with Ruby 2.0.0:
+
+* OpenStruct (ostruct)
+
+I am aware of the following backport gem, which probably won't make it into this gem:
 
 * Net::SMTP for Ruby 1.8.6: smtp_tls[http://seattlerb.rubyforge.org/smtp_tls/]
 
