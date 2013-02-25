@@ -19,6 +19,14 @@ if (Enumerable::Enumerator rescue false)
         @generator.rewind
         self
       end unless method_defined? :rewind
+
+      def with_index(offset = 0)
+        to_enum :with_index, offset unless block_given?
+        each do |*args|
+          yield args.size == 1 ? args[0] : args, index
+          index += 1
+        end
+      end unless method_defined? :with_index
     end if const_defined? :Enumerator
   end
 end
