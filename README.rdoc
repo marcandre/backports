@@ -67,6 +67,7 @@ Additionally, the following Ruby 1.9 features have been backported:
 
 * Enumerable
   * +each_with_object+
+  * +each_with_index+ (with arguments)
 
 * Enumerator
   * +new+ (with block)
