@@ -35,8 +35,8 @@ class StdLibLoadingTest < Test::Unit::TestCase
   end
 
   def test_not_interfere_for_libraries_without_backports_test
-    assert_equal true,  require('dl')
-    assert_equal false, require('dl')
+    assert_equal true,  require('scanf')
+    assert_equal false, require('scanf')
   end
 
   if RUBY_VERSION >= "1.9"
