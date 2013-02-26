@@ -1,4 +1,8 @@
-require "bundler/gem_tasks"
+begin
+  require "bundler/gem_tasks"
+rescue LoadError
+  warn "bundler not installed"
+end
 
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
