@@ -24,22 +24,24 @@ module Backports
     class LoadedFeatures
       if RUBY_VERSION >= "1.9"
         # Full paths are recorded in $LOADED_FEATURES.
-        def initialize
-          # Assume backported features are Ruby libraries (i.e. not C)
-          @loaded = $LOADED_FEATURES.group_by{|p| File.basename(p, ".rb")}
-        end
-
+        @@our_loads = {}
         # Check loaded features for one that matches "#{any of the load path}/#{feature}"
         def include?(feature)
+          return true if @@our_loads[feature]
+          # Assume backported features are Ruby libraries (i.e. not C)
+          @loaded ||= $LOADED_FEATURES.group_by{|p| File.basename(p, ".rb")}
           if fullpaths = @loaded[File.basename(feature, ".rb")]
+            p fullpaths if feature == 'fake_stdlib_lib'
             fullpaths.any?{|fullpath|
               base_dir, = fullpath.partition("/#{feature}")
+              p base_dir, $LOAD_PATH if feature == 'fake_stdlib_lib'
               $LOAD_PATH.include?(base_dir)
             }
           end
         end
 
         def self.mark_as_loaded(feature)
+          @@our_loads[feature] = true
           # Nothing to do, the full path will be OK
         end
 

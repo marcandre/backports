@@ -1,7 +1,5 @@
 # This is copied & modified from MRI
-require 'test/unit'
-#require_relative 'envutil'
-require './lib/backports'
+require './test/test_helper'
 
 class TestLazyEnumerator < Test::Unit::TestCase
   class Step
@@ -366,6 +364,7 @@ class TestLazyEnumerator < Test::Unit::TestCase
   end
 
   def test_inspect
+    return unless Enumerator.to_s == "Enumerator"
     assert_equal("#<Enumerator::Lazy: 1..10>", (1..10).lazy.inspect)
     assert_equal('#<Enumerator::Lazy: #<Enumerator: "foo":each_char>>',
                  "foo".each_char.lazy.inspect)
@@ -388,7 +387,7 @@ class TestLazyEnumerator < Test::Unit::TestCase
     assert_equal(<<EOS.chomp, l.inspect)
 #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: 1..10>:map>:map>:flat_map>:flat_map>:select>:select>:reject>:grep(1)>:zip("a".."c")>:take(10)>:take_while>:drop(3)>:drop_while>:cycle(3)>
 EOS
-  end if Enumerator.to_s == "Enumerator"
+  end
 
   def test_lazy_to_enum
     lazy = [1, 2, 3].lazy
