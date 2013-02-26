@@ -1,3 +1,7 @@
+require 'stringio'
+if RUBY_VERSION < '1.9'
+  require 'generator' # Must require first, because of warning in Ruby 1.8.7 with `ruby -w -r generator -e ""`
+end
 require './test/test_helper'
 $bogus = []
 
@@ -17,7 +21,14 @@ end
 
 class AAA_TestBackportGuards < Test::Unit::TestCase
   def setup
-    # Override test/helper's definition, do not require backports yet
+    # Don't call super, to override test/helper's definition, do not require backports yet
+    $VERBOSE = true
+    @prev, $stderr = $stderr, StringIO.new
+  end
+
+  def teardown
+    assert_equal '', $stderr.string
+    $stderr = @prev
   end
 
   EXCLUDE = %w[require] # Overriden in all circumstances to load the std-lib
@@ -109,5 +120,10 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
     assert_equal true,  $LOADED_FEATURES.include?(path)
     assert_equal false, require('fake_stdlib_lib')
   end
-end
 
+  def test_no_warnings
+    require 'ostruct'
+    require 'set'
+    assert_equal 1, [1,2,3].each.next # [Bug #70]
+  end
+end

@@ -257,7 +257,7 @@ module Backports
 
   # Used internally to propagate #lambda?
   def self.track_lambda(from, to, default = false)
-    is_lambda = from.instance_variable_get :@is_lambda
+    is_lambda = from.lambda?
     is_lambda = default if is_lambda.nil?
     to.instance_variable_set :@is_lambda, is_lambda
     to
@@ -311,6 +311,14 @@ module Backports
       f.seek(offset) unless offset.nil?
       f.write(string)
     end
+  end
+
+  def self.suppress_verbose_warnings
+    before = $VERBOSE
+    $VERBOSE = false if $VERBOSE # Set to false (default warning) but not nil (no warnings)
+    yield
+  ensure
+    $VERBOSE = before
   end
 end
 

@@ -2,6 +2,7 @@ unless Proc.method_defined? :lambda?
   class Proc
     # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Proc.html]
     def lambda?
+      @is_lambda = nil unless defined?(@is_lambda) # Ruby 1.8 in verbose mode complains about uninitialized instance variables...
       !!@is_lambda
     end
   end

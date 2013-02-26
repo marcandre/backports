@@ -14,7 +14,6 @@
 require "e2mmap.rb"
 
 module ExceptionForMatrix # :nodoc:
-  extend Exception2MessageMapper
   def_e2message(TypeError, "wrong argument type %s (expected %s)")
   def_e2message(ArgumentError, "Wrong # of arguments(%d for %d)")
 
@@ -118,6 +117,7 @@ end
 # * #to_s
 # * #inspect
 #
+Backports.suppress_verbose_warnings do
 class Matrix
   include Enumerable
   include ExceptionForMatrix
@@ -1867,4 +1867,5 @@ class Vector
   def inspect
     "Vector" + @elements.inspect
   end
+end
 end
