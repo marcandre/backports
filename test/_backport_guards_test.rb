@@ -1,5 +1,6 @@
 require 'stringio'
 if RUBY_VERSION < '1.9'
+  require 'enumerator'
   require 'generator' # Must require first, because of warning in Ruby 1.8.7 with `ruby -w -r generator -e ""`
 end
 require './test/test_helper'
