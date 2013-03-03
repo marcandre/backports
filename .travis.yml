@@ -9,6 +9,7 @@ rvm:
   - jruby-19mode
   - rbx-18mode
   - rbx-19mode
+
 matrix:
   allow_failures:
     - rvm: "2.0.0" # Must wait for 2.0.0p0...
@@ -16,3 +17,6 @@ matrix:
     - rvm: jruby-19mode
     - rvm: rbx-18mode
     - rvm: rbx-19mode
+
+before_install:
+  - git submodule update --init --recursive

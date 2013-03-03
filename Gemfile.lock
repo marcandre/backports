@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/rubyspec/mspec.git
+  revision: 69c388b1187789f4996eda7dec4c1404fcd6b742
+  specs:
+    mspec (1.5.18)
+
 PATH
   remote: .
   specs:
@@ -10,7 +16,9 @@ GEM
 
 PLATFORMS
   java
+  ruby
 
 DEPENDENCIES
   backports!
+  mspec!
   rake

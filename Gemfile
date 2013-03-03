@@ -8,6 +8,7 @@ gemspec
 # jquery-rails is used by the dummy application
 group :test do
   gem "rake"
+  gem 'mspec', :git => 'git://github.com/rubyspec/mspec.git'
 end
 
 # Declare any dependencies that are still in development here instead of in

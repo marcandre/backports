@@ -2,6 +2,12 @@
 require './test/test_helper'
 
 class TestLazyEnumerator < Test::Unit::TestCase
+  def setup
+    require "backports/2.0.0/enumerable/lazy"
+    require "backports/1.8.7/enumerable"
+    require "backports/1.8.7/io/each"
+  end
+
   class Step
     include Enumerable
     attr_reader :current, :args
@@ -101,7 +107,7 @@ class TestLazyEnumerator < Test::Unit::TestCase
     assert_equal(3, a.current)
     assert_equal(2, a.lazy.flat_map {|x| [x * 2]}.first)
     assert_equal(1, a.current)
-  end
+  end if [].respond_to?(:flat_map)
 
   def test_flat_map_nested
     a = Step.new(1..3)
@@ -111,7 +117,7 @@ class TestLazyEnumerator < Test::Unit::TestCase
     assert_equal([1, "a"],
                  a.lazy.flat_map {|x| ("a".."c").lazy.map {|y| [x, y]}}.first)
     assert_equal(1, a.current)
-  end
+  end if [].respond_to?(:flat_map)
 
   def test_flat_map_to_ary
     to_ary = Class.new {
@@ -127,17 +133,17 @@ class TestLazyEnumerator < Test::Unit::TestCase
                  [1, 2, 3].flat_map {|x| to_ary.new(x)})
     assert_equal([:to_ary, 1, :to_ary, 2, :to_ary, 3],
                  [1, 2, 3].lazy.flat_map {|x| to_ary.new(x)}.force)
-  end
+  end if [].respond_to?(:flat_map)
 
   def test_flat_map_non_array
     assert_equal(["1", "2", "3"], [1, 2, 3].flat_map {|x| x.to_s})
     assert_equal(["1", "2", "3"], [1, 2, 3].lazy.flat_map {|x| x.to_s}.force)
-  end
+  end if [].respond_to?(:flat_map)
 
   def test_flat_map_hash
     assert_equal([{?a=>97}, {?b=>98}, {?c=>99}], [?a, ?b, ?c].flat_map {|x| {x=>x.ord}})
     assert_equal([{?a=>97}, {?b=>98}, {?c=>99}], [?a, ?b, ?c].lazy.flat_map {|x| {x=>x.ord}}.force)
-  end
+  end if [].respond_to?(:flat_map)
 
   def test_reject
     a = Step.new(1..6)
@@ -332,14 +338,14 @@ class TestLazyEnumerator < Test::Unit::TestCase
   end
 
   def test_drop_and_take
-    assert_equal([4, 5], (1..Float::INFINITY).lazy.drop(3).take(2).to_a)
+    assert_equal([4, 5], (1..(1.0/0)).lazy.drop(3).take(2).to_a) # Backports: don't rely on INFINITY
   end
 
   def test_cycle
     a = Step.new(1..3)
-    assert_equal("1", a.cycle(2).map(&:to_s).first)
+    assert_equal("1", a.cycle(2).map{|x| x.to_s}.first)
     assert_equal(3, a.current)
-    assert_equal("1", a.lazy.cycle(2).map(&:to_s).first)
+    assert_equal("1", a.lazy.cycle(2).map{|x| x.to_s}.first)
     assert_equal(1, a.current)
   end
 
@@ -387,7 +393,7 @@ class TestLazyEnumerator < Test::Unit::TestCase
     assert_equal(<<EOS.chomp, l.inspect)
 #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: 1..10>:map>:map>:flat_map>:flat_map>:select>:select>:reject>:grep(1)>:zip("a".."c")>:take(10)>:take_while>:drop(3)>:drop_while>:cycle(3)>
 EOS
-  end
+  end if [].respond_to?(:flat_map)
 
   def test_lazy_to_enum
     lazy = [1, 2, 3].lazy
@@ -464,7 +470,7 @@ EOS
       :each_entry => [],
       :each_cons => 42,
     }.each do |method, arg|
-      assert_equal Enumerator::Lazy, [].lazy.send(method, *arg).class, bug7507
+      assert_equal Enumerator::Lazy, [].lazy.send(method, *arg).class, method if [].respond_to?(method)
     end
     assert_equal Enumerator::Lazy, [].lazy.chunk{}.class, bug7507
   end

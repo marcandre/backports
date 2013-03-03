@@ -22,7 +22,6 @@ end
 
 class AAA_TestBackportGuards < Test::Unit::TestCase
   def setup
-    # Don't call super, to override test/helper's definition, do not require backports yet
     $VERBOSE = true
     @prev, $stderr = $stderr, StringIO.new
   end
@@ -76,18 +75,20 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
 
   # Order super important!
   def test__1_abbrev_can_be_required_before_backports
-    assert require 'abbrev'
+    assert require('abbrev')
     assert !$LOADED_FEATURES.include?('backports')
   end
 
   # Order super important!
   def test__2_backports_wont_override_unnecessarily
     before = digest
-    require "./lib/backports/#{RUBY_VERSION}"
-    after = digest
-    assert_nil digest_delta(before, after)
+    unless RUBY_VERSION <= '1.8.6'
+      require "backports/#{RUBY_VERSION}"
+      after = digest
+      assert_nil digest_delta(before, after)
+    end
     unless RUBY_VERSION == "2.0.0"
-      require "./lib/backports"
+      require "backports"
       after = digest
       assert !digest_delta(before, after).nil?
     end
@@ -125,6 +126,8 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
   def test_no_warnings
     require 'ostruct'
     require 'set'
+    require 'backports/1.8.7/array/each'
+    require 'backports/1.8.7/enumerator/next'
     assert_equal 1, [1,2,3].each.next # [Bug #70]
   end
 end
