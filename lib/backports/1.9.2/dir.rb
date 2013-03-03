@@ -1,5 +1,3 @@
-class << Dir
-  def home(user = "")
-    File.expand_path "~#{user}"
-  end unless method_defined? :home
-end
+require 'backports/tools'
+
+Backports.require_relative_dir

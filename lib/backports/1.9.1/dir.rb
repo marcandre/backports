@@ -1,3 +1,3 @@
-class Dir
-  Backports.alias_method self, :to_path, :path
-end
+require 'backports/tools'
+
+Backports.require_relative_dir

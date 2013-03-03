@@ -1,1 +1,1 @@
-autoload :Random, File.expand_path(File.dirname(__FILE__) + "/random/load")
+autoload :Random, "backports/extra/random/load"

@@ -1,5 +1,3 @@
-module Process
-  class << self
-    public :exec
-  end
-end
+require 'backports/tools'
+
+Backports.require_relative_dir

@@ -1,11 +1,3 @@
-module GC
-  class << self
-    def stress
-      false
-    end unless method_defined? :stress
+require 'backports/tools'
 
-    def stress=(flag)
-      raise NotImplementedError
-    end unless method_defined? :stress=
-  end
-end
+Backports.require_relative_dir

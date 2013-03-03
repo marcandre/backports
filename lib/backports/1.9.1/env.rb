@@ -1,3 +1,3 @@
-class << ENV
-  Backports.alias_method self, :key, :index
-end
+require 'backports/tools'
+
+Backports.require_relative_dir

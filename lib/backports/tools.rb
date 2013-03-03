@@ -1,22 +1,25 @@
 # Methods used internally by the backports.
 module Backports
-  # Adapted from Pragmatic's "Programming Ruby" (since their version was buggy...)
-  def self.require_relative(relative_feature)
-    file = caller.first.split(/:\d/,2).first
-    if /\A\((.*)\)/ =~ file # eval, etc.
-      raise LoadError, "require_relative is called in #{$1}"
+  MOST_EXTREME_OBJECT_EVER = Object.new # :nodoc:
+  class << MOST_EXTREME_OBJECT_EVER
+    def < (whatever)
+      true
     end
-    require File.expand_path(relative_feature, File.dirname(file))
+
+    def > (whatever)
+      true
+    end
   end
 
-  def self.require_relative_dir(relative_dir)
-    dir = File.expand_path(relative_dir, File.dirname(caller.first.split(/:\d/,2).first))
+  def self.require_relative_dir
+    dir = caller.first.split(/\.rb:\d/,2).first
+    short_path = dir[/.*(backports\/.*)/, 1] << '/'
     Dir.entries(dir).
         map{|f| Regexp.last_match(1) if /^(.*)\.rb$/ =~ f}.
         compact.
         sort.
         each do |f|
-          require File.expand_path(f, dir)
+          require short_path + f
         end
   end
 
@@ -31,10 +34,8 @@ module Backports
           # Assume backported features are Ruby libraries (i.e. not C)
           @loaded ||= $LOADED_FEATURES.group_by{|p| File.basename(p, ".rb")}
           if fullpaths = @loaded[File.basename(feature, ".rb")]
-            p fullpaths if feature == 'fake_stdlib_lib'
             fullpaths.any?{|fullpath|
               base_dir, = fullpath.partition("/#{feature}")
-              p base_dir, $LOAD_PATH if feature == 'fake_stdlib_lib'
               $LOAD_PATH.include?(base_dir)
             }
           end
@@ -83,6 +84,7 @@ module Backports
   # Metaprogramming utility to make block optional.
   # Tests first if block is already optional when given options
   def self.make_block_optional(mod, *methods)
+    mod = class << mod; self; end unless mod.is_a? Module
     options = methods.last.is_a?(Hash) ? methods.pop : {}
     methods.each do |selector|
       unless mod.method_defined? selector
@@ -99,6 +101,7 @@ module Backports
                   end
         next if result.class.name =~ /Enumerator$/
       end
+      require 'enumerator'
       arity = mod.instance_method(selector).arity
       last_arg = []
       if arity < 0
@@ -119,52 +122,46 @@ module Backports
   end
 
   # Metaprogramming utility to convert the first file argument to path
-  def self.convert_first_argument_to_path(mod, *methods)
-    methods.each do |selector|
-      unless mod.method_defined? selector
-        warn "#{mod}##{selector} is not defined, so argument can't converted to path"
-        next
-      end
-      arity = mod.instance_method(selector).arity
-      last_arg = []
-      if arity < 0
-        last_arg = ["*rest"]
-        arity = -1-arity
-      end
-      arg_sequence = (["file"] + (1...arity).map{|i| "arg_#{i}"} + last_arg + ["&block"]).join(", ")
+  def self.convert_first_argument_to_path(klass, selector)
+    mod = class << klass; self; end
+    unless mod.method_defined? selector
+      warn "#{mod}##{selector} is not defined, so argument can't converted to path"
+      return
+    end
+    arity = mod.instance_method(selector).arity
+    last_arg = []
+    if arity < 0
+      last_arg = ["*rest"]
+      arity = -1-arity
+    end
+    arg_sequence = (["file"] + (1...arity).map{|i| "arg_#{i}"} + last_arg + ["&block"]).join(", ")
 
-      alias_method_chain(mod, selector, :potential_path_argument) do |aliased_target, punctuation|
-        mod.module_eval <<-end_eval
-          def #{aliased_target}_with_potential_path_argument#{punctuation}(#{arg_sequence})
-            file = Backports.convert_to_path(file)
-            #{aliased_target}_without_potential_path_argument#{punctuation}(#{arg_sequence})
-          end
-        end_eval
-      end
+    alias_method_chain(mod, selector, :potential_path_argument) do |aliased_target, punctuation|
+      mod.module_eval <<-end_eval
+        def #{aliased_target}_with_potential_path_argument#{punctuation}(#{arg_sequence})
+          file = try_convert(file, String, :to_path) || file
+          #{aliased_target}_without_potential_path_argument#{punctuation}(#{arg_sequence})
+        end
+      end_eval
     end
   end
 
   # Metaprogramming utility to convert all file arguments to paths
-  def self.convert_all_arguments_to_path(mod, skip, *methods)
-    methods.each do |selector|
-      unless mod.method_defined? selector
-        warn "#{mod}##{selector} is not defined, so arguments can't converted to path"
-        next
-      end
-      first_args = (1..skip).map{|i| "arg_#{i}"}.join(",") + (skip > 0 ? "," : "")
-      alias_method_chain(mod, selector, :potential_path_arguments) do |aliased_target, punctuation|
-        mod.module_eval <<-end_eval
-          def #{aliased_target}_with_potential_path_arguments#{punctuation}(#{first_args}*files, &block)
-            files = files.map{|f| Backports.convert_to_path f}
-            #{aliased_target}_without_potential_path_arguments#{punctuation}(#{first_args}*files, &block)
-          end
-        end_eval
-      end
+  def self.convert_all_arguments_to_path(klass, selector, skip)
+    mod = class << klass; self; end
+    unless mod.method_defined? selector
+      warn "#{mod}##{selector} is not defined, so arguments can't converted to path"
+      return
     end
-  end
-
-  def self.convert_to_path(file_or_path)
-    file_or_path.respond_to?(:to_path) ? file_or_path.to_path  : file_or_path
+    first_args = (1..skip).map{|i| "arg_#{i}"}.join(",") + (skip > 0 ? "," : "")
+    alias_method_chain(mod, selector, :potential_path_arguments) do |aliased_target, punctuation|
+      mod.module_eval <<-end_eval
+        def #{aliased_target}_with_potential_path_arguments#{punctuation}(#{first_args}*files, &block)
+          files = files.map{|f| try_convert(f, String, :to_path) || f}
+          #{aliased_target}_without_potential_path_arguments#{punctuation}(#{first_args}*files, &block)
+        end
+      end_eval
+    end
   end
 
   # Modified to avoid polluting Module if so desired
@@ -306,7 +303,7 @@ module Backports
     options = {} if options == Backports::Undefined
     options = {:mode => offset.nil? ? "w" : "r+"}.merge(options)
     args = options[:open_args] || [options]
-    File.open(filename, *args) do |f|
+    File.open(filename, *Backports.combine_mode_perm_and_option(*args)) do |f|
       f.binmode if binary && f.respond_to?(:binmode)
       f.seek(offset) unless offset.nil?
       f.write(string)

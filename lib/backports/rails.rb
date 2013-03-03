@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + "/tools")
+require "backports/tools"
 %w(array enumerable hash kernel module string).each do |lib|
-  Backports.require_relative "rails/#{lib}"
+  require "backports/rails/#{lib}"
 end

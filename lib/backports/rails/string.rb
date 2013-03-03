@@ -1,6 +1,6 @@
 class String
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
-  def camelize(first_letter = :upper) 
+  def camelize(first_letter = :upper)
     if first_letter == :upper
       gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
     else
@@ -12,19 +12,19 @@ class String
   def constantize
     names = split('::')
     names.shift if names.empty? || names.first.empty?
-  
+
     constant = Object
     names.each do |name|
       constant = constant.const_defined?(name) ? constant.const_get(name) : constant.const_missing(name)
     end
     constant
   end unless method_defined? :constantize
-  
+
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
   def dasherize
     gsub(/_/, '-')
   end unless method_defined? :dasherize
-  
+
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
   def demodulize
     gsub(/^.*::/, '')
@@ -38,5 +38,5 @@ class String
       tr("-", "_").
       downcase
   end unless method_defined? :underscore
-  
+
 end

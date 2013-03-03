@@ -1,3 +1,3 @@
-class Range
-  Backports.alias_method self, :cover?, :include?
-end
+require 'backports/tools'
+
+Backports.require_relative_dir
