@@ -13,7 +13,7 @@ if Float.instance_method(:round).arity.zero?
       else
         p = 10 ** ndigits
         prod = self * p
-        prod.infinite? ? self : prod.round.fdiv(p)
+        prod.infinite? || prod.nan? ? self : prod.round.to_f / p
       end
     end
     Backports.alias_method_chain self, :round, :digits
