@@ -260,14 +260,6 @@ module Backports
     end
   end
 
-  # Used internally to propagate #lambda?
-  def self.track_lambda(from, to, default = false)
-    is_lambda = from.lambda?
-    is_lambda = default if is_lambda.nil?
-    to.instance_variable_set :@is_lambda, is_lambda
-    to
-  end
-
   # Used internally to combine {IO|File} options hash into mode (String or Integer)
   def self.combine_mode_and_option(mode = nil, options = Backports::Undefined)
     # Can't backport autoclose, {internal|external|}encoding
