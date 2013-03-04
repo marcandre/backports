@@ -111,7 +111,7 @@ module Backports
       arg_sequence = ((0...arity).map{|i| "arg_#{i}"} + last_arg + ["&block"]).join(", ")
 
       alias_method_chain(mod, selector, :optional_block) do |aliased_target, punctuation|
-        mod.module_eval <<-end_eval
+        mod.module_eval <<-end_eval, __FILE__, __LINE__ + 1
           def #{aliased_target}_with_optional_block#{punctuation}(#{arg_sequence})
             return to_enum(:#{aliased_target}_without_optional_block#{punctuation}, #{arg_sequence}) unless block_given?
             #{aliased_target}_without_optional_block#{punctuation}(#{arg_sequence})
@@ -137,7 +137,7 @@ module Backports
     arg_sequence = (["file"] + (1...arity).map{|i| "arg_#{i}"} + last_arg + ["&block"]).join(", ")
 
     alias_method_chain(mod, selector, :potential_path_argument) do |aliased_target, punctuation|
-      mod.module_eval <<-end_eval
+      mod.module_eval <<-end_eval, __FILE__, __LINE__ + 1
         def #{aliased_target}_with_potential_path_argument#{punctuation}(#{arg_sequence})
           file = try_convert(file, String, :to_path) || file
           #{aliased_target}_without_potential_path_argument#{punctuation}(#{arg_sequence})
@@ -155,7 +155,7 @@ module Backports
     end
     first_args = (1..skip).map{|i| "arg_#{i}"}.join(",") + (skip > 0 ? "," : "")
     alias_method_chain(mod, selector, :potential_path_arguments) do |aliased_target, punctuation|
-      mod.module_eval <<-end_eval
+      mod.module_eval <<-end_eval, __FILE__, __LINE__ + 1
         def #{aliased_target}_with_potential_path_arguments#{punctuation}(#{first_args}*files, &block)
           files = files.map{|f| try_convert(f, String, :to_path) || f}
           #{aliased_target}_without_potential_path_arguments#{punctuation}(#{first_args}*files, &block)
