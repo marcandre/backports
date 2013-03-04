@@ -301,6 +301,7 @@ module Backports
   def self.write(binary, filename, string, offset, options)
     offset, options = nil, offset if Hash === offset and options == Backports::Undefined
     options = {} if options == Backports::Undefined
+    File.open(filename, 'a+'){} if offset # insure existence
     options = {:mode => offset.nil? ? "w" : "r+"}.merge(options)
     args = options[:open_args] || [options]
     File.open(filename, *Backports.combine_mode_perm_and_option(*args)) do |f|
