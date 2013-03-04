@@ -1,9 +1,9 @@
 unless Struct.method_defined? :to_h
   class Struct
     def to_h
-      Hash[
-        self.class.members.each{|m| [m.to_sym, self[m]]}
-      ]
+      h = {}
+      self.class.members.each{|m| h[m.to_sym] = self[m]}
+      h
     end
   end
 end

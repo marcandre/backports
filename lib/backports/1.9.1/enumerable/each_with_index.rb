@@ -1,5 +1,6 @@
 if Enumerable.instance_method(:each_with_index).arity.zero?
   require 'backports/tools'
+  require 'enumerator'
 
   module Enumerable
     def each_with_index_with_optional_args_and_block(*args)

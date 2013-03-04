@@ -22,12 +22,6 @@ task :spec, :path, :action do |t, args|
       puts "*** mspec returned with unexpected results:"
       puts result
       puts "Command was:", cmd
-      puts "Mspec version: " + `mspec --version`
-      puts "Testing basic mspec:", `mspec rubyspec/core/array/append_spec.rb`
-      puts "Testing basic mspec:", `mspec ci rubyspec/core/array/append_spec.rb`
-      puts "Testing basic mspec:", `mspec ci -r rbconfig rubyspec/core/array/append_spec.rb`
-      puts "Testing basic mspec:", `mspec ci -r rbconfig -I lib -r set_version/2.0.0 rubyspec/core/array/append_spec.rb`
-      puts "Testing basic mspec:", `mspec ci -r rbconfig -I lib -r set_version/2.0.0 -r backports/2.0.0/nil/to_h rubyspec/core/array/append_spec.rb`
       fail "Unexpected output from mspec"
     end
     _, ex, p, f, e = data = match.captures.map{|x| x.to_i}
@@ -50,7 +44,7 @@ task :spec, :path, :action do |t, args|
 end
 
 task :all_spec do # Necessary because of argument passing bug in 1.8.7
-  Rake::Task[:spec].invoke('nil/*')
+  Rake::Task[:spec].invoke
 end
 
 task :spec_tag, :path do |t, args|

@@ -1,4 +1,6 @@
 unless IO.method_defined? :each_char
+  require 'enumerator'
+
   class IO
     def each_char
       return to_enum(:each_char) unless block_given?

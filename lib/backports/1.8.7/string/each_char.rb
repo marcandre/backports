@@ -1,5 +1,6 @@
 unless String.method_defined? :each_char
   require 'backports/tools'
+  require 'enumerator'
 
   class String
     def each_char

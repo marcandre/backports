@@ -1,3 +1,1 @@
-require 'backports/tools'
-
-Backports.alias_method String, :bytes, :each_byte
+require 'backports/1.8.7/string/each_byte'
