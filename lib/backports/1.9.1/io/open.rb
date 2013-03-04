@@ -5,7 +5,7 @@ rescue TypeError
 
   class << IO
     def open_with_options_hash(*args)
-      if args.size > 2 || args[1].is_a?(Hash)
+      if args.size > 2 || args[1].respond_to?(:to_hash)
         fd, mode, options = (args << Backports::Undefined)
         args = [fd, Backports.combine_mode_and_option(mode, options)]
       end

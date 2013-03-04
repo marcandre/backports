@@ -139,7 +139,7 @@ module Backports
     alias_method_chain(mod, selector, :potential_path_argument) do |aliased_target, punctuation|
       mod.module_eval <<-end_eval, __FILE__, __LINE__ + 1
         def #{aliased_target}_with_potential_path_argument#{punctuation}(#{arg_sequence})
-          file = try_convert(file, String, :to_path) || file
+          file = Backports.convert_path(file)
           #{aliased_target}_without_potential_path_argument#{punctuation}(#{arg_sequence})
         end
       end_eval
@@ -157,10 +157,18 @@ module Backports
     alias_method_chain(mod, selector, :potential_path_arguments) do |aliased_target, punctuation|
       mod.module_eval <<-end_eval, __FILE__, __LINE__ + 1
         def #{aliased_target}_with_potential_path_arguments#{punctuation}(#{first_args}*files, &block)
-          files = files.map{|f| try_convert(f, String, :to_path) || f}
+          files = files.map{|f| Backports.convert_path(f) }
           #{aliased_target}_without_potential_path_arguments#{punctuation}(#{first_args}*files, &block)
         end
       end_eval
+    end
+  end
+
+  def self.convert_path(path)
+    try_convert(path, IO, :to_io) ||
+    begin
+      path = path.to_path if path.respond_to?(:to_path)
+      try_convert(path, String, :to_str) || path
     end
   end
 
@@ -263,12 +271,14 @@ module Backports
   # Used internally to combine {IO|File} options hash into mode (String or Integer)
   def self.combine_mode_and_option(mode = nil, options = Backports::Undefined)
     # Can't backport autoclose, {internal|external|}encoding
-    mode, options = nil, mode if mode.is_a?(Hash) and options == Backports::Undefined
-    options = {} if options == Backports::Undefined
+    mode, options = nil, mode if mode.respond_to?(:to_hash) and options == Backports::Undefined
+    options = {} if options == nil || options == Backports::Undefined
+    options = coerce_to(options, Hash, :to_hash)
     if mode && options[:mode]
       raise ArgumentError, "mode specified twice"
     end
     mode ||= options[:mode] || "r"
+    mode = try_convert(mode, String, :to_str) || try_convert(mode, Integer, :to_int) || mode
     if options[:textmode] || options[:binmode]
       text = options[:textmode] || (mode.is_a?(String) && mode =~ /t/)
       bin  = options[:binmode]  || (mode.is_a?(String) ? mode =~ /b/ : mode & File::Constants::BINARY != 0)
