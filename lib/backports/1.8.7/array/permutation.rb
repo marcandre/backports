@@ -24,7 +24,7 @@ unless Array.method_defined? :permutation
         end
       end
 
-      outer_lambda.call([], self)
+      outer_lambda.call([], dup)
     end
   end
 end
