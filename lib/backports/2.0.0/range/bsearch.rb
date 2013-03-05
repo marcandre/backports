@@ -1,6 +1,4 @@
 unless Range.method_defined? :bsearch
-  require 'backports/1.9.1/proc/curry'
-
   class Range
     def bsearch
       return to_enum(:bsearch) unless block_given?
@@ -17,12 +15,10 @@ unless Range.method_defined? :bsearch
         map = Proc.new do |pk, unpk, nb|
           result, = [nb.abs].pack(pk).unpack(unpk)
           nb < 0 ? -result : result
-        end.curry
-        i2f = map['q', 'D']
-        f2i = map['D', 'q']
-        from = f2i[from.to_f]
-        to = f2i[to.to_f]
-        convert = Proc.new{ i2f[midpoint] }
+        end
+        from = map['D', 'q', to.to_f]
+        to   = map['D', 'q', to.to_f]
+        convert = Proc.new{ map['q', 'D', midpoint] }
       end
       to -= 1 if exclude_end?
       satisfied = nil
