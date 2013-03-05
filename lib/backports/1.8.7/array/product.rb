@@ -10,6 +10,9 @@ unless Array.method_defined? :product
       result = []
 
       arg.map!{|ary| Backports.coerce_to_ary(ary)}
+      n = arg.inject(size) { |p, a| p * a.size }
+      return [] if n == 0
+      raise RangeError, "too big a product" if n > 1<<31
       arg.reverse! # to get the results in the same order as in MRI, vary the last argument first
       arg.push self
 
