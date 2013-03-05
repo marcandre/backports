@@ -11,7 +11,7 @@ class Hash
     other.is_a?(Hash) &&
       size == other.size &&
       all? do |key, value|
-        other.fetch(key){return false}.eql?(value)
+        value.eql?(other.fetch(key){return false})
       end
   end unless {}.eql?({})
 end
