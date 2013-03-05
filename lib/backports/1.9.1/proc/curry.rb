@@ -10,7 +10,7 @@ unless Proc.method_defined? :curry
       end
       creator = lambda? ? :lambda : :proc
       block = send(creator) do |*args|
-        if args.count >= argc
+        if args.size >= argc
           call(*args)
         else
           send(creator) do |*more_args|
