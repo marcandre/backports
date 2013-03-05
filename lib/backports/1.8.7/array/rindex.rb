@@ -4,6 +4,7 @@ unless ([1].rindex{true} rescue false)
     require 'enumerator'
 
     def rindex_with_block(*arg)
+      return to_enum(:rindex) if !block_given? && arg.empty?
       return rindex_without_block(*arg) unless block_given? && arg.empty?
       i = 0
       reverse_each{|o| i += 1; return size - i if yield o}
