@@ -51,7 +51,7 @@ Complete Ruby 1.8.7 backporting (core language). Refer to the official list of c
 Only exceptions:
 * String#gsub (the form returning an enumerator)
 * GC.stress=  (not implemented)
-* Array#choice (removed in 1.9, use Array#sample instead)
+* Array#choice (removed in 1.9, use 1.9.1's Array#sample instead)
 
 To include _only_ these backports, <tt>require "backports/1.8.7"</tt>
 
@@ -64,6 +64,7 @@ Ruby 1.8.8 has been officially cancelled. As of version 2.2, <tt>require "backpo
 Additionally, the following Ruby 1.9 features have been backported:
 * Array
   * +try_convert+
+  * +sample+
 
 * Enumerable
   * +each_with_object+
