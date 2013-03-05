@@ -17,7 +17,7 @@ class OpenStruct
   end unless method_defined? :hash
 
   def each_pair
-    return to_enum __method__ unless block_given?
+    return to_enum(:each_pair) unless block_given?
     @table.each_pair{|p| yield p}
   end unless method_defined? :each_pair
 

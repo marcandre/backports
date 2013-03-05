@@ -34,11 +34,18 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
   EXCLUDE = %w[require] # Overriden in all circumstances to load the std-lib
   EXCLUDE.map!(&:to_sym) if instance_methods.first.is_a?(Symbol)
 
+  # For some very strange reason, Hash[kvp.flatten] doesn't always work in 1.8.6??
+  def hash(key_value_pairs)
+    h = {}
+    key_value_pairs.each{|k,v| h[k] = v}
+    h
+  end
+
   def class_signature(klass)
-    Hash[
+    hash(
       (klass.instance_methods - EXCLUDE).map{|m| [m, klass.instance_method(m)] } +
       (klass.methods - EXCLUDE).map{|m| [".#{m}", klass.method(m) ]}
-    ]
+    )
   end
 
   CLASSES = [Array, Binding, Dir, Enumerable, Fixnum, Float, GC,
@@ -55,9 +62,9 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
   end
 
   def digest
-    Hash[
+    hash(
       CLASSES.map { |klass| [klass, class_signature(klass)] }
-    ]
+    )
   end
 
   def digest_delta(before, after)

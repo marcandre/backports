@@ -186,7 +186,7 @@ class Matrix
     row_size = CoercionHelper.coerce_to_int(row_size)
     column_size = CoercionHelper.coerce_to_int(column_size)
     raise ArgumentError if row_size < 0 || column_size < 0
-    return to_enum :build, row_size, column_size unless block_given?
+    return to_enum(:build, row_size, column_size) unless block_given?
     rows = Array.new(row_size) do |i|
       Array.new(column_size) do |j|
         yield i, j
@@ -401,7 +401,7 @@ class Matrix
   #   Matrix[ [1,2], [3,4] ].each(:strict_lower).to_a # => [3]
   #
   def each(which = :all) # :yield: e
-    return to_enum :each, which unless block_given?
+    return to_enum(:each, which) unless block_given?
     last = column_size - 1
     case which
     when :all
@@ -462,7 +462,7 @@ class Matrix
   #     #    4 at 1, 1
   #
   def each_with_index(which = :all) # :yield: e, row, column
-    return to_enum :each_with_index, which unless block_given?
+    return to_enum(:each_with_index, which) unless block_given?
     last = column_size - 1
     case which
     when :all
@@ -527,7 +527,7 @@ class Matrix
   def index(*args)
     raise ArgumentError, "wrong number of arguments(#{args.size} for 0-2)" if args.size > 2
     which = (args.size == 2 || SELECTORS.include?(args.last)) ? args.pop : :all
-    return to_enum :find_index, which, *args unless block_given? || args.size == 1
+    return to_enum(:find_index, which, *args) unless block_given? || args.size == 1
     if args.size == 1
       value = args.first
       each_with_index(which) do |e, row_index, col_index|
@@ -809,7 +809,7 @@ class Matrix
       rows = @rows.collect {|row|
         row.collect {|e| e * m }
       }
-      return new_matrix rows, column_size
+      return new_matrix(rows, column_size)
     when Vector
       m = self.class.column_vector(m)
       r = self * m
@@ -824,7 +824,7 @@ class Matrix
           end
         }
       }
-      return new_matrix rows, m.column_size
+      return new_matrix(rows, m.column_size)
     else
       return apply_through_coercion(m, __method__)
     end
@@ -896,7 +896,7 @@ class Matrix
       rows = @rows.collect {|row|
         row.collect {|e| e / other }
       }
-      return new_matrix rows, column_size
+      return new_matrix(rows, column_size)
     when Matrix
       return self * other.inverse
     else
