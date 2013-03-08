@@ -3,10 +3,14 @@ class TracePoint
   def self.trace(*events, &proc)
     trace = new(*events, &proc)
     trace.enable
+    trace
   end
 
   def self.tracepoints #:nodoc:
     @tracepoints ||= []
+  end
+
+  def tracing?
   end
 
   def self.switch! #:nodoc:
@@ -14,23 +18,36 @@ class TracePoint
       set_trace_func(nil)
     else
       bb_stack = []
+      tracing = false
+
       fn = lambda do |e, f, l, m, b, k|
         # TODO: This condition likely needs to be refined. The point is to prevent
         #       tracing of the code that does the tracing itself, which a) no one
         #       is interested in and b) prevents possbile infinite recursions.
-        unless $__trace__ or k === TracePoint or (k == Kernel && m == :set_trace_func)
-          $__trace__ = [e, f, l, m, b, k]
+        skip_trace = (__FILE__ == f || (k == Kernel && m == :set_trace_func))
+        unless tracing || skip_trace
+          tracing = true
+
           #(p e, f, l, m, b, k, bb_stack; puts "---") if $DEBUG
+
+          # TODO: Does b-call/b-return constitute a new binding?
           if ['call','c-call','b-call','class'].include?(e)
             bb_stack << b
           elsif ['return','c-return','b-return','end'].include?(e)
             bb = bb_stack.pop
           end
-          b = bb if ! b    # this sucks!
+          b = bb unless b  # sometimes there is no binding?
+
           @tracepoints.each do |tp|
-            tp.send(:call_with, e, f, l, m, k, b, bb)
+            next unless tp.handle?(e)
+            #begin
+              tp.send(:call_with, e, f, l, m, k, b, bb)
+            #rescue
+            #  # trace error event?
+            #end
           end
-          $__trace__ = nil
+
+          tracing = false
         end
       end
       set_trace_func(fn)
@@ -38,19 +55,35 @@ class TracePoint
   end
 
   def initialize(*events, &proc)
-    @events = events
+    @events = events.map{ |e| e.to_s }
     @proc = proc || raise(ArgumentError, "trace procedure required")
+    @enabled = false   
+  end
+
+  def handle?(event)
+    @events.empty? || @events.include?(event.to_s)
   end
 
   def enabled?
     @enabled
   end
 
+  def disabled?
+    ! @enabled
+  end
+
   def enable
-    if block_given? && !enabled?
-      enable
-      result = yield
-      disable
+    if block_given?
+      if enabled?
+        result = yield
+      else
+        enable
+        begin
+          result = yield
+        ensure
+          disable
+        end
+      end
       result
     else
       previous_state = enabled?
@@ -62,10 +95,17 @@ class TracePoint
   end
 
   def disable
-    if block_given? && enabled?
-      disable
-      result = yield
-      enable
+    if block_given?
+      if disabled?
+        result = yield
+      else
+        disable
+        begin
+          result = yield
+        ensure
+          enable
+        end
+      end
       result
     else
       previous_state = enabled?
@@ -106,7 +146,7 @@ class TracePoint
   end
 
   def defined_class
-    binding.eval{ self.class }
+    @binding.eval "#{self.class}"
   end
 
   def method_id
@@ -115,7 +155,7 @@ class TracePoint
 
   # TODO: How to get raised exception?
   def raised_exception
-    raise NotImplementedError, "Please constribute a patch if you know how to fix."
+    raise NotImplementedError, "Please contribute a patch if you know how to fix."
 
     case event
     when :raise
@@ -125,7 +165,7 @@ class TracePoint
 
   # TODO: How to get the return value?
   def return_value
-    raise NotImplementedError, "Please constribute a patch if you know how to fix."
+    raise NotImplementedError, "Please contribute a patch if you know how to fix."
 
     case event
     when :return, :c_return, :b_return
@@ -139,19 +179,20 @@ class TracePoint
   #++
 
   def inspect
+    return "#<TracePoint:disabled>" if disabled?
     case event
     when :line
 		  if method_id.nil?
-        "#<TracePoint:%s@%s:%d>" % [event, path, lineno]
+        "#<TracePoint:%s@%s:%s>" % [event, path, lineno]
       else
-        "#<TracePoint:%s@%s:%d in `%s'>" % [event, path, lineno, method_id]
+        "#<TracePoint:%s@%s:%s in `%s'>" % [event, path, lineno, method_id]
       end
     when :call, :c_call, :return, :c_return
-      "#<TracePoint:%s `%s'@%s:%d>" % [event, method_id, path, lineno]
+      "#<TracePoint:%s `%s'@%s:%s>" % [event, method_id, path, lineno]
     when :thread_begin, :thread_end
 	    "#<TracePoint:%s %s>" % [event, self]
     else
-      "#<TracePoint:%s@%s:%d>" % [event, path, lineno]
+      "#<TracePoint:%s@%s:%s>" % [event, path, lineno]
     end
   end
 
