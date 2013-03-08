@@ -110,19 +110,31 @@ class TracePoint
     else
       previous_state = enabled?
       @enabled = false
-      self.class.tracepoints.delete self
+      self.class.tracepoints.delete(self.reset)
       self.class.switch!
       previous_state
     end
   end
 
-  attr_reader :event
+  def event
+    raise if disabled?
+    @event
+  end
 
-  attr_reader :path
+  def path
+    raise if disabled?
+    @path
+  end
 
-  attr_reader :lineno
+  def lineno
+    raise if disabled?
+    @lineno
+  end
 
-  attr_reader :binding
+  def binding
+    raise if disabled?
+    @binding
+  end
 
   # The previous binding.
   #
@@ -132,24 +144,29 @@ class TracePoint
   #       would agree to include in Ruby's API.
   #
   # Returns [Binding]
-  attr_reader :prior_binding
+  def prior_binding
+    raise if disabled?
+    @prior_binding
+  end
 
   # Alias for #prior_binding.
   #
   # Returns [Binding]
   def binding_of_caller
+    raise if disabled?
     @prior_binding
   end
 
   def self
-    @binding.self
+    binding.self
   end
 
   def defined_class
-    @binding.eval "#{self.class}"
+    binding.eval "#{self.class}"
   end
 
   def method_id
+    raise if disabled?
     @method
   end
 
@@ -180,6 +197,8 @@ class TracePoint
 
   def inspect
     return "#<TracePoint:disabled>" if disabled?
+    return "#<TracePoint:enabled>" unless event
+
     case event
     when :line
 		  if method_id.nil?
@@ -211,6 +230,17 @@ protected
     @klass   = klass
     @binding = bind || TOPLEVEL_BINDING  # TODO: Correct ?
     @prior_binding = prebind || TOPLEVEL_BINDING  # TODO: or leave nil ?
+  end
+
+  def reset
+    @event   = nil
+    @path    = nil
+    @lineno  = nil
+    @method  = nil
+    @klass   = nil
+    @binding = nil
+    @prior_binding = nil
+    return self
   end
 end
 
