@@ -1,3 +1,6 @@
+# Note that the backports versione of TracePoint does not support
+# certain new events of the Ruby 2.0+ API.
+#
 class TracePoint
 
   def self.trace(*events, &proc)
@@ -21,19 +24,19 @@ class TracePoint
       tracing = false
 
       fn = lambda do |e, f, l, m, b, k|
+        e = e.gsub('-', '_').to_sym
         # TODO: This condition likely needs to be refined. The point is to prevent
         #       tracing of the code that does the tracing itself, which a) no one
         #       is interested in and b) prevents possbile infinite recursions.
         skip_trace = (__FILE__ == f || (k == Kernel && m == :set_trace_func))
         unless tracing || skip_trace
           tracing = true
-
           #(p e, f, l, m, b, k, bb_stack; puts "---") if $DEBUG
 
           # TODO: Does b-call/b-return constitute a new binding?
-          if ['call','c-call','b-call','class'].include?(e)
+          if [:call,:c_call,:b_call,:class].include?(e)
             bb_stack << b
-          elsif ['return','c-return','b-return','end'].include?(e)
+          elsif [:return,:c_return,:b_return,:end].include?(e)
             bb = bb_stack.pop
           end
           b = bb unless b  # sometimes there is no binding?
@@ -55,13 +58,13 @@ class TracePoint
   end
 
   def initialize(*events, &proc)
-    @events = events.map{ |e| e.to_s }
+    @events = events.map{ |e| e.to_sym }
     @proc = proc || raise(ArgumentError, "trace procedure required")
     @enabled = false   
   end
 
   def handle?(event)
-    @events.empty? || @events.include?(event.to_s)
+    @events.empty? || @events.include?(event.to_sym)
   end
 
   def enabled?
@@ -148,14 +151,7 @@ class TracePoint
     raise if disabled?
     @prior_binding
   end
-
-  # Alias for #prior_binding.
-  #
-  # Returns [Binding]
-  def binding_of_caller
-    raise if disabled?
-    @prior_binding
-  end
+  alias binding_of_caller prior_binding
 
   def self
     binding.self
@@ -170,17 +166,11 @@ class TracePoint
     @method
   end
 
-  # TODO: How to get raised exception?
   def raised_exception
-    raise NotImplementedError, "Please contribute a patch if you know how to fix."
-
-    case event
-    when :raise
-      @klass
-    end
+    $!
   end
 
-  # TODO: How to get the return value?
+  # TODO: It may not be possible to implement return_value.
   def return_value
     raise NotImplementedError, "Please contribute a patch if you know how to fix."
 
@@ -247,12 +237,14 @@ end
 
 class Binding
 
+  # TODO: Get this from other backport
   unless method_defined?(:eval) # 1.8.7+
     def eval(code)
       Kernel.eval(code, self)
     end
   end
 
+  # TODO: Get this from other backport
   unless method_defined?(:self) # 1.9+ ?
     def self()
       @_self ||= eval("self")
