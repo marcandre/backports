@@ -1,4 +1,4 @@
-= Backports Library {<img src="https://travis-ci.org/marcandre/backports.png?branch=master">}[https://travis-ci.org/marcandre/backports] {<img src="https://badge.fury.io/rb/backports.png" alt="Gem Version" />}[http://badge.fury.io/rb/backports]
+= Backports Library {<img src="https://travis-ci.org/marcandre/backports.png?branch=master">}[https://travis-ci.org/marcandre/backports] {<img src="https://badge.fury.io/rb/backports.png" alt="Gem Version" />}[http://badge.fury.io/rb/backports] {<img alt='Click here to lend your support to: Ruby Backports and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/19510.png?skin_name=chrome' border='0'}[http://www.pledgie.com/campaigns/19510]
 
 * Yearning to use some of the new cool features in Ruby 2.0.0 while using 1.8.6?
 * One of your client is stuck with Ruby 1.8.6 but you want to use a gem using some features of 1.8.7?
