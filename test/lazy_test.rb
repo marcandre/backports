@@ -388,10 +388,10 @@ class TestLazyEnumerator < Test::Unit::TestCase
                  (1..10).lazy.cycle.inspect)
     assert_equal("#<Enumerator::Lazy: #<Enumerator::Lazy: 1..10>:cycle(3)>",
                  (1..10).lazy.cycle(3).inspect)
-    l = (1..10).lazy.map {}.collect {}.flat_map {}.collect_concat {}.select {}.find_all {}.reject {}.grep(1).zip(?a..?c).take(10).take_while {}.drop(3).drop_while {}.cycle(3)
+    l = (1..10).lazy.map {}.flat_map {}.select {}.reject {}.grep(1).zip(?a..?c).take(10).take_while {}.drop(3).drop_while {}.cycle(3)
     ### Backport: Modified because I don't think the actual name we were called under in case of aliases is important enough to care
     assert_equal(<<EOS.chomp, l.inspect)
-#<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: 1..10>:map>:map>:flat_map>:flat_map>:select>:select>:reject>:grep(1)>:zip("a".."c")>:take(10)>:take_while>:drop(3)>:drop_while>:cycle(3)>
+#<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: #<Enumerator::Lazy: 1..10>:map>:flat_map>:select>:reject>:grep(1)>:zip(\"a\"..\"c\")>:take(10)>:take_while>:drop(3)>:drop_while>:cycle(3)>
 EOS
   end if [].respond_to?(:flat_map)
 
