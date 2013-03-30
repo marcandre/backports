@@ -89,12 +89,13 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
   # Order super important!
   def test__2_backports_wont_override_unnecessarily
     before = digest
+    latest = "2.0.0"
     unless RUBY_VERSION <= '1.8.6'
-      require "backports/#{RUBY_VERSION}"
+      require "backports/#{[RUBY_VERSION, latest].min}"
       after = digest
       assert_nil digest_delta(before, after)
     end
-    unless RUBY_VERSION == "2.0.0"
+    unless RUBY_VERSION >= latest
       require "backports"
       after = digest
       assert !digest_delta(before, after).nil?
