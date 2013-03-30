@@ -12,7 +12,6 @@ rvm:
 
 matrix:
   allow_failures:
-    - rvm: "2.0.0" # Must wait for 2.0.0p0...
     - rvm: jruby-18mode
     - rvm: jruby-19mode
     - rvm: rbx-18mode
