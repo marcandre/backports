@@ -31,7 +31,7 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
     $stderr = @prev
   end
 
-  EXCLUDE = %w[require] # Overriden in all circumstances to load the std-lib
+  EXCLUDE = %w[require require_with_backports require_without_backports] # Overriden in all circumstances to load the std-lib
   EXCLUDE.map!(&:to_sym) if instance_methods.first.is_a?(Symbol)
 
   # For some very strange reason, Hash[kvp.flatten] doesn't always work in 1.8.6??
@@ -73,7 +73,7 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
       compare = after[klass]
       d = methods.map do |name, unbound|
         name unless unbound == compare[name]
-      end
+      end + (compare.map(&:first) - methods.map(&:first))
       d.compact!
       delta[klass] = d unless d.empty?
     end
