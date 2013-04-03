@@ -1,5 +1,11 @@
 = Backports --- History
 
+== Version 3.2.0 - April 2nd, 2013
+
+* Moved `Dir.mktmpdir` to the stdlib 'tmpdir' for Ruby 1.8.7
+
+* Removed `returning` as it is no longer part of Rails.
+
 == Version 3.1.0 - March 5th, 2013
 
 * Backports can now be loaded separately!
