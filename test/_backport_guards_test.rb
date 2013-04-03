@@ -138,4 +138,13 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
     require 'backports/1.8.7/enumerator/next'
     assert_equal 1, [1,2,3].each.next # [Bug #70]
   end
+
+  def test_rails
+    require 'active_support/all'
+    $stderr.string = '' # disregard warnings by Rails
+    before = digest
+    require "backports/rails"
+    after = digest
+    assert_nil digest_delta(before, after)
+  end
 end
