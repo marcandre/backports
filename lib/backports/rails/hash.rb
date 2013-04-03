@@ -2,12 +2,12 @@ class Hash
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
   def reverse_merge(other_hash)
     other_hash.merge(self)
-  end
+  end unless method_defined? :reverse_merge
 
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
   def reverse_merge!(other_hash)
     replace(reverse_merge(other_hash))
-  end
+  end unless method_defined? :reverse_merge!
 
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Hash/Keys.html]
   def symbolize_keys
