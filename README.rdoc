@@ -109,6 +109,7 @@ Additionally, the following Ruby 1.9 features have been backported:
 
 * Hash
   * +assoc+, +rassoc+
+  * +key+
   * +try_convert+
   * <tt>default_proc=</tt>
 
