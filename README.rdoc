@@ -61,7 +61,7 @@ Note: about a dozen of backports have a dependency that will be also loaded. For
 
 With bundler, add to your Gemfile:
 
-  gem 'backports', :load => false
+  gem 'backports', :require => false
 
 Run <tt>bundle install</tt> and require the desired backports.
 
