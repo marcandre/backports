@@ -16,7 +16,7 @@ unless Enumerable.method_defined? :chunk
             previous = nil
             case key
             when nil, :_separator
-            when :_singleton
+            when :_alone
               yielder.yield [key, [val]]
             else
               raise RuntimeError, "symbol beginning with an underscore are reserved"
