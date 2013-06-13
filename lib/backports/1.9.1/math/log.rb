@@ -1,8 +1,8 @@
 unless (Math.log(2, 2) rescue false)
-    # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Math.html]
-  class << Math
-    require 'backports/tools'
+  require 'backports/tools'
 
+  class << Math
+    # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Math.html]
     def log_with_optional_base(numeric, base = Backports::Undefined)
       if base.equal?(Backports::Undefined)
         # Math.log(n) in 1.9.1 no longer accepts string arguments as it
@@ -16,7 +16,5 @@ unless (Math.log(2, 2) rescue false)
       end
     end
     Backports.alias_method_chain self, :log, :optional_base
-
-    # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Math.html]
   end
 end
