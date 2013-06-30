@@ -12,7 +12,7 @@
 #    (they will only be undefined whenever a subclass of BasicObject is created)
 # Because of all the fineprint, BasicObject must be required explicitely
 
-unless Kernel.const_defined? :BasicObject
+unless Object.const_defined? :BasicObject
 
   class BasicObject
     KEEP = %w[== equal? ! != instance_eval instance_exec __send__]
