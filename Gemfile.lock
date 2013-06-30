@@ -17,7 +17,7 @@ GEM
       multi_json (~> 1.0)
     i18n (0.6.1)
     multi_json (1.7.2)
-    rake (10.0.3)
+    rake (10.1.0)
 
 PLATFORMS
   java
