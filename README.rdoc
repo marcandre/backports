@@ -241,6 +241,6 @@ A final note to say that packers are inherited in some way. For instance one cou
 
 = License
 
-packable is licensed under the terms of the (modified) BSD License, see the included LICENSE file.
+packable is licensed under the terms of the MIT License, see the included LICENSE file.
 
 Author::                 Marc-André Lafortune
