@@ -99,6 +99,7 @@ def mspec_cmds(pattern, action='ci')
               -r ./set_version/#{version}
               #{deps}
               -r backports/#{version_path}
+              -C spec
               rubyspec/core/#{path}_spec.rb
             ].join(' '), path
   end
