@@ -11,6 +11,7 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = false
 end
 
+desc "Run specs, where path can be '*/*' (default), 'class/*' or 'class/method'."
 task :spec, :path, :action do |t, args|
   args.with_defaults(:path => '*/*', :action => 'ci')
   stats = [[0] * 5]
