@@ -6,7 +6,8 @@ unless [1,2].uniq{}.size == 1
       return uniq_without_block unless block_given?
       h = {}
       each do |elem|
-        h[yield(elem)] ||= elem
+        key = yield(elem)
+        h[key] = elem unless h.has_key?(key)
       end
       h.values
     end
