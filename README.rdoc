@@ -240,6 +240,15 @@ Some features of Ruby 2.0.0 have been backported:
 
 To include all Ruby backports but not those of Rails, <tt>require "backports/2.0"</tt> (or "backports/2.0.0")
 
+== Ruby 2.1.0
+
+Some features of Ruby 2.1.0 have been backported:
+
+* Array
+  * +to_h+
+* Enumerable
+  * +to_h+
+
 == Rails
 
 Some generic methods from Rails methods have been copied:

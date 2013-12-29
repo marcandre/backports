@@ -1,5 +1,10 @@
 = Backports --- History
 
+== Version 3.4.0 - December 29th, 2013
+
+* Additional features of 2.1.0
+  * Array#to_h, Enumerable#to_h
+
 == Version 3.3.0 - April 3rd, 2013
 
 * Moved `Proc#yield` & `Hash#key` from 1.8.7 to 1.9.1
