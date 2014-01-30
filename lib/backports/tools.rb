@@ -278,7 +278,7 @@ module Backports
     # Can't backport autoclose, {internal|external|}encoding
     mode, options = nil, mode if mode.respond_to?(:to_hash) and options == Backports::Undefined
     options = {} if options == nil || options == Backports::Undefined
-    options = coerce_to(options, Hash, :to_hash)
+    options = coerce_to_hash(options)
     if mode && options[:mode]
       raise ArgumentError, "mode specified twice"
     end
@@ -303,10 +303,11 @@ module Backports
 
   # Used internally to combine {IO|File} options hash into mode (String or Integer) and perm
   def self.combine_mode_perm_and_option(mode = nil, perm = Backports::Undefined, options = Backports::Undefined)
-    mode, options = nil, mode if mode.is_a?(Hash) and perm == Backports::Undefined
-    perm, options = nil, perm if perm.is_a?(Hash) and options == Backports::Undefined
+    mode, options = nil, mode if mode.respond_to?(:to_hash) and perm == Backports::Undefined
+    perm, options = nil, perm if perm.respond_to?(:to_hash) and options == Backports::Undefined
     perm = nil if perm == Backports::Undefined
     options = {} if options == Backports::Undefined
+    options = coerce_to_hash(options)
     if perm && options[:perm]
       raise ArgumentError, "perm specified twice"
     end
@@ -314,8 +315,9 @@ module Backports
   end
 
   def self.write(binary, filename, string, offset, options)
-    offset, options = nil, offset if Hash === offset and options == Backports::Undefined
+    offset, options = nil, offset if offset.respond_to?(:to_hash) and options == Backports::Undefined
     options = {} if options == Backports::Undefined
+    options = coerce_to_hash(options)
     File.open(filename, 'a+'){} if offset # insure existence
     options = {:mode => offset.nil? ? "w" : "r+"}.merge(options)
     args = options[:open_args] || [options]
