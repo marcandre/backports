@@ -276,7 +276,7 @@ module Backports
   # Used internally to combine {IO|File} options hash into mode (String or Integer)
   def self.combine_mode_and_option(mode = nil, options = Backports::Undefined)
     # Can't backport autoclose, {internal|external|}encoding
-    mode, options = nil, mode if mode.respond_to?(:to_hash) and options == Backports::Undefined
+    mode, options = nil, mode if mode.respond_to?(:to_hash) && options == Backports::Undefined
     options = {} if options == nil || options == Backports::Undefined
     options = coerce_to_hash(options)
     if mode && options[:mode]
@@ -303,8 +303,8 @@ module Backports
 
   # Used internally to combine {IO|File} options hash into mode (String or Integer) and perm
   def self.combine_mode_perm_and_option(mode = nil, perm = Backports::Undefined, options = Backports::Undefined)
-    mode, options = nil, mode if mode.respond_to?(:to_hash) and perm == Backports::Undefined
-    perm, options = nil, perm if perm.respond_to?(:to_hash) and options == Backports::Undefined
+    mode, options = nil, mode if mode.respond_to?(:to_hash) && perm == Backports::Undefined
+    perm, options = nil, perm if perm.respond_to?(:to_hash) && options == Backports::Undefined
     perm = nil if perm == Backports::Undefined
     options = {} if options == Backports::Undefined
     options = coerce_to_hash(options)
@@ -315,7 +315,7 @@ module Backports
   end
 
   def self.write(binary, filename, string, offset, options)
-    offset, options = nil, offset if offset.respond_to?(:to_hash) and options == Backports::Undefined
+    offset, options = nil, offset if offset.respond_to?(:to_hash) && options == Backports::Undefined
     options = {} if options == Backports::Undefined
     options = coerce_to_hash(options)
     File.open(filename, 'a+'){} if offset # insure existence
