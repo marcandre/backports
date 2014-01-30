@@ -23,3 +23,10 @@ fails:IO.open coerces options as second argument with #to_hash
 fails:IO.open raises ArgumentError if not passed a hash or nil for options
 fails:IO.open sets external encoding to binary with :binmode option
 fails:IO.open raises an error if passed binary/text mode two ways
+fails:IO.open uses the :encoding option as the external encoding when only one is given
+fails:IO.open uses the :encoding options as the external encoding when it's an Encoding object
+fails:IO.open coerces :encoding option with #to_str
+fails:IO.open coerces :external_encoding option with #to_str
+fails:IO.open coerces :internal_encoding option with #to_str
+fails:IO.open accepts an :autoclose option
+fails:IO.open accepts any truthy option :autoclose
