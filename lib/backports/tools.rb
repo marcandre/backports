@@ -226,6 +226,19 @@ module Backports
     coerce_to(obj, String, :to_str)
   end
 
+  def self.coerce_to_hash(obj)
+    coerce_to(obj, Hash, :to_hash)
+  end
+
+  def self.coerce_to_options(obj, *options)
+    hash = coerce_to_hash(obj)
+    hash.values_at(*options)
+  end
+
+  def self.coerce_to_option(obj, option)
+    coerce_to_options(obj, option)[0]
+  end
+
   def self.is_array?(obj)
     coerce_to(obj, Array, :to_ary) if obj.respond_to? :to_ary
   end
