@@ -65,26 +65,78 @@ With bundler, add to your Gemfile:
 
 Run <tt>bundle install</tt> and require the desired backports.
 
-Compatible with Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2, 1.9.3, 2.0.0, JRuby and Rubinius.
+Compatible with Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2, 1.9.3, 2.0, 2.1, JRuby and Rubinius.
 
 = Complete List of backports
 
-== Ruby 1.8.7
+== Ruby 2.1 backports
 
-Complete Ruby 1.8.7 backporting (core language). Refer to the official list of changes[https://github.com/ruby/ruby/blob/ruby_1_8_7/NEWS]. That's about 130 backports!
+* Array
+  * +to_h+
+* Enumerable
+  * +to_h+
 
-Only exceptions:
-* String#gsub (the form returning an enumerator)
-* GC.stress=  (not implemented)
-* Array#choice (removed in 1.9, use 1.9.1's Array#sample instead)
+== Ruby 2.0 backports
 
-To include _only_ these backports, <tt>require "backports/1.8.7"</tt>
+* Array
+  * +bsearch+
+* Enumerable
+  * +lazy+
+* Enumerator::Lazy
+  * all methods
+* Hash
+  * <tt>default_proc=</tt> (with nil argument)
+  * +to_h+
+* nil.to_h
+* Range
+  * +bsearch+
+* Struct
+  * +to_h+
 
-== Ruby 1.8.8
+== Ruby 1.9.3 backports
 
-Ruby 1.8.8 has been officially cancelled. As of version 2.2, <tt>require "backports/1.8.8"</tt> does nothing.
+* File
+  * +NULL+
+* IO
+  * +advise+ (acts as a noop)
+  * +write+, +binwrite+
+* String
+  * +byteslice+
+  * +prepend+
 
-== Ruby 1.9.1
+== Ruby 1.9.2 backports
+
+* Array
+  * <tt>rotate, rotate!</tt>
+  * <tt>keep_if, select!</tt>
+  * +product+ (with block)
+  * +repeated_combination+, +repeated_permutation+
+  * <tt>sort_by!</tt>
+  * <tt>uniq, uniq!</tt> (with block)
+
+* Complex
+  * +to_r+
+
+* Dir
+  * +home+
+
+* Enumerable
+  * +chunk+
+  * +flat_map+, +collect_concat+
+  * +join+
+  * +slice_before+
+
+* Float::INFINITY, NAN
+
+* Hash
+  * +keep_if+, <tt>select!</tt>
+
+* Object
+  * <tt>singleton_class</tt>
+
+* Random (new class)
+
+== Ruby 1.9.1 backports
 
 Additionally, the following Ruby 1.9 features have been backported:
 * Array
@@ -168,94 +220,14 @@ but since it is only an imitation, it must be required explicitly:
 
   require 'backports/basic_object'
 
-== Ruby 1.9.2
+== Ruby 1.8.7
 
-Finally, most of Ruby 1.9.2 features have been backported:
+Complete Ruby 1.8.7 backporting (core language). Refer to the official list of changes[https://github.com/ruby/ruby/blob/ruby_1_8_7/NEWS]. That's about 130 backports!
 
-* Array
-  * <tt>rotate, rotate!</tt>
-  * <tt>keep_if, select!</tt>
-  * +product+ (with block)
-  * +repeated_combination+, +repeated_permutation+
-  * <tt>sort_by!</tt>
-  * <tt>uniq, uniq!</tt> (with block)
-
-* Complex
-  * +to_r+
-
-* Dir
-  * +home+
-
-* Enumerable
-  * +chunk+
-  * +flat_map+, +collect_concat+
-  * +join+
-  * +slice_before+
-
-* Float::INFINITY, NAN
-
-* Hash
-  * +keep_if+, <tt>select!</tt>
-
-* Object
-  * <tt>singleton_class</tt>
-
-* Random (new class)
-
-To include _only_ these backports and earlier, <tt>require "backports/1.9.2"</tt>
-
-== Ruby 1.9.3
-
-Some features of Ruby 1.9.3 have been backported:
-
-* File
-  * +NULL+
-* IO
-  * +advise+ (acts as a noop)
-  * +write+, +binwrite+
-* String
-  * +byteslice+
-  * +prepend+
-
-To include all Ruby backports but not those of Ruby 2.0 or Rails, <tt>require "backports/1.9.3"</tt> (or "backports/1.9")
-
-== Ruby 2.0.0
-
-Some features of Ruby 2.0.0 have been backported:
-
-* Array
-  * +bsearch+
-* Enumerable
-  * +lazy+
-* Enumerator::Lazy
-  * all methods
-* Hash
-  * <tt>default_proc=</tt> (with nil argument)
-  * +to_h+
-* nil.to_h
-* Range
-  * +bsearch+
-* Struct
-  * +to_h+
-
-To include all Ruby backports but not those of Rails, <tt>require "backports/2.0"</tt> (or "backports/2.0.0")
-
-== Ruby 2.1.0
-
-Some features of Ruby 2.1.0 have been backported:
-
-* Array
-  * +to_h+
-* Enumerable
-  * +to_h+
-
-
-* String
-  * +camelize+, +underscore+
-  * +dasherize+, +demodulize+
-  * +constantize+
-
-To include _only_ these Rails backports but not those of Ruby, <tt>require "backports/rails"</tt>.
+Only exceptions:
+* String#gsub (the form returning an enumerator)
+* GC.stress=  (not implemented)
+* Array#choice (removed in 1.9, use 1.9.1's Array#sample instead)
 
 == Libraries
 
@@ -296,6 +268,7 @@ These must be imported in addition to the backports gem, for example:
 
   require "backports/force/hash_select"
   {}.select{} # => {}, even in Ruby 1.8
+
 
 == Thanks
 
