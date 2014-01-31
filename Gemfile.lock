@@ -7,7 +7,7 @@ GIT
 PATH
   remote: .
   specs:
-    backports (3.4.0)
+    backports (3.4.1)
 
 GEM
   remote: http://rubygems.org/
