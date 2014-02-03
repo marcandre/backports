@@ -1,5 +1,10 @@
 = Backports --- History
 
+== Version 3.5.0 - February 3rd, 2014
+
+* Additional features of 2.0.0
+  * Range#size
+
 == Version 3.4.0 - December 29th, 2013
 
 * Additional features of 2.1.0
