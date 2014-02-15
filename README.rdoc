@@ -73,8 +73,12 @@ Compatible with Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2, 1.9.3, 2.0, 2.1, JRuby and Rubi
 
 * Array
   * +to_h+
+* Bignum
+  * +bit_length+
 * Enumerable
   * +to_h+
+* Fixnum
+  * +bit_length+
 
 == Ruby 2.0 backports
 
