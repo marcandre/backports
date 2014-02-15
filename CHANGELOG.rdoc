@@ -5,6 +5,7 @@
 * Additional features of 2.1.0
   * Bignum#bit_length
   * Fixnum#bit_length
+  * Module#include (now public)
 
 == Version 3.5.0 - February 3rd, 2014
 

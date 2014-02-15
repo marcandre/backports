@@ -79,6 +79,8 @@ Compatible with Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2, 1.9.3, 2.0, 2.1, JRuby and Rubi
   * +to_h+
 * Fixnum
   * +bit_length+
+* Module
+  * +include+ (now public)
 
 == Ruby 2.0 backports
 
