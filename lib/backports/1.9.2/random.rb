@@ -1,1 +1,1 @@
-autoload :Random, "backports/extra/random/load"
+autoload :Random, "backports/random/load"

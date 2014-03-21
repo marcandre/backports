@@ -1,7 +1,7 @@
 require "backports/tools"
-require "backports/extra/random/MT19937"
-require "backports/extra/random/bits_and_bytes"
-require "backports/extra/random/implementation"
+require "backports/random/MT19937"
+require "backports/random/bits_and_bytes"
+require "backports/random/implementation"
 
 class Random
   include Backports::Random::Implementation
