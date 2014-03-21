@@ -1,6 +1,3 @@
-require "backports/tools"
-require "backports/random/MT19937"
-require "backports/random/bits_and_bytes"
 require "backports/random/implementation"
 
 class Random

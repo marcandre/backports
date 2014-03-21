@@ -1,3 +1,7 @@
+require "backports/tools"
+require "backports/random/MT19937"
+require "backports/random/bits_and_bytes"
+
 module Backports
   class Random
     # Implementation corresponding to the actual Random class of Ruby
