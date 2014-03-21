@@ -239,9 +239,9 @@ Only exceptions:
 
 == Libraries
 
-Libraries are slowly being backported. You simply require them as usual, ideally (but not necessarily) after requiring backports.
+Libraries are slowly being backported. You simply require them as usual after requiring 'backports/std_lib'. Requiring 'backports/std_lib' after the standard libraries is also supported.
 
-  require "backports"
+  require "backports/std_lib"
   require "prime"
   42.prime? # => false, even in Ruby 1.8.x
 
@@ -258,6 +258,8 @@ The following library is to date with Ruby 2.0.0:
 I am aware of the following backport gem, which probably won't make it into this gem:
 
 * Net::SMTP for Ruby 1.8.6: smtp_tls[http://seattlerb.rubyforge.org/smtp_tls/]
+
+Requiring the whole of 'backports', or all backports for a given version of Ruby will also load 'backports/std_lib'.
 
 == Forcing incompatibilities
 
