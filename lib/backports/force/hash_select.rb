@@ -1,3 +1,4 @@
+require 'backports/tools'
 class Hash
   if {}.select{} == []
     def select_with_hash_return
