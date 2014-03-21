@@ -1,5 +1,6 @@
 unless ("check partition".partition(" ") rescue false)
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
+  require 'backports/tools/arguments'
 
   class String
     def partition_with_new_meaning(pattern = Backports::Undefined)

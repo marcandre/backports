@@ -1,5 +1,6 @@
 unless (Math.log(2, 2) rescue false)
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
+  require 'backports/tools/arguments'
 
   class << Math
     # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Math.html]

@@ -1,4 +1,4 @@
-require 'backports/tools'
+require 'backports/tools/alias_method_chain'
 class Hash
   if {}.select{} == []
     def select_with_hash_return

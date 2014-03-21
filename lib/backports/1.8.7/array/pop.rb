@@ -1,5 +1,6 @@
 unless ([1].pop(1) rescue false)
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
+  require 'backports/tools/arguments'
 
   class Array
     def pop_with_optional_argument(n = Backports::Undefined)

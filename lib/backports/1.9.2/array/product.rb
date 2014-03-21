@@ -1,5 +1,6 @@
 if ([1].product([2]){break false} rescue true)
-  require 'backports/tools'
+  require 'backports/tools/arguments'
+  require 'backports/tools/alias_method_chain'
   require 'backports/1.8.7/array/product'
 
   class Array

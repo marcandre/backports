@@ -1,5 +1,5 @@
 if Enumerable.instance_method(:entries).arity.zero?
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
 
   module Enumerable
     def entries_with_optional_arguments(*args)

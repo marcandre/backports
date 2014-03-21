@@ -1,5 +1,5 @@
 unless ARGF.respond_to? :each_char
-  require 'backports/tools'
+  require 'backports/tools/alias_method'
   require 'enumerator'
 
   class << ARGF

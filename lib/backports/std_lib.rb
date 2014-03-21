@@ -1,6 +1,7 @@
 # Will intercept future and past 'require' calls of std_lib
 # and load additionally the updated libraries.
-require 'backports/tools'
+require 'backports/tools/std_lib'
+require 'backports/tools/alias_method_chain'
 
 module Kernel
   def require_with_backports(lib)

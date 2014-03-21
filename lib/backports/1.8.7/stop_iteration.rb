@@ -1,6 +1,6 @@
-require 'backports/tools'
-
 unless Object.const_defined? :StopIteration
+  require 'backports/tools/alias_method_chain'
+
   class StopIteration < IndexError; end
 
   module Kernel

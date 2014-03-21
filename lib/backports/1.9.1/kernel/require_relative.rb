@@ -1,5 +1,5 @@
 unless Kernel.private_method_defined? :require_relative
-  require 'backports/tools'
+  require 'backports/tools/path'
 
   module Kernel
     def require_relative(relative_feature)

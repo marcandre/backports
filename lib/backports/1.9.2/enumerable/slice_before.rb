@@ -1,5 +1,5 @@
 unless Enumerable.method_defined? :slice_before
-  require 'backports/tools'
+  require 'backports/tools/arguments'
   require 'backports/1.9.1/enumerator/new'
 
   module Enumerable

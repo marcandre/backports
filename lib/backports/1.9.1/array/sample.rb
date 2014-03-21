@@ -1,5 +1,5 @@
 unless Array.method_defined? :sample
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   class Array
     def sample(n = Backports::Undefined, options = Backports::Undefined)

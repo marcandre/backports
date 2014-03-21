@@ -1,5 +1,5 @@
 unless String.method_defined? :rpartition
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   class String
     def rpartition(pattern)

@@ -1,5 +1,5 @@
 unless Enumerable.method_defined? :drop
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   module Enumerable
     def drop(n)

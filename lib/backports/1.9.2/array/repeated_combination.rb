@@ -1,5 +1,5 @@
 unless Array.method_defined? :repeated_combination
-  require 'backports/tools'
+  require 'backports/tools/arguments'
   require 'backports/1.8.7/array/index'
 
   class Array

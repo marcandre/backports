@@ -1,7 +1,8 @@
 begin
   File.open(__FILE__) { |f| IO.open(f.fileno, :mode => 'r').close }
 rescue TypeError
-  require 'backports/tools'
+  require 'backports/tools/io'
+  require 'backports/tools/alias_method_chain'
 
   class << IO
     def open_with_options_hash(*args)

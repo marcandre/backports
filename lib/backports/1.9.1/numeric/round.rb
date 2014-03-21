@@ -1,5 +1,6 @@
 if Numeric.instance_method(:round).arity.zero?
-  require 'backports/tools'
+  require 'backports/tools/arguments'
+  require 'backports/tools/alias_method_chain'
 
   class Numeric
     def round_with_digits(ndigits=0)

@@ -1,5 +1,5 @@
 if RUBY_VERSION < '1.9'
-  require 'backports/tools'
+  require 'backports/tools/path'
 
   class << File
     def expand_path_with_potential_to_path(file, dir = nil)

@@ -1,5 +1,5 @@
 unless String.method_defined? :each_char
-  require 'backports/tools'
+  require 'backports/tools/alias_method'
   require 'enumerator'
 
   class String

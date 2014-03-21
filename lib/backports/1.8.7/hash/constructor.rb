@@ -1,5 +1,5 @@
 unless (Hash[[[:test, :test]]] rescue false)
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   class << Hash
     alias_method :constructor_without_key_value_pair_form, :[]

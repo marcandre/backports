@@ -1,5 +1,5 @@
 unless ([1].index{true} rescue false)
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
   require 'enumerator'
 
   class Array

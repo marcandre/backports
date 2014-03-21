@@ -1,6 +1,6 @@
 unless ([1].rindex{true} rescue false)
   class Array
-    require 'backports/tools'
+    require 'backports/tools/alias_method_chain'
     require 'enumerator'
 
     def rindex_with_block(*arg)

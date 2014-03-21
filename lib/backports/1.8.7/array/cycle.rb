@@ -1,5 +1,5 @@
 unless Array.method_defined? :cycle
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   class Array
     def cycle(n = nil)

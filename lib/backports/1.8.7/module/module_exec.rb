@@ -1,5 +1,5 @@
 unless Module.method_defined? :module_exec
-  require 'backports/tools'
+  require 'backports/tools/alias_method'
   require 'backports/1.8.7/kernel/instance_exec'
 
   class Module

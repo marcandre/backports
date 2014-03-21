@@ -1,5 +1,5 @@
 unless Enumerable.method_defined?(:to_h)
-  require 'backports/tools'
+  require 'backports/tools/arguments'
   module Enumerable
     def to_h(*args)
       h = {}

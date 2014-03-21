@@ -1,5 +1,5 @@
 unless [1,2].uniq{}.size == 1
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
 
   class Array
     def uniq_with_block
@@ -16,7 +16,7 @@ unless [1,2].uniq{}.size == 1
 end
 
 unless [1,2].uniq!{}
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
 
   class Array
     def uniq_with_block!

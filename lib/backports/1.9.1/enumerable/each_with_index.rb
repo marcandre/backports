@@ -1,5 +1,5 @@
 if Enumerable.instance_method(:each_with_index).arity.zero?
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
   require 'enumerator'
 
   module Enumerable

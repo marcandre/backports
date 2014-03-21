@@ -1,5 +1,5 @@
 unless Array.method_defined? :product
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   class Array
     def product(*arg)

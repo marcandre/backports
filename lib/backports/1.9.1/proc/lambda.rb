@@ -1,5 +1,5 @@
 unless Proc.method_defined? :lambda?
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
 
   class Proc
     # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Proc.html]

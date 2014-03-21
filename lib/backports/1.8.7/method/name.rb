@@ -1,5 +1,5 @@
 unless Method.method_defined? :name
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
 
   class Method
     attr_accessor :name, :receiver, :owner

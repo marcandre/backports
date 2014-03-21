@@ -1,5 +1,5 @@
 unless String.method_defined? :byteslice
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   class String
     def byteslice(start, len = Backports::Undefined)

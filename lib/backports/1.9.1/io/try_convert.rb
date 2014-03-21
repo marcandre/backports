@@ -1,5 +1,5 @@
 unless IO.respond_to? :try_convert
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   def IO.try_convert(obj)
     Backports.try_convert(obj, IO, :to_io)

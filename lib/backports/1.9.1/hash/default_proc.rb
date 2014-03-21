@@ -1,5 +1,5 @@
 unless Hash.method_defined? :default_proc=
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   class Hash
     def default_proc=(proc)

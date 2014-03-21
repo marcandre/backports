@@ -1,5 +1,5 @@
 unless Enumerable.method_defined? :min_by
-  require 'backports/tools'
+  require 'backports/tools/extreme_object'
   require 'enumerator'
 
   module Enumerable

@@ -1,5 +1,5 @@
 unless Array.method_defined? :permutation
-  require 'backports/tools'
+  require 'backports/tools/arguments'
   require 'enumerator'
 
   class Array

@@ -1,5 +1,5 @@
 unless String.method_defined? :prepend
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   class String
     def prepend(other_str)

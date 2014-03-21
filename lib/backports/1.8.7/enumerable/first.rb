@@ -1,5 +1,5 @@
 unless Enumerable.method_defined? :first
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   module Enumerable
     def first(n = Backports::Undefined)

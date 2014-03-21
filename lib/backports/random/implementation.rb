@@ -1,4 +1,4 @@
-require "backports/tools"
+require "backports/tools/arguments"
 require "backports/random/MT19937"
 require "backports/random/bits_and_bytes"
 

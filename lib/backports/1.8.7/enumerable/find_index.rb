@@ -1,5 +1,5 @@
 unless Enumerable.method_defined? :find_index
-  require 'backports/tools'
+  require 'backports/tools/arguments'
   require 'enumerator'
 
   module Enumerable

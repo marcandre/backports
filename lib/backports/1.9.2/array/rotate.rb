@@ -7,7 +7,7 @@ unless Array.method_defined? :rotate
 end
 
 unless Array.method_defined? :rotate!
-  require 'backports/tools'
+  require 'backports/tools/arguments'
   class Array
     def rotate!(n=1)
       n = Backports.coerce_to_int(n) % (empty? ? 1 : size)

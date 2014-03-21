@@ -1,5 +1,6 @@
 unless ([[]].flatten(1) rescue false)
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
+  require 'backports/tools/arguments'
 
   class Array
     # Recursively flatten any contained Arrays into an one-dimensional result.

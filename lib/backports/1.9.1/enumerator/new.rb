@@ -1,7 +1,7 @@
 Enumerator = Enumerable::Enumerator unless Object.const_defined? :Enumerator # Standard in ruby 1.9
 
 unless (Enumerator.new{} rescue false)
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
   # new with block, standard in Ruby 1.9
 
   class Enumerator

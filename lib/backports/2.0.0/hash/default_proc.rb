@@ -1,5 +1,5 @@
 if (({}.default_proc = nil) rescue true)
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
   require 'backports/1.9.1/hash/default_proc'
 
   class Hash

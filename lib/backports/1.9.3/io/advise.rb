@@ -1,5 +1,5 @@
 unless IO.method_defined? :advise
-  require 'backports/tools'
+  require 'backports/tools/arguments'
 
   class IO
     def advise(advice, offset=0, len=0)

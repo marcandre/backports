@@ -1,5 +1,6 @@
 if Float.instance_method(:round).arity.zero?
-  require 'backports/tools'
+  require 'backports/tools/alias_method_chain'
+  require 'backports/tools/arguments'
 
   class Float
     def round_with_digits(ndigits=0)
