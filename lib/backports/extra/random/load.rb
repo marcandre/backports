@@ -4,9 +4,12 @@ require "backports/extra/random/bits_and_bytes"
 require "backports/extra/random/implementation"
 
 class Random
-  include Implementation
-  class << self
-    include Implementation
+  include Backports::Random::Implementation
+  extend Backports::Random::Implementation
+
+  def self.new_seed
+    Kernel::srand # use the built-in seed generator
+    Kernel::srand # return the generated seed
   end
 
   def inspect
