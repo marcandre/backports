@@ -30,7 +30,12 @@ unless String.method_defined? :byteslice
       # Actual implementation:
       str = unpack("@#{start}a#{len}").first
       str = dup.replace(str) unless self.instance_of?(String) # Must return subclass
-      str.force_encoding(encoding)
+
+      if str.respond_to?(:encoding)
+        return str.force_encoding(encoding)
+      else
+        return str
+      end
     end
   end
 end
