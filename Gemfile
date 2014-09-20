@@ -11,6 +11,7 @@ group :test do
   gem 'mspec', :git => 'git://github.com/rubyspec/mspec.git'
   gem 'activesupport'
   gem 'minitest', '< 5.0.0', :require => false
+  gem 'test-unit'
 end
 
 # Declare any dependencies that are still in development here instead of in

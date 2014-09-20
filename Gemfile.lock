@@ -19,6 +19,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.7.2)
     rake (10.1.0)
+    test-unit (2.1.1.0)
 
 PLATFORMS
   java
@@ -30,3 +31,4 @@ DEPENDENCIES
   minitest (< 5.0.0)
   mspec!
   rake
+  test-unit
