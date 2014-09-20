@@ -1,5 +1,6 @@
+fd = IO.sysopen(__FILE__)
 begin
-  File.open(__FILE__) { |f| IO.open(f.fileno, :mode => 'r').close }
+  IO.open(fd, :mode => 'r'){}
 rescue TypeError
   require 'backports/tools/io'
   require 'backports/tools/alias_method_chain'
