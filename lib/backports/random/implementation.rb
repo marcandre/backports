@@ -19,7 +19,7 @@ module Backports
 
       def srand(new_seed = 0)
         new_seed = Backports.coerce_to_int(new_seed)
-        old, @seed = @seed, new_seed.nonzero? || Random.new_seed
+        old, @seed = @seed, new_seed.nonzero? || ::Random.new_seed
         @mt = MT19937[ @seed ]
         old
       end
@@ -45,7 +45,7 @@ module Backports
       end
 
       def ==(other)
-        other.is_a?(Random) &&
+        other.is_a?(::Random) &&
           seed == other.seed &&
           left == other.send(:left) &&
           state == other.send(:state)
