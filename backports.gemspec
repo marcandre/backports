@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
   gem.description   = %q{Essential backports that enable many of the nice features of Ruby 1.8.7 up to 2.1.0 for earlier versions.}
   gem.summary       = %q{Backports of Ruby features for older Ruby.}
   gem.homepage      = "http://github.com/marcandre/backports"
+  gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
