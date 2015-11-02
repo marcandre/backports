@@ -16,7 +16,7 @@ unless Range.method_defined? :bsearch
           result, = [nb.abs].pack(pk).unpack(unpk)
           nb < 0 ? -result : result
         end
-        from = map['D', 'q', to.to_f]
+        from = map['D', 'q', from.to_f]
         to   = map['D', 'q', to.to_f]
         convert = Proc.new{ map['q', 'D', midpoint] }
       end
