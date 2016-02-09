@@ -8,7 +8,7 @@ gemspec
 # jquery-rails is used by the dummy application
 group :test do
   gem "rake"
-  gem 'mspec', :git => 'git://github.com/rubyspec/mspec.git'
+  gem 'mspec'
   gem 'activesupport'
   gem 'minitest', '< 5.0.0', :require => false
   gem 'test-unit'
