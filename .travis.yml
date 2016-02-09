@@ -3,7 +3,6 @@ language: ruby
 rvm:
   - "1.8.7"
   - "1.9.2"
-  - "1.9.3"
   - "2.0.0"
   - "2.1.0"
   - ruby-head
@@ -14,6 +13,7 @@ rvm:
 
 matrix:
   allow_failures:
+    - rvm: "1.9.3"
     - rvm: jruby-18mode
     - rvm: jruby-19mode
     - rvm: rbx-18mode
