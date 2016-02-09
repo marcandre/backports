@@ -35,14 +35,14 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
   EXCLUDE.map!(&:to_sym) if instance_methods.first.is_a?(Symbol)
 
   # For some very strange reason, Hash[kvp.flatten] doesn't always work in 1.8.6??
-  def hash(key_value_pairs)
+  def to_hash(key_value_pairs)
     h = {}
     key_value_pairs.each{|k,v| h[k] = v}
     h
   end
 
   def class_signature(klass)
-    hash(
+    to_hash(
       (klass.instance_methods - EXCLUDE).map{|m| [m, klass.instance_method(m)] } +
       (klass.methods - EXCLUDE).map{|m| [".#{m}", klass.method(m) ]}
     )
@@ -62,7 +62,7 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
   end
 
   def digest
-    hash(
+    to_hash(
       CLASSES.map { |klass| [klass, class_signature(klass)] }
     )
   end
