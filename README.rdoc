@@ -142,7 +142,7 @@ Compatible with Ruby 1.8.6, 1.8.7, 1.9.1, 1.9.2, 1.9.3, 2.0, 2.1, JRuby and Rubi
 
 * Random (new class)
 
-*Note*: The methods of +Random+ can't be required individually; the class can only be required whole with <tt>require 'backports/1.9.2/random'</tt>. The implementation is also available with <tt>require 'backports/random/implementation'</tt>.
+*Note*: The methods of +Random+ can't be required individually; the class can only be required whole with <tt>require 'backports/1.9.2/random'</tt>.
 
 == Ruby 1.9.1 backports
 
