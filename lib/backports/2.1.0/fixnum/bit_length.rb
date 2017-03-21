@@ -1,4 +1,4 @@
-unless Fixnum.method_defined? :bit_length
+unless Integer.method_defined?(:bit_length) || Fixnum.method_defined?(:bit_length)
   require 'backports/2.0.0/range/bsearch'
   class Fixnum
     def bit_length
