@@ -36,9 +36,7 @@ task :spec, :path, :action do |t, args|
       STDOUT.flush
     end
   end
-  $:.unshift 'lib'
-  require 'backports/rails'
-  _, ex, p, f, e = stats = stats.transpose.map{|x| x.sum}
+  _, ex, p, f, e = stats = stats.transpose.map{|x| x.inject{|a, b| a + b}}
   puts "*** Overall:", stats.zip(%w[files examples expectations failures errors]).map{|a| a.join(' ')}.join(', ')
   puts "No spec found for #{not_found.join(', ')}" unless not_found.empty?
   fail unless f + e == 0
