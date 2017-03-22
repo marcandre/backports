@@ -11,23 +11,28 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = false
 end
 
-desc "Run specs, where path can be '*/*' (default), 'class/*' or 'class/method'."
-task :spec, :path, :action do |t, args|
-  args.with_defaults(:path => '*/*', :action => 'ci')
-  stats = [[0] * 5]
-  not_found = []
-  mspec_cmds(args[:path], 'spec', args[:action]) do |cmd, path|
+class SpecRunner
+  STATS = [:files, :examples, :expectations, :failures, :errors]
+  attr_reader :stats, :not_found
+
+  def initialize
+    @counts = [0] * 5
+    @not_found = []
+  end
+
+  def run(cmd, path)
     result = `#{cmd}`
     match = result.match(/(\d+) files?, (\d+) examples?, (\d+) expectations?, (\d+) failures?, (\d+) errors?/)
     if match.nil?
       puts "*** mspec returned with unexpected results:"
       puts result
       puts "Command was:", cmd
-      fail "Unexpected output from mspec"
     end
     _, ex, p, f, e = data = match.captures.map{|x| x.to_i}
     not_found << path if ex == 0
-    stats << data
+    STATS.each_with_index do |_, i|
+      @counts[i] += data[i]
+    end
     if f + e > 0
       puts cmd
       puts result
@@ -36,10 +41,32 @@ task :spec, :path, :action do |t, args|
       STDOUT.flush
     end
   end
-  _, ex, p, f, e = stats = stats.transpose.map{|x| x.inject{|a, b| a + b}}
-  puts "*** Overall:", stats.zip(%w[files examples expectations failures errors]).map{|a| a.join(' ')}.join(', ')
-  puts "No spec found for #{not_found.join(', ')}" unless not_found.empty?
-  fail unless f + e == 0
+
+  def stats
+    h = {}
+    STATS.zip(@counts).each{|k, v| h[k]=v}
+    h
+  end
+
+  def report
+    puts "*** Overall:", stats.map{|a| a.join(' ')}.join(', ')
+    puts "No spec found for #{@not_found.join(', ')}" unless @not_found.empty?
+  end
+
+  def success?
+    stats[:failures] == 0 && stats[:errors] == 0
+  end
+end
+
+desc "Run specs, where path can be '*/*' (default), 'class/*' or 'class/method'."
+task :spec, :path, :action do |t, args|
+  args.with_defaults(:path => '*/*', :action => 'ci')
+  specs = SpecRunner.new
+  mspec_cmds(args[:path], 'spec', args[:action]) do |cmd, path|
+    specs.run(cmd, path)
+  end
+  specs.report
+  fail unless specs.success?
 end
 
 task :all_spec do # Necessary because of argument passing bug in 1.8.7
