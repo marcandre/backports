@@ -62,6 +62,9 @@ desc "Run specs, where path can be '*/*' (default), 'class/*' or 'class/method'.
 task :spec, :path, :action do |t, args|
   args.with_defaults(:path => '*/*', :action => 'ci')
   specs = SpecRunner.new
+  mspec_cmds(args[:path], 'frozen_old_spec', args[:action]) do |cmd, path|
+    specs.run(cmd, path)
+  end
   mspec_cmds(args[:path], 'spec', args[:action]) do |cmd, path|
     specs.run(cmd, path)
   end
@@ -101,13 +104,19 @@ DEPENDENCIES = Hash.new([]).merge!(
   libs.each{|l| DEPENDENCIES["1.8.7/#{l}"] = "backports/1.8.7/enumerable/#{req}" }
 end
 
-# These cause actual errors while loading in 1.8:
-IGNORE_IN_18 = %w[
+# These **old** specs cause actual errors while loading in 1.8:
+OLD_IGNORE_IN_18 = %w[
   1.9.1/symbol/length
   1.9.1/symbol/size
   1.9.3/string/byteslice
   1.8.7/proc/yield
   1.9.1/proc/case_compare
+]
+# These **new** specs cause actual errors while loading in 1.8:
+IGNORE_IN_18 = %w[
+  2.1.0/enumerable/to_h
+  2.1.0/array/to_h
+  2.1.0/module/include
 ]
 def mspec_cmds(pattern, spec_folder, action='ci')
   pattern = "lib/backports/*.*.*/#{pattern}.rb"
@@ -116,7 +125,11 @@ def mspec_cmds(pattern, spec_folder, action='ci')
     next if path =~ /stdlib/
     next if version <= RUBY_VERSION
     version_path = "#{version}/#{path}"
-    next if IGNORE_IN_18.include? version_path if RUBY_VERSION < '1.9'
+    if RUBY_VERSION <= '2.0.0'
+      next if OLD_IGNORE_IN_18.include? version_path if RUBY_VERSION < '1.9'
+      next if IGNORE_IN_18.include? version_path
+      next if spec_folder != 'frozen_old_spec' && version <= '2.0.0'  # Don't run new specs for pre 2.0 features & ruby
+    end
     deps = [*DEPENDENCIES[version_path]].map{|p| "-r #{p}"}.join(' ')
     klass, method = path.split('/')
     path = [klass.gsub('_', ''), method].join('/') # don't ask me why RubySpec uses matchdata instead of match_data
