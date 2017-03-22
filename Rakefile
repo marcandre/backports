@@ -16,7 +16,7 @@ task :spec, :path, :action do |t, args|
   args.with_defaults(:path => '*/*', :action => 'ci')
   stats = [[0] * 5]
   not_found = []
-  mspec_cmds(args[:path], args[:action]) do |cmd, path|
+  mspec_cmds(args[:path], 'spec', args[:action]) do |cmd, path|
     result = `#{cmd}`
     match = result.match(/(\d+) files?, (\d+) examples?, (\d+) expectations?, (\d+) failures?, (\d+) errors?/)
     if match.nil?
@@ -82,7 +82,7 @@ IGNORE_IN_18 = %w[
   1.8.7/proc/yield
   1.9.1/proc/case_compare
 ]
-def mspec_cmds(pattern, action='ci')
+def mspec_cmds(pattern, spec_folder, action='ci')
   pattern = "lib/backports/*.*.*/#{pattern}.rb"
   Dir.glob(pattern) do |lib_path|
     _match, version, path = lib_path.match(/backports\/(\d\.\d\.\d)\/(.*)\.rb/).to_a
@@ -98,7 +98,7 @@ def mspec_cmds(pattern, action='ci')
               -r ./set_version/#{version}
               #{deps}
               -r backports/#{version_path}
-              spec/rubyspec/core/#{path}_spec.rb
+              #{spec_folder}/rubyspec/core/#{path}_spec.rb
             ].join(' '), path
   end
 end
