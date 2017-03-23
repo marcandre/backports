@@ -69,6 +69,11 @@ Compatible with Ruby 1.8.6-2.4, JRuby and Rubinius.
 
 = Complete List of backports
 
+== Ruby 2.4 backports
+
+* Comparable
+  * +clamp+
+
 == Ruby 2.2 backports
 
 * Enumerable
