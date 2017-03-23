@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    backports (3.6.9)
+    backports (3.7.0)
 
 GEM
   remote: http://rubygems.org/
@@ -27,6 +27,3 @@ DEPENDENCIES
   mspec
   rake
   test-unit
-
-BUNDLED WITH
-   1.14.5
