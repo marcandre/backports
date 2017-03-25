@@ -95,7 +95,9 @@ DEPENDENCIES = Hash.new([]).merge!(
   '1.9.2/array/select'    => 'backports/1.8.7/array/select',
   '1.9.2/hash/select'    => 'backports/1.8.7/hash/select',
   '1.9.2/enumerable/each_entry' => 'backports/1.8.7/enumerable/each_with_index',
-  '2.0.0/hash/to_h'      => 'backports/1.9.1/hash/default_proc'
+  '2.0.0/hash/to_h'      => 'backports/1.9.1/hash/default_proc',
+  '2.2.0/float/next_float' => 'backports/2.2.0/float/prev_float',
+  '2.2.0/float/prev_float' => 'backports/2.2.0/float/next_float'
 )
 {
   :each_with_index => %w[enumerable/detect enumerable/find enumerable/find_all enumerable/select enumerable/to_a],

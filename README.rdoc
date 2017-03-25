@@ -79,6 +79,9 @@ Compatible with Ruby 1.8.6-2.4, JRuby and Rubinius.
 * Enumerable
   * +slice_after+
   * +slice_when+
+* Float
+  * +prev_float+
+  * +next_float+
 
 == Ruby 2.1 backports
 
