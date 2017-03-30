@@ -64,8 +64,7 @@ With bundler, add to your Gemfile:
   gem 'backports', :require => false
 
 Run <tt>bundle install</tt> and require the desired backports.
-
-Compatible with Ruby 1.8.6-2.4, JRuby and Rubinius.
+Compatible with Ruby itself, JRuby and Rubinius.
 
 = Complete List of backports
 
@@ -82,6 +81,8 @@ Compatible with Ruby 1.8.6-2.4, JRuby and Rubinius.
 * Float
   * +prev_float+
   * +next_float+
+* Kernel
+  * +itself+
 
 == Ruby 2.1 backports
 
