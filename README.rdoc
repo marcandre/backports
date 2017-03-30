@@ -85,6 +85,10 @@ Compatible with Ru* Kernel
   * +next_float+
 * Kernel
   * +itself+
+* String
+  * +unicode_normalize+
+  * +unicode_normalize!+
+  * +unicode_normalize?+
 
 == Ruby 2.1 backports
 
