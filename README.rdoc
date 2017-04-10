@@ -85,6 +85,8 @@ Compatible with Ru* Kernel
   * +next_float+
 * Kernel
   * +itself+
+* Method
+  * +curry+
 * String
   * +unicode_normalize+
   * +unicode_normalize!+
