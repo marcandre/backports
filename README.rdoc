@@ -83,6 +83,8 @@ Compatible with Ruby itself, JRuby and Rubinius.
   * +next_float+
 * Kernel
   * +itself+
+* Method
+  * +curry+
 * String
   * +unicode_normalize+
   * +unicode_normalize!+
