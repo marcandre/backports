@@ -73,6 +73,11 @@ Compatible with Ruby itself, JRuby and Rubinius.
 * Comparable
   * +clamp+
 
+== Ruby 2.3 backports
+
+* Array
+  * +bsearch_index+
+
 == Ruby 2.2 backports
 
 * Enumerable
