@@ -91,6 +91,8 @@ Compatible with Ru* Kernel
 * Numeric
   * +negative?+
   * +positive?+
+* String
+  * unary + and -
 * Struct
   * +dig+
 
