@@ -79,6 +79,11 @@ Compatible with Ru* Kernel
 
 * Array
   * +bsearch_index+
+  * +dig+
+* Hash
+  * +dig+
+* Struct
+  * +dig+
 
 == Ruby 2.2 backports
 
