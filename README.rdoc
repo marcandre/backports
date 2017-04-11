@@ -80,6 +80,8 @@ Compatible with Ru* Kernel
 * Array
   * +bsearch_index+
   * +dig+
+* Enumerable
+  * +grep_v+
 * Hash
   * +dig+
 * Struct
