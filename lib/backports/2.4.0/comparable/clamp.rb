@@ -6,7 +6,6 @@ unless Comparable.method_defined? :clamp
       if Backports.coerce_to_comparison(min, max) > 0
         raise ArgumentError, "min argument must be smaller than max argument"
       end
-      c = self <=> min
       case Backports.coerce_to_comparison(self, min)
       when 0
         self
