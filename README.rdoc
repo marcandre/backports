@@ -88,6 +88,9 @@ Compatible with Ru* Kernel
   * +fetch_values+
   * +to_proc+
   * <=, <, >=, >
+* Numeric
+  * +negative?+
+  * +positive?+
 * Struct
   * +dig+
 
