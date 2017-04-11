@@ -86,6 +86,9 @@ Compatible with Ruby itself, JRuby and Rubinius.
   * +fetch_values+
   * +to_proc+
   * <=, <, >=, >
+* Numeric
+  * +negative?+
+  * +positive?+
 * Struct
   * +dig+
 
