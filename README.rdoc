@@ -86,6 +86,7 @@ Compatible with Ru* Kernel
 * Hash
   * +dig+
   * +fetch_values+
+  * <=, <, >=, >
 * Struct
   * +dig+
 
