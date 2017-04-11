@@ -83,6 +83,7 @@ Compatible with Ruby itself, JRuby and Rubinius.
   * +grep_v+
 * Hash
   * +dig+
+  * +fetch_values+
 * Struct
   * +dig+
 
