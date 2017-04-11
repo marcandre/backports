@@ -84,6 +84,7 @@ Compatible with Ruby itself, JRuby and Rubinius.
 * Hash
   * +dig+
   * +fetch_values+
+  * <=, <, >=, >
 * Struct
   * +dig+
 
