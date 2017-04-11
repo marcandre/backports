@@ -85,6 +85,7 @@ Compatible with Ru* Kernel
   * +grep_v+
 * Hash
   * +dig+
+  * +fetch_values+
 * Struct
   * +dig+
 
