@@ -81,6 +81,7 @@ Compatible with Ru* Kernel
   * +bsearch_index+
   * +dig+
 * Enumerable
+  * +chunk_while+
   * +grep_v+
 * Hash
   * +dig+
