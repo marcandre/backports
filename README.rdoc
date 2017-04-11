@@ -89,6 +89,8 @@ Compatible with Ruby itself, JRuby and Rubinius.
 * Numeric
   * +negative?+
   * +positive?+
+* String
+  * unary + and -
 * Struct
   * +dig+
 
