@@ -78,6 +78,8 @@ Compatible with Ruby itself, JRuby and Rubinius.
 * Array
   * +bsearch_index+
   * +dig+
+* Enumerable
+  * +grep_v+
 * Hash
   * +dig+
 * Struct
