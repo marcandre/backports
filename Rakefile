@@ -119,6 +119,8 @@ OLD_IGNORE_IN_18 = %w[
   1.9.3/string/byteslice
   1.8.7/proc/yield
   1.9.1/proc/case_compare
+  2.4.0/string/match
+  2.4.0/regexp/match
 ]
 # These **new** specs cause actual errors while loading in 1.9:
 IGNORE_IN_19 = %w[
