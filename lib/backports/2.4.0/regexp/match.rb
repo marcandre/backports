@@ -1,9 +1,9 @@
 unless Regexp.method_defined? :match?
   class Regexp
-    def match?(str, pos = nil)
+    def match?(*args)
       # Fiber to avoid setting $~
       f = Fiber.new do
-        !match(arg, pos).nil?
+        !match(*args).nil?
       end
       f.resume
     end
