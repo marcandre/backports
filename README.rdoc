@@ -34,7 +34,7 @@ Let's be a bit more precise about the "breaking code" business. It is of course 
 
 A real incompatibility is, for example, <tt>Module::instance_methods</tt> which returns strings in 1.8 and symbols in 1.9. No change can be made without the risk of breaking existing code. Such incompatibilities are left unchanged, although you can require some of these changes in addition (see below)
 
-All features of 1.8.7 are backported (well, almost all, see the exception list bellow), and many of the following versions up to 2.1
+All features of 1.8.7 are backported (well, almost all, see the exception list bellow), and many of the following versions
 
 For historical reasons, some generic and self-contained features of active-support are also included. By simple I mean that String#camelcase is there, but #pluralize isn't. These will probably be removed in the future, so it's recommended to require those directly from active_support.
 
