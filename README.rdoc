@@ -72,6 +72,10 @@ Compatible with Ruby itself, JRuby and Rubinius.
 
 * Comparable
   * +clamp+
+* Regexp
+  * +match?+
+* String
+  * +match?+
 
 == Ruby 2.3 backports
 
