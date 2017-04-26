@@ -1,4 +1,4 @@
-require 'backports/tools'
+require 'backports/tools/make_block_optional'
 
 class << Dir
   begin
