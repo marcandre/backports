@@ -65,8 +65,10 @@ task :spec, :path, :action do |t, args|
   mspec_cmds(args[:path], 'frozen_old_spec', args[:action]) do |cmd, path|
     specs.run(cmd, path)
   end
-  mspec_cmds(args[:path], 'spec', args[:action]) do |cmd, path|
-    specs.run(cmd, path)
+  unless RUBY_VERSION < '1.9' # Give up entirely on running new specs in 1.8.x, mainly because of {hash: 'syntax'}
+    mspec_cmds(args[:path], 'spec', args[:action]) do |cmd, path|
+      specs.run(cmd, path)
+    end
   end
   specs.report
   fail unless specs.success?
@@ -98,6 +100,7 @@ DEPENDENCIES = Hash.new([]).merge!(
   '2.0.0/hash/to_h'      => 'backports/1.9.1/hash/default_proc',
   '2.2.0/float/next_float' => 'backports/2.2.0/float/prev_float',
   '2.2.0/float/prev_float' => 'backports/2.2.0/float/next_float',
+  '2.3.0/array/bsearch_index' => ['backports/2.3.0/array/dig', 'backports/2.3.0/hash/dig'],
   '2.3.0/array/dig' => ['backports/2.3.0/hash/dig', 'backports/2.3.0/struct/dig'],
   '2.3.0/hash/dig' => ['backports/2.3.0/array/dig', 'backports/2.3.0/struct/dig'],
   '2.3.0/struct/dig' => ['backports/2.3.0/array/dig', 'backports/2.3.0/hash/dig']
@@ -117,8 +120,8 @@ OLD_IGNORE_IN_18 = %w[
   1.8.7/proc/yield
   1.9.1/proc/case_compare
 ]
-# These **new** specs cause actual errors while loading in 1.8:
-IGNORE_IN_18 = %w[
+# These **new** specs cause actual errors while loading in 1.9:
+IGNORE_IN_19 = %w[
   2.1.0/enumerable/to_h
   2.1.0/array/to_h
   2.1.0/module/include
@@ -130,9 +133,9 @@ def mspec_cmds(pattern, spec_folder, action='ci')
     next if path =~ /stdlib/
     next if version <= RUBY_VERSION
     version_path = "#{version}/#{path}"
-    if RUBY_VERSION <= '2.0.0'
+    if RUBY_VERSION < '2.0.0'
       next if OLD_IGNORE_IN_18.include? version_path if RUBY_VERSION < '1.9'
-      next if IGNORE_IN_18.include? version_path
+      next if IGNORE_IN_19.include? version_path
       next if spec_folder != 'frozen_old_spec' && version <= '2.0.0'  # Don't run new specs for pre 2.0 features & ruby
     end
     deps = [*DEPENDENCIES[version_path]].map{|p| "-r #{p}"}.join(' ')
