@@ -28,7 +28,7 @@ This will bring in all the features of 1.8.7 and many features of Ruby 1.9.x and
 Goals for backported features:
 1. Won't break older code
 2. Pure Ruby (no C extensions)
-3. Pass RubySpec[http://github.com/rubyspec/rubyspec]
+3. Pass ruby/spec[https://github.com/ruby/spec]
 
 Let's be a bit more precise about the "breaking code" business. It is of course entirely possible that code will break, for example some core methods are monkeypatched or if the code relies on a certain call raising an exception. Example: <tt>[42].sample rescue "dum example"</tt> will return <tt>"dum example"</tt> without this gem and <tt>42</tt> with it.
 
@@ -330,7 +330,7 @@ Thanks for the bug reports and patches, in particular the repeat offenders:
 * Konstantin Haase ( rkh[https://github.com/rkh])
 * Roger Pack ( rdp[http://github.com/rdp] )
 
-The best way to submit a patch is to also submit a patch to RubySpec[https://github.com/rubyspec/rubyspec] and then a patch to backports that make it pass the spec. To test rubyspec:
+The best way to submit a patch is to also submit a patch to ruby/spec[https://github.com/ruby/spec] and then a patch to backports that make it pass the spec. To test rubyspec:
 
     git submodule init && git submodule update # => pulls rubyspecs
     rake spec[array/bsearch]       # => tests Array#bsearch
