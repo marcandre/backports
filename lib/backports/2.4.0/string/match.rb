@@ -3,7 +3,7 @@ unless String.method_defined? :match?
     def match?(str, pos = nil)
       # Fiber to avoid setting $~
       f = Fiber.new do
-        !match(arg, pos).nil?
+        !match(str, pos).nil?
       end
       f.resume
     end
