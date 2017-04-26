@@ -117,7 +117,8 @@ end
 # * #to_s
 # * #inspect
 #
-Backports.suppress_verbose_warnings do
+require 'backports/tools/suppress_verbose_warnings' # *** Backports addition
+Backports.suppress_verbose_warnings do # *** Backports addition
 class Matrix
   include Enumerable
   include ExceptionForMatrix
