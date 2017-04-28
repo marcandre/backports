@@ -110,6 +110,7 @@ Compatible with Ruby itself, JRuby and Rubinius.
   * +itself+
 * Method
   * +curry+
+  * +super_method+
 * String
   * +unicode_normalize+
   * +unicode_normalize!+
