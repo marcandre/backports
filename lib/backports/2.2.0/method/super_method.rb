@@ -1,7 +1,10 @@
 unless Method.method_defined? :super_method
+  require 'backports/1.8.7/array/find_index'
+
   class Method
     def super_method
-      call_chain = receiver.singleton_class.ancestors
+      singleton_klass = class << receiver; self; end
+      call_chain = singleton_klass.ancestors
       # find current position in call chain:
       skip = call_chain.find_index{|c| c == owner} or return
       call_chain = call_chain.drop(skip + 1)
