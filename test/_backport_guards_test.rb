@@ -48,9 +48,9 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
     )
   end
 
-  CLASSES = [Array, Binding, Dir, Enumerable, Fixnum, Float, GC,
-      Hash, Integer, IO, Kernel, Math, MatchData, Method, Module, Numeric,
-      ObjectSpace, Proc, Process, Range, Regexp, String, Struct, Symbol] +
+  CLASSES = [Array, Binding, Bignum, Dir, Comparable, Enumerable, FalseClass, Fixnum, Float, GC,
+      Hash, Integer, IO, Kernel, Math, MatchData, Method, Module, NilClass, Numeric,
+      ObjectSpace, Proc, Process, Range, Regexp, String, Struct, Symbol, TrueClass] +
     [ENV, ARGF].map{|obj| class << obj; self; end }
 
   case RUBY_VERSION
@@ -89,13 +89,13 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
   # Order super important!
   def test__2_backports_wont_override_unnecessarily
     before = digest
-    latest = "2.0.0"
-    unless RUBY_VERSION <= '1.8.6'
+    latest = "2.4.0"
+    if RUBY_VERSION > '1.8.6'
       require "backports/#{[RUBY_VERSION, latest].min}"
       after = digest
       assert_nil digest_delta(before, after)
     end
-    unless RUBY_VERSION >= latest
+    if RUBY_VERSION < latest
       require "backports"
       after = digest
       assert !digest_delta(before, after).nil?
