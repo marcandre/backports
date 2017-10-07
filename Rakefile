@@ -128,6 +128,14 @@ IGNORE_IN_19 = %w[
   2.1.0/array/to_h
   2.1.0/module/include
 ]
+
+CLASS_MAP = Hash.new{|k, v| k[v] = v}.merge!(
+  'match_data' => 'matchdata',  # don't ask me why RubySpec uses matchdata instead of match_data
+  'true_class' => 'true',
+  'false_class' => 'false',
+  'nil_class' => 'nil'
+)
+
 def mspec_cmds(pattern, spec_folder, action='ci')
   pattern = "lib/backports/*.*.*/#{pattern}.rb"
   Dir.glob(pattern) do |lib_path|
@@ -142,7 +150,7 @@ def mspec_cmds(pattern, spec_folder, action='ci')
     end
     deps = [*DEPENDENCIES[version_path]].map{|p| "-r #{p}"}.join(' ')
     klass, method = path.split('/')
-    path = [klass.gsub('_', ''), method].join('/') # don't ask me why RubySpec uses matchdata instead of match_data
+    path = [CLASS_MAP[klass], method].join('/')
     yield %W[mspec #{action}
               -I lib
               -r ./set_version/#{version}

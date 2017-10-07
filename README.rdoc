@@ -76,6 +76,8 @@ Compatible with Ruby itself, JRuby and Rubinius.
   * +match?+
 * String
   * +match?+
+* FalseClass, Fixnum, Float, NilClass, TrueClass
+  * +dup+
 
 == Ruby 2.3 backports
 
