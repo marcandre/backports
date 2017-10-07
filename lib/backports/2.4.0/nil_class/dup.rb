@@ -2,4 +2,4 @@ class NilClass
   def dup
     self
   end
-end unless (nil.dup rescue false)
+end if (nil.dup rescue true)
