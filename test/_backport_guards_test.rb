@@ -41,11 +41,14 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
     h
   end
 
+  # This returns all user defined methods on klass.
+  # For Ruby 1.8.7 or below, it returns all methods, so we can at least check we are not adding new methods needlessly
   def class_signature(klass)
-    to_hash(
+    list =
       (klass.instance_methods - EXCLUDE).map{|m| [m, klass.instance_method(m)] } +
       (klass.methods - EXCLUDE).map{|m| [".#{m}", klass.method(m) ]}
-    )
+    list.select!{|name, method| method.source_location } if UnboundMethod.method_defined? :source_location
+    to_hash(list)
   end
 
   CLASSES = [Array, Binding, Bignum, Dir, Comparable, Enumerable, FalseClass, Fixnum, Float, GC,
