@@ -11,7 +11,7 @@ group :test do
   gem 'mspec'
   gem 'activesupport', '~>3.2.0'
   gem 'minitest', '< 5.0.0', :require => false
-  gem 'test-unit'
+  gem 'test-unit', '~>2.1.1.0'
 end
 
 # Declare any dependencies that are still in development here instead of in
