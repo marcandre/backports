@@ -6,3 +6,4 @@ rdoc
 pkg
 assets
 rs
+Gemfile.lock
