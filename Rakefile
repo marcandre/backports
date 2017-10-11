@@ -128,6 +128,10 @@ IGNORE_IN_19 = %w[
   2.1.0/array/to_h
   2.1.0/module/include
 ]
+# These **new** specs cause actual errors while loading in 2.0.0:
+IGNORE_IN_200 = %w[
+  2.4.0/enumerable/sum
+]
 
 CLASS_MAP = Hash.new{|k, v| k[v] = v}.merge!(
   'match_data' => 'matchdata',  # don't ask me why RubySpec uses matchdata instead of match_data
@@ -148,6 +152,7 @@ def mspec_cmds(pattern, spec_folder, action='ci')
       next if IGNORE_IN_19.include? version_path
       next if spec_folder != 'frozen_old_spec' && version <= '2.0.0'  # Don't run new specs for pre 2.0 features & ruby
     end
+    next if RUBY_VERSION < '2.1.0' && IGNORE_IN_200.include?(version_path)
     deps = [*DEPENDENCIES[version_path]].map{|p| "-r #{p}"}.join(' ')
     klass, method = path.split('/')
     path = [CLASS_MAP[klass], method].join('/')
