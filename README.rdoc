@@ -72,6 +72,8 @@ Compatible with Ruby itself, JRuby and Rubinius.
 
 * Comparable
   * +clamp+
+* Enumerable
+  * +sum+
 * Hash
   * +compact+, +compact!+
   * +transform_values+, +transform_values!+
