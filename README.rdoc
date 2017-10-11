@@ -72,6 +72,8 @@ Compatible with Ruby itself, JRuby and Rubinius.
 
 * Comparable
   * +clamp+
+* Hash
+  * +compact+, +compact!+
 * Regexp
   * +match?+
 * String
