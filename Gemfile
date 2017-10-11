@@ -9,7 +9,7 @@ gemspec
 group :test do
   gem "rake"
   gem 'mspec'
-  gem 'activesupport'
+  gem 'activesupport', '~3.2.0'
   gem 'minitest', '< 5.0.0', :require => false
   gem 'test-unit'
 end
