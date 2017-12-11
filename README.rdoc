@@ -8,6 +8,10 @@ This gem is for you!
 
 The goal of 'backports' is to make it easier to write ruby code that runs across different versions of Ruby.
 
+== Loading backports
+
+=== Explicitly (recommended)
+
 For example, if you want to use flat_map, even in Ruby implementations that don't include it, as well as the new bsearch method:
 
   require 'backports/1.9.2/enumerable/flat_map'
@@ -15,11 +19,23 @@ For example, if you want to use flat_map, even in Ruby implementations that don'
 
 This will enable Enumerable#flat_map and Array#bsearch, using the native versions if available or otherwise provide a pure Ruby version.
 
-You can load many backports at once. For example, any version of Ruby up to today's standards:
+=== By Module
 
-  require 'backports'
+To bring all the backports for a given Class/Module, you can specify only that Class:
 
-This will bring in all the features of 1.8.7 and many features of Ruby 1.9.x and even Ruby 2.0.0 (for all versions of Ruby)!
+    require 'backports/2.3.0/hash'
+
+This will make sure that Hash responds to dig, fetch_values, <, <=, >, >= and to_proc
+
+=== Up to a specific Ruby version
+
+You can load all backports up to a specific version. For example, to bring any version of Ruby mostly up to Ruby 2.4.0's standards:
+
+  require 'backports/2.4.0'
+
+This will bring in all the features of 1.8.7 and many features of Ruby 1.9.x all the way up to Ruby 2.4.0 (for all versions of Ruby)!
+
+While it is not recommended, you may `require 'backports/latest'` as a shortcut to the latest Ruby version supported. This is equivalent to the deprecated `require 'backports'`.
 
 +Note+: Although I am a Ruby committer, this gem is a personal project and is not endorsed by ruby-core.
 
@@ -30,13 +46,9 @@ Goals for backported features:
 2. Pure Ruby (no C extensions)
 3. Pass ruby/spec[https://github.com/ruby/spec]
 
-Let's be a bit more precise about the "breaking code" business. It is of course entirely possible that code will break, for example some core methods are monkeypatched or if the code relies on a certain call raising an exception. Example: <tt>[42].sample rescue "dum example"</tt> will return <tt>"dum example"</tt> without this gem and <tt>42</tt> with it.
+Let's be a bit more precise about the "breaking code" business. It is of course entirely possible that code will break. In particular, you may be distinguishing parameters with duck typing, but a builtin class may, in the future, be responding to a particular call. Here's [an exemple from Rails](https://github.com/rails/rails/blob/a4b55827721a5967299f3c1531afb3d6d81e4ac0/activerecord/lib/active_record/associations/association.rb#L155-L159) that is relying on the fact that Proc and Method respond to :to_proc and Hash isn't. That is, until Ruby 2.3... This old version of Rails therefore won't work on Ruby 2.3, or on older Rubies with that the `2.3.0/hash/to_proc` loaded...
 
-A real incompatibility is, for example, <tt>Module::instance_methods</tt> which returns strings in 1.8 and symbols in 1.9. No change can be made without the risk of breaking existing code. Such incompatibilities are left unchanged, although you can require some of these changes in addition (see below)
-
-All features of 1.8.7 are backported (well, almost all, see the exception list bellow), and many of the following versions
-
-For historical reasons, some generic and self-contained features of active-support are also included. By simple I mean that String#camelcase is there, but #pluralize isn't. These will probably be removed in the future, so it's recommended to require those directly from active_support.
+For Ruby < 2.0, there are some real incompatibilities. For example, <tt>Module::instance_methods</tt> which returns strings in 1.8 and symbols in 1.9. No change can be made without the risk of breaking existing code. Such incompatibilities are left unchanged, although you can require some of these changes in addition (see below).
 
 == Installation & compatibility
 
@@ -53,9 +65,6 @@ To use:
 
   # For all backports up to a given version
   require 'backports/1.9.2' # All backports for Ruby 1.9.2 and below
-
-  # Or for all backports
-  require 'backports'
 
 Note: about a dozen of backports have a dependency that will be also loaded. For example, the backport of Enumerable#flat_map uses flatten(1), so if required from Ruby 1.8.6 (where Array#flatten does not accept an argument), the backport for Ruby's 1.8.7 flatten with an argument will also be loaded.
 
@@ -314,7 +323,7 @@ I am aware of the following backport gem, which probably won't make it into this
 
 * Net::SMTP for Ruby 1.8.6: smtp_tls[http://seattlerb.rubyforge.org/smtp_tls/]
 
-Requiring the whole of 'backports', or all backports for a given version of Ruby will also load 'backports/std_lib'.
+Requiring backports for a given version of Ruby will also load 'backports/std_lib'.
 
 == Forcing incompatibilities
 
