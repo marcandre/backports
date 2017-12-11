@@ -91,6 +91,9 @@ Compatible with Ruby itself, JRuby and Rubinius.
   * +sqrt+
 * Kernel
   * +yield_self+
+* Module
+  * +attr+, +attr_accessor+, +attr_reader+, +attr_writer+ (now public)
+  * +define_method+, +alias_method+, +undef_method+, +remove_method+ (now public)
 
 == Ruby 2.4 backports
 

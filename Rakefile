@@ -121,12 +121,21 @@ OLD_IGNORE_IN_18 = %w[
   1.9.1/proc/case_compare
   2.4.0/string/match
   2.4.0/regexp/match
+  2.5.0/module/define_method
 ]
 # These **new** specs cause actual errors while loading in 1.9:
 IGNORE_IN_19 = %w[
   2.1.0/enumerable/to_h
   2.1.0/array/to_h
   2.1.0/module/include
+  2.5.0/module/define_method
+  2.5.0/module/alias_method
+  2.5.0/module/undef_method
+  2.5.0/module/remove_method
+  2.5.0/module/attr
+  2.5.0/module/attr_reader
+  2.5.0/module/attr_writer
+  2.5.0/module/attr_accessor
 ]
 # These **new** specs cause actual errors while loading in 2.0.0:
 IGNORE_IN_200 = %w[
