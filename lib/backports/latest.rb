@@ -1,2 +1,2 @@
 # require this file to load all the backports
-require 'backports/2.4.0'
+require 'backports/2.5.0'
