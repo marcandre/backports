@@ -89,6 +89,8 @@ Compatible with Ruby itself, JRuby and Rubinius.
   * +transform_keys+
 * Integer
   * +sqrt+
+* Kernel
+  * +yield_self+
 
 == Ruby 2.4 backports
 
