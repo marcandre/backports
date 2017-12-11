@@ -95,6 +95,9 @@ Compatible with Ruby itself, JRuby and Rubinius.
 * Module
   * +attr+, +attr_accessor+, +attr_reader+, +attr_writer+ (now public)
   * +define_method+, +alias_method+, +undef_method+, +remove_method+ (now public)
+* String
+  * +delete_prefix+, +delete_prefix!+
+  * +delete_suffix+, +delete_suffix!+
 
 == Ruby 2.4 backports
 
