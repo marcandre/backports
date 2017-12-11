@@ -79,6 +79,8 @@ Compatible with Ruby itself, JRuby and Rubinius.
 
 == Ruby 2.5 backports
 
+* Array
+  * +append+, +prepend+
 * Enumerable
   * +any?+, +all?+, +none?+, +one?+ (with pattern argument)
 
