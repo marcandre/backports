@@ -77,6 +77,11 @@ Compatible with Ruby itself, JRuby and Rubinius.
 
 = Complete List of backports
 
+== Ruby 2.5 backports
+
+* Enumerable
+  * +any?+, +all?+, +none?+, +one?+ (with pattern argument)
+
 == Ruby 2.4 backports
 
 * Comparable
