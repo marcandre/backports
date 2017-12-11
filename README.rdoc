@@ -81,6 +81,8 @@ Compatible with Ruby itself, JRuby and Rubinius.
 
 * Array
   * +append+, +prepend+
+* Dir
+  * +children+, +each_child+
 * Enumerable
   * +any?+, +all?+, +none?+, +one?+ (with pattern argument)
 
