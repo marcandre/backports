@@ -86,6 +86,7 @@ Compatible with Ruby itself, JRuby and Rubinius.
 * Enumerable
   * +any?+, +all?+, +none?+, +one?+ (with pattern argument)
 * Hash
+  * +slice+
   * +transform_keys+
 * Integer
   * +sqrt+
