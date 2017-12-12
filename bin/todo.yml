@@ -8,7 +8,7 @@ cucumber-core:
   :remote: cucumber_cucumber-ruby-core
 fpm:
   :repo: https://github.com/jordansissel/fpm
-  :status: :patched
+  :status: :pushed
   :repo_owner: jordansissel
   :repo_name: fpm
   :branch: fpm_used
@@ -53,7 +53,7 @@ ftw:
   :remote: fastly_ftw
 restfully:
   :repo: https://github.com/crohr/restfully
-  :status: :patched
+  :status: :pushed
   :repo_owner: crohr
   :repo_name: restfully
   :branch: restfully_used
@@ -109,7 +109,7 @@ rvc:
   :remote: vmware_rvc
 attributor:
   :repo: https://github.com/rightscale/attributor
-  :status: :patched
+  :status: :pushed
   :repo_owner: rightscale
   :repo_name: attributor
   :branch: attributor_used
@@ -123,7 +123,7 @@ wsdsl:
   :remote: mattetti_WSDSL
 bud:
   :repo: http://github.com/bloom-lang/bud
-  :status: :patched
+  :status: :pushed
   :repo_owner: bloom-lang
   :repo_name: bud
   :branch: bud_used
@@ -137,7 +137,7 @@ turbot-ruby-gems:
   :remote: openc_turbot-ruby-gems
 libis-tools:
   :repo: https://github.com/Kris-LIBIS/LIBIS_Tools
-  :status: :patched
+  :status: :pushed
   :repo_owner: Kris-LIBIS
   :repo_name: LIBIS_Tools
   :branch: LIBIS_Tools_used
@@ -158,7 +158,7 @@ cloudq_client:
   :remote: twilson63_cloudq_client
 vagrant-hitch:
   :repo: https://github.com/fup/vagrant-hitch
-  :status: :patched
+  :status: :pushed
   :repo_owner: fup
   :repo_name: vagrant-hitch
   :branch: vagrant-hitch_used
@@ -321,14 +321,14 @@ marcandre-flvedit:
   :repo_name: flvedit
 standalone_validator:
   :repo: http://github.com/riccieri/standalone_validator
-  :status: :patched
+  :status: :pushed
   :repo_owner: riccieri
   :repo_name: standalone_validator
   :branch: standalone_validator_used
   :remote: riccieri_standalone_validator
 mannequin:
   :repo: https://github.com/theandym/mannequin
-  :status: :patched
+  :status: :pushed
   :repo_owner: theandym
   :repo_name: mannequin
   :branch: mannequin_used
@@ -342,7 +342,7 @@ declarative_grid:
   :remote: davll_declarative_grid
 stickyflag:
   :repo: https://github.com/cpence/stickyflag
-  :status: :patched
+  :status: :pushed
   :repo_owner: cpence
   :repo_name: stickyflag
   :branch: stickyflag_used
@@ -391,7 +391,7 @@ gemerator:
   :remote: rkh_gemerator
 aql:
   :repo: http://github.com/mbj/aql
-  :status: :patched
+  :status: :pushed
   :repo_owner: mbj
   :repo_name: aql
   :branch: aql_used
@@ -412,7 +412,7 @@ openc_bot:
   :remote: openc_openc_bot
 dropbox-api-petems:
   :repo: https://github.com/petems/dropbox-api-petems
-  :status: :patched
+  :status: :pushed
   :repo_owner: petems
   :repo_name: dropbox-api-petems
   :branch: dropbox-api-petems_used
@@ -537,7 +537,7 @@ rogerdpack-ruby_core_ri:
   :status: :invalid_repo
 pirj-sinatra-contrib:
   :repo: https://github.com/sinatra/sinatra
-  :status: :patched
+  :status: :pushed
   :repo_owner: sinatra
   :repo_name: sinatra
   :branch: sinatra_used
