@@ -4,9 +4,11 @@ cucumber-core:
   :status: :invalid_repo
 fpm:
   :repo: https://github.com/jordansissel/fpm
-  :status: :potential
+  :status: :cloned
   :repo_owner: jordansissel
   :repo_name: fpm
+  :branch: fpm_used
+  :remote: jordansissel_fpm
 sinatra-contrib:
   :repo: https://github.com/sinatra/sinatra-contrib
   :status: :invalid_repo
@@ -24,14 +26,18 @@ gooddata:
   :status: :invalid_repo
 ftw:
   :repo: https://github.com/fastly/ftw
-  :status: :potential
+  :status: :cloned
   :repo_owner: fastly
   :repo_name: ftw
+  :branch: ftw_used
+  :remote: fastly_ftw
 restfully:
   :repo: https://github.com/crohr/restfully
-  :status: :potential
+  :status: :cloned
   :repo_owner: crohr
   :repo_name: restfully
+  :branch: restfully_used
+  :remote: crohr_restfully
 monkey-lib:
   :repo: https://github.com/rkh/monkey-lib
   :status: :invalid_repo
@@ -40,37 +46,49 @@ spiderfw:
   :status: :invalid_repo
 daru:
   :repo: https://github.com/SciRuby/daru
-  :status: :potential
+  :status: :cloned
   :repo_owner: SciRuby
   :repo_name: daru
+  :branch: daru_used
+  :remote: SciRuby_daru
 arduino_firmata:
   :repo: https://github.com/shokai/arduino_firmata
-  :status: :potential
+  :status: :cloned
   :repo_owner: shokai
   :repo_name: arduino_firmata
+  :branch: arduino_firmata_used
+  :remote: shokai_arduino_firmata
 packable:
   :repo: https://github.com/marcandre/packable
-  :status: :potential
+  :status: :cloned
   :repo_owner: marcandre
   :repo_name: packable
+  :branch: packable_used
+  :remote: marcandre_packable
 wlang:
   :repo: http://github.com/blambeau/wlang
-  :status: :potential
+  :status: :cloned
   :repo_owner: blambeau
   :repo_name: wlang
+  :branch: wlang_used
+  :remote: blambeau_wlang
 rvc:
   :repo: https://github.com/vmware/rvc
-  :status: :potential
+  :status: :cloned
   :repo_owner: vmware
   :repo_name: rvc
+  :branch: rvc_used
+  :remote: vmware_rvc
 attributor:
   :repo: https://github.com/quilljs/quill/issues/1036
   :status: :invalid_repo
 wsdsl:
   :repo: https://github.com/mattetti/WSDSL
-  :status: :potential
+  :status: :cloned
   :repo_owner: mattetti
   :repo_name: WSDSL
+  :branch: WSDSL_used
+  :remote: mattetti_WSDSL
 bud:
   :repo: http://github.com/bloom-lang/bud
   :status: :invalid_repo
@@ -85,9 +103,11 @@ yard-junk:
   :status: :invalid_repo
 cloudq_client:
   :repo: https://github.com/twilson63/cloudq_client
-  :status: :potential
+  :status: :cloned
   :repo_owner: twilson63
   :repo_name: cloudq_client
+  :branch: cloudq_client_used
+  :remote: twilson63_cloudq_client
 vagrant-hitch:
   :repo: https://github.com/fup/vagrant-hitch
   :status: :invalid_repo
@@ -96,19 +116,25 @@ action_tree:
   :status: :invalid_repo
 flvedit:
   :repo: https://github.com/marcandre/flvedit
-  :status: :potential
+  :status: :cloned
   :repo_owner: marcandre
   :repo_name: flvedit
+  :branch: flvedit_used
+  :remote: marcandre_flvedit
 backdrop:
   :repo: https://github.com/tpbowden/Backdrop
-  :status: :potential
+  :status: :cloned
   :repo_owner: tpbowden
   :repo_name: Backdrop
+  :branch: Backdrop_used
+  :remote: tpbowden_Backdrop
 pavlov:
   :repo: https://github.com/mmonteleone/pavlov
-  :status: :potential
+  :status: :cloned
   :repo_owner: mmonteleone
   :repo_name: pavlov
+  :branch: pavlov_used
+  :remote: mmonteleone_pavlov
 compo:
   :repo: https://github.com/romashamin/compo-sketch
   :status: :invalid_repo
@@ -120,25 +146,31 @@ ruby_core_ri:
   :status: :invalid_repo
 token_phrase:
   :repo: https://github.com/genericsteele/token_phrase
-  :status: :potential
+  :status: :cloned
   :repo_owner: genericsteele
   :repo_name: token_phrase
+  :branch: token_phrase_used
+  :remote: genericsteele_token_phrase
 minimapper-extras:
   :repo: https://github.com/barsoom/minimapper-extras
   :status: :invalid_repo
 veritas:
   :repo: https://github.com/dkubb/veritas
-  :status: :potential
+  :status: :cloned
   :repo_owner: dkubb
   :repo_name: veritas
+  :branch: veritas_used
+  :remote: dkubb_veritas
 pwdhash:
   :repo: https://github.com/kizzx2/pwdhash.rb
   :status: :invalid_repo
 spintax_parser:
   :repo: https://github.com/flintinatux/spintax_parser
-  :status: :potential
+  :status: :cloned
   :repo_owner: flintinatux
   :repo_name: spintax_parser
+  :branch: spintax_parser_used
+  :remote: flintinatux_spintax_parser
 doku:
   :repo: https://github.com/crocodic-studio/dokularavel
   :status: :invalid_repo
@@ -147,19 +179,23 @@ veritas-sql-generator:
   :status: :invalid_repo
 duct_tape:
   :repo: https://github.com/twrodriguez/duct_tape
-  :status: :potential
+  :status: :cloned
   :repo_owner: twrodriguez
   :repo_name: duct_tape
+  :branch: duct_tape_used
+  :remote: twrodriguez_duct_tape
 marcandre-packable:
   :repo: https://github.com/marcandre/packable
-  :status: :potential
+  :status: :failed_cloning
   :repo_owner: marcandre
   :repo_name: packable
 trith:
   :repo: http://github.com/trith/trith
-  :status: :potential
+  :status: :cloned
   :repo_owner: trith
   :repo_name: trith
+  :branch: trith_used
+  :remote: trith_trith
 chef-ab:
   :repo: https://github.com/criteo/chef-ab
   :status: :invalid_repo
@@ -168,27 +204,35 @@ veritas-optimizer:
   :status: :invalid_repo
 rack_warden:
   :repo: https://github.com/ginjo/rack_warden
-  :status: :potential
+  :status: :cloned
   :repo_owner: ginjo
   :repo_name: rack_warden
+  :branch: rack_warden_used
+  :remote: ginjo_rack_warden
 with_progress:
   :repo: https://github.com/marcandre/with_progress
-  :status: :potential
+  :status: :cloned
   :repo_owner: marcandre
   :repo_name: with_progress
+  :branch: with_progress_used
+  :remote: marcandre_with_progress
 suture:
   :repo: https://github.com/testdouble/suture
-  :status: :potential
+  :status: :cloned
   :repo_owner: testdouble
   :repo_name: suture
+  :branch: suture_used
+  :remote: testdouble_suture
 gday:
   :repo: https://github.com/mdekauwe/GDAY
-  :status: :potential
+  :status: :cloned
   :repo_owner: mdekauwe
   :repo_name: GDAY
+  :branch: GDAY_used
+  :remote: mdekauwe_GDAY
 marcandre-flvedit:
   :repo: https://github.com/marcandre/flvedit
-  :status: :potential
+  :status: :failed_cloning
   :repo_owner: marcandre
   :repo_name: flvedit
 standalone_validator:
@@ -196,14 +240,18 @@ standalone_validator:
   :status: :invalid_repo
 mannequin:
   :repo: https://github.com/theandym/mannequin
-  :status: :potential
+  :status: :cloned
   :repo_owner: theandym
   :repo_name: mannequin
+  :branch: mannequin_used
+  :remote: theandym_mannequin
 declarative_grid:
   :repo: https://github.com/davll/declarative_grid
-  :status: :potential
+  :status: :cloned
   :repo_owner: davll
   :repo_name: declarative_grid
+  :branch: declarative_grid_used
+  :remote: davll_declarative_grid
 stickyflag:
   :repo: https://github.com/home-assistant/appdaemon/pull/144
   :status: :invalid_repo
@@ -212,27 +260,35 @@ acapela:
   :status: :invalid_repo
 classy_cas:
   :repo: https://github.com/Econify/ClassyCAS
-  :status: :potential
+  :status: :cloned
   :repo_owner: Econify
   :repo_name: ClassyCAS
+  :branch: ClassyCAS_used
+  :remote: Econify_ClassyCAS
 veritas-do-adapter:
   :repo: https://github.com/dkubb/veritas-do-adapter
   :status: :invalid_repo
 adsl:
   :repo: https://github.com/enten/adsl
-  :status: :potential
+  :status: :cloned
   :repo_owner: enten
   :repo_name: adsl
+  :branch: adsl_used
+  :remote: enten_adsl
 perfer:
   :repo: https://github.com/jruby/perfer
-  :status: :potential
+  :status: :cloned
   :repo_owner: jruby
   :repo_name: perfer
+  :branch: perfer_used
+  :remote: jruby_perfer
 gemerator:
   :repo: https://github.com/rkh/gemerator
-  :status: :potential
+  :status: :cloned
   :repo_owner: rkh
   :repo_name: gemerator
+  :branch: gemerator_used
+  :remote: rkh_gemerator
 aql:
   :repo: https://github.com/arangodb/arangodb/issues/1138
   :status: :invalid_repo
@@ -241,25 +297,31 @@ owl-cms:
   :status: :invalid_repo
 openc_bot:
   :repo: https://github.com/openc/openc_bot
-  :status: :potential
+  :status: :cloned
   :repo_owner: openc
   :repo_name: openc_bot
+  :branch: openc_bot_used
+  :remote: openc_openc_bot
 dropbox-api-petems:
   :repo: https://github.com/petems/dropbox-api-petems
   :status: :invalid_repo
 bfire:
   :repo: https://github.com/crohr/bfire
-  :status: :potential
+  :status: :cloned
   :repo_owner: crohr
   :repo_name: bfire
+  :branch: bfire_used
+  :remote: crohr_bfire
 ispeech:
   :repo: https://github.com/iSpeech/iSpeech-Android-SDK
   :status: :invalid_repo
 nowhen:
   :repo: https://github.com/shokai/nowhen
-  :status: :potential
+  :status: :cloned
   :repo_owner: shokai
   :repo_name: nowhen
+  :branch: nowhen_used
+  :remote: shokai_nowhen
 universe-core:
   :repo: https://github.com/vazco/universe-core
   :status: :invalid_repo
@@ -271,35 +333,45 @@ kankri:
   :status: :invalid_repo
 db_backup_tool:
   :repo: https://github.com/davll/db_backup_tool
-  :status: :potential
+  :status: :cloned
   :repo_owner: davll
   :repo_name: db_backup_tool
+  :branch: db_backup_tool_used
+  :remote: davll_db_backup_tool
 tn_pdf:
   :repo: https://github.com/riccieri/tn_pdf
-  :status: :potential
+  :status: :cloned
   :repo_owner: riccieri
   :repo_name: tn_pdf
+  :branch: tn_pdf_used
+  :remote: riccieri_tn_pdf
 poly-cms:
   :repo: https://github.com/briangonzalez/poly-cms-gem
   :status: :invalid_repo
 homework_report:
   :repo: https://github.com/davll/homework_report
-  :status: :potential
+  :status: :cloned
   :repo_owner: davll
   :repo_name: homework_report
+  :branch: homework_report_used
+  :remote: davll_homework_report
 deep-cover:
   :repo: https://github.com/deep-cover/deep-cover
   :status: :invalid_repo
 huge_enumerable:
   :repo: https://github.com/ChapterHouse/huge_enumerable
-  :status: :potential
+  :status: :cloned
   :repo_owner: ChapterHouse
   :repo_name: huge_enumerable
+  :branch: huge_enumerable_used
+  :remote: ChapterHouse_huge_enumerable
 crystalizer:
   :repo: https://github.com/rdp/crystalizer
-  :status: :potential
+  :status: :cloned
   :repo_owner: rdp
   :repo_name: crystalizer
+  :branch: crystalizer_used
+  :remote: rdp_crystalizer
 sundawg-sinatra-assetpack-fork:
   :repo: https://gist.github.com/4681280
   :status: :invalid_repo
@@ -308,22 +380,28 @@ git_install:
   :status: :invalid_repo
 prime_miller_rabin:
   :repo: https://github.com/ChapterHouse/prime_miller_rabin
-  :status: :potential
+  :status: :cloned
   :repo_owner: ChapterHouse
   :repo_name: prime_miller_rabin
+  :branch: prime_miller_rabin_used
+  :remote: ChapterHouse_prime_miller_rabin
 bit_utils:
   :repo: https://github.com/jkr2255/bit_utils
-  :status: :potential
+  :status: :cloned
   :repo_owner: jkr2255
   :repo_name: bit_utils
+  :branch: bit_utils_used
+  :remote: jkr2255_bit_utils
 rogerdpack-ruby_core_ri:
   :repo: gems.github.com/list.html
   :status: :invalid_repo
 pirj-sinatra-contrib:
   :repo: https://github.com/sinatra/sinatra
-  :status: :potential
+  :status: :cloned
   :repo_owner: sinatra
   :repo_name: sinatra
+  :branch: sinatra_used
+  :remote: sinatra_sinatra
 LIBIS_Workflow:
   :repo: https://github.com/Kris-LIBIS/workflow
   :status: :invalid_repo
