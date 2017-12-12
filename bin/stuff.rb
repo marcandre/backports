@@ -39,22 +39,31 @@ def scrape_google(gem_name)
     .text
 end
 
+GITHUB_URL = /^https?:\/\/github.com\/([a-z\-_]+)\/([a-z\-_]+)$/i
+
 def repo(gem_name)
   info = Gems.info(gem_name)
-  info['source_code_uri'] || scrape_google(gem_name)
+  info['source_code_uri'] ||
+  info['homepage_uri'] =~ GITHUB_URL && info['homepage_uri'] ||
+  scrape_google(gem_name)
 end
 
 def list_rev_deps(n)
   gems = reverse_depencies('backports', n)
   gems.map do |g|
-    rep = repo(g)
-    puts "#{g.rjust(30)}: #{rep}\n"
-    [g, {repo: rep, status: :initial}]
+    [g, {status: :initial}]
   end.to_h
 end
 
 def save_rev_deps(n, path = TODO)
   Pathname(path).write(YAML.dump(list_rev_deps(n)))
+end
+
+def lookup_repos
+  filter_todo(:invalid_repo) do |entry, name|
+    entry[:repo] = repo(name)
+    :looked_up
+  end
 end
 
 def patch_file(path)
@@ -81,8 +90,8 @@ def filter_todo(lookfor)
 end
 
 def check_repos
-  filter_todo(:initial) do |entry|
-    if entry[:repo] =~ /^https?:\/\/github.com\/([a-z\-_]+)\/([a-z\-_]+)$/i
+  filter_todo(:looked_up) do |entry|
+    if entry[:repo] =~ GITHUB_URL
       entry[:repo_owner] = $1
       entry[:repo_name] = $2
       :potential

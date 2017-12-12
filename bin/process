@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require_relative 'stuff'
+lookup_repos
 check_repos
 clone_repos
 patch_repos
