@@ -58,6 +58,7 @@ def save_rev_deps(n, path = TODO)
 end
 
 def patch_file(path)
+  path = Pathname(path)
   path.write(yield path.read)
 end
 
@@ -70,5 +71,23 @@ def patch_gem(path)
   patch(dir + 'Gemfile') { |txt| txt + "\ngem 'backports', git: 'https://github.com/marcandre/backports.git', branch: 'introspection'\n"}
   patch_yaml(dir + '.travis.yml') do |conf|
     conf['rvm'] = conf['rvm'].sort.first(1)
+  end
+end
+
+def filter_todo(lookfor)
+  patch_yaml(TODO) do |list|
+    list.each { |k, v| v[:status] = yield v, k if v[:status] == lookfor }
+  end
+end
+
+def check_repos
+  filter_todo(:initial) do |entry|
+    if entry[:repo] =~ /^https?:\/\/github.com\/(\w+)\/(\w+)$/
+      entry[:repo_owner] = $1
+      entry[:repo_name] = $2
+      :potential
+    else
+      :invalid_repo
+    end
   end
 end
