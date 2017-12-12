@@ -66,8 +66,12 @@ monkey-lib:
   :branch: monkey-lib_used
   :remote: rkh_monkey-lib
 spiderfw:
-  :repo: https://github.com/me/spider/tree/master/lib/spiderfw/.../mappers
-  :status: :invalid_repo
+  :repo: http://github.com/me/spider
+  :status: :cloned
+  :repo_owner: me
+  :repo_name: spider
+  :branch: spider_used
+  :remote: me_spider
 daru:
   :repo: https://github.com/SciRuby/daru
   :status: :only_local_require_found
@@ -104,8 +108,12 @@ rvc:
   :branch: rvc_used
   :remote: vmware_rvc
 attributor:
-  :repo: https://github.com/quilljs/quill/issues/1036
-  :status: :invalid_repo
+  :repo: https://github.com/rightscale/attributor
+  :status: :cloned
+  :repo_owner: rightscale
+  :repo_name: attributor
+  :branch: attributor_used
+  :remote: rightscale_attributor
 wsdsl:
   :repo: https://github.com/mattetti/WSDSL
   :status: :no_travis_found
@@ -128,8 +136,12 @@ turbot-ruby-gems:
   :branch: turbot-ruby-gems_used
   :remote: openc_turbot-ruby-gems
 libis-tools:
-  :repo: https://github.com/libis/AlmaLabelTool/.../AlmaLabelTool/labeltool.ini
-  :status: :invalid_repo
+  :repo: https://github.com/Kris-LIBIS/LIBIS_Tools
+  :status: :cloned
+  :repo_owner: Kris-LIBIS
+  :repo_name: LIBIS_Tools
+  :branch: LIBIS_Tools_used
+  :remote: Kris-LIBIS_LIBIS_Tools
 yard-junk:
   :repo: https://github.com/zverok/yard-junk
   :status: :only_local_require_found
@@ -190,8 +202,12 @@ veritable:
   :repo: https://github.com/veritable
   :status: :invalid_repo
 ruby_core_ri:
-  :repo: https://github.com/lnussbaum/gem2deb-extras/blob/master/data/allgems
-  :status: :invalid_repo
+  :repo: http://github.com/rdp/ruby_core_ri
+  :status: :cloned
+  :repo_owner: rdp
+  :repo_name: ruby_core_ri
+  :branch: ruby_core_ri_used
+  :remote: rdp_ruby_core_ri
 token_phrase:
   :repo: https://github.com/genericsteele/token_phrase
   :status: :only_local_require_found
@@ -304,8 +320,12 @@ marcandre-flvedit:
   :repo_owner: marcandre
   :repo_name: flvedit
 standalone_validator:
-  :repo: https://github.com/...standalone_validator/.../standalone_validator.php
-  :status: :invalid_repo
+  :repo: http://github.com/riccieri/standalone_validator
+  :status: :cloned
+  :repo_owner: riccieri
+  :repo_name: standalone_validator
+  :branch: standalone_validator_used
+  :remote: riccieri_standalone_validator
 mannequin:
   :repo: https://github.com/theandym/mannequin
   :status: :patched
@@ -321,8 +341,12 @@ declarative_grid:
   :branch: declarative_grid_used
   :remote: davll_declarative_grid
 stickyflag:
-  :repo: https://github.com/home-assistant/appdaemon/pull/144
-  :status: :invalid_repo
+  :repo: https://github.com/cpence/stickyflag
+  :status: :cloned
+  :repo_owner: cpence
+  :repo_name: stickyflag
+  :branch: stickyflag_used
+  :remote: cpence_stickyflag
 acapela:
   :repo: https://github.com/skmp/acapela-tts-zeroconf-proxy
   :status: :grep_failed
@@ -366,8 +390,12 @@ gemerator:
   :branch: gemerator_used
   :remote: rkh_gemerator
 aql:
-  :repo: https://github.com/arangodb/arangodb/issues/1138
-  :status: :invalid_repo
+  :repo: http://github.com/mbj/aql
+  :status: :cloned
+  :repo_owner: mbj
+  :repo_name: aql
+  :branch: aql_used
+  :remote: mbj_aql
 owl-cms:
   :repo: https://github.com/mauricioabreu/owl-cms
   :status: :grep_failed
@@ -421,8 +449,12 @@ bundler-prehistoric:
   :repo: https://github.com/bundler/bundler/issues/4682
   :status: :invalid_repo
 kankri:
-  :repo: https://github.com/kankri
-  :status: :invalid_repo
+  :repo: https://github.com/CaptainHayashi/kankri
+  :status: :cloned
+  :repo_owner: CaptainHayashi
+  :repo_name: kankri
+  :branch: kankri_used
+  :remote: CaptainHayashi_kankri
 db_backup_tool:
   :repo: https://github.com/davll/db_backup_tool
   :status: :no_travis_found
@@ -473,11 +505,19 @@ crystalizer:
   :branch: crystalizer_used
   :remote: rdp_crystalizer
 sundawg-sinatra-assetpack-fork:
-  :repo: https://gist.github.com/4681280
-  :status: :invalid_repo
+  :repo: http://github.com/rstacruz/sinatra-assetpack
+  :status: :cloned
+  :repo_owner: rstacruz
+  :repo_name: sinatra-assetpack
+  :branch: sinatra-assetpack_used
+  :remote: rstacruz_sinatra-assetpack
 git_install:
-  :repo: msysgit.github.com/
-  :status: :invalid_repo
+  :repo: http://github.com/rdp/git_install
+  :status: :failed_cloning
+  :repo_owner: rdp
+  :repo_name: git_install
+  :branch: git_install_used
+  :remote: rdp_git_install
 prime_miller_rabin:
   :repo: https://github.com/ChapterHouse/prime_miller_rabin
   :status: :no_travis_found
@@ -510,8 +550,12 @@ LIBIS_Workflow:
   :branch: workflow_used
   :remote: Kris-LIBIS_workflow
 barlume:
-  :repo: https://github.com/bitcoinjs/bip39/blob/master/wordlists/italian.json
-  :status: :invalid_repo
+  :repo: http://github.com/meh/barlume
+  :status: :cloned
+  :repo_owner: meh
+  :repo_name: barlume
+  :branch: barlume_used
+  :remote: meh_barlume
 que-scheduler:
   :repo: https://github.com/unchartedcode/que-scheduler
   :status: :grep_failed
@@ -520,23 +564,43 @@ que-scheduler:
   :branch: que-scheduler_used
   :remote: unchartedcode_que-scheduler
 rubycut-sinatra-contrib:
-  :repo: https://github.com/...sinatra/.../ 9453fbc62582aaca95d1a1f126a6a3794924edd0
-  :status: :invalid_repo
+  :repo: http://github.com/sinatra/sinatra-contrib
+  :status: :failed_cloning
+  :repo_owner: sinatra
+  :repo_name: sinatra-contrib
+  :branch: sinatra-contrib_used
+  :remote: sinatra_sinatra-contrib
 cure-fpm:
-  :repo: https://github.com/jordansissel/fpm/commits?author=cure
-  :status: :invalid_repo
+  :repo: http://github.com/cure/fpm
+  :status: :failed_cloning
+  :repo_owner: cure
+  :repo_name: fpm
+  :branch: fpm_used
+  :remote: cure_fpm
 fpm-itchio:
-  :repo: https://github.com/itchio/ci.itch.ovh/blob/master/src/jobs/itch.yml
-  :status: :invalid_repo
+  :repo: https://github.com/jordansissel/fpm
+  :status: :failed_cloning
+  :repo_owner: jordansissel
+  :repo_name: fpm
+  :branch: fpm_used
+  :remote: jordansissel_fpm
 travis-async-listener:
   :repo: https://github.com/othiym23/async-listener
   :status: :invalid_repo
 fpm-aeppert:
-  :repo: https://github.com/jordansissel/fpm/pulls
-  :status: :invalid_repo
+  :repo: https://github.com/aeppert/fpm
+  :status: :failed_cloning
+  :repo_owner: aeppert
+  :repo_name: fpm
+  :branch: fpm_used
+  :remote: aeppert_fpm
 octopod-exe:
-  :repo: https://github.com/jekyll/jekyll/issues/5165
-  :status: :invalid_repo
+  :repo: https://github.com/haslinger/jekyll-octopod
+  :status: :cloned
+  :repo_owner: haslinger
+  :repo_name: jekyll-octopod
+  :branch: jekyll-octopod_used
+  :remote: haslinger_jekyll-octopod
 whatis:
   :repo: https://github.com/molybdenum-99/whatis
   :status: :invalid_repo
