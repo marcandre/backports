@@ -4,7 +4,7 @@ cucumber-core:
   :status: :invalid_repo
 fpm:
   :repo: https://github.com/jordansissel/fpm
-  :status: :cloned
+  :status: :patched
   :repo_owner: jordansissel
   :repo_name: fpm
   :branch: fpm_used
@@ -26,14 +26,14 @@ gooddata:
   :status: :invalid_repo
 ftw:
   :repo: https://github.com/fastly/ftw
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: fastly
   :repo_name: ftw
   :branch: ftw_used
   :remote: fastly_ftw
 restfully:
   :repo: https://github.com/crohr/restfully
-  :status: :cloned
+  :status: :patched
   :repo_owner: crohr
   :repo_name: restfully
   :branch: restfully_used
@@ -46,35 +46,35 @@ spiderfw:
   :status: :invalid_repo
 daru:
   :repo: https://github.com/SciRuby/daru
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: SciRuby
   :repo_name: daru
   :branch: daru_used
   :remote: SciRuby_daru
 arduino_firmata:
   :repo: https://github.com/shokai/arduino_firmata
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: shokai
   :repo_name: arduino_firmata
   :branch: arduino_firmata_used
   :remote: shokai_arduino_firmata
 packable:
   :repo: https://github.com/marcandre/packable
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: marcandre
   :repo_name: packable
   :branch: packable_used
   :remote: marcandre_packable
 wlang:
   :repo: http://github.com/blambeau/wlang
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: blambeau
   :repo_name: wlang
   :branch: wlang_used
   :remote: blambeau_wlang
 rvc:
   :repo: https://github.com/vmware/rvc
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: vmware
   :repo_name: rvc
   :branch: rvc_used
@@ -84,7 +84,7 @@ attributor:
   :status: :invalid_repo
 wsdsl:
   :repo: https://github.com/mattetti/WSDSL
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: mattetti
   :repo_name: WSDSL
   :branch: WSDSL_used
@@ -103,7 +103,7 @@ yard-junk:
   :status: :invalid_repo
 cloudq_client:
   :repo: https://github.com/twilson63/cloudq_client
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: twilson63
   :repo_name: cloudq_client
   :branch: cloudq_client_used
@@ -116,21 +116,21 @@ action_tree:
   :status: :invalid_repo
 flvedit:
   :repo: https://github.com/marcandre/flvedit
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: marcandre
   :repo_name: flvedit
   :branch: flvedit_used
   :remote: marcandre_flvedit
 backdrop:
   :repo: https://github.com/tpbowden/Backdrop
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: tpbowden
   :repo_name: Backdrop
   :branch: Backdrop_used
   :remote: tpbowden_Backdrop
 pavlov:
   :repo: https://github.com/mmonteleone/pavlov
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: mmonteleone
   :repo_name: pavlov
   :branch: pavlov_used
@@ -146,7 +146,7 @@ ruby_core_ri:
   :status: :invalid_repo
 token_phrase:
   :repo: https://github.com/genericsteele/token_phrase
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: genericsteele
   :repo_name: token_phrase
   :branch: token_phrase_used
@@ -156,7 +156,7 @@ minimapper-extras:
   :status: :invalid_repo
 veritas:
   :repo: https://github.com/dkubb/veritas
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: dkubb
   :repo_name: veritas
   :branch: veritas_used
@@ -166,7 +166,7 @@ pwdhash:
   :status: :invalid_repo
 spintax_parser:
   :repo: https://github.com/flintinatux/spintax_parser
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: flintinatux
   :repo_name: spintax_parser
   :branch: spintax_parser_used
@@ -179,7 +179,7 @@ veritas-sql-generator:
   :status: :invalid_repo
 duct_tape:
   :repo: https://github.com/twrodriguez/duct_tape
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: twrodriguez
   :repo_name: duct_tape
   :branch: duct_tape_used
@@ -191,7 +191,7 @@ marcandre-packable:
   :repo_name: packable
 trith:
   :repo: http://github.com/trith/trith
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: trith
   :repo_name: trith
   :branch: trith_used
@@ -204,28 +204,28 @@ veritas-optimizer:
   :status: :invalid_repo
 rack_warden:
   :repo: https://github.com/ginjo/rack_warden
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: ginjo
   :repo_name: rack_warden
   :branch: rack_warden_used
   :remote: ginjo_rack_warden
 with_progress:
   :repo: https://github.com/marcandre/with_progress
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: marcandre
   :repo_name: with_progress
   :branch: with_progress_used
   :remote: marcandre_with_progress
 suture:
   :repo: https://github.com/testdouble/suture
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: testdouble
   :repo_name: suture
   :branch: suture_used
   :remote: testdouble_suture
 gday:
   :repo: https://github.com/mdekauwe/GDAY
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: mdekauwe
   :repo_name: GDAY
   :branch: GDAY_used
@@ -240,14 +240,14 @@ standalone_validator:
   :status: :invalid_repo
 mannequin:
   :repo: https://github.com/theandym/mannequin
-  :status: :cloned
+  :status: :patched
   :repo_owner: theandym
   :repo_name: mannequin
   :branch: mannequin_used
   :remote: theandym_mannequin
 declarative_grid:
   :repo: https://github.com/davll/declarative_grid
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: davll
   :repo_name: declarative_grid
   :branch: declarative_grid_used
@@ -260,7 +260,7 @@ acapela:
   :status: :invalid_repo
 classy_cas:
   :repo: https://github.com/Econify/ClassyCAS
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: Econify
   :repo_name: ClassyCAS
   :branch: ClassyCAS_used
@@ -270,21 +270,21 @@ veritas-do-adapter:
   :status: :invalid_repo
 adsl:
   :repo: https://github.com/enten/adsl
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: enten
   :repo_name: adsl
   :branch: adsl_used
   :remote: enten_adsl
 perfer:
   :repo: https://github.com/jruby/perfer
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: jruby
   :repo_name: perfer
   :branch: perfer_used
   :remote: jruby_perfer
 gemerator:
   :repo: https://github.com/rkh/gemerator
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: rkh
   :repo_name: gemerator
   :branch: gemerator_used
@@ -297,7 +297,7 @@ owl-cms:
   :status: :invalid_repo
 openc_bot:
   :repo: https://github.com/openc/openc_bot
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: openc
   :repo_name: openc_bot
   :branch: openc_bot_used
@@ -307,7 +307,7 @@ dropbox-api-petems:
   :status: :invalid_repo
 bfire:
   :repo: https://github.com/crohr/bfire
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: crohr
   :repo_name: bfire
   :branch: bfire_used
@@ -317,7 +317,7 @@ ispeech:
   :status: :invalid_repo
 nowhen:
   :repo: https://github.com/shokai/nowhen
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: shokai
   :repo_name: nowhen
   :branch: nowhen_used
@@ -333,14 +333,14 @@ kankri:
   :status: :invalid_repo
 db_backup_tool:
   :repo: https://github.com/davll/db_backup_tool
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: davll
   :repo_name: db_backup_tool
   :branch: db_backup_tool_used
   :remote: davll_db_backup_tool
 tn_pdf:
   :repo: https://github.com/riccieri/tn_pdf
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: riccieri
   :repo_name: tn_pdf
   :branch: tn_pdf_used
@@ -350,7 +350,7 @@ poly-cms:
   :status: :invalid_repo
 homework_report:
   :repo: https://github.com/davll/homework_report
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: davll
   :repo_name: homework_report
   :branch: homework_report_used
@@ -360,14 +360,14 @@ deep-cover:
   :status: :invalid_repo
 huge_enumerable:
   :repo: https://github.com/ChapterHouse/huge_enumerable
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: ChapterHouse
   :repo_name: huge_enumerable
   :branch: huge_enumerable_used
   :remote: ChapterHouse_huge_enumerable
 crystalizer:
   :repo: https://github.com/rdp/crystalizer
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: rdp
   :repo_name: crystalizer
   :branch: crystalizer_used
@@ -380,14 +380,14 @@ git_install:
   :status: :invalid_repo
 prime_miller_rabin:
   :repo: https://github.com/ChapterHouse/prime_miller_rabin
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: ChapterHouse
   :repo_name: prime_miller_rabin
   :branch: prime_miller_rabin_used
   :remote: ChapterHouse_prime_miller_rabin
 bit_utils:
   :repo: https://github.com/jkr2255/bit_utils
-  :status: :cloned
+  :status: :only_local_require_found
   :repo_owner: jkr2255
   :repo_name: bit_utils
   :branch: bit_utils_used
@@ -397,7 +397,7 @@ rogerdpack-ruby_core_ri:
   :status: :invalid_repo
 pirj-sinatra-contrib:
   :repo: https://github.com/sinatra/sinatra
-  :status: :cloned
+  :status: :patched
   :repo_owner: sinatra
   :repo_name: sinatra
   :branch: sinatra_used
