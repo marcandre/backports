@@ -79,7 +79,7 @@ def patch_gem(path = '.')
   dir = Pathname(path).expand_path
   patch_file(dir + 'Gemfile') { |txt| txt + "\ngem 'backports', git: 'https://github.com/marcandre/backports.git', branch: 'introspection'\n"}
   patch_yaml(dir + '.travis.yml') do |conf|
-    conf['rvm'] = conf['rvm'].sort.first(1)
+    conf['rvm'] = conf['rvm'].map(&:to_s).sort.first(1)
   end
 end
 
