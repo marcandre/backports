@@ -77,7 +77,7 @@ end
 
 def patch_gem(path = '.')
   dir = Pathname(path).expand_path
-  patch_file(dir + 'Gemfile') { |txt| txt + "\ngem 'backports', git: 'https://github.com/marcandre/backports.git', branch: 'introspection'\n"}
+  patch_file(dir + 'Gemfile') { |txt| txt + "\ngem 'backports', :git => 'https://github.com/marcandre/backports.git', :branch => 'introspection'\n"}
   patch_yaml(dir + '.travis.yml') do |conf|
     conf['rvm'] = conf['rvm'].map(&:to_s).sort.first(1)
   end
@@ -123,7 +123,7 @@ def clone_repos
 end
 
 def reset_repos
-  filter_todo(:cloned) do |entry|
+  filter_todo(:patched) do |entry|
     branch = entry[:branch] = "#{entry[:repo_name]}_used"
     remote = entry[:remote] = "#{entry[:repo_owner]}_#{entry[:repo_name]}"
     if system([
@@ -167,7 +167,7 @@ def push_repos
   filter_todo(:patched) do |entry|
     if system([
       "git checkout #{entry[:branch]}",
-      "git push origin #{entry[:branch]}"
+      "git push -f origin #{entry[:branch]}"
     ].join(' && '))
       :pushed
     end
