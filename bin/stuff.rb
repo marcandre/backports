@@ -66,9 +66,9 @@ def patch_yaml(path, &block)
   patch_file(path) { |txt| YAML.dump(YAML.load(txt).tap(&block)) }
 end
 
-def patch_gem(path)
+def patch_gem(path = '.')
   dir = Pathname(path).expand_path
-  patch(dir + 'Gemfile') { |txt| txt + "\ngem 'backports', git: 'https://github.com/marcandre/backports.git', branch: 'introspection'\n"}
+  patch_file(dir + 'Gemfile') { |txt| txt + "\ngem 'backports', git: 'https://github.com/marcandre/backports.git', branch: 'introspection'\n"}
   patch_yaml(dir + '.travis.yml') do |conf|
     conf['rvm'] = conf['rvm'].sort.first(1)
   end
@@ -94,15 +94,59 @@ end
 
 def clone_repos
   filter_todo(:potential) do |entry|
-    remote = "#{entry[:repo_owner]}_#{entry[:repo_name]}"
+    branch = entry[:branch] = "#{entry[:repo_name]}_used"
+    remote = entry[:remote] = "#{entry[:repo_owner]}_#{entry[:repo_name]}"
+
     if system([
       "git remote add #{remote} git@github.com:#{entry[:repo_owner]}/#{entry[:repo_name]}.git",
       "git fetch #{remote}",
-      "git checkout -b #{entry[:repo_name]}_used #{remote}/master",
+      "git checkout -b #{branch} #{remote}/master",
     ].join(' && '))
       :cloned
     else
       :failed_cloning
+    end
+  end
+end
+
+def reset_repos
+  filter_todo(:cloned) do |entry|
+    branch = entry[:branch] = "#{entry[:repo_name]}_used"
+    remote = entry[:remote] = "#{entry[:repo_owner]}_#{entry[:repo_name]}"
+    if system([
+      "git checkout #{branch}",
+      "git reset --hard #{remote}/master"
+    ].join(' && '))
+      :cloned
+    else
+      :failed_reset
+    end
+  end
+end
+
+def patch_repos
+  filter_todo(:cloned) do |entry|
+    branch = "#{entry[:repo_name]}_used"
+    if system([
+      "git checkout #{branch}",
+      %q{grep "require\s\+['\"]backports['\"]" -r .}
+    ].join(' && '))
+      if File.exist?('./.travis.yml')
+        patch_gem
+        if `git add Gemfile .travis.yml && git commit -m "Patch for introspection"` =~ /2 files changed/
+          :patched
+        else
+          :patch_failed
+        end
+      else
+        :no_travis_found
+      end
+    else
+      if %q{grep "require\s\+['\"]backports" -r .}
+        :only_local_require_found
+      else
+        :grep_failed
+      end
     end
   end
 end
