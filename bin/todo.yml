@@ -67,7 +67,7 @@ monkey-lib:
   :remote: rkh_monkey-lib
 spiderfw:
   :repo: http://github.com/me/spider
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: me
   :repo_name: spider
   :branch: spider_used
@@ -109,7 +109,7 @@ rvc:
   :remote: vmware_rvc
 attributor:
   :repo: https://github.com/rightscale/attributor
-  :status: :cloned
+  :status: :patched
   :repo_owner: rightscale
   :repo_name: attributor
   :branch: attributor_used
@@ -137,7 +137,7 @@ turbot-ruby-gems:
   :remote: openc_turbot-ruby-gems
 libis-tools:
   :repo: https://github.com/Kris-LIBIS/LIBIS_Tools
-  :status: :cloned
+  :status: :patched
   :repo_owner: Kris-LIBIS
   :repo_name: LIBIS_Tools
   :branch: LIBIS_Tools_used
@@ -203,7 +203,7 @@ veritable:
   :status: :invalid_repo
 ruby_core_ri:
   :repo: http://github.com/rdp/ruby_core_ri
-  :status: :cloned
+  :status: :no_travis_found
   :repo_owner: rdp
   :repo_name: ruby_core_ri
   :branch: ruby_core_ri_used
@@ -321,7 +321,7 @@ marcandre-flvedit:
   :repo_name: flvedit
 standalone_validator:
   :repo: http://github.com/riccieri/standalone_validator
-  :status: :cloned
+  :status: :patched
   :repo_owner: riccieri
   :repo_name: standalone_validator
   :branch: standalone_validator_used
@@ -342,7 +342,7 @@ declarative_grid:
   :remote: davll_declarative_grid
 stickyflag:
   :repo: https://github.com/cpence/stickyflag
-  :status: :cloned
+  :status: :patched
   :repo_owner: cpence
   :repo_name: stickyflag
   :branch: stickyflag_used
@@ -391,7 +391,7 @@ gemerator:
   :remote: rkh_gemerator
 aql:
   :repo: http://github.com/mbj/aql
-  :status: :cloned
+  :status: :patched
   :repo_owner: mbj
   :repo_name: aql
   :branch: aql_used
@@ -450,7 +450,7 @@ bundler-prehistoric:
   :status: :invalid_repo
 kankri:
   :repo: https://github.com/CaptainHayashi/kankri
-  :status: :cloned
+  :status: :grep_failed
   :repo_owner: CaptainHayashi
   :repo_name: kankri
   :branch: kankri_used
@@ -506,7 +506,7 @@ crystalizer:
   :remote: rdp_crystalizer
 sundawg-sinatra-assetpack-fork:
   :repo: http://github.com/rstacruz/sinatra-assetpack
-  :status: :cloned
+  :status: :grep_failed
   :repo_owner: rstacruz
   :repo_name: sinatra-assetpack
   :branch: sinatra-assetpack_used
@@ -551,7 +551,7 @@ LIBIS_Workflow:
   :remote: Kris-LIBIS_workflow
 barlume:
   :repo: http://github.com/meh/barlume
-  :status: :cloned
+  :status: :grep_failed
   :repo_owner: meh
   :repo_name: barlume
   :branch: barlume_used
@@ -596,7 +596,7 @@ fpm-aeppert:
   :remote: aeppert_fpm
 octopod-exe:
   :repo: https://github.com/haslinger/jekyll-octopod
-  :status: :cloned
+  :status: :grep_failed
   :repo_owner: haslinger
   :repo_name: jekyll-octopod
   :branch: jekyll-octopod_used
