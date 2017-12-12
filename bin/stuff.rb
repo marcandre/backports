@@ -82,7 +82,7 @@ end
 
 def check_repos
   filter_todo(:initial) do |entry|
-    if entry[:repo] =~ /^https?:\/\/github.com\/(\w+)\/(\w+)$/
+    if entry[:repo] =~ /^https?:\/\/github.com\/([a-z\-_]+)\/([a-z\-_]+)$/i
       entry[:repo_owner] = $1
       entry[:repo_name] = $2
       :potential

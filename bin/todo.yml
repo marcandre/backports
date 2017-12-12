@@ -1,7 +1,11 @@
 ---
 cucumber-core:
   :repo: https://github.com/cucumber/cucumber-ruby-core
-  :status: :invalid_repo
+  :status: :failed_cloning
+  :repo_owner: cucumber
+  :repo_name: cucumber-ruby-core
+  :branch: cucumber-ruby-core_used
+  :remote: cucumber_cucumber-ruby-core
 fpm:
   :repo: https://github.com/jordansissel/fpm
   :status: :patched
@@ -11,19 +15,35 @@ fpm:
   :remote: jordansissel_fpm
 sinatra-contrib:
   :repo: https://github.com/sinatra/sinatra-contrib
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: sinatra
+  :repo_name: sinatra-contrib
+  :branch: sinatra-contrib_used
+  :remote: sinatra_sinatra-contrib
 travis:
   :repo: https://github.com/marketplace/travis-ci
-  :status: :invalid_repo
+  :status: :failed_cloning
+  :repo_owner: marketplace
+  :repo_name: travis-ci
+  :branch: travis-ci_used
+  :remote: marketplace_travis-ci
 gh:
   :repo: https://github.com/r-lib/gh
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: r-lib
+  :repo_name: gh
+  :branch: gh_used
+  :remote: r-lib_gh
 middleman-core:
   :repo: https://github.com/middleman/middleman/tree/.../middleman-core
   :status: :invalid_repo
 gooddata:
   :repo: https://github.com/gooddata/gooddata-ruby
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: gooddata
+  :repo_name: gooddata-ruby
+  :branch: gooddata-ruby_used
+  :remote: gooddata_gooddata-ruby
 ftw:
   :repo: https://github.com/fastly/ftw
   :status: :only_local_require_found
@@ -40,7 +60,11 @@ restfully:
   :remote: crohr_restfully
 monkey-lib:
   :repo: https://github.com/rkh/monkey-lib
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: rkh
+  :repo_name: monkey-lib
+  :branch: monkey-lib_used
+  :remote: rkh_monkey-lib
 spiderfw:
   :repo: https://github.com/me/spider/tree/master/lib/spiderfw/.../mappers
   :status: :invalid_repo
@@ -91,16 +115,28 @@ wsdsl:
   :remote: mattetti_WSDSL
 bud:
   :repo: http://github.com/bloom-lang/bud
-  :status: :invalid_repo
+  :status: :patched
+  :repo_owner: bloom-lang
+  :repo_name: bud
+  :branch: bud_used
+  :remote: bloom-lang_bud
 turbot-ruby-gems:
   :repo: https://github.com/openc/turbot-ruby-gems
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: openc
+  :repo_name: turbot-ruby-gems
+  :branch: turbot-ruby-gems_used
+  :remote: openc_turbot-ruby-gems
 libis-tools:
   :repo: https://github.com/libis/AlmaLabelTool/.../AlmaLabelTool/labeltool.ini
   :status: :invalid_repo
 yard-junk:
   :repo: https://github.com/zverok/yard-junk
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: zverok
+  :repo_name: yard-junk
+  :branch: yard-junk_used
+  :remote: zverok_yard-junk
 cloudq_client:
   :repo: https://github.com/twilson63/cloudq_client
   :status: :no_travis_found
@@ -110,10 +146,18 @@ cloudq_client:
   :remote: twilson63_cloudq_client
 vagrant-hitch:
   :repo: https://github.com/fup/vagrant-hitch
-  :status: :invalid_repo
+  :status: :patched
+  :repo_owner: fup
+  :repo_name: vagrant-hitch
+  :branch: vagrant-hitch_used
+  :remote: fup_vagrant-hitch
 action_tree:
   :repo: https://github.com/cerebral-legacy/redux-action-tree
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: cerebral-legacy
+  :repo_name: redux-action-tree
+  :branch: redux-action-tree_used
+  :remote: cerebral-legacy_redux-action-tree
 flvedit:
   :repo: https://github.com/marcandre/flvedit
   :status: :no_travis_found
@@ -137,7 +181,11 @@ pavlov:
   :remote: mmonteleone_pavlov
 compo:
   :repo: https://github.com/romashamin/compo-sketch
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: romashamin
+  :repo_name: compo-sketch
+  :branch: compo-sketch_used
+  :remote: romashamin_compo-sketch
 veritable:
   :repo: https://github.com/veritable
   :status: :invalid_repo
@@ -153,7 +201,11 @@ token_phrase:
   :remote: genericsteele_token_phrase
 minimapper-extras:
   :repo: https://github.com/barsoom/minimapper-extras
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: barsoom
+  :repo_name: minimapper-extras
+  :branch: minimapper-extras_used
+  :remote: barsoom_minimapper-extras
 veritas:
   :repo: https://github.com/dkubb/veritas
   :status: :only_local_require_found
@@ -173,10 +225,18 @@ spintax_parser:
   :remote: flintinatux_spintax_parser
 doku:
   :repo: https://github.com/crocodic-studio/dokularavel
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: crocodic-studio
+  :repo_name: dokularavel
+  :branch: dokularavel_used
+  :remote: crocodic-studio_dokularavel
 veritas-sql-generator:
   :repo: https://github.com/dkubb/veritas-sql-generator
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: dkubb
+  :repo_name: veritas-sql-generator
+  :branch: veritas-sql-generator_used
+  :remote: dkubb_veritas-sql-generator
 duct_tape:
   :repo: https://github.com/twrodriguez/duct_tape
   :status: :no_travis_found
@@ -198,10 +258,18 @@ trith:
   :remote: trith_trith
 chef-ab:
   :repo: https://github.com/criteo/chef-ab
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: criteo
+  :repo_name: chef-ab
+  :branch: chef-ab_used
+  :remote: criteo_chef-ab
 veritas-optimizer:
   :repo: https://github.com/dkubb/veritas-optimizer
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: dkubb
+  :repo_name: veritas-optimizer
+  :branch: veritas-optimizer_used
+  :remote: dkubb_veritas-optimizer
 rack_warden:
   :repo: https://github.com/ginjo/rack_warden
   :status: :only_local_require_found
@@ -257,7 +325,11 @@ stickyflag:
   :status: :invalid_repo
 acapela:
   :repo: https://github.com/skmp/acapela-tts-zeroconf-proxy
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: skmp
+  :repo_name: acapela-tts-zeroconf-proxy
+  :branch: acapela-tts-zeroconf-proxy_used
+  :remote: skmp_acapela-tts-zeroconf-proxy
 classy_cas:
   :repo: https://github.com/Econify/ClassyCAS
   :status: :no_travis_found
@@ -267,7 +339,11 @@ classy_cas:
   :remote: Econify_ClassyCAS
 veritas-do-adapter:
   :repo: https://github.com/dkubb/veritas-do-adapter
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: dkubb
+  :repo_name: veritas-do-adapter
+  :branch: veritas-do-adapter_used
+  :remote: dkubb_veritas-do-adapter
 adsl:
   :repo: https://github.com/enten/adsl
   :status: :only_local_require_found
@@ -294,7 +370,11 @@ aql:
   :status: :invalid_repo
 owl-cms:
   :repo: https://github.com/mauricioabreu/owl-cms
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: mauricioabreu
+  :repo_name: owl-cms
+  :branch: owl-cms_used
+  :remote: mauricioabreu_owl-cms
 openc_bot:
   :repo: https://github.com/openc/openc_bot
   :status: :only_local_require_found
@@ -304,7 +384,11 @@ openc_bot:
   :remote: openc_openc_bot
 dropbox-api-petems:
   :repo: https://github.com/petems/dropbox-api-petems
-  :status: :invalid_repo
+  :status: :patched
+  :repo_owner: petems
+  :repo_name: dropbox-api-petems
+  :branch: dropbox-api-petems_used
+  :remote: petems_dropbox-api-petems
 bfire:
   :repo: https://github.com/crohr/bfire
   :status: :only_local_require_found
@@ -314,7 +398,11 @@ bfire:
   :remote: crohr_bfire
 ispeech:
   :repo: https://github.com/iSpeech/iSpeech-Android-SDK
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: iSpeech
+  :repo_name: iSpeech-Android-SDK
+  :branch: iSpeech-Android-SDK_used
+  :remote: iSpeech_iSpeech-Android-SDK
 nowhen:
   :repo: https://github.com/shokai/nowhen
   :status: :no_travis_found
@@ -324,7 +412,11 @@ nowhen:
   :remote: shokai_nowhen
 universe-core:
   :repo: https://github.com/vazco/universe-core
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: vazco
+  :repo_name: universe-core
+  :branch: universe-core_used
+  :remote: vazco_universe-core
 bundler-prehistoric:
   :repo: https://github.com/bundler/bundler/issues/4682
   :status: :invalid_repo
@@ -347,7 +439,11 @@ tn_pdf:
   :remote: riccieri_tn_pdf
 poly-cms:
   :repo: https://github.com/briangonzalez/poly-cms-gem
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: briangonzalez
+  :repo_name: poly-cms-gem
+  :branch: poly-cms-gem_used
+  :remote: briangonzalez_poly-cms-gem
 homework_report:
   :repo: https://github.com/davll/homework_report
   :status: :no_travis_found
@@ -357,7 +453,11 @@ homework_report:
   :remote: davll_homework_report
 deep-cover:
   :repo: https://github.com/deep-cover/deep-cover
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: deep-cover
+  :repo_name: deep-cover
+  :branch: deep-cover_used
+  :remote: deep-cover_deep-cover
 huge_enumerable:
   :repo: https://github.com/ChapterHouse/huge_enumerable
   :status: :no_travis_found
@@ -404,13 +504,21 @@ pirj-sinatra-contrib:
   :remote: sinatra_sinatra
 LIBIS_Workflow:
   :repo: https://github.com/Kris-LIBIS/workflow
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: Kris-LIBIS
+  :repo_name: workflow
+  :branch: workflow_used
+  :remote: Kris-LIBIS_workflow
 barlume:
   :repo: https://github.com/bitcoinjs/bip39/blob/master/wordlists/italian.json
   :status: :invalid_repo
 que-scheduler:
   :repo: https://github.com/unchartedcode/que-scheduler
-  :status: :invalid_repo
+  :status: :only_local_require_found
+  :repo_owner: unchartedcode
+  :repo_name: que-scheduler
+  :branch: que-scheduler_used
+  :remote: unchartedcode_que-scheduler
 rubycut-sinatra-contrib:
   :repo: https://github.com/...sinatra/.../ 9453fbc62582aaca95d1a1f126a6a3794924edd0
   :status: :invalid_repo
