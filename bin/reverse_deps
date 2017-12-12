@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require_relative 'stuff'
+save_rev_deps(Integer(ARGV[0] || '120'))

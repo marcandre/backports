@@ -1,0 +1,274 @@
+---
+cucumber-core:
+  :repo: https://github.com/cucumber/cucumber-ruby-core
+  :status: :initial
+fpm:
+  :repo: https://github.com/jordansissel/fpm
+  :status: :initial
+sinatra-contrib:
+  :repo: https://github.com/sinatra/sinatra-contrib
+  :status: :initial
+travis:
+  :repo: https://github.com/marketplace/travis-ci
+  :status: :initial
+gh:
+  :repo: https://github.com/r-lib/gh
+  :status: :initial
+middleman-core:
+  :repo: https://github.com/middleman/middleman/tree/.../middleman-core
+  :status: :initial
+gooddata:
+  :repo: https://github.com/gooddata/gooddata-ruby
+  :status: :initial
+ftw:
+  :repo: https://github.com/fastly/ftw
+  :status: :initial
+restfully:
+  :repo: https://github.com/crohr/restfully
+  :status: :initial
+monkey-lib:
+  :repo: https://github.com/rkh/monkey-lib
+  :status: :initial
+spiderfw:
+  :repo: https://github.com/me/spider/tree/master/lib/spiderfw/.../mappers
+  :status: :initial
+daru:
+  :repo: https://github.com/SciRuby/daru
+  :status: :initial
+arduino_firmata:
+  :repo: https://github.com/shokai/arduino_firmata
+  :status: :initial
+packable:
+  :repo: https://github.com/marcandre/packable
+  :status: :initial
+wlang:
+  :repo: http://github.com/blambeau/wlang
+  :status: :initial
+rvc:
+  :repo: https://github.com/vmware/rvc
+  :status: :initial
+attributor:
+  :repo: https://github.com/quilljs/quill/issues/1036
+  :status: :initial
+wsdsl:
+  :repo: https://github.com/mattetti/WSDSL
+  :status: :initial
+bud:
+  :repo: http://github.com/bloom-lang/bud
+  :status: :initial
+turbot-ruby-gems:
+  :repo: https://github.com/openc/turbot-ruby-gems
+  :status: :initial
+libis-tools:
+  :repo: https://github.com/libis/AlmaLabelTool/.../AlmaLabelTool/labeltool.ini
+  :status: :initial
+yard-junk:
+  :repo: https://github.com/zverok/yard-junk
+  :status: :initial
+cloudq_client:
+  :repo: https://github.com/twilson63/cloudq_client
+  :status: :initial
+vagrant-hitch:
+  :repo: https://github.com/fup/vagrant-hitch
+  :status: :initial
+action_tree:
+  :repo: https://github.com/cerebral-legacy/redux-action-tree
+  :status: :initial
+flvedit:
+  :repo: https://github.com/marcandre/flvedit
+  :status: :initial
+backdrop:
+  :repo: https://github.com/tpbowden/Backdrop
+  :status: :initial
+pavlov:
+  :repo: https://github.com/mmonteleone/pavlov
+  :status: :initial
+compo:
+  :repo: https://github.com/romashamin/compo-sketch
+  :status: :initial
+veritable:
+  :repo: https://github.com/veritable
+  :status: :initial
+ruby_core_ri:
+  :repo: https://github.com/lnussbaum/gem2deb-extras/blob/master/data/allgems
+  :status: :initial
+token_phrase:
+  :repo: https://github.com/genericsteele/token_phrase
+  :status: :initial
+minimapper-extras:
+  :repo: https://github.com/barsoom/minimapper-extras
+  :status: :initial
+veritas:
+  :repo: https://github.com/dkubb/veritas
+  :status: :initial
+pwdhash:
+  :repo: https://github.com/kizzx2/pwdhash.rb
+  :status: :initial
+spintax_parser:
+  :repo: https://github.com/flintinatux/spintax_parser
+  :status: :initial
+doku:
+  :repo: https://github.com/crocodic-studio/dokularavel
+  :status: :initial
+veritas-sql-generator:
+  :repo: https://github.com/dkubb/veritas-sql-generator
+  :status: :initial
+duct_tape:
+  :repo: https://github.com/twrodriguez/duct_tape
+  :status: :initial
+marcandre-packable:
+  :repo: https://github.com/marcandre/packable
+  :status: :initial
+trith:
+  :repo: http://github.com/trith/trith
+  :status: :initial
+chef-ab:
+  :repo: https://github.com/criteo/chef-ab
+  :status: :initial
+veritas-optimizer:
+  :repo: https://github.com/dkubb/veritas-optimizer
+  :status: :initial
+rack_warden:
+  :repo: https://github.com/ginjo/rack_warden
+  :status: :initial
+with_progress:
+  :repo: https://github.com/marcandre/with_progress
+  :status: :initial
+suture:
+  :repo: https://github.com/testdouble/suture
+  :status: :initial
+gday:
+  :repo: https://github.com/mdekauwe/GDAY
+  :status: :initial
+marcandre-flvedit:
+  :repo: https://github.com/marcandre/flvedit
+  :status: :initial
+standalone_validator:
+  :repo: https://github.com/...standalone_validator/.../standalone_validator.php
+  :status: :initial
+mannequin:
+  :repo: https://github.com/theandym/mannequin
+  :status: :initial
+declarative_grid:
+  :repo: https://github.com/davll/declarative_grid
+  :status: :initial
+stickyflag:
+  :repo: https://github.com/home-assistant/appdaemon/pull/144
+  :status: :initial
+acapela:
+  :repo: https://github.com/skmp/acapela-tts-zeroconf-proxy
+  :status: :initial
+classy_cas:
+  :repo: https://github.com/Econify/ClassyCAS
+  :status: :initial
+veritas-do-adapter:
+  :repo: https://github.com/dkubb/veritas-do-adapter
+  :status: :initial
+adsl:
+  :repo: https://github.com/enten/adsl
+  :status: :initial
+perfer:
+  :repo: https://github.com/jruby/perfer
+  :status: :initial
+gemerator:
+  :repo: https://github.com/rkh/gemerator
+  :status: :initial
+aql:
+  :repo: https://github.com/arangodb/arangodb/issues/1138
+  :status: :initial
+owl-cms:
+  :repo: https://github.com/mauricioabreu/owl-cms
+  :status: :initial
+openc_bot:
+  :repo: https://github.com/openc/openc_bot
+  :status: :initial
+dropbox-api-petems:
+  :repo: https://github.com/petems/dropbox-api-petems
+  :status: :initial
+bfire:
+  :repo: https://github.com/crohr/bfire
+  :status: :initial
+ispeech:
+  :repo: https://github.com/iSpeech/iSpeech-Android-SDK
+  :status: :initial
+nowhen:
+  :repo: https://github.com/shokai/nowhen
+  :status: :initial
+universe-core:
+  :repo: https://github.com/vazco/universe-core
+  :status: :initial
+bundler-prehistoric:
+  :repo: https://github.com/bundler/bundler/issues/4682
+  :status: :initial
+kankri:
+  :repo: https://github.com/kankri
+  :status: :initial
+db_backup_tool:
+  :repo: https://github.com/davll/db_backup_tool
+  :status: :initial
+tn_pdf:
+  :repo: https://github.com/riccieri/tn_pdf
+  :status: :initial
+poly-cms:
+  :repo: https://github.com/briangonzalez/poly-cms-gem
+  :status: :initial
+homework_report:
+  :repo: https://github.com/davll/homework_report
+  :status: :initial
+deep-cover:
+  :repo: https://github.com/deep-cover/deep-cover
+  :status: :initial
+huge_enumerable:
+  :repo: https://github.com/ChapterHouse/huge_enumerable
+  :status: :initial
+crystalizer:
+  :repo: https://github.com/rdp/crystalizer
+  :status: :initial
+sundawg-sinatra-assetpack-fork:
+  :repo: https://gist.github.com/4681280
+  :status: :initial
+git_install:
+  :repo: msysgit.github.com/
+  :status: :initial
+prime_miller_rabin:
+  :repo: https://github.com/ChapterHouse/prime_miller_rabin
+  :status: :initial
+bit_utils:
+  :repo: https://github.com/jkr2255/bit_utils
+  :status: :initial
+rogerdpack-ruby_core_ri:
+  :repo: gems.github.com/list.html
+  :status: :initial
+pirj-sinatra-contrib:
+  :repo: https://github.com/sinatra/sinatra
+  :status: :initial
+LIBIS_Workflow:
+  :repo: https://github.com/Kris-LIBIS/workflow
+  :status: :initial
+barlume:
+  :repo: https://github.com/bitcoinjs/bip39/blob/master/wordlists/italian.json
+  :status: :initial
+que-scheduler:
+  :repo: https://github.com/unchartedcode/que-scheduler
+  :status: :initial
+rubycut-sinatra-contrib:
+  :repo: https://github.com/...sinatra/.../ 9453fbc62582aaca95d1a1f126a6a3794924edd0
+  :status: :initial
+cure-fpm:
+  :repo: https://github.com/jordansissel/fpm/commits?author=cure
+  :status: :initial
+fpm-itchio:
+  :repo: https://github.com/itchio/ci.itch.ovh/blob/master/src/jobs/itch.yml
+  :status: :initial
+travis-async-listener:
+  :repo: https://github.com/othiym23/async-listener
+  :status: :initial
+fpm-aeppert:
+  :repo: https://github.com/jordansissel/fpm/pulls
+  :status: :initial
+octopod-exe:
+  :repo: https://github.com/jekyll/jekyll/issues/5165
+  :status: :initial
+whatis:
+  :repo: https://github.com/molybdenum-99/whatis
+  :status: :initial

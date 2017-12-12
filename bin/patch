@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+require_relative 'stuff'
+patch_gem(ARGV[0] || '.')
