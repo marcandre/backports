@@ -5,7 +5,7 @@ require 'nokogiri'
 require 'pry-byebug'
 require 'gems'
 
-TODO = './bin/todo.yml'
+TODO = "#{__dir__}/todo.yml"
 
 class HtmlParserIncluded < HTTParty::Parser
   def html
@@ -88,6 +88,21 @@ def check_repos
       :potential
     else
       :invalid_repo
+    end
+  end
+end
+
+def clone_repos
+  filter_todo(:potential) do |entry|
+    remote = "#{entry[:repo_owner]}_#{entry[:repo_name]}"
+    if system([
+      "git remote add #{remote} git@github.com:#{entry[:repo_owner]}/#{entry[:repo_name]}.git",
+      "git fetch #{remote}",
+      "git checkout -b #{entry[:repo_name]}_used #{remote}/master",
+    ].join(' && '))
+      :cloned
+    else
+      :failed_cloning
     end
   end
 end

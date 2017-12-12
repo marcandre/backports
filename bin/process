@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
 require_relative 'stuff'
 check_repos
+clone_repos
