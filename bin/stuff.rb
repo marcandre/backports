@@ -85,7 +85,11 @@ end
 
 def filter_todo(lookfor)
   patch_yaml(TODO) do |list|
-    list.each { |k, v| v[:status] = yield v, k if v[:status] == lookfor }
+    list.each do |k, v|
+      next unless v[:status] == lookfor
+      new_status = yield v, k
+      v[:status] = new_status if new_status
+    end
   end
 end
 
@@ -135,9 +139,8 @@ end
 
 def patch_repos
   filter_todo(:cloned) do |entry|
-    branch = "#{entry[:repo_name]}_used"
     if system([
-      "git checkout #{branch}",
+      "git checkout #{entry[:branch]}",
       %q{grep "require\s\+['\"]backports['\"]" -r .}
     ].join(' && '))
       if File.exist?('./.travis.yml')
@@ -156,6 +159,17 @@ def patch_repos
       else
         :grep_failed
       end
+    end
+  end
+end
+
+def push_repos
+  filter_todo(:patched) do |entry|
+    if system([
+      "git checkout #{entry[:branch]}",
+      "git push origin #{entry[:branch]}"
+    ].join(' && '))
+      :pushed
     end
   end
 end

@@ -4,3 +4,4 @@ lookup_repos
 check_repos
 clone_repos
 patch_repos
+push_repos
