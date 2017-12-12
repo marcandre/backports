@@ -3,6 +3,7 @@ unless Range.method_defined? :bsearch
 
   class Range
     def bsearch
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:bsearch) unless block_given?
       from = self.begin
       to   = self.end

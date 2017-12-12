@@ -4,6 +4,7 @@ if Float.instance_method(:round).arity.zero?
 
   class Float
     def round_with_digits(ndigits=0)
+      Backports.introspect # Special 'introspection' edition; not for production use
       ndigits = Backports::coerce_to_int(ndigits)
       case
       when ndigits == 0

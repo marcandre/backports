@@ -2,6 +2,7 @@ unless Regexp.method_defined? :match?
   class Regexp
     def match?(*args)
       # Fiber to avoid setting $~
+      Backports.introspect # Special 'introspection' edition; not for production use
       f = Fiber.new do
         !match(*args).nil?
       end

@@ -5,6 +5,7 @@ unless Integer.method_defined?(:bit_length) || Bignum.method_defined?(:bit_lengt
       # We use the fact that bignums use the minimum number of "words" necessary
       # where "words" is some number of bytes <= to the size of a fixnum
       # So we have (size - word_size) * 8 < bit_length <= size * 8
+      Backports.introspect # Special 'introspection' edition; not for production use
       n = 8 * (size - 42.size)
       smaller = self >> n
       if smaller >= 0

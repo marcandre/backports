@@ -6,6 +6,7 @@ unless ([[]].flatten(1) rescue false)
     # Recursively flatten any contained Arrays into an one-dimensional result.
     # Adapted from rubinius'
     def flatten_with_optional_argument(level=-1)
+      Backports.introspect # Special 'introspection' edition; not for production use
       dup.flatten!(level) || self
     end
 
@@ -13,6 +14,7 @@ unless ([[]].flatten(1) rescue false)
     # made, returns nil, otherwise self.
     # Adapted from rubinius'
     def flatten_with_optional_argument!(level=-1)
+      Backports.introspect # Special 'introspection' edition; not for production use
       level = Backports.coerce_to_int(level)
       return flatten_without_optional_argument! if level < 0
 
@@ -28,6 +30,7 @@ unless ([[]].flatten(1) rescue false)
     # Helper to recurse through flattening
     # Adapted from rubinius'; recursion guards are not needed because level is finite
     def recursively_flatten_finite(array, out, level)
+      Backports.introspect # Special 'introspection' edition; not for production use
       ret = nil
       if level <= 0
         out.concat(array)

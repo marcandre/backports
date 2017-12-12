@@ -4,6 +4,7 @@ unless Enumerable.method_defined? :min_by
 
   module Enumerable
     def min_by
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:min_by) unless block_given?
       min_object, min_result = nil, Backports::MOST_EXTREME_OBJECT_EVER
       each do |object|

@@ -3,6 +3,7 @@ unless Enumerable.method_defined? :group_by
 
   module Enumerable
     def group_by
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:group_by) unless block_given?
       result = {}
       each do |o|

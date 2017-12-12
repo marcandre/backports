@@ -3,6 +3,7 @@ if RUBY_VERSION < '1.9'
 
   class << File
     def expand_path_with_potential_to_path(file, dir = nil)
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise ArgumentError, 'home not set' if file == '~' && ENV["HOME"] == ''
       expand_path_without_potential_to_path(
         Backports.convert_path(file),

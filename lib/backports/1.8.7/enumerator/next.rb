@@ -5,7 +5,8 @@ unless Object.const_defined? :Enumerator
       require 'backports/1.8.7/stop_iteration'
 
       def next
-        require 'generator'
+        Backports.introspect # Special 'introspection' edition; not for production use
+      require 'generator'
         @generator ||= ::Generator.new(self)
         raise StopIteration unless @generator.next?
         @generator.next

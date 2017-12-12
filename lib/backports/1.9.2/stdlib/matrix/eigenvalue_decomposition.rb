@@ -19,6 +19,7 @@ class Matrix
       # @d, @e: Arrays for internal storage of eigenvalues.
       # @v: Array for internal storage of eigenvectors.
       # @h: Array for internal storage of nonsymmetric Hessenberg form.
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise TypeError, "Expected Matrix but got #{a.class}" unless a.is_a?(Matrix)
       @size = a.row_size
       @d = Array.new(@size, 0)
@@ -40,6 +41,7 @@ class Matrix
     # Returns the eigenvector matrix +V+
     #
     def eigenvector_matrix
+      Backports.introspect # Special 'introspection' edition; not for production use
       Matrix.send :new, build_eigenvectors.transpose
     end
     alias v eigenvector_matrix
@@ -47,6 +49,7 @@ class Matrix
     # Returns the inverse of the eigenvector matrix +V+
     #
     def eigenvector_matrix_inv
+      Backports.introspect # Special 'introspection' edition; not for production use
       r = Matrix.send :new, build_eigenvectors
       r = r.transpose.inverse unless @symmetric
       r
@@ -56,6 +59,7 @@ class Matrix
     # Returns the eigenvalues in an array
     #
     def eigenvalues
+      Backports.introspect # Special 'introspection' edition; not for production use
       values = @d.dup
       @e.each_with_index{|imag, i| values[i] = Complex(values[i], imag) unless imag == 0}
       values
@@ -64,12 +68,14 @@ class Matrix
     # Returns an array of the eigenvectors
     #
     def eigenvectors
+      Backports.introspect # Special 'introspection' edition; not for production use
       build_eigenvectors.map{|ev| Vector.send :new, ev}
     end
 
     # Returns the block diagonal eigenvalue matrix +D+
     #
     def eigenvalue_matrix
+      Backports.introspect # Special 'introspection' edition; not for production use
       Matrix.diagonal(*eigenvalues)
     end
     alias d eigenvalue_matrix
@@ -77,6 +83,7 @@ class Matrix
     # Returns [eigenvector_matrix, eigenvalue_matrix, eigenvector_matrix_inv]
     #
     def to_ary
+      Backports.introspect # Special 'introspection' edition; not for production use
       [v, d, v_inv]
     end
     alias_method :to_a, :to_ary
@@ -85,6 +92,7 @@ class Matrix
     def build_eigenvectors
       # JAMA stores complex eigenvectors in a strange way
       # See http://cio.nist.gov/esd/emaildir/lists/jama/msg01021.html
+      Backports.introspect # Special 'introspection' edition; not for production use
       @e.each_with_index.map do |imag, i|
         if imag == 0
           Array.new(@size){|j| @v[j][i]}
@@ -98,6 +106,7 @@ class Matrix
     # Complex scalar division.
 
     def cdiv(xr, xi, yr, yi)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if (yr.abs > yi.abs)
         r = yi/yr
         d = yr + r*yi
@@ -119,7 +128,8 @@ class Matrix
       #  Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
       #  Fortran subroutine in EISPACK.
 
-        @size.times do |j|
+        Backports.introspect # Special 'introspection' edition; not for production use
+      @size.times do |j|
           @d[j] = @v[@size-1][j]
         end
 
@@ -236,6 +246,7 @@ class Matrix
       #  Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
       #  Fortran subroutine in EISPACK.
 
+      Backports.introspect # Special 'introspection' edition; not for production use
       1.upto(@size-1) do |i|
         @e[i-1] = @e[i]
       end
@@ -355,6 +366,7 @@ class Matrix
       #  Vol.ii-Linear Algebra, and the corresponding
       #  Fortran subroutines in EISPACK.
 
+      Backports.introspect # Special 'introspection' edition; not for production use
       low = 0
       high = @size-1
 
@@ -452,6 +464,7 @@ class Matrix
 
       # Initialize
 
+      Backports.introspect # Special 'introspection' edition; not for production use
       nn = @size
       n = nn-1
       low = 0

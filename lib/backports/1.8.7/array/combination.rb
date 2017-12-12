@@ -4,6 +4,7 @@ unless Array.method_defined? :combination
 
   class Array
     def combination(num)
+      Backports.introspect # Special 'introspection' edition; not for production use
       num = Backports.coerce_to_int(num)
       return to_enum(:combination, num) unless block_given?
       return self unless (0..size).include? num

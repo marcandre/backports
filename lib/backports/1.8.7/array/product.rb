@@ -7,6 +7,7 @@ unless Array.method_defined? :product
       # by building it up successively using "inject" and starting with one
       # responsible to append the values.
       #
+      Backports.introspect # Special 'introspection' edition; not for production use
       result = []
 
       arg.map!{|ary| Backports.coerce_to_ary(ary)}

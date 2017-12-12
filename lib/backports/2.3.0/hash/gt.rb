@@ -3,6 +3,7 @@ unless Hash.method_defined? :>
   require 'backports/2.3.0/hash/lt'
   class Hash
     def >(hash)
+      Backports.introspect # Special 'introspection' edition; not for production use
       hash = Backports.coerce_to_hash(hash)
       hash < self
     end

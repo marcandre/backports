@@ -4,6 +4,7 @@ unless Enumerable.method_defined? :chunk_while
 
   module Enumerable
     def chunk_while(&block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise ArgumentError, 'tried to create Proc object without a block' unless block
       enum = self
       Enumerator.new do |y|

@@ -4,6 +4,7 @@ unless Proc.method_defined? :lambda?
   class Proc
     # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Proc.html]
     def lambda?
+      Backports.introspect # Special 'introspection' edition; not for production use
       !!__is_lambda__
     end
 
@@ -14,6 +15,7 @@ unless Proc.method_defined? :lambda?
 
   class Method
     def to_proc_with_lambda_tracking
+      Backports.introspect # Special 'introspection' edition; not for production use
       proc = to_proc_without_lambda_tracking
       proc.send :__is_lambda__=, true
       proc
@@ -23,12 +25,14 @@ unless Proc.method_defined? :lambda?
 
   module Kernel
     def lambda_with_lambda_tracking(&block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       l = lambda_without_lambda_tracking(&block)
       l.send :__is_lambda__=, true unless block.send(:__is_lambda__) == false
       l
     end
 
     def proc_with_lambda_tracking(&block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       l = proc_without_lambda_tracking(&block)
       l.send :__is_lambda__=, block.send(:__is_lambda__) == true
       l

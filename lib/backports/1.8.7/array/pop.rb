@@ -4,6 +4,7 @@ unless ([1].pop(1) rescue false)
 
   class Array
     def pop_with_optional_argument(n = Backports::Undefined)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return pop_without_optional_argument if n == Backports::Undefined
       n = Backports.coerce_to_int(n)
       raise ArgumentError, "negative array size" if n < 0

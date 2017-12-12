@@ -1,6 +1,7 @@
 class TrueClass
   def dup
-    self
+    Backports.introspect # Special 'introspection' edition; not for production use
+      self
   end
 end unless (true.dup rescue false)
 

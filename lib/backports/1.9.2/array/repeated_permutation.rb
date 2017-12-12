@@ -6,6 +6,7 @@ unless Array.method_defined? :repeated_permutation
     # Note: Permutations are not yielded in the same order as MRI.
     # This is not a bug; the spec states that the order is implementation dependent!!!
     def repeated_permutation(num)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:repeated_permutation, num) unless block_given?
       num = Backports.coerce_to_int(num)
       if num <= 0

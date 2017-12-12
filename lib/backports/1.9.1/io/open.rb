@@ -7,6 +7,7 @@ rescue TypeError
 
   class << IO
     def open_with_options_hash(*args)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if args.size > 2 || args[1].respond_to?(:to_hash)
         fd, mode, options = (args << Backports::Undefined)
         args = [fd, Backports.combine_mode_and_option(mode, options)]

@@ -5,6 +5,7 @@ unless Object.const_defined? :StopIteration
 
   module Kernel
     def loop_with_stop_iteration(&block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       loop_without_stop_iteration(&block)
     rescue StopIteration
       # ignore silently

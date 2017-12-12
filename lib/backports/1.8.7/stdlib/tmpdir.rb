@@ -1,6 +1,7 @@
 unless Dir.respond_to? :mktmpdir
   class << Dir
     def mktmpdir(prefix_suffix=nil, tmpdir=nil)
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise NoMethodError, "undefined method `mktmpdir' for Dir:Class; you must require 'tmpdir'" unless respond_to? :tmpdir
 
       case prefix_suffix

@@ -4,6 +4,7 @@ if (({}.default_proc = nil) rescue true)
 
   class Hash
     def default_proc_with_nil=(proc)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if proc == nil
         self.default = nil
         self

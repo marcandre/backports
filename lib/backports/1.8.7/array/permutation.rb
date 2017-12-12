@@ -4,6 +4,7 @@ unless Array.method_defined? :permutation
 
   class Array
     def permutation(num = Backports::Undefined)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:permutation, num) unless block_given?
       num = num.equal?(Backports::Undefined) ?
             size :

@@ -3,6 +3,7 @@ unless Proc.method_defined? :curry
 
   class Proc
     def curry(argc = nil)
+      Backports.introspect # Special 'introspection' edition; not for production use
       min_argc = arity < 0 ? -arity - 1 : arity
       argc ||= min_argc
       if lambda? and arity < 0 ? argc < min_argc : argc != arity

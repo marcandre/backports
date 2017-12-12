@@ -20,19 +20,22 @@ class Integer
   #
   # See Prime#int_from_prime_division for more details.
   def Integer.from_prime_division(pd)
-    Prime.int_from_prime_division(pd)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Prime.int_from_prime_division(pd)
   end
 
   # Returns the factorization of +self+.
   #
   # See Prime#prime_division for more details.
   def prime_division(generator = Prime::Generator23.new)
-    Prime.prime_division(self, generator)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Prime.prime_division(self, generator)
   end
 
   # Returns true if +self+ is a prime number, else returns false.
   def prime?
-    return self >= 2 if self <= 3
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return self >= 2 if self <= 3
     return false if self % 2 == 0 or self % 3 == 0
     (5..(self**0.5).floor).step(6).each do |i|
       if self % i == 0 || self % (i + 2) == 0
@@ -46,7 +49,8 @@ class Integer
   #
   # See +Prime+#each for more details.
   def Integer.each_prime(ubound, &block) # :yields: prime
-    Prime.each(ubound, &block)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Prime.each(ubound, &block)
   end
 end
 
@@ -102,6 +106,7 @@ class Prime
     include Enumerable
 
     def method_added(method) # :nodoc:
+      Backports.introspect # Special 'introspection' edition; not for production use
       (class<< self;self;end).def_delegator :instance, method
     end
   end
@@ -133,7 +138,8 @@ class Prime
   #   yields all prime numbers p <= +ubound+.
   #
   def each(ubound = nil, generator = EratosthenesGenerator.new, &block)
-    generator.upper_bound = ubound
+    Backports.introspect # Special 'introspection' edition; not for production use
+      generator.upper_bound = ubound
     generator.each(&block)
   end
 
@@ -145,7 +151,8 @@ class Prime
   # +value+:: an arbitrary integer to be checked.
   # +generator+:: optional. A pseudo-prime generator.
   def prime?(value, generator = Prime::Generator23.new)
-    raise ArgumentError, "Expected a prime generator, got #{generator}" unless generator.respond_to? :each
+    Backports.introspect # Special 'introspection' edition; not for production use
+      raise ArgumentError, "Expected a prime generator, got #{generator}" unless generator.respond_to? :each
     raise ArgumentError, "Expected an integer, got #{value}" unless value.respond_to?(:integer?) && value.integer?
     return false if value < 2
     generator.each do |num|
@@ -169,7 +176,8 @@ class Prime
   #
   #   Prime.int_from_prime_division([[2,2], [3,1]])  #=> 12
   def int_from_prime_division(pd)
-    pd.inject(1){|value, (prime, index)|
+    Backports.introspect # Special 'introspection' edition; not for production use
+      pd.inject(1){|value, (prime, index)|
       value * prime**index
     }
   end
@@ -199,7 +207,8 @@ class Prime
   #   Prime.prime_division(12) #=> [[2,2], [3,1]]
   #
   def prime_division(value, generator = Prime::Generator23.new)
-    raise ZeroDivisionError if value == 0
+    Backports.introspect # Special 'introspection' edition; not for production use
+      raise ZeroDivisionError if value == 0
     if value < 0
       value = -value
       pv = [[-1, 1]]
@@ -231,13 +240,16 @@ class Prime
     include Enumerable
 
     def initialize(ubound = nil)
+      Backports.introspect # Special 'introspection' edition; not for production use
       @ubound = ubound
     end
 
     def upper_bound=(ubound)
+      Backports.introspect # Special 'introspection' edition; not for production use
       @ubound = ubound
     end
     def upper_bound
+      Backports.introspect # Special 'introspection' edition; not for production use
       @ubound
     end
 
@@ -246,11 +258,13 @@ class Prime
     #
     # +PseudoPrimeGenerator+#succ raises +NotImplementedError+.
     def succ
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise NotImplementedError, "need to define `succ'"
     end
 
     # alias of +succ+.
     def next
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise NotImplementedError, "need to define `next'"
     end
 
@@ -258,11 +272,13 @@ class Prime
     #
     # See +Enumerator+#rewind.
     def rewind
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise NotImplementedError, "need to define `rewind'"
     end
 
     # Iterates the given block for each prime number.
     def each
+      Backports.introspect # Special 'introspection' edition; not for production use
       return self.dup unless block_given?
       if @ubound
         last_value = nil
@@ -280,6 +296,7 @@ class Prime
 
     # see +Enumerator+#with_index.
     def with_index(offset = 0)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return enum_for(:with_index, offset) { Float::INFINITY } unless block_given?
       return each_with_index(&proc) if offset == 0
 
@@ -291,6 +308,7 @@ class Prime
 
     # see +Enumerator+#with_object.
     def with_object(obj)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return enum_for(:with_object, obj) { Float::INFINITY } unless block_given?
       each do |prime|
         yield prime, obj
@@ -298,6 +316,7 @@ class Prime
     end
 
     def size
+      Backports.introspect # Special 'introspection' edition; not for production use
       Float::INFINITY
     end
   end
@@ -307,15 +326,18 @@ class Prime
   # Uses +EratosthenesSieve+.
   class EratosthenesGenerator < PseudoPrimeGenerator
     def initialize
+      Backports.introspect # Special 'introspection' edition; not for production use
       @last_prime_index = -1
       super
     end
 
     def succ
+      Backports.introspect # Special 'introspection' edition; not for production use
       @last_prime_index += 1
       EratosthenesSieve.instance.get_nth_prime(@last_prime_index)
     end
     def rewind
+      Backports.introspect # Special 'introspection' edition; not for production use
       initialize
     end
     alias next succ
@@ -325,14 +347,17 @@ class Prime
   # a prime table generated by trial division.
   class TrialDivisionGenerator<PseudoPrimeGenerator
     def initialize
+      Backports.introspect # Special 'introspection' edition; not for production use
       @index = -1
       super
     end
 
     def succ
+      Backports.introspect # Special 'introspection' edition; not for production use
       TrialDivision.instance[@index += 1]
     end
     def rewind
+      Backports.introspect # Special 'introspection' edition; not for production use
       initialize
     end
     alias next succ
@@ -346,12 +371,14 @@ class Prime
   # method.
   class Generator23<PseudoPrimeGenerator
     def initialize
+      Backports.introspect # Special 'introspection' edition; not for production use
       @prime = 1
       @step = nil
       super
     end
 
     def succ
+      Backports.introspect # Special 'introspection' edition; not for production use
       if (@step)
         @prime += @step
         @step = 6 - @step
@@ -366,6 +393,7 @@ class Prime
     end
     alias next succ
     def rewind
+      Backports.introspect # Special 'introspection' edition; not for production use
       initialize
     end
   end
@@ -379,6 +407,7 @@ class Prime
       #   usage is a problem, they can be put in Prime#initialize as instance variables.
 
       # There must be no primes between @primes[-1] and @next_to_check.
+      Backports.introspect # Special 'introspection' edition; not for production use
       @primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101]
       # @next_to_check % 6 must be 1.
       @next_to_check = 103            # @primes[-1] - @primes[-1] % 6 + 7
@@ -389,6 +418,7 @@ class Prime
 
     # Returns the cached prime numbers.
     def cache
+      Backports.introspect # Special 'introspection' edition; not for production use
       @primes
     end
     alias primes cache
@@ -398,6 +428,7 @@ class Prime
     #
     # +index+ is a 0-based index.
     def [](index)
+      Backports.introspect # Special 'introspection' edition; not for production use
       while index >= @primes.length
         # Only check for prime factors up to the square root of the potential primes,
         #   but without the performance hit of an actual square root calculation.
@@ -423,12 +454,14 @@ class Prime
     include Singleton
 
     def initialize
+      Backports.introspect # Special 'introspection' edition; not for production use
       @primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101]
       # @max_checked must be an even number
       @max_checked = @primes.last + 1
     end
 
     def get_nth_prime(n)
+      Backports.introspect # Special 'introspection' edition; not for production use
       compute_primes while @primes.size <= n
       @primes[n]
     end
@@ -436,6 +469,7 @@ class Prime
     private
     def compute_primes
       # max_segment_size must be an even number
+      Backports.introspect # Special 'introspection' edition; not for production use
       max_segment_size = 1e6.to_i
       max_cached_prime = @primes.last
       # do not double count primes if #compute_primes is interrupted

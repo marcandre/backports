@@ -1,6 +1,7 @@
 unless Kernel.method_defined? :public_send
   module Kernel
     def public_send(method, *args, &block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if respond_to?(method) && !protected_methods.include?(method.to_s)
         send(method, *args, &block)
       else

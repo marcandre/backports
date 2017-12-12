@@ -3,6 +3,7 @@ unless Enumerable.method_defined? :chunk
 
   module Enumerable
     def chunk(initial_state = nil, &original_block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise ArgumentError, "no block given" unless block_given?
       ::Enumerator.new do |yielder|
         previous = nil

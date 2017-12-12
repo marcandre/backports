@@ -19,6 +19,7 @@ class Matrix
     include Matrix::ConversionHelper
 
     def l
+      Backports.introspect # Special 'introspection' edition; not for production use
       Matrix.build(@row_size, @col_size) do |i, j|
         if (i > j)
           @lu[i][j]
@@ -33,6 +34,7 @@ class Matrix
     # Returns the upper triangular factor +U+
 
     def u
+      Backports.introspect # Special 'introspection' edition; not for production use
       Matrix.build(@col_size, @col_size) do |i, j|
         if (i <= j)
           @lu[i][j]
@@ -45,6 +47,7 @@ class Matrix
     # Returns the permutation matrix +P+
 
     def p
+      Backports.introspect # Special 'introspection' edition; not for production use
       rows = Array.new(@row_size){Array.new(@col_size, 0)}
       @pivots.each_with_index{|p, i| rows[i][p] = 1}
       Matrix.send :new, rows, @col_size
@@ -53,6 +56,7 @@ class Matrix
     # Returns +L+, +U+, +P+ in an array
 
     def to_ary
+      Backports.introspect # Special 'introspection' edition; not for production use
       [l, u, p]
     end
     alias_method :to_a, :to_ary
@@ -64,6 +68,7 @@ class Matrix
     # Returns +true+ if +U+, and hence +A+, is singular.
 
     def singular? ()
+      Backports.introspect # Special 'introspection' edition; not for production use
       @col_size.times do |j|
         if (@lu[j][j] == 0)
           return true
@@ -76,6 +81,7 @@ class Matrix
     # from the factorization.
 
     def det
+      Backports.introspect # Special 'introspection' edition; not for production use
       if (@row_size != @col_size)
         Matrix.Raise Matrix::ErrDimensionMismatch unless square?
       end
@@ -92,6 +98,7 @@ class Matrix
     # +b+ can be a Matrix or a Vector
 
     def solve b
+      Backports.introspect # Special 'introspection' edition; not for production use
       if (singular?)
         Matrix.Raise Matrix::ErrNotRegular, "Matrix is singular."
       end
@@ -151,6 +158,7 @@ class Matrix
     end
 
     def initialize a
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise TypeError, "Expected Matrix but got #{a.class}" unless a.is_a?(Matrix)
       # Use a "left-looking", dot-product, Crout/Doolittle algorithm.
       @lu = a.to_a

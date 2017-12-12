@@ -4,6 +4,7 @@ unless Enumerable.method_defined? :max_by
 
   module Enumerable
     def max_by
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:max_by) unless block_given?
       max_object, max_result = nil, Backports::MOST_EXTREME_OBJECT_EVER
       each do |object|

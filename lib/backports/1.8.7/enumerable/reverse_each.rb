@@ -3,6 +3,7 @@ unless Enumerable.method_defined? :reverse_each
 
   module Enumerable
     def reverse_each
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:reverse_each) unless block_given?
       # There is no other way then to convert to an array first... see 1.9's source.
       to_a.reverse_each{|e| yield e}

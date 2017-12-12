@@ -1,6 +1,7 @@
 unless Enumerable.method_defined? :flat_map
   module Enumerable
     def flat_map
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:flat_map) unless block_given?
       r = []
       each do |*args|

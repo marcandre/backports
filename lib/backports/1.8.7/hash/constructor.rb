@@ -4,6 +4,7 @@ unless (Hash[[[:test, :test]]] rescue false)
   class << Hash
     alias_method :constructor_without_key_value_pair_form, :[]
     def [](*args)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if args.length == 1
         arg = args.first
         if (h = Backports.try_convert(arg, Hash, :to_hash))

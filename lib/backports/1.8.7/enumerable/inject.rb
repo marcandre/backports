@@ -4,6 +4,7 @@ unless ((1..2).inject(:+) rescue false)
 
   module Enumerable
     def inject_with_symbol(*args, &block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return inject_without_symbol(*args, &block) if block_given? && args.size <= 1
       method = args.pop
       inject_without_symbol(*args) {|memo, obj| memo.send(method, obj)}

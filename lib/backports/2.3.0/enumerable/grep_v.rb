@@ -3,6 +3,7 @@ unless Enumerable.method_defined? :grep_v
 
   module Enumerable
     def grep_v(pattern)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if block_given?
         acc = []
         each_entry do |v|

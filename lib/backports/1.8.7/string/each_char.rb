@@ -4,6 +4,7 @@ unless String.method_defined? :each_char
 
   class String
     def each_char
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:each_char) unless block_given?
       scan(/./m) {|c| yield c}
     end

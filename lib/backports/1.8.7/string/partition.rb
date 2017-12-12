@@ -4,6 +4,7 @@ unless ("check partition".partition(" ") rescue false)
 
   class String
     def partition_with_new_meaning(pattern = Backports::Undefined)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return partition_without_new_meaning{|c| yield c} if pattern == Backports::Undefined
       pattern = Backports.coerce_to(pattern, String, :to_str) unless pattern.is_a? Regexp
       i = index(pattern)

@@ -4,6 +4,7 @@ unless ARGF.respond_to? :each_char
 
   class << ARGF
     def each_char
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:each_char) unless block_given?
       if $KCODE == "UTF-8"
         lookup = 7.downto(4)

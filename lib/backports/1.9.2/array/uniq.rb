@@ -3,6 +3,7 @@ unless [1,2].uniq{}.size == 1
 
   class Array
     def uniq_with_block
+      Backports.introspect # Special 'introspection' edition; not for production use
       return uniq_without_block unless block_given?
       h = {}
       each do |elem|
@@ -20,6 +21,7 @@ unless [1,2].uniq!{}
 
   class Array
     def uniq_with_block!
+      Backports.introspect # Special 'introspection' edition; not for production use
       replace self if frozen? # force error
       return uniq_without_block! unless block_given?
       u = uniq{|e| yield e}

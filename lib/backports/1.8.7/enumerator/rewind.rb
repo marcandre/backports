@@ -3,7 +3,8 @@ unless Object.const_defined? :Enumerator
   unless Enumerable::Enumerator.method_defined? :rewind
     class Enumerable::Enumerator
       def rewind
-        require 'generator'
+        Backports.introspect # Special 'introspection' edition; not for production use
+      require 'generator'
         @generator ||= ::Generator.new(self)
         @generator.rewind
         self

@@ -5,6 +5,7 @@ unless Method.method_defined? :name
     attr_accessor :name, :receiver, :owner
 
     def unbind_with_additional_info
+      Backports.introspect # Special 'introspection' edition; not for production use
       unbound = unbind_without_additional_info
       unbound.name = name
       unbound.owner = owner
@@ -17,6 +18,7 @@ unless Method.method_defined? :name
     attr_accessor :name, :owner
 
     def bind_with_additional_info(to)
+      Backports.introspect # Special 'introspection' edition; not for production use
       bound = bind_without_additional_info(to)
       bound.name = name
       bound.owner = owner
@@ -28,6 +30,7 @@ unless Method.method_defined? :name
 
   module Kernel
     def method_with_additional_info(name)
+      Backports.introspect # Special 'introspection' edition; not for production use
       bound = method_without_additional_info(name)
       bound.name = name.to_s
       bound.receiver = self
@@ -39,6 +42,7 @@ unless Method.method_defined? :name
 
   class Module
     def instance_method_with_additional_info(name)
+      Backports.introspect # Special 'introspection' edition; not for production use
       unbound = instance_method_without_additional_info(name)
       unbound.name = name.to_s
       unbound.owner = ancestors.find{|mod| mod.instance_methods(false).include? unbound.name}

@@ -3,6 +3,7 @@ unless Method.method_defined? :curry
 
   class Method
     def curry(argc = nil)
+      Backports.introspect # Special 'introspection' edition; not for production use
       to_proc.curry(argc)
     end
   end

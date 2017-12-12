@@ -4,6 +4,7 @@ unless ([1].shift(1) rescue false)
     require 'backports/tools/arguments'
 
     def shift_with_optional_argument(n = Backports::Undefined)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return shift_without_optional_argument if n == Backports::Undefined
       n = Backports.coerce_to_int(n)
       raise ArgumentError, "negative array size" if n < 0

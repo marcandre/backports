@@ -3,6 +3,7 @@ unless (Regexp.union(%w(a b)) rescue false)
 
   class << Regexp
     def union_with_array_argument(*arg)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return union_without_array_argument(*arg) unless arg.size == 1
       union_without_array_argument(*arg.first)
     end

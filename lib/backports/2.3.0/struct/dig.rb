@@ -1,6 +1,7 @@
 unless Struct.method_defined? :dig
   class Struct
     def dig(key, *rest)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return nil unless respond_to?(key)
       val = self.public_send(key)
       return val if rest.empty? || val == nil

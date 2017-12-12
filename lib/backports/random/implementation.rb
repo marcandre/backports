@@ -13,19 +13,22 @@ module Backports
       attr_reader :seed
 
       def initialize(seed = 0)
-        super()
+        Backports.introspect # Special 'introspection' edition; not for production use
+      super()
         srand(seed)
       end
 
       def srand(new_seed = 0)
-        new_seed = Backports.coerce_to_int(new_seed)
+        Backports.introspect # Special 'introspection' edition; not for production use
+      new_seed = Backports.coerce_to_int(new_seed)
         old, @seed = @seed, new_seed.nonzero? || ::Random.new_seed
         @mt = MT19937[ @seed ]
         old
       end
 
       def rand(limit = Backports::Undefined)
-        case limit
+        Backports.introspect # Special 'introspection' edition; not for production use
+      case limit
           when Backports::Undefined
             @mt.random_float
           when Float
@@ -39,39 +42,46 @@ module Backports
       end
 
       def bytes(nb)
-        nb = Backports.coerce_to_int(nb)
+        Backports.introspect # Special 'introspection' edition; not for production use
+      nb = Backports.coerce_to_int(nb)
         raise ArgumentError, "negative size" if nb < 0
         @mt.random_bytes(nb)
       end
 
       def ==(other)
-        other.is_a?(::Random) &&
+        Backports.introspect # Special 'introspection' edition; not for production use
+      other.is_a?(::Random) &&
           seed == other.seed &&
           left == other.send(:left) &&
           state == other.send(:state)
       end
 
       def marshal_dump
-        @mt.marshal_dump << @seed
+        Backports.introspect # Special 'introspection' edition; not for production use
+      @mt.marshal_dump << @seed
       end
 
       def marshal_load(ary)
-        @seed = ary.pop
+        Backports.introspect # Special 'introspection' edition; not for production use
+      @seed = ary.pop
         @mt = MT19937.allocate
         @mt.marshal_load(ary)
       end
 
     private
       def state
-        @mt.state_as_bignum
+        Backports.introspect # Special 'introspection' edition; not for production use
+      @mt.state_as_bignum
       end
 
       def left
-        @mt.left
+        Backports.introspect # Special 'introspection' edition; not for production use
+      @mt.left
       end
 
       def _rand_range(limit)
-        range = limit.end - limit.begin
+        Backports.introspect # Special 'introspection' edition; not for production use
+      range = limit.end - limit.begin
         if (!range.is_a?(Float)) && range.respond_to?(:to_int) && range = Backports.coerce_to_int(range)
           range += 1 unless limit.exclude_end?
           limit.begin + @mt.random_integer(range) unless range <= 0

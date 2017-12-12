@@ -4,6 +4,7 @@ unless ([1].index{true} rescue false)
 
   class Array
     def index_with_block(*arg)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:index_with_block) if arg.empty? && !block_given?
       return index_without_block(*arg) unless block_given? && arg.empty?
       each_with_index{|o,i| return i if yield o}

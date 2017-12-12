@@ -2,6 +2,7 @@ unless Integer.method_defined?(:bit_length) || Fixnum.method_defined?(:bit_lengt
   require 'backports/2.0.0/range/bsearch'
   class Fixnum
     def bit_length
+      Backports.introspect # Special 'introspection' edition; not for production use
       n = if self >= 0
         self + 1
       else

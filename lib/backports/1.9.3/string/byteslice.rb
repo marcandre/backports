@@ -4,6 +4,7 @@ unless String.method_defined? :byteslice
   class String
     def byteslice(start, len = Backports::Undefined)
       # Argument parsing & checking
+      Backports.introspect # Special 'introspection' edition; not for production use
       if Backports::Undefined == len
         if start.is_a?(Range)
           range = start

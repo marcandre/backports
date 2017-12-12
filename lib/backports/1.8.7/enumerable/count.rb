@@ -3,6 +3,7 @@ unless Enumerable.method_defined? :count
 
   module Enumerable
     def count(item = Backports::Undefined)
+      Backports.introspect # Special 'introspection' edition; not for production use
       seq = 0
       if item != Backports::Undefined
         each { |o| seq += 1 if item == o }

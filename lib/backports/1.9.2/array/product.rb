@@ -5,6 +5,7 @@ if ([1].product([2]){break false} rescue true)
 
   class Array
     def product_with_block(*arg, &block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return product_without_block(*arg) unless block_given?
       # Same implementation as 1.8.7, but yielding
       arg.map!{|ary| Backports.coerce_to_ary(ary)}

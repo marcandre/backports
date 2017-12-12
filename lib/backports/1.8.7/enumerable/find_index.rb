@@ -4,6 +4,7 @@ unless Enumerable.method_defined? :find_index
 
   module Enumerable
     def find_index(obj = Backports::Undefined)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if obj != Backports::Undefined
         each_with_index do |element, i|
           return i if element == obj

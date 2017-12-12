@@ -5,6 +5,7 @@ unless (Math.log(2, 2) rescue false)
   class << Math
     # Standard in Ruby 1.9. See official documentation[http://ruby-doc.org/core-1.9/classes/Math.html]
     def log_with_optional_base(numeric, base = Backports::Undefined)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if base.equal?(Backports::Undefined)
         # Math.log(n) in 1.9.1 no longer accepts string arguments as it
         # did on 1.8.x, but we won't risk redefining existing behavior

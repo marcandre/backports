@@ -3,6 +3,7 @@ unless IO.method_defined? :advise
 
   class IO
     def advise(advice, offset=0, len=0)
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise RangeError if Backports.coerce_to_int(offset) >= 1<<31
       raise RangeError if Backports.coerce_to_int(len) >= 1<<31
       raise IOError if closed?

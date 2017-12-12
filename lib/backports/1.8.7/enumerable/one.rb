@@ -1,6 +1,7 @@
 unless Enumerable.method_defined? :one?
   module Enumerable
     def one?
+      Backports.introspect # Special 'introspection' edition; not for production use
       found_one = false
       if block_given?
         each do |o|

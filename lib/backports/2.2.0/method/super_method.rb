@@ -3,6 +3,7 @@ unless Method.method_defined? :super_method
 
   class Method
     def super_method
+      Backports.introspect # Special 'introspection' edition; not for production use
       singleton_klass = class << receiver; self; end
       call_chain = singleton_klass.ancestors
       # find current position in call chain:

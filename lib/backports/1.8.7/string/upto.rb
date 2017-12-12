@@ -4,6 +4,7 @@ unless ("abc".upto("def", true){} rescue false)
 
   class String
     def upto_with_exclusive(to, excl=false)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return upto_without_exclusive(to){|s| yield s} if block_given? && !excl
       r = Range.new(self, to, excl)
       return r.to_enum unless block_given?

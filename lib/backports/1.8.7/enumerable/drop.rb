@@ -3,6 +3,7 @@ unless Enumerable.method_defined? :drop
 
   module Enumerable
     def drop(n)
+      Backports.introspect # Special 'introspection' edition; not for production use
       n = Backports.coerce_to_int(n)
       raise ArgumentError, "attempt to drop negative size" if n < 0
       ary = to_a

@@ -4,6 +4,7 @@ unless Enumerable.method_defined? :cycle
 
   module Enumerable
     def cycle(n = nil)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:cycle, n) unless block_given?
       n = n && Backports.coerce_to_int(n)
       if n == nil || n >= 1

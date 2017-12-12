@@ -139,7 +139,8 @@ class Matrix
   #          -1 66
   #
   def Matrix.[](*rows)
-    rows(rows, false)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      rows(rows, false)
   end
 
   #
@@ -151,7 +152,8 @@ class Matrix
   #          -1 66
   #
   def Matrix.rows(rows, copy = true)
-    rows = convert_to_array(rows)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      rows = convert_to_array(rows)
     rows.map! do |row|
       convert_to_array(row, copy)
     end
@@ -169,7 +171,8 @@ class Matrix
   #          93 66
   #
   def Matrix.columns(columns)
-    rows(columns, false).transpose
+    Backports.introspect # Special 'introspection' edition; not for production use
+      rows(columns, false).transpose
   end
 
   #
@@ -184,7 +187,8 @@ class Matrix
   #     => a 3x3 matrix with random elements
   #
   def Matrix.build(row_size, column_size = row_size)
-    row_size = CoercionHelper.coerce_to_int(row_size)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      row_size = CoercionHelper.coerce_to_int(row_size)
     column_size = CoercionHelper.coerce_to_int(column_size)
     raise ArgumentError if row_size < 0 || column_size < 0
     return to_enum(:build, row_size, column_size) unless block_given?
@@ -204,7 +208,8 @@ class Matrix
   #         0  0 -3
   #
   def Matrix.diagonal(*values)
-    size = values.size
+    Backports.introspect # Special 'introspection' edition; not for production use
+      size = values.size
     rows = Array.new(size) {|j|
       row = Array.new(size, 0)
       row[j] = values[j]
@@ -221,7 +226,8 @@ class Matrix
   #        0 5
   #
   def Matrix.scalar(n, value)
-    diagonal(*Array.new(n, value))
+    Backports.introspect # Special 'introspection' edition; not for production use
+      diagonal(*Array.new(n, value))
   end
 
   #
@@ -231,7 +237,8 @@ class Matrix
   #        0 1
   #
   def Matrix.identity(n)
-    scalar(n, 1)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      scalar(n, 1)
   end
   class << Matrix
     alias unit identity
@@ -245,7 +252,8 @@ class Matrix
   #        0 0
   #
   def Matrix.zero(row_size, column_size = row_size)
-    rows = Array.new(row_size){Array.new(column_size, 0)}
+    Backports.introspect # Special 'introspection' edition; not for production use
+      rows = Array.new(row_size){Array.new(column_size, 0)}
     new rows, column_size
   end
 
@@ -256,7 +264,8 @@ class Matrix
   #     => 4 5 6
   #
   def Matrix.row_vector(row)
-    row = convert_to_array(row)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      row = convert_to_array(row)
     new [row]
   end
 
@@ -269,7 +278,8 @@ class Matrix
   #        6
   #
   def Matrix.column_vector(column)
-    column = convert_to_array(column)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      column = convert_to_array(column)
     new [column].transpose, 1
   end
 
@@ -287,7 +297,8 @@ class Matrix
   #     => Matrix[[0, 0, 0], [0, 0, 0]]
   #
   def Matrix.empty(row_size = 0, column_size = 0)
-    Matrix.Raise ArgumentError, "One size must be 0" if column_size != 0 && row_size != 0
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ArgumentError, "One size must be 0" if column_size != 0 && row_size != 0
     Matrix.Raise ArgumentError, "Negative size" if column_size < 0 || row_size < 0
 
     new([[]]*row_size, column_size)
@@ -300,12 +311,14 @@ class Matrix
     # No checking is done at this point. rows must be an Array of Arrays.
     # column_size must be the size of the first row, if there is one,
     # otherwise it *must* be specified and can be any integer >= 0
-    @rows = rows
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @rows = rows
     @column_size = column_size
   end
 
   def new_matrix(rows, column_size = rows[0].size) # :nodoc:
-    self.class.send(:new, rows, column_size) # bypass privacy of Matrix.new
+    Backports.introspect # Special 'introspection' edition; not for production use
+      self.class.send(:new, rows, column_size) # bypass privacy of Matrix.new
   end
   private :new_matrix
 
@@ -313,13 +326,15 @@ class Matrix
   # Returns element (+i+,+j+) of the matrix.  That is: row +i+, column +j+.
   #
   def [](i, j)
-    @rows.fetch(i){return nil}[j]
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @rows.fetch(i){return nil}[j]
   end
   alias element []
   alias component []
 
   def []=(i, j, v)
-    @rows[i][j] = v
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @rows[i][j] = v
   end
   alias set_element []=
   alias set_component []=
@@ -329,7 +344,8 @@ class Matrix
   # Returns the number of rows.
   #
   def row_size
-    @rows.size
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @rows.size
   end
 
   #
@@ -342,7 +358,8 @@ class Matrix
   # an array).  When a block is given, the elements of that vector are iterated.
   #
   def row(i, &block) # :yield: e
-    if block_given?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      if block_given?
       @rows.fetch(i){return self}.each(&block)
       self
     else
@@ -356,7 +373,8 @@ class Matrix
   # iterated.
   #
   def column(j) # :yield: e
-    if block_given?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      if block_given?
       return self if j >= column_size || j < -column_size
       row_size.times do |i|
         yield @rows[i][j]
@@ -379,7 +397,8 @@ class Matrix
   #        9 16
   #
   def collect(&block) # :yield: e
-    return to_enum(:collect) unless block_given?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return to_enum(:collect) unless block_given?
     rows = @rows.collect{|row| row.collect(&block)}
     new_matrix rows, column_size
   end
@@ -402,7 +421,8 @@ class Matrix
   #   Matrix[ [1,2], [3,4] ].each(:strict_lower).to_a # => [3]
   #
   def each(which = :all) # :yield: e
-    return to_enum(:each, which) unless block_given?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return to_enum(:each, which) unless block_given?
     last = column_size - 1
     case which
     when :all
@@ -463,7 +483,8 @@ class Matrix
   #     #    4 at 1, 1
   #
   def each_with_index(which = :all) # :yield: e, row, column
-    return to_enum(:each_with_index, which) unless block_given?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return to_enum(:each_with_index, which) unless block_given?
     last = column_size - 1
     case which
     when :all
@@ -526,7 +547,8 @@ class Matrix
   #   Matrix[ [1,1], [1,1] ].index(1, :strict_lower) # => [1, 0]
   #
   def index(*args)
-    raise ArgumentError, "wrong number of arguments(#{args.size} for 0-2)" if args.size > 2
+    Backports.introspect # Special 'introspection' edition; not for production use
+      raise ArgumentError, "wrong number of arguments(#{args.size} for 0-2)" if args.size > 2
     which = (args.size == 2 || SELECTORS.include?(args.last)) ? args.pop : :all
     return to_enum(:find_index, which, *args) unless block_given? || args.size == 1
     if args.size == 1
@@ -556,7 +578,8 @@ class Matrix
   # row or column is greater than row_size or column_size respectively.
   #
   def minor(*param)
-    case param.size
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case param.size
     when 2
       row_range, col_range = param
       from_row = row_range.first
@@ -597,7 +620,8 @@ class Matrix
   # Raises an error if matrix is not square.
   #
   def diagonal?
-    Matrix.Raise ErrDimensionMismatch unless square?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ErrDimensionMismatch unless square?
     each(:off_diagonal).all?(&:zero?)
   end
 
@@ -606,7 +630,8 @@ class Matrix
   # or the number of columns is 0.
   #
   def empty?
-    column_size == 0 || row_size == 0
+    Backports.introspect # Special 'introspection' edition; not for production use
+      column_size == 0 || row_size == 0
   end
 
 
@@ -616,7 +641,8 @@ class Matrix
   #
 
   def hermitian?
-    Matrix.Raise ErrDimensionMismatch unless square?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ErrDimensionMismatch unless square?
     each_with_index(:strict_upper).all? do |e, row, col|
       e == rows[col][row].conj
     end
@@ -626,7 +652,8 @@ class Matrix
   # Returns +true+ is this is a lower triangular matrix.
   #
   def lower_triangular?
-    each(:strict_upper).all?(&:zero?)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      each(:strict_upper).all?(&:zero?)
   end
 
   #
@@ -634,7 +661,8 @@ class Matrix
   # Raises an error if matrix is not square.
   #
   def normal?
-    Matrix.Raise ErrDimensionMismatch unless square?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ErrDimensionMismatch unless square?
     rows.each_with_index do |row_i, i|
       rows.each_with_index do |row_j, j|
         s = 0
@@ -652,7 +680,8 @@ class Matrix
   # Raises an error if matrix is not square.
   #
   def orthogonal?
-    Matrix.Raise ErrDimensionMismatch unless square?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ErrDimensionMismatch unless square?
     rows.each_with_index do |row, i|
       column_size.times do |j|
         s = 0
@@ -670,7 +699,8 @@ class Matrix
   # Raises an error if matrix is not square.
   #
   def permutation?
-    Matrix.Raise ErrDimensionMismatch unless square?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ErrDimensionMismatch unless square?
     cols = Array.new(column_size)
     rows.each_with_index do |row, i|
       found = false
@@ -691,28 +721,32 @@ class Matrix
   # Returns +true+ if all entries of the matrix are real.
   #
   def real?
-    all?(&:real?)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      all?(&:real?)
   end
 
   #
   # Returns +true+ if this is a regular (i.e. non-singular) matrix.
   #
   def regular?
-    not singular?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      not singular?
   end
 
   #
   # Returns +true+ is this is a singular matrix.
   #
   def singular?
-    determinant == 0
+    Backports.introspect # Special 'introspection' edition; not for production use
+      determinant == 0
   end
 
   #
   # Returns +true+ is this is a square matrix.
   #
   def square?
-    column_size == row_size
+    Backports.introspect # Special 'introspection' edition; not for production use
+      column_size == row_size
   end
 
   #
@@ -720,7 +754,8 @@ class Matrix
   # Raises an error if matrix is not square.
   #
   def symmetric?
-    Matrix.Raise ErrDimensionMismatch unless square?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ErrDimensionMismatch unless square?
     each_with_index(:strict_upper) do |e, row, col|
       return false if e != rows[col][row]
     end
@@ -732,7 +767,8 @@ class Matrix
   # Raises an error if matrix is not square.
   #
   def unitary?
-    Matrix.Raise ErrDimensionMismatch unless square?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ErrDimensionMismatch unless square?
     rows.each_with_index do |row, i|
       column_size.times do |j|
         s = 0
@@ -749,14 +785,16 @@ class Matrix
   # Returns +true+ is this is an upper triangular matrix.
   #
   def upper_triangular?
-    each(:strict_lower).all?(&:zero?)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      each(:strict_lower).all?(&:zero?)
   end
 
   #
   # Returns +true+ is this is a matrix with only zero elements
   #
   def zero?
-    all?(&:zero?)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      all?(&:zero?)
   end
 
   #--
@@ -767,13 +805,15 @@ class Matrix
   # Returns +true+ if and only if the two matrices contain equal elements.
   #
   def ==(other)
-    return false unless Matrix === other &&
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return false unless Matrix === other &&
                         column_size == other.column_size # necessary for empty matrices
     rows == other.rows
   end
 
   def eql?(other)
-    return false unless Matrix === other &&
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return false unless Matrix === other &&
                         column_size == other.column_size # necessary for empty matrices
     rows.eql? other.rows
   end
@@ -784,14 +824,16 @@ class Matrix
   # There should be no good reason to do this since Matrices are immutable.
   #
   def clone
-    new_matrix @rows.map(&:dup), column_size
+    Backports.introspect # Special 'introspection' edition; not for production use
+      new_matrix @rows.map(&:dup), column_size
   end
 
   #
   # Returns a hash-code for the matrix.
   #
   def hash
-    @rows.hash
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @rows.hash
   end
 
   #--
@@ -805,7 +847,8 @@ class Matrix
   #        6 8
   #
   def *(m) # m is matrix or vector or number
-    case(m)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case(m)
     when Numeric
       rows = @rows.collect {|row|
         row.collect {|e| e * m }
@@ -838,7 +881,8 @@ class Matrix
   #        -4 12
   #
   def +(m)
-    case m
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case m
     when Numeric
       Matrix.Raise ErrOperationNotDefined, "+", self.class, m.class
     when Vector
@@ -865,7 +909,8 @@ class Matrix
   #         8  1
   #
   def -(m)
-    case m
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case m
     when Numeric
       Matrix.Raise ErrOperationNotDefined, "-", self.class, m.class
     when Vector
@@ -892,7 +937,8 @@ class Matrix
   #        -3 -6
   #
   def /(other)
-    case other
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case other
     when Numeric
       rows = @rows.collect {|row|
         row.collect {|e| e / other }
@@ -912,13 +958,15 @@ class Matrix
   #         0 -1
   #
   def inverse
-    Matrix.Raise ErrDimensionMismatch unless square?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ErrDimensionMismatch unless square?
     self.class.I(row_size).send(:inverse_from, self)
   end
   alias inv inverse
 
   def inverse_from(src) # :nodoc:
-    last = row_size - 1
+    Backports.introspect # Special 'introspection' edition; not for production use
+      last = row_size - 1
     a = src.to_a
 
     0.upto(last) do |k|
@@ -972,7 +1020,8 @@ class Matrix
   #        48 99
   #
   def **(other)
-    case other
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case other
     when Integer
       x = self
       if other <= 0
@@ -1009,7 +1058,8 @@ class Matrix
   #     => 45
   #
   def determinant
-    Matrix.Raise ErrDimensionMismatch unless square?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ErrDimensionMismatch unless square?
     m = @rows
     case row_size
       # Up to 4x4, give result using Laplacian expansion by minors.
@@ -1060,7 +1110,8 @@ class Matrix
   # intermediate results with better precision.
   #
   def determinant_bareiss
-    size = row_size
+    Backports.introspect # Special 'introspection' edition; not for production use
+      size = row_size
     last = size - 1
     a = to_a
     no_pivot = Proc.new{ return 0 }
@@ -1091,7 +1142,8 @@ class Matrix
   # deprecated; use Matrix#determinant
   #
   def determinant_e
-    warn "#{caller(1)[0]}: warning: Matrix#determinant_e is deprecated; use #determinant"
+    Backports.introspect # Special 'introspection' edition; not for production use
+      warn "#{caller(1)[0]}: warning: Matrix#determinant_e is deprecated; use #determinant"
     rank
   end
   alias det_e determinant_e
@@ -1108,7 +1160,8 @@ class Matrix
   def rank
     # We currently use Bareiss' multistep integer-preserving gaussian elimination
     # (see comments on determinant)
-    a = to_a
+    Backports.introspect # Special 'introspection' edition; not for production use
+      a = to_a
     last_column = column_size - 1
     last_row = row_size - 1
     pivot_row = 0
@@ -1137,7 +1190,8 @@ class Matrix
   # deprecated; use Matrix#rank
   #
   def rank_e
-    warn "#{caller(1)[0]}: warning: Matrix#rank_e is deprecated; use #rank"
+    Backports.introspect # Special 'introspection' edition; not for production use
+      warn "#{caller(1)[0]}: warning: Matrix#rank_e is deprecated; use #rank"
     rank
   end
 
@@ -1145,7 +1199,8 @@ class Matrix
   # (see Float#round)
   #
   def round(ndigits=0)
-    map{|e| e.round(ndigits)}
+    Backports.introspect # Special 'introspection' edition; not for production use
+      map{|e| e.round(ndigits)}
   end
 
   #
@@ -1154,7 +1209,8 @@ class Matrix
   #     => 16
   #
   def trace
-    Matrix.Raise ErrDimensionMismatch unless square?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.Raise ErrDimensionMismatch unless square?
     (0...column_size).inject(0) do |tr, i|
       tr + @rows[i][i]
     end
@@ -1172,7 +1228,8 @@ class Matrix
   #        2 4 6
   #
   def transpose
-    return self.class.empty(column_size, 0) if row_size.zero?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return self.class.empty(column_size, 0) if row_size.zero?
     new_matrix @rows.transpose, row_size
   end
   alias t transpose
@@ -1190,7 +1247,8 @@ class Matrix
   #   (v * d * v_inv).round(5) == m # => true
   #
   def eigensystem
-    EigenvalueDecomposition.new(self)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      EigenvalueDecomposition.new(self)
   end
   alias eigen eigensystem
 
@@ -1205,7 +1263,8 @@ class Matrix
   #   a.lup.solve([2, 5]) # => Vector[(1/1), (1/2)]
   #
   def lup
-    LUPDecomposition.new(self)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      LUPDecomposition.new(self)
   end
   alias lup_decomposition lup
 
@@ -1224,7 +1283,8 @@ if 42.respond_to?(:conj)
   #           1   2  3
   #
   def conjugate
-    collect(&:conjugate)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      collect(&:conjugate)
   end
   alias conj conjugate
 
@@ -1238,7 +1298,8 @@ if 42.respond_to?(:conj)
   #           0  0  0
   #
   def imaginary
-    collect(&:imaginary)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      collect(&:imaginary)
   end
   alias imag imaginary
 
@@ -1252,7 +1313,8 @@ if 42.respond_to?(:conj)
   #           1  2  3
   #
   def real
-    collect(&:real)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      collect(&:real)
   end
 
   #
@@ -1262,7 +1324,8 @@ if 42.respond_to?(:conj)
   # m.rect == [m.real, m.imag]  # ==> true for all matrices m
   #
   def rect
-    [real, imag]
+    Backports.introspect # Special 'introspection' edition; not for production use
+      [real, imag]
   end
   alias rectangular rect
 end
@@ -1278,7 +1341,8 @@ end
   # See also Numeric#coerce.
   #
   def coerce(other)
-    case other
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case other
     when Numeric
       return Scalar.new(other), self
     else
@@ -1290,7 +1354,8 @@ end
   # Returns an array of the row vectors of the matrix.  See Vector.
   #
   def row_vectors
-    Array.new(row_size) {|i|
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Array.new(row_size) {|i|
       row(i)
     }
   end
@@ -1299,7 +1364,8 @@ end
   # Returns an array of the column vectors of the matrix.  See Vector.
   #
   def column_vectors
-    Array.new(column_size) {|i|
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Array.new(column_size) {|i|
       column(i)
     }
   end
@@ -1308,21 +1374,25 @@ end
   # Returns an array of arrays that describe the rows of the matrix.
   #
   def to_a
-    @rows.collect(&:dup)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @rows.collect(&:dup)
   end
 
   def elements_to_f
-    warn "#{caller(1)[0]}: warning: Matrix#elements_to_f is deprecated, use map(&:to_f)"
+    Backports.introspect # Special 'introspection' edition; not for production use
+      warn "#{caller(1)[0]}: warning: Matrix#elements_to_f is deprecated, use map(&:to_f)"
     map(&:to_f)
   end
 
   def elements_to_i
-    warn "#{caller(1)[0]}: warning: Matrix#elements_to_i is deprecated, use map(&:to_i)"
+    Backports.introspect # Special 'introspection' edition; not for production use
+      warn "#{caller(1)[0]}: warning: Matrix#elements_to_i is deprecated, use map(&:to_i)"
     map(&:to_i)
   end
 
   def elements_to_r
-    warn "#{caller(1)[0]}: warning: Matrix#elements_to_r is deprecated, use map(&:to_r)"
+    Backports.introspect # Special 'introspection' edition; not for production use
+      warn "#{caller(1)[0]}: warning: Matrix#elements_to_r is deprecated, use map(&:to_r)"
     map(&:to_r)
   end
 
@@ -1334,7 +1404,8 @@ end
   # Overrides Object#to_s
   #
   def to_s
-    if empty?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      if empty?
       "#{self.class}.empty(#{row_size}, #{column_size})"
     else
       "#{self.class}[" + @rows.collect{|row|
@@ -1347,7 +1418,8 @@ end
   # Overrides Object#inspect
   #
   def inspect
-    if empty?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      if empty?
       "#{self.class}.empty(#{row_size}, #{column_size})"
     else
       "#{self.class}#{@rows.inspect}"
@@ -1362,6 +1434,7 @@ end
     # a copy of obj will be made if necessary.
     #
     def convert_to_array(obj, copy = false) # :nodoc:
+      Backports.introspect # Special 'introspection' edition; not for production use
       case obj
       when Array
         copy ? obj.dup : obj
@@ -1388,6 +1461,7 @@ end
     # through coercion of +obj+
     #
     def apply_through_coercion(obj, oper)
+      Backports.introspect # Special 'introspection' edition; not for production use
       coercion = obj.coerce(self)
       raise TypeError unless coercion.is_a?(Array) && coercion.length == 2
       coercion[0].public_send(oper, coercion[1])
@@ -1403,6 +1477,7 @@ end
     # (from Rubinius)
     #
     def self.coerce_to(obj, cls, meth) # :nodoc:
+      Backports.introspect # Special 'introspection' edition; not for production use
       return obj if obj.kind_of?(cls)
 
       begin
@@ -1416,6 +1491,7 @@ end
     end
 
     def self.coerce_to_int(obj)
+      Backports.introspect # Special 'introspection' edition; not for production use
       coerce_to(obj, Integer, :to_int)
     end
   end
@@ -1429,11 +1505,13 @@ end
     include CoercionHelper
 
     def initialize(value)
+      Backports.introspect # Special 'introspection' edition; not for production use
       @value = value
     end
 
     # ARITHMETIC
     def +(other)
+      Backports.introspect # Special 'introspection' edition; not for production use
       case other
       when Numeric
         Scalar.new(@value + other)
@@ -1445,6 +1523,7 @@ end
     end
 
     def -(other)
+      Backports.introspect # Special 'introspection' edition; not for production use
       case other
       when Numeric
         Scalar.new(@value - other)
@@ -1456,6 +1535,7 @@ end
     end
 
     def *(other)
+      Backports.introspect # Special 'introspection' edition; not for production use
       case other
       when Numeric
         Scalar.new(@value * other)
@@ -1467,6 +1547,7 @@ end
     end
 
     def /(other)
+      Backports.introspect # Special 'introspection' edition; not for production use
       case other
       when Numeric
         Scalar.new(@value / other)
@@ -1480,6 +1561,7 @@ end
     end
 
     def **(other)
+      Backports.introspect # Special 'introspection' edition; not for production use
       case other
       when Numeric
         Scalar.new(@value ** other)
@@ -1555,7 +1637,8 @@ class Vector
   #   Vector[7, 4, ...]
   #
   def Vector.[](*array)
-    new convert_to_array(array, false)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      new convert_to_array(array, false)
   end
 
   #
@@ -1563,7 +1646,8 @@ class Vector
   # whether the array itself or a copy is used internally.
   #
   def Vector.elements(array, copy = true)
-    new convert_to_array(array, copy)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      new convert_to_array(array, copy)
   end
 
   #
@@ -1571,7 +1655,8 @@ class Vector
   #
   def initialize(array)
     # No checking is done at this point.
-    @elements = array
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @elements = array
   end
 
   # ACCESSING
@@ -1580,13 +1665,15 @@ class Vector
   # Returns element number +i+ (starting at zero) of the vector.
   #
   def [](i)
-    @elements[i]
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @elements[i]
   end
   alias element []
   alias component []
 
   def []=(i, v)
-    @elements[i]= v
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @elements[i]= v
   end
   alias set_element []=
   alias set_component []=
@@ -1596,7 +1683,8 @@ class Vector
   # Returns the number of elements in the vector.
   #
   def size
-    @elements.size
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @elements.size
   end
 
   #--
@@ -1607,7 +1695,8 @@ class Vector
   # Iterate over the elements of this vector
   #
   def each(&block)
-    return to_enum(:each) unless block_given?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return to_enum(:each) unless block_given?
     @elements.each(&block)
     self
   end
@@ -1616,7 +1705,8 @@ class Vector
   # Iterate over the elements of this vector and +v+ in conjunction.
   #
   def each2(v) # :yield: e1, e2
-    raise TypeError, "Integer is not like Vector" if v.kind_of?(Integer)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      raise TypeError, "Integer is not like Vector" if v.kind_of?(Integer)
     Vector.Raise ErrDimensionMismatch if size != v.size
     return to_enum(:each2, v) unless block_given?
     size.times do |i|
@@ -1630,7 +1720,8 @@ class Vector
   # in conjunction.
   #
   def collect2(v) # :yield: e1, e2
-    raise TypeError, "Integer is not like Vector" if v.kind_of?(Integer)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      raise TypeError, "Integer is not like Vector" if v.kind_of?(Integer)
     Vector.Raise ErrDimensionMismatch if size != v.size
     return to_enum(:collect2, v) unless block_given?
     Array.new(size) do |i|
@@ -1646,12 +1737,14 @@ class Vector
   # Returns +true+ iff the two vectors have the same elements in the same order.
   #
   def ==(other)
-    return false unless Vector === other
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return false unless Vector === other
     @elements == other.elements
   end
 
   def eql?(other)
-    return false unless Vector === other
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return false unless Vector === other
     @elements.eql? other.elements
   end
 
@@ -1659,14 +1752,16 @@ class Vector
   # Return a copy of the vector.
   #
   def clone
-    self.class.elements(@elements)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      self.class.elements(@elements)
   end
 
   #
   # Return a hash-code for the vector.
   #
   def hash
-    @elements.hash
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @elements.hash
   end
 
   #--
@@ -1677,7 +1772,8 @@ class Vector
   # Multiplies the vector by +x+, where +x+ is a number or another vector.
   #
   def *(x)
-    case x
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case x
     when Numeric
       els = @elements.collect{|e| e * x}
       self.class.elements(els, false)
@@ -1694,7 +1790,8 @@ class Vector
   # Vector addition.
   #
   def +(v)
-    case v
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case v
     when Vector
       Vector.Raise ErrDimensionMismatch if size != v.size
       els = collect2(v) {|v1, v2|
@@ -1712,7 +1809,8 @@ class Vector
   # Vector subtraction.
   #
   def -(v)
-    case v
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case v
     when Vector
       Vector.Raise ErrDimensionMismatch if size != v.size
       els = collect2(v) {|v1, v2|
@@ -1730,7 +1828,8 @@ class Vector
   # Vector division.
   #
   def /(x)
-    case x
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case x
     when Numeric
       els = @elements.collect{|e| e / x}
       self.class.elements(els, false)
@@ -1750,7 +1849,8 @@ class Vector
   #   Vector[4,7].inner_product Vector[10,1]  => 47
   #
   def inner_product(v)
-    Vector.Raise ErrDimensionMismatch if size != v.size
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Vector.Raise ErrDimensionMismatch if size != v.size
 
     p = 0
     each2(v) {|v1, v2|
@@ -1763,7 +1863,8 @@ class Vector
   # Like Array#collect.
   #
   def collect(&block) # :yield: e
-    return to_enum(:collect) unless block_given?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return to_enum(:collect) unless block_given?
     els = @elements.collect(&block)
     self.class.elements(els, false)
   end
@@ -1774,7 +1875,8 @@ class Vector
   #   Vector[5,8,2].r => 9.643650761
   #
   def magnitude
-    Math.sqrt(@elements.inject(0) {|v, e| v + e*e})
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Math.sqrt(@elements.inject(0) {|v, e| v + e*e})
   end
   alias r magnitude
   alias norm magnitude
@@ -1783,7 +1885,8 @@ class Vector
   # Like Vector#collect2, but returns a Vector instead of an Array.
   #
   def map2(v, &block) # :yield: e1, e2
-    return to_enum(:map2, v) unless block_given?
+    Backports.introspect # Special 'introspection' edition; not for production use
+      return to_enum(:map2, v) unless block_given?
     els = collect2(v, &block)
     self.class.elements(els, false)
   end
@@ -1797,7 +1900,8 @@ class Vector
   #   v.norm => 1.0
   #
   def normalize
-    n = magnitude
+    Backports.introspect # Special 'introspection' edition; not for production use
+      n = magnitude
     raise ZeroVectorError, "Zero vectors can not be normalized" if n == 0
     self / n
   end
@@ -1810,28 +1914,33 @@ class Vector
   # Creates a single-row matrix from this vector.
   #
   def covector
-    Matrix.row_vector(self)
+    Backports.introspect # Special 'introspection' edition; not for production use
+      Matrix.row_vector(self)
   end
 
   #
   # Returns the elements of the vector in an array.
   #
   def to_a
-    @elements.dup
+    Backports.introspect # Special 'introspection' edition; not for production use
+      @elements.dup
   end
 
   def elements_to_f
-    warn "#{caller(1)[0]}: warning: Vector#elements_to_f is deprecated"
+    Backports.introspect # Special 'introspection' edition; not for production use
+      warn "#{caller(1)[0]}: warning: Vector#elements_to_f is deprecated"
     map(&:to_f)
   end
 
   def elements_to_i
-    warn "#{caller(1)[0]}: warning: Vector#elements_to_i is deprecated"
+    Backports.introspect # Special 'introspection' edition; not for production use
+      warn "#{caller(1)[0]}: warning: Vector#elements_to_i is deprecated"
     map(&:to_i)
   end
 
   def elements_to_r
-    warn "#{caller(1)[0]}: warning: Vector#elements_to_r is deprecated"
+    Backports.introspect # Special 'introspection' edition; not for production use
+      warn "#{caller(1)[0]}: warning: Vector#elements_to_r is deprecated"
     map(&:to_r)
   end
 
@@ -1843,7 +1952,8 @@ class Vector
   # See also Numeric#coerce.
   #
   def coerce(other)
-    case other
+    Backports.introspect # Special 'introspection' edition; not for production use
+      case other
     when Numeric
       return Matrix::Scalar.new(other), self
     else
@@ -1859,14 +1969,16 @@ class Vector
   # Overrides Object#to_s
   #
   def to_s
-    "Vector[" + @elements.join(", ") + "]"
+    Backports.introspect # Special 'introspection' edition; not for production use
+      "Vector[" + @elements.join(", ") + "]"
   end
 
   #
   # Overrides Object#inspect
   #
   def inspect
-    "Vector" + @elements.inspect
+    Backports.introspect # Special 'introspection' edition; not for production use
+      "Vector" + @elements.inspect
   end
 end
 end

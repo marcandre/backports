@@ -4,6 +4,7 @@ unless Enumerable.method_defined? :slice_after
 
   module Enumerable
     def slice_after(pattern = Backports::Undefined, &block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       raise ArgumentError, 'both pattern and block are given' if pattern != Backports::Undefined && block
       raise ArgumentError, 'wrong number of arguments (given 0, expected 1)' if pattern == Backports::Undefined && !block
       enum = self

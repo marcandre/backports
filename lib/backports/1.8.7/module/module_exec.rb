@@ -4,6 +4,7 @@ unless Module.method_defined? :module_exec
 
   class Module
     def module_exec(*arg, &block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       instance_exec(*arg, &block)
     end
   end

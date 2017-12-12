@@ -1,6 +1,7 @@
 unless File.method_defined? :size
   class File
     def size
+      Backports.introspect # Special 'introspection' edition; not for production use
       stat.size
     end
   end

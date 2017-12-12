@@ -2,6 +2,7 @@ unless Enumerable.method_defined?(:to_h)
   require 'backports/tools/arguments'
   module Enumerable
     def to_h(*args)
+      Backports.introspect # Special 'introspection' edition; not for production use
       h = {}
       each_entry(*args) do |key_value|
         key_value = Backports.coerce_to_ary(key_value)

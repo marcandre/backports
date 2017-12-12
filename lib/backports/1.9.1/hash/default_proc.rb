@@ -3,6 +3,7 @@ unless Hash.method_defined? :default_proc=
 
   class Hash
     def default_proc=(proc)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if proc == nil # nil accepted in Ruby 2.0
         self.default = nil
         self

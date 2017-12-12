@@ -3,6 +3,7 @@ unless Enumerable.method_defined? :minmax
 
   module Enumerable
     def minmax
+      Backports.introspect # Special 'introspection' edition; not for production use
       return minmax{|a,b| a <=> b} unless block_given?
       first_time = true
       min, max = nil

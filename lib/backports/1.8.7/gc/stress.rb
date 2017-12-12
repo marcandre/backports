@@ -1,9 +1,11 @@
 unless GC.respond_to? :stress
   def GC.stress
-    false
+    Backports.introspect # Special 'introspection' edition; not for production use
+      false
   end
 
   def GC.stress=(flag)
-    raise NotImplementedError
+    Backports.introspect # Special 'introspection' edition; not for production use
+      raise NotImplementedError
   end
 end

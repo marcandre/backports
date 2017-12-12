@@ -4,6 +4,7 @@ unless Enumerable.method_defined? :slice_before
 
   module Enumerable
     def slice_before(arg = Backports::Undefined, &block)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if block_given?
         has_init = !(arg.equal? Backports::Undefined)
       else

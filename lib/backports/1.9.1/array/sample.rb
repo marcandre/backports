@@ -3,6 +3,7 @@ unless Array.method_defined? :sample
 
   class Array
     def sample(n = Backports::Undefined, options = Backports::Undefined)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if options == Backports::Undefined && n.respond_to?(:to_hash)
         n, options = options, n
       end

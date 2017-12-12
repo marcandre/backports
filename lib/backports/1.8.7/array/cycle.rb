@@ -3,6 +3,7 @@ unless Array.method_defined? :cycle
 
   class Array
     def cycle(n = nil)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:cycle, n) unless block_given?
       if n.nil?
         each{|e| yield e } until false

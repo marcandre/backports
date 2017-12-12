@@ -2,6 +2,7 @@ unless Hash.method_defined? :<=
   require 'backports/tools/arguments'
   class Hash
     def <=(hash)
+      Backports.introspect # Special 'introspection' edition; not for production use
       hash = Backports.coerce_to_hash(hash)
       return false unless size <= hash.size
       each do |k, v|

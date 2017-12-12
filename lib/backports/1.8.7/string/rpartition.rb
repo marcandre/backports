@@ -3,6 +3,7 @@ unless String.method_defined? :rpartition
 
   class String
     def rpartition(pattern)
+      Backports.introspect # Special 'introspection' edition; not for production use
       pattern = Backports.coerce_to(pattern, String, :to_str) unless pattern.is_a? Regexp
       i = rindex(pattern)
       return ["", "", self] unless i

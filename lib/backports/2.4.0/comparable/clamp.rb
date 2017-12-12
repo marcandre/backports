@@ -3,6 +3,7 @@ unless Comparable.method_defined? :clamp
 
   module Comparable
     def clamp(min, max)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if Backports.coerce_to_comparison(min, max) > 0
         raise ArgumentError, "min argument must be smaller than max argument"
       end

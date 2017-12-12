@@ -3,6 +3,7 @@ unless Enumerable.method_defined? :first
 
   module Enumerable
     def first(n = Backports::Undefined)
+      Backports.introspect # Special 'introspection' edition; not for production use
       if n == Backports::Undefined
         each{|obj| return obj}
         nil

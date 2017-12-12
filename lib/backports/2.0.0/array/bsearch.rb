@@ -1,6 +1,7 @@
 unless Array.method_defined? :bsearch
   class Array
     def bsearch
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(__method__) unless block_given?
       from = 0
       to   = size - 1

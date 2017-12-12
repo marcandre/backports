@@ -4,6 +4,7 @@ if Enumerable.instance_method(:each_with_index).arity.zero?
 
   module Enumerable
     def each_with_index_with_optional_args_and_block(*args)
+      Backports.introspect # Special 'introspection' edition; not for production use
       return to_enum(:each_with_index, *args) unless block_given?
       idx = 0
       each(*args) { |o| yield(o, idx); idx += 1 }
