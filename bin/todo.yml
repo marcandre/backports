@@ -15,7 +15,7 @@ fpm:
   :remote: jordansissel_fpm
 sinatra-contrib:
   :repo: https://github.com/sinatra/sinatra-contrib
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: sinatra
   :repo_name: sinatra-contrib
   :branch: sinatra-contrib_used
@@ -29,7 +29,7 @@ travis:
   :remote: marketplace_travis-ci
 gh:
   :repo: https://github.com/r-lib/gh
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: r-lib
   :repo_name: gh
   :branch: gh_used
@@ -46,7 +46,7 @@ gooddata:
   :remote: gooddata_gooddata-ruby
 ftw:
   :repo: https://github.com/fastly/ftw
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: fastly
   :repo_name: ftw
   :branch: ftw_used
@@ -60,7 +60,7 @@ restfully:
   :remote: crohr_restfully
 monkey-lib:
   :repo: https://github.com/rkh/monkey-lib
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: rkh
   :repo_name: monkey-lib
   :branch: monkey-lib_used
@@ -91,7 +91,7 @@ packable:
   :remote: marcandre_packable
 wlang:
   :repo: http://github.com/blambeau/wlang
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: blambeau
   :repo_name: wlang
   :branch: wlang_used
@@ -122,7 +122,7 @@ bud:
   :remote: bloom-lang_bud
 turbot-ruby-gems:
   :repo: https://github.com/openc/turbot-ruby-gems
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: openc
   :repo_name: turbot-ruby-gems
   :branch: turbot-ruby-gems_used
@@ -153,7 +153,7 @@ vagrant-hitch:
   :remote: fup_vagrant-hitch
 action_tree:
   :repo: https://github.com/cerebral-legacy/redux-action-tree
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: cerebral-legacy
   :repo_name: redux-action-tree
   :branch: redux-action-tree_used
@@ -174,14 +174,14 @@ backdrop:
   :remote: tpbowden_Backdrop
 pavlov:
   :repo: https://github.com/mmonteleone/pavlov
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: mmonteleone
   :repo_name: pavlov
   :branch: pavlov_used
   :remote: mmonteleone_pavlov
 compo:
   :repo: https://github.com/romashamin/compo-sketch
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: romashamin
   :repo_name: compo-sketch
   :branch: compo-sketch_used
@@ -208,7 +208,7 @@ minimapper-extras:
   :remote: barsoom_minimapper-extras
 veritas:
   :repo: https://github.com/dkubb/veritas
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: dkubb
   :repo_name: veritas
   :branch: veritas_used
@@ -225,14 +225,14 @@ spintax_parser:
   :remote: flintinatux_spintax_parser
 doku:
   :repo: https://github.com/crocodic-studio/dokularavel
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: crocodic-studio
   :repo_name: dokularavel
   :branch: dokularavel_used
   :remote: crocodic-studio_dokularavel
 veritas-sql-generator:
   :repo: https://github.com/dkubb/veritas-sql-generator
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: dkubb
   :repo_name: veritas-sql-generator
   :branch: veritas-sql-generator_used
@@ -265,14 +265,14 @@ chef-ab:
   :remote: criteo_chef-ab
 veritas-optimizer:
   :repo: https://github.com/dkubb/veritas-optimizer
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: dkubb
   :repo_name: veritas-optimizer
   :branch: veritas-optimizer_used
   :remote: dkubb_veritas-optimizer
 rack_warden:
   :repo: https://github.com/ginjo/rack_warden
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: ginjo
   :repo_name: rack_warden
   :branch: rack_warden_used
@@ -293,7 +293,7 @@ suture:
   :remote: testdouble_suture
 gday:
   :repo: https://github.com/mdekauwe/GDAY
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: mdekauwe
   :repo_name: GDAY
   :branch: GDAY_used
@@ -325,7 +325,7 @@ stickyflag:
   :status: :invalid_repo
 acapela:
   :repo: https://github.com/skmp/acapela-tts-zeroconf-proxy
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: skmp
   :repo_name: acapela-tts-zeroconf-proxy
   :branch: acapela-tts-zeroconf-proxy_used
@@ -339,21 +339,21 @@ classy_cas:
   :remote: Econify_ClassyCAS
 veritas-do-adapter:
   :repo: https://github.com/dkubb/veritas-do-adapter
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: dkubb
   :repo_name: veritas-do-adapter
   :branch: veritas-do-adapter_used
   :remote: dkubb_veritas-do-adapter
 adsl:
   :repo: https://github.com/enten/adsl
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: enten
   :repo_name: adsl
   :branch: adsl_used
   :remote: enten_adsl
 perfer:
   :repo: https://github.com/jruby/perfer
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: jruby
   :repo_name: perfer
   :branch: perfer_used
@@ -370,7 +370,7 @@ aql:
   :status: :invalid_repo
 owl-cms:
   :repo: https://github.com/mauricioabreu/owl-cms
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: mauricioabreu
   :repo_name: owl-cms
   :branch: owl-cms_used
@@ -391,14 +391,14 @@ dropbox-api-petems:
   :remote: petems_dropbox-api-petems
 bfire:
   :repo: https://github.com/crohr/bfire
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: crohr
   :repo_name: bfire
   :branch: bfire_used
   :remote: crohr_bfire
 ispeech:
   :repo: https://github.com/iSpeech/iSpeech-Android-SDK
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: iSpeech
   :repo_name: iSpeech-Android-SDK
   :branch: iSpeech-Android-SDK_used
@@ -412,7 +412,7 @@ nowhen:
   :remote: shokai_nowhen
 universe-core:
   :repo: https://github.com/vazco/universe-core
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: vazco
   :repo_name: universe-core
   :branch: universe-core_used
@@ -439,7 +439,7 @@ tn_pdf:
   :remote: riccieri_tn_pdf
 poly-cms:
   :repo: https://github.com/briangonzalez/poly-cms-gem
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: briangonzalez
   :repo_name: poly-cms-gem
   :branch: poly-cms-gem_used
@@ -467,7 +467,7 @@ huge_enumerable:
   :remote: ChapterHouse_huge_enumerable
 crystalizer:
   :repo: https://github.com/rdp/crystalizer
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: rdp
   :repo_name: crystalizer
   :branch: crystalizer_used
@@ -514,7 +514,7 @@ barlume:
   :status: :invalid_repo
 que-scheduler:
   :repo: https://github.com/unchartedcode/que-scheduler
-  :status: :only_local_require_found
+  :status: :grep_failed
   :repo_owner: unchartedcode
   :repo_name: que-scheduler
   :branch: que-scheduler_used

@@ -142,7 +142,7 @@ def patch_repos
         :no_travis_found
       end
     else
-      if %q{grep "require\s\+['\"]backports" -r .}
+      if system(%q{grep "require\s\+['\"]backports\/" -r .})
         :only_local_require_found
       else
         :grep_failed
