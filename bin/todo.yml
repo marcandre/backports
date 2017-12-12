@@ -1,7 +1,7 @@
 ---
 cucumber-core:
   :repo: https://github.com/cucumber/cucumber-ruby-core
-  :status: :failed_cloning
+  :status: :only_local_require_found
   :repo_owner: cucumber
   :repo_name: cucumber-ruby-core
   :branch: cucumber-ruby-core_used
