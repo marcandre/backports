@@ -48,9 +48,9 @@ module Backports
       repo = 'backports_bot'
       branch = last_branch
 
-      system "git add #{fn} && git -c user.name='backports' -c user.email='backports_bot@marc-andre.ca' commit -m 'Add backports used'"
+      system "git add #{fn} && git -c user.name='backports' -c user.email='backports_bot@marc-andre.ca' commit -m 'Add backports used [ci-skip]'"
       puts "Commit ready to be pushed for branch '#{branch}'"
-      out = `git push -f -q https://#{repo_owner}#{auth}@github.com/#{repo_owner}/#{repo} HEAD:#{branch} &2>&1`
+      out = `git push -q https://#{repo_owner}#{auth}@github.com/#{repo_owner}/#{repo} HEAD:#{branch} &2>&1`
       puts out.gsub(ENV['GITHUB_API_KEY'], '<api key>')
     end
   end
