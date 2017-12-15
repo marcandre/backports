@@ -47,8 +47,14 @@ module Backports
       repo_owner = 'marcandre'
       repo = 'backports_bot'
       branch = last_branch
+      commit = "git -c user.name='backports' -c user.email='backports_bot@marc-andre.ca' commit -m"
+      system [
+        "git add #{fn}",
+        "#{commit} 'Add backports used [ci-skip]'",
+        "git rm .travis.yml",
+        "#{commit} 'Coz Travis doesn't respect ci-skip [ci-skip]",
+      ].join(' && ')
 
-      system "git add #{fn} && git -c user.name='backports' -c user.email='backports_bot@marc-andre.ca' commit -m 'Add backports used [ci-skip]'"
       puts "Commit ready to be pushed for branch '#{branch}'"
       out = `git push -q https://#{repo_owner}#{auth}@github.com/#{repo_owner}/#{repo} HEAD:#{branch} &2>&1`
       puts out.gsub(ENV['GITHUB_API_KEY'], '<api key>')
