@@ -90,6 +90,7 @@ Compatible with Ruby itself, JRuby and Rubinius.
   * +transform_keys+
 * Integer
   * +sqrt+
+  * +allbits?+, +anybits?+ and +nobits?+
 * Kernel
   * +yield_self+
 * Module
