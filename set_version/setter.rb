@@ -12,3 +12,11 @@ if RUBY_VERSION < Backports::TARGET_VERSION && Backports::TARGET_VERSION >= '1.9
   require 'backports/1.9.2/float/infinity.rb' # Used in many specs...
   require 'backports/1.9.2/float/nan.rb' # Used in many specs...
 end
+
+def frozen_error_class
+  begin
+    [1].freeze.pop
+  rescue Exception => e
+    e.class
+  end
+end
