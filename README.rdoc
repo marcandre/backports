@@ -99,6 +99,8 @@ Compatible with Ruby itself, JRuby and Rubinius.
 * String
   * +delete_prefix+, +delete_prefix!+
   * +delete_suffix+, +delete_suffix!+
+* Struct
+  * +new+ (with <code>keyword_init: true</code>)
 
 == Ruby 2.4 backports
 
