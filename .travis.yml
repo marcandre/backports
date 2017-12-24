@@ -10,9 +10,9 @@ rvm:
   - "2.4.0"
   - ruby-head
 
-matrix:
-  allow_failures:
-    - rvm: "2.2.0"  # Travis suddenly fails to `bundle install`, no idea why
+# matrix:
+#   allow_failures:
+#     - rvm: "2.2.0"  # Travis suddenly fails to `bundle install`, no idea why
 
 before_install:
   - git submodule update --init --recursive

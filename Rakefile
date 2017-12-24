@@ -136,6 +136,7 @@ IGNORE_IN_19 = %w[
   2.5.0/module/attr_reader
   2.5.0/module/attr_writer
   2.5.0/module/attr_accessor
+  2.5.0/struct/new
 ]
 # These **new** specs cause actual errors while loading in 2.0.0:
 IGNORE_IN_200 = %w[
