@@ -1,4 +1,3 @@
-puts "asdasd"
 if RUBY_VERSION >= '2.0.0' && (Struct.new(:a, :keyword_init => true) && false rescue true)
   require 'backports/tools/alias_method_chain'
   eval %q[
