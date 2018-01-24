@@ -1,5 +1,120 @@
 = Backports --- History
 
+== Version 3.11.0 - December 25th, 2017
+
+* New Ruby version 2.5.0
+  * Array
+    * +append+, +prepend+
+  * Dir
+    * +children+, +each_child+
+  * Enumerable
+    * +any?+, +all?+, +none?+, +one?+ (with pattern argument)
+  * Hash
+    * +slice+
+    * +transform_keys+
+  * Integer
+    * +sqrt+
+    * +allbits?+, +anybits?+ and +nobits?+
+  * Kernel
+    * +yield_self+
+  * Module
+    * +attr+, +attr_accessor+, +attr_reader+, +attr_writer+ (now public)
+    * +define_method+, +alias_method+, +undef_method+, +remove_method+ (now public)
+  * String
+    * +delete_prefix+, +delete_prefix!+
+    * +delete_suffix+, +delete_suffix!+
+  * Struct
+    * +new+ (with <code>keyword_init: true</code>)
+* <tt>require 'backports/latest'</tt> is now the right way to require everything
+
+== Version 3.10.3 - October 17, 2017
+
+* Fix: <tt>require 'backports'</tt> is now properly requires all backports down from 2.4
+
+== Version 3.10.2 - October 17, 2017
+
+* Fix: add missing +string.rb+ for recursive require of 2.4 features
+
+== Version 3.10.1 - October 17, 2017
+
+* Trigger error for frozen hash in +transform_values!+
+
+== Version 3.10.0 - October 17, 2017
+
+* Additional features of 2.4.0
+  * Enumerable
+    * +uniq+
+    * +sum+
+  * Hash
+    * +compact+
+    * +transform_values+
+
+== Version 3.9.1 -  October 07, 2017
+
+* Update rubyspec version and fix related problems in tests
+
+== Version 3.9.0 -  October 07, 2017
+
+* From 2.4.0: +dup+ for +true+, +false+, +nil+, Numeric
+* From 2.2.0: <tt>Method#super_method</tt>
+
+== Version 3.8.0 - April 26, 2017
+
+* From 2.4.0: <tt>String#match?</tt>, <tt>Regexp#match?</tt>
+* From 2.3.0:
+  * unary <tt>String#+</tt>, +-+
+  * Numeric: +positive?+, +negative?+
+  * Hash: +to_proc+, +fetch_values+, <tt>></tt>, <tt><</tt>, <tt>>=</tt>, <tt><=</tt>
+  * Enumerable: +chunk_while+, +grep_v+
+  * <tt>{Array|Hash|Struct}#dig</tt>
+  * <tt>Array#bsearch_index</tt>
+* From 2.2.0:
+  * <tt>Method#curry</tt>
+  * <tt>String#unicode_normalize{|?|!}</tt>
+  * <tt>Kernel#itself</tt>
+  * Float: +next_float+, +prev_float+
+
+== Version 3.7.0 - March 28, 2017
+
+* Initiate work on backports of 2.2, 2.3, 2.4
+* From 2.4.0:
+  * <tt>Comparable#clamp</tt>
+* From 2.2.0:
+  * Enumerable: +slice_when+, +slice_after+
+
+== Version 3.6.8 - February 09, 2016
+
+* Update +lib/prime+
+
+== Version 3.6.7 - November 02, 2015
+
+* Fix <tt>Range#bsearch</tt> bug with floats
+
+== Version 3.6.6 - August 02, 2015
+
+* Fix <tt>Bignum#bit_length</tt> again
+
+== Version 3.6.5 - July 13, 2015
+
+* Fix <tt>Bignum#bit_length</tt>
+
+== Version 3.6.4 - November 13, 2014
+
+* Simplify and optimize <tt>Enumerable#flat_map</tt>
+
+== Version 3.6.3 - October 07, 2014
+
+* Fix <tt>String#byteslice</tt>
+
+== Version 3.6.2 - October 04, 2014
+
+* Fix +Random+ scoping issue
+
+== Version 3.6.1 - September 20, 2014
+
+* Update +backports/tools+ structure
+* Extract +backports/std_lib+
+
 == Version 3.6.0 - February 14th, 2014
 
 * Additional features of 2.1.0
