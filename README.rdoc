@@ -1,8 +1,6 @@
 = Backports Library {<img src="https://travis-ci.org/marcandre/backports.png?branch=master">}[https://travis-ci.org/marcandre/backports] {<img src="https://badge.fury.io/rb/backports.png" alt="Gem Version" />}[http://badge.fury.io/rb/backports]
 
-* Yearning to use some of the new cool features in Ruby 2.0.0 while using 1.8.6?
-* One of your client is stuck with Ruby 1.8.6 but you want to use a gem using some features of 1.8.7?
-* Can't remember if you can use Array#sample or String#each_char on a friend's box?
+Yearning to use some of the new cool features in Ruby 2.5 while using 2.3.x? Have some legacy code in Ruby 1.8 but can't live without `flat_map`?
 
 This gem is for you!
 
@@ -12,12 +10,12 @@ The goal of 'backports' is to make it easier to write ruby code that runs across
 
 === Explicitly (recommended)
 
-For example, if you want to use flat_map, even in Ruby implementations that don't include it, as well as the new bsearch method:
+For example, if you want to use transform_values and transform_keys, even in Ruby implementations that don't include it:
 
-  require 'backports/1.9.2/enumerable/flat_map'
-  require 'backports/2.0.0/array/bsearch'
+  require 'backports/2.4.0/hash/transform_values'
+  require 'backports/2.5.0/hash/transform_keys'
 
-This will enable Enumerable#flat_map and Array#bsearch, using the native versions if available or otherwise provide a pure Ruby version.
+This will enable Hash#transform_values and Hash#transform_keys, using the native versions if available or otherwise provide a pure Ruby version.
 
 === By Module
 
@@ -52,9 +50,9 @@ For Ruby < 2.0, there are some real incompatibilities. For example, <tt>Module::
 
 == Installation & compatibility
 
-+backports+ is can be installed with:
++backports+ can be installed with:
 
-  (sudo) gem install backports
+  gem install backports
 
 To use:
 
