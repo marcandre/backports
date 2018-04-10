@@ -14,12 +14,12 @@ module Backports
       alias_method target, with_method
 
       case
-        when public_method_defined?(without_method)
-          public target
-        when protected_method_defined?(without_method)
-          protected target
-        when private_method_defined?(without_method)
-          private target
+      when public_method_defined?(without_method)
+        public target
+      when protected_method_defined?(without_method)
+        protected target
+      when private_method_defined?(without_method)
+        private target
       end
     end
   end
