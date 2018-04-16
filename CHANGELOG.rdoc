@@ -25,7 +25,7 @@
     * +delete_suffix+, +delete_suffix!+
   * Struct
     * +new+ (with <code>keyword_init: true</code>)
-* <tt>require 'backports/latest'</tt> is now the right way to require everything
+* <tt>require 'backports/latest'</tt> is now the way to require everything, but is discouraged
 
 == Version 3.10.0 - October 17, 2017
 
