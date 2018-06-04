@@ -1,4 +1,4 @@
-= Backports Library {<img src="https://travis-ci.org/marcandre/backports.png?branch=master">}[https://travis-ci.org/marcandre/backports] {<img src="https://badge.fury.io/rb/backports.png" alt="Gem Version" />}[http://badge.fury.io/rb/backports]
+= Backports Library {<img src="https://travis-ci.org/marcandre/backports.svg?branch=master">}[https://travis-ci.org/marcandre/backports] {<img src="https://badge.fury.io/rb/backports.svg" alt="Gem Version" />}[http://badge.fury.io/rb/backports]
 
 Yearning to use some of the new cool features in Ruby 2.5 while using 2.3.x? Have some legacy code in Ruby 1.8 but can't live without `flat_map`?
 
