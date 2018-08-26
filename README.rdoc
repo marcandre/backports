@@ -111,9 +111,9 @@ Compatible with Ruby itself, JRuby and Rubinius.
   * +compact+, +compact!+
   * +transform_values+, +transform_values!+
 * Regexp
-  * +match?+
+  * +match?+ (slow)
 * String
-  * +match?+
+  * +match?+ (slow)
 * FalseClass, Fixnum, Float, NilClass, TrueClass
   * +dup+
 
