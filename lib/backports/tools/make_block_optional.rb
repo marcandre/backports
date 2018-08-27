@@ -19,7 +19,7 @@ module Backports
                   rescue LocalJumpError
                     false
                   end
-        next if result.class.name =~ /Enumerator$/
+        next if result.class.name =~ /Enumerator/
       end
       require 'enumerator'
       arity = mod.instance_method(selector).arity
