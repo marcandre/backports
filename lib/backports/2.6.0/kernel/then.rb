@@ -1,5 +1,5 @@
-module Kernel
-  unless method_defined? :then
+unless Kernel.method_defined? :then
+  module Kernel
     if method_defined? :yield_self
       alias_method :then, :yield_self
     else
