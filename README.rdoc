@@ -1,6 +1,6 @@
 = Backports Library {<img src="https://travis-ci.org/marcandre/backports.svg?branch=master">}[https://travis-ci.org/marcandre/backports] {<img src="https://badge.fury.io/rb/backports.svg" alt="Gem Version" />}[http://badge.fury.io/rb/backports]
 
-Yearning to use some of the new cool features in Ruby 2.5 while using 2.3.x? Have some legacy code in Ruby 1.8 but can't live without `flat_map`?
+Yearning to use some of the new cool features in Ruby 2.6 while using 2.3.x? Have some legacy code in Ruby 1.8 but can't live without `flat_map`?
 
 This gem is for you!
 
@@ -74,6 +74,11 @@ Run <tt>bundle install</tt> and require the desired backports.
 Compatible with Ruby itself, JRuby and Rubinius.
 
 = Complete List of backports
+
+== Ruby 2.6 backports
+
+* Kernel
+  * +then+
 
 == Ruby 2.5 backports
 
