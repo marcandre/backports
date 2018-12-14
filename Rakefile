@@ -62,9 +62,15 @@ desc "Run specs, where path can be '*/*' (default), 'class/*' or 'class/method'.
 task :spec, :path, :action do |t, args|
   args.with_defaults(:path => '*/*', :action => 'ci')
   specs = SpecRunner.new
-  mspec_cmds(args[:path], 'frozen_old_spec', args[:action]) do |cmd, path|
-    specs.run(cmd, path)
+
+  # Avoid unclear error message by checking if at least one spec exists in the old specs
+  has_frozen_spec = !Dir.glob('frozen_old_spec/rubyspec/core/#{path}_spec.rb')
+  if has_frozen_spec || RUBY_VERSION < '1.9'
+    mspec_cmds(args[:path], 'frozen_old_spec', args[:action]) do |cmd, path|
+      specs.run(cmd, path)
+    end
   end
+
   unless RUBY_VERSION < '1.9' # Give up entirely on running new specs in 1.8.x, mainly because of {hash: 'syntax'}
     mspec_cmds(args[:path], 'spec', args[:action]) do |cmd, path|
       specs.run(cmd, path)
