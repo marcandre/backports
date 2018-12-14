@@ -375,12 +375,17 @@ Thanks for the bug reports and patches, in particular the repeat offenders:
 * Konstantin Haase ( rkh[https://github.com/rkh])
 * Roger Pack ( rdp[http://github.com/rdp] )
 
-The best way to submit a patch is to also submit a patch to ruby/spec[https://github.com/ruby/spec] and then a patch to backports that make it pass the spec. To test rubyspec:
+== Contributing
+
+The best way to submit a patch is to also submit a patch to ruby/spec[https://github.com/ruby/spec] and then a patch to backports that make it pass the spec. 
+
+See below to test rubyspec. Note that only features missing from your Ruby version are tested. 
 
     git submodule init && git submodule update # => pulls rubyspecs
-    rake spec[array/bsearch]       # => tests Array#bsearch
-    rake spec[array/*]             # => tests all backported Array methods
-    rake spec  (or rake spec[*/*]) # => all rubyspecs for backported methods
+    bundle install
+    bundle exec rake spec[hash/slice]          # => tests Hash#slice  (must be in Ruby 2.4 or less)
+    bundle exec rake spec[hash/*]              # => tests all backported Hash methods
+    bundle exec rake spec  (or rake spec[*/*]) # => all rubyspecs for backported methods
 
 Failures that are acceptable are added the to `tags` file.
 
