@@ -97,6 +97,7 @@ Compatible with Ruby itself, JRuby and Rubinius.
 * String
   * +delete_prefix+, +delete_prefix!+
   * +delete_suffix+, +delete_suffix!+
+  * +undump+
 * Struct
   * +new+ (with <code>keyword_init: true</code>)
 

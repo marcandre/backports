@@ -1,5 +1,7 @@
 = Backports --- History
 
+* From 2.5.0: <tt>String#undump</tt> (Note, much slower performances)
+
 == Version 3.11.0 - December 25th, 2017
 
 * New Ruby version 2.5.0
