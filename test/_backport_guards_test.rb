@@ -94,7 +94,11 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
     before = digest
     latest = "2.4.0"
     if RUBY_VERSION > '1.8.6'
-      require "backports/#{[RUBY_VERSION, latest].min}"
+      main_version = [RUBY_VERSION, latest].min
+      unless File.exist?(File.expand_path("../../lib/backports/#{main_version}.rb", __FILE__))
+        main_version = main_version.sub(/\.\d+$/, '.0')
+      end
+      require "backports/#{main_version}"
       after = digest
       assert_nil digest_delta(before, after)
     end
