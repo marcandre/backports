@@ -134,6 +134,7 @@ IGNORE_IN_19 = %w[
   2.1.0/enumerable/to_h
   2.1.0/array/to_h
   2.1.0/module/include
+  2.2.0/kernel/itself
   2.5.0/module/define_method
   2.5.0/module/alias_method
   2.5.0/module/undef_method
