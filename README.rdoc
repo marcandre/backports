@@ -78,7 +78,7 @@ Compatible with Ruby itself, JRuby and Rubinius.
 == Ruby 2.6 backports
 
 * Array
-  * +union+
+  * +difference+, +union+
 
 == Ruby 2.5 backports
 
