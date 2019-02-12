@@ -3,6 +3,7 @@ unless String.method_defined? :codepoints
     def codepoints
       return to_enum(:codepoints) unless block_given?
       unpack("U*").each{|cp| yield cp}
+      self
     end
   end
 end
