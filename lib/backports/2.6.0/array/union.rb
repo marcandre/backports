@@ -1,5 +1,5 @@
 class Array
   def union(*arrays)
-    [self, *arrays].inject([], :|)
+    arrays.inject(self, :|)
   end unless method_defined? :union
 end
