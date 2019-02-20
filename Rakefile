@@ -157,6 +157,10 @@ CLASS_MAP = Hash.new{|k, v| k[v] = v}.merge!(
   'nil_class' => 'nil'
 )
 
+EXTRA_SPECS = {
+  'enumerable/chain' => %w[enumerator/chain/*]
+}
+
 def mspec_cmds(pattern, spec_folder, action='ci')
   pattern = "lib/backports/*.*.*/#{pattern}.rb"
   Dir.glob(pattern) do |lib_path|
@@ -173,12 +177,13 @@ def mspec_cmds(pattern, spec_folder, action='ci')
     deps = [*DEPENDENCIES[version_path]].map{|p| "-r #{p}"}.join(' ')
     klass, method = path.split('/')
     path = [CLASS_MAP[klass], method].join('/')
+    spec_paths = [path, *EXTRA_SPECS[path]].map {|p| "#{spec_folder}/rubyspec/core/#{p}_spec.rb" }
     yield %W[mspec #{action}
               -I lib
               -r ./set_version/#{version}
               #{deps}
               -r backports/#{version_path}
-              #{spec_folder}/rubyspec/core/#{path}_spec.rb
+              #{spec_paths.join(' ')}
             ].join(' '), path
   end
 end

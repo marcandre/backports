@@ -82,7 +82,10 @@ Compatible with Ruby itself, JRuby and Rubinius.
   * +to_h+ (with block)
 
 * Enumerable
+  * +chain+
   * +to_h+ (with block)
+
+* Enumerator::Chain (use Enumerable#chain)
 
 == Ruby 2.5 backports
 
