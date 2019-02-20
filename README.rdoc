@@ -87,6 +87,9 @@ Compatible with Ruby itself, JRuby and Rubinius.
 
 * Enumerator::Chain (use Enumerable#chain)
 
+* Kernel
+  * +then+
+
 == Ruby 2.5 backports
 
 * Array
