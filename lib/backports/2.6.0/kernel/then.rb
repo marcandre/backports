@@ -1,4 +1,4 @@
-unless Kernel.method_defined? :yield_self
+unless Kernel.method_defined? :then
   require 'backports/2.5.0/kernel/yield_self'
 
   module Kernel
