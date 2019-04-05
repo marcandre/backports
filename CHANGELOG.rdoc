@@ -1,6 +1,21 @@
 = Backports --- History
 
-* From 2.5.0: <tt>String#undump</tt> (Note, much slower performances)
+== Version 3.12.0 - February 20th, 2019
+
+* New Ruby version 2.6.0
+  * Array
+    * +difference+, +union+
+    * +to_h+ (with block)
+  * Enumerable
+    * +chain+
+    * +to_h+ (with block)
+  * Enumerator::Chain (use Enumerable#chain)
+  * Kernel
+    * +then+
+
+* Additional backports for 2.5.0:
+  * String
+    * +undump+
 
 == Version 3.11.0 - December 25th, 2017
 
