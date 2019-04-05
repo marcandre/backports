@@ -3,8 +3,8 @@ require 'backports/tools/alias_method_chain'
 class Hash
   unless instance_method(:merge).arity < 0
     def merge_with_backports(first = {}, *others, &block)
-      merge_without_backports(first, &block)
-        .merge!(*others, &block)
+      merge_without_backports(first, &block).
+        merge!(*others, &block)
     end
     Backports.alias_method_chain self, :merge, :backports
   end
