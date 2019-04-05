@@ -1,5 +1,10 @@
 = Backports --- History
 
+== Version 3.13.0 - April 5th, 2019
+
+  * Hash
+    * +merge+, +merge!+/+update+ (with multiple arguments)
+
 == Version 3.12.0 - February 20th, 2019
 
 * New Ruby version 2.6.0
