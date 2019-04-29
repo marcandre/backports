@@ -89,6 +89,7 @@ Compatible with Ruby itself, JRuby and Rubinius.
 
 * Hash
   * +merge+, +merge!+/+update+ (with multiple arguments)
+  * +to_h+ (with block)
 
 * Kernel
   * +then+
