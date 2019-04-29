@@ -1,5 +1,10 @@
 = Backports --- History
 
+== Version 3.14.0 - April 29th, 2019
+
+  * Hash
+    * +to_h+ (with block)
+
 == Version 3.13.0 - April 5th, 2019
 
   * Hash
