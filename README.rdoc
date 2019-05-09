@@ -94,6 +94,12 @@ Compatible with Ruby itself, JRuby and Rubinius.
 * Kernel
   * +then+
 
+* Method
+  * +<<+, +>>+
+
+* Proc
+  * +<<+, +>>+
+
 == Ruby 2.5 backports
 
 * Array
