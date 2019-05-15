@@ -1,5 +1,10 @@
 = Backports --- History
 
+== Version 3.15.0 - May 15th, 2019
+
+  * Proc / Method
+    * +<<+, +>>+
+
 == Version 3.14.0 - April 29th, 2019
 
   * Hash
