@@ -1,6 +1,6 @@
 require 'backports/2.4.0/comparable/clamp' unless Comparable.method_defined? :clamp
 
-if Comparable.instance_method(:clamp).parameters == [[:req], [:req]]
+if Comparable.instance_method(:clamp).parameters.map(&:first) == [:req, :req]
   require 'backports/tools/alias_method_chain'
 
   module Comparable
