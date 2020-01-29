@@ -109,13 +109,15 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
     end
   end
 
-  def test_setlib_load_correctly_after_requiring_backports
-    path = File.expand_path("../../lib/backports/1.9.2/stdlib/matrix.rb", __FILE__)
-    assert_equal false,  $LOADED_FEATURES.include?(path)
-    assert_equal true,  require('matrix')
-    assert_equal true,  $bogus.include?("matrix")
-    assert_equal true,  $LOADED_FEATURES.include?(path)
-    assert_equal false, require('matrix')
+  if RUBY_VERSION < '2.7' # e2mmap was dropped in 2.7, and matrix reimpl depends on it
+    def test_setlib_load_correctly_after_requiring_backports
+      path = File.expand_path("../../lib/backports/1.9.2/stdlib/matrix.rb", __FILE__)
+      assert_equal false,  $LOADED_FEATURES.include?(path)
+      assert_equal true,  require('matrix')
+      assert_equal true,  $bogus.include?("matrix")
+      assert_equal true,  $LOADED_FEATURES.include?(path)
+      assert_equal false, require('matrix')
+    end
   end
 
   def test_setlib_load_correctly_before_requiring_backports_test
@@ -125,9 +127,11 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
     assert_equal false, require('abbrev')
   end
 
-  def test_backports_does_not_interfere_for_libraries_without_backports_test
-    assert_equal true,  require('scanf')
-    assert_equal false, require('scanf')
+  if RUBY_VERSION < '2.7' # scanf was dropped in 2.7
+    def test_backports_does_not_interfere_for_libraries_without_backports_test
+      assert_equal true,  require('scanf')
+      assert_equal false, require('scanf')
+    end
   end
 
   def test_load_correctly_new_libraries_test
