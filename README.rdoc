@@ -75,6 +75,27 @@ Compatible with Ruby itself, JRuby and Rubinius.
 
 = Complete List of backports
 
+== Ruby 2.7 backports
+
+* Array
+  * +intersection+
+
+* Comparable
+  * +clamp+ (with range)
+
+* Complex
+  * +<=>+
+
+* Enumerable
+  * +filter_map+
+  * +tally+
+
+* Enumerator
+  * +produce+ (class method)
+
+* Time
+  * +floor+, +ceil+
+
 == Ruby 2.6 backports
 
 * Array
