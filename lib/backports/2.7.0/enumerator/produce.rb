@@ -1,12 +1,12 @@
 unless Enumerator.respond_to?(:produce)
-  class Enumerator
-    NOVALUE__ = Object.new.freeze
+  require 'backports/tools/arguments'
 
-    def self.produce(initial = NOVALUE__)
+  class Enumerator
+    def self.produce(initial = Backports::Undefined)
       raise ArgumentError, 'no block given' unless block_given?
 
       Enumerator.new do |y|
-        val = initial == NOVALUE__ ? yield() : initial
+        val = initial == Backports::Undefined ? yield() : initial
 
         loop do
           y << val
