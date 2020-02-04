@@ -1,3 +1,5 @@
+require 'backports/1.9.1/enumerable/each_with_object' unless Enumerable.method_defined? :each_with_object
+
 unless Enumerable.method_defined? :tally
   module Enumerable
     def tally
