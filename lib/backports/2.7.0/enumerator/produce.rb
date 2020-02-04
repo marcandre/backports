@@ -1,3 +1,5 @@
+Enumerator = Enumerable::Enumerator unless Object.const_defined? :Enumerator # For 1.8.x
+
 unless Enumerator.respond_to?(:produce)
   require 'backports/tools/arguments'
 
