@@ -1,10 +1,12 @@
 = Backports Library {<img src="https://travis-ci.org/marcandre/backports.svg?branch=master">}[https://travis-ci.org/marcandre/backports] {<img src="https://badge.fury.io/rb/backports.svg" alt="Gem Version" />}[http://badge.fury.io/rb/backports]
 
-Yearning to use some of the new cool features in Ruby 2.6 while using 2.3.x? Have some legacy code in Ruby 1.8 but can't live without `flat_map`?
+Yearning to use some of the new cool features in Ruby 2.7 while using 2.3.x? Have some legacy code in Ruby 1.8 but can't live without `flat_map`?
 
 This gem is for you!
 
 The goal of 'backports' is to make it easier to write ruby code that runs across different versions of Ruby.
+
+Note: {Next major version (X-mas 2020)}[https://github.com/marcandre/backports/issues/139] will drop support for Ruby < 2.2.
 
 == Loading backports
 
@@ -44,7 +46,7 @@ Goals for backported features:
 2. Pure Ruby (no C extensions)
 3. Pass ruby/spec[https://github.com/ruby/spec]
 
-Let's be a bit more precise about the "breaking code" business. It is of course entirely possible that code will break. In particular, you may be distinguishing parameters with duck typing, but a builtin class may, in the future, be responding to a particular call. Here's [an exemple from Rails](https://github.com/rails/rails/blob/a4b55827721a5967299f3c1531afb3d6d81e4ac0/activerecord/lib/active_record/associations/association.rb#L155-L159) that is relying on the fact that Proc and Method respond to :to_proc and Hash isn't. That is, until Ruby 2.3... This old version of Rails therefore won't work on Ruby 2.3, or on older Rubies with that the `2.3.0/hash/to_proc` loaded...
+Let's be a bit more precise about the "breaking code" business. It is of course entirely possible that code will break. In particular, you may be distinguishing parameters with duck typing, but a builtin class may, in the future, be responding to a particular call. Here's {an exemple from Rails}(https://github.com/rails/rails/blob/a4b55827721a5967299f3c1531afb3d6d81e4ac0/activerecord/lib/active_record/associations/association.rb#L155-L159) that is relying on the fact that Proc and Method respond to :to_proc and Hash isn't. That is, until Ruby 2.3... This old version of Rails therefore won't work on Ruby 2.3, or on older Rubies with that the `2.3.0/hash/to_proc` loaded...
 
 For Ruby < 2.0, there are some real incompatibilities. For example, <tt>Module::instance_methods</tt> which returns strings in 1.8 and symbols in 1.9. No change can be made without the risk of breaking existing code. Such incompatibilities are left unchanged, although you can require some of these changes in addition (see below).
 

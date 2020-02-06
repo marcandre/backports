@@ -1,5 +1,30 @@
 = Backports --- History
 
+== Version 3.16.0 - Feb 6th, 2020
+
+Note: {Next major version (X-mas 2020)}[https://github.com/marcandre/backports/issues/139] will drop support for Ruby < 2.2.
+
+* Ruby 2.7 backports
+
+  * Array
+    * +intersection+
+
+  * Comparable
+    * +clamp+ (with range)
+
+  * Complex
+    * +<=>+
+
+  * Enumerable
+    * +filter_map+
+    * +tally+
+
+  * Enumerator
+    * +produce+ (class method)
+
+  * Time
+    * +floor+, +ceil+
+
 == Version 3.15.0 - May 15th, 2019
 
   * Proc / Method
