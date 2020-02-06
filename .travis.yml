@@ -11,9 +11,9 @@ rvm:
   - "2.6.0"
   - ruby-head
 
-matrix:
-  allow_failures:
-    - rvm: ruby-head  # Stdlib are creating issues, those will be deleted next version...
+# matrix:
+#   allow_failures:
+#     - rvm: ruby-head  # Stdlib are creating issues, those will be deleted next version...
 
 before_install:
   - git submodule update --init --recursive

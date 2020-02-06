@@ -111,7 +111,8 @@ DEPENDENCIES = Hash.new([]).merge!(
   '2.3.0/array/bsearch_index' => ['backports/2.3.0/array/dig', 'backports/2.3.0/hash/dig'],
   '2.3.0/array/dig' => ['backports/2.3.0/hash/dig', 'backports/2.3.0/struct/dig'],
   '2.3.0/hash/dig' => ['backports/2.3.0/array/dig', 'backports/2.3.0/struct/dig'],
-  '2.3.0/struct/dig' => ['backports/2.3.0/array/dig', 'backports/2.3.0/hash/dig']
+  '2.3.0/struct/dig' => ['backports/2.3.0/array/dig', 'backports/2.3.0/hash/dig'],
+  '2.7.0/enumerable/tally' => ['backports/2.4.0/hash/transform_values', 'backports/2.2.0/kernel/itself'],
 )
 {
   :each_with_index => %w[enumerable/detect enumerable/find enumerable/find_all enumerable/select enumerable/to_a],
