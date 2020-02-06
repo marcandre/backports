@@ -84,6 +84,7 @@ task :all_spec do # Necessary because of argument passing bug in 1.8.7
   Rake::Task[:spec].invoke
 end
 
+desc "Same as spec, but creating tags for failures"
 task :spec_tag, :path do |t, args|
   Rake::Task[:spec].invoke(args[:path], 'tag -G fails')
 end

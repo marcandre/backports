@@ -1,8 +1,7 @@
 ---
 language: ruby
 rvm:
-  - "1.8.7"
-  - "1.9.2"
+  - "1.9.3"
   - "2.0.0"
   - "2.1.0"
   - "2.2.0"
@@ -12,9 +11,9 @@ rvm:
   - "2.6.0"
   - ruby-head
 
-# matrix:
-#   allow_failures:
-#     - rvm: "2.2.0"  # Travis suddenly fails to `bundle install`, no idea why
+matrix:
+  allow_failures:
+    - rvm: ruby-head  # Stdlib are creating issues, those will be deleted next version...
 
 before_install:
   - git submodule update --init --recursive
