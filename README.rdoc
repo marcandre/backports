@@ -421,8 +421,9 @@ These must be imported in addition to the backports gem, for example:
 Thanks for the bug reports and patches, in particular the repeat offenders:
 
 * Arto Bendiken ( bendiken[http://github.com/bendiken] )
-* Konstantin Haase ( rkh[https://github.com/rkh])
+* Konstantin Haase ( rkh[https://github.com/rkh] )
 * Roger Pack ( rdp[http://github.com/rdp] )
+* Victor Shepelev ( zverok[http://github.com/zverok] )
 
 == Contributing
 
