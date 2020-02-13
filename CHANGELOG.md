@@ -1,14 +1,16 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [Unreleased]
 
 Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/issues/139) will drop support for Ruby < 2.2.
 
-## 3.16.0 - 2020-02-06
+## [3.16.0] - 2020-02-06
+
+### Added
 
 * Ruby 2.7 backports
 
@@ -33,22 +35,30 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 3.15.0 - 2019-05-15
 
+### Added
+
   * Proc / Method
     * `<<`, `>>`
 
 ## 3.14.0 - 2019-04-29
+
+### Added
 
   * Hash
     * `to_h` (with block)
 
 ## 3.13.0 - 2019-04-5
 
+### Added
+
   * Hash
     * `merge`, `merge!`/`update` (with multiple arguments)
 
 ## 3.12.0 - 2019-02-20
 
-* New Ruby version 2.6.0
+### Added
+
+* Ruby 2.6.0 backports
   * Array
     * `difference`, `union`
     * `to_h` (with block)
@@ -67,7 +77,9 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 3.11.0 - 2017-12-25
 
-* New Ruby version 2.5.0
+### Added
+
+* Ruby version 2.5.0 backports
   * Array
     * `append`, `prepend`
 
@@ -105,6 +117,8 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 3.10.0 - 2017-10-17
 
+### Added
+
 * Additional features of 2.4.0
   * Enumerable
     * `uniq`
@@ -116,12 +130,17 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 3.9.0 -  October 07, 2017
 
+### Added
+
 * From 2.4.0: `dup` for `true`, `false`, `nil`, Numeric
 * From 2.2.0: `Method#super_method`
 
 ## 3.8.0 - 2017-04-26
 
+### Added
+
 * From 2.4.0: `String#match?`, `Regexp#match?`
+
 * From 2.3.0:
   * unary `String#+`, `-`
   * Numeric: `positive?`, `negative?`
@@ -138,7 +157,10 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 3.7.0 - 2017-03-28
 
-* Initiate work on backports of 2.2, 2.3, 2.4
+Initiate work on backports of 2.2, 2.3, 2.4
+
+### Added
+
 * From 2.4.0:
   * `Comparable#clamp`
 
@@ -147,6 +169,8 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 3.6.0 - 2014-02-14
 
+### Added
+
 * Additional features of 2.1.0
   * Bignum#bit_length
   * Fixnum#bit_length
@@ -154,33 +178,47 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 3.5.0 - 2014-02-3
 
+### Added
+
 * Additional features of 2.0.0
   * Range#size
 
 ## 3.4.0 - 2013-12-29
+
+### Added
 
 * Additional features of 2.1.0
   * Array#to_h, Enumerable#to_h
 
 ## 3.3.0 - 2013-04-03
 
+### Fixed
+
 * Moved `Proc#yield` & `Hash#key` from 1.8.7 to 1.9.1
 
 ## 3.2.0 - 2013-04-02
 
+### Fixed
+
 * Moved `Dir.mktmpdir` to the stdlib 'tmpdir' for Ruby 1.8.7
+
+### Removed
 
 * Removed `returning` as it is no longer part of Rails.
 
 ## 3.1.0 - 2013-03-05
 
+### Added
+
 * Backports can now be loaded separately!
+
+### Fixed
 
 * Small tweaks and fixes for many methods to pass more RubySpecs
 
 ## 3.0.0 - 2013-02-24
 
-* Features of 2.0.0 are now required when requiring 'backports'.
+### Added
 
 * Additional features of 2.0.0
   * Struct#to_h, NilClass#to_h, Hash#to_h
@@ -191,6 +229,8 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 2.8.0 - 2013-02-3
 
+### Added
+
 * Added some features of 2.0.0 (must be required explicitly until official
     release):
   * Array#bsearch
@@ -198,24 +238,32 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 2.7.0 - 2013-01-14
 
-* Added some features of 2.0.0 (must be required explicitly until official
+### Added
+
+* Features of 2.0.0 (must be required explicitly until official
     release):
   * Enumerable#lazy
   * Enumerator::Lazy
 
 ## 2.6.0 - 2012-05-29
 
-* Removed Enumerable#join
+### Removed
+
+* Enumerable#join
 
 ## 2.5.0 - 2012-02-25
 
-* Added some features of 1.9.3:
+### Added
+
+* Some features of 1.9.3:
   * IO::NULL
   * IO#advise
   * String#byteslice
   * String#prepend
 
 ## 2.4.0 - 2012-02-24
+
+### Added
 
 * Add backporting for libraries
 
@@ -224,10 +272,10 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
   * Prime
   * Set
 
-* Added some features of 1.9.3:
+* Some features of 1.9.3:
   * IO.write, IO.binwrite
 
-* Add forcing backports (must be required explicitly):
+* Forcing backports (must be required explicitly):
   * Hash#select (returns a Hash instead of an Array)
   * Enumerable / Array#map (returns an enumerator when called without a
         block)
@@ -235,9 +283,13 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 2.3.0 - 2011-05-13
 
-* Added Enumerator::Yielder#<<
+### Added
+
+* `Enumerator::Yielder#<<`
 
 ## 2.2.0 - 2011-05-13
+
+### Fixed
 
 * Ruby 1.8.8 was officially cancelled; code was moved to Ruby 1.9.1 and
     README updated.
@@ -246,9 +298,13 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 ## 2.1.0 - 2011-04-16
 
+### Added
+
 * Proc#curry, #lambda (thanks Konstantine Haase)
 
 ## 2.0.0 - 2010-12-5
+
+### Fixed
 
 Change of major version because of two small changes that are not quite
 compatible and because the minor version was getting quite high!
@@ -264,21 +320,29 @@ compatible and because the minor version was getting quite high!
 
 ## 1.18.0 - 2010-06-19
 
-* Added some features of 1.9.1:
+### Added
+
+* Some features of 1.9.1:
 
   * Math#log2, Math#log with base
 
-* Also fixed Enumerator#each in 1.8.6.
+### Fixed
+
+* Enumerator#each in 1.8.6.
 
 ## 1.17.0 - 2010-05-17
 
-* Added some features of 1.9.2:
+### Added
+
+* Some features of 1.9.2:
 
   * Array#repeated_combination, #repeated_permutation
 
 ## 1.16.2 - 2010-04-11
 
-* Added some features of 1.9.2:
+### Added
+
+* Some features of 1.9.2:
 
   * Array#uniq, #uniq! (with block)
   * Array#product (with block)
@@ -288,13 +352,17 @@ compatible and because the minor version was getting quite high!
 
 ## 1.15.0 - 2010-02-23
 
-* Added a features of 1.9.2:
+### Added
+
+* A features of 1.9.2:
 
   * Object#singleton_class
 
 ## 1.14.0 - 2010-02-3
 
-* Added some features of 1.9.2:
+### Added
+
+* Some features of 1.9.2:
 
   * Array#rotate, rotate!
   * Array#keep_if, select!
@@ -306,12 +374,16 @@ compatible and because the minor version was getting quite high!
 
 ## 1.13.0 - 2010-01-20
 
+### Added
+
 * Missing for 1.8.7 were
   * Array#permutation
   * Hash#hash  (was only inherited)
   * Hash#eql?  (was only inherited)
 
 ## 1.12.0 - 2009-12-4
+
+### Added
 
 * Finer grain includes (see README) require "backports/1.9"    # requires
     all ruby backports require "backports/1.9.1"  # requires all ruby
@@ -324,28 +396,32 @@ compatible and because the minor version was getting quite high!
 
 ## 1.11.0 - 2009-11-04
 
-* Added Enumerable#flat_map / collect_concat (Ruby 1.9)
+### Added
 
-* Added Object#public_send (Ruby 1.9)
+* Enumerable#flat_map / collect_concat (Ruby 1.9)
 
-* Added Object#public_method (Ruby 1.9)
+* Object#public_send (Ruby 1.9)
 
-* bug fixes
+* Object#public_method (Ruby 1.9)
 
 ## 1.10.0 - 2009-09-29
 
-* Added Enumerable#chunk (Ruby 1.9)
+### Added
 
-* Added Kernel#respond_to_missing? (Ruby 1.9)
+* Enumerable#chunk (Ruby 1.9)
+
+* Kernel#respond_to_missing? (Ruby 1.9)
 
 * Completed Process.exec (Ruby 1.8.7)
 
 ## 1.9.0 - 2009-09-04
 
+### Added
+
 * In Ruby 1.9, most class methods of File accept filenames as String, or
     convertible via #to_str or #to_path.
 
-File#to_path is also an alias to File#path. These have been backported.
+* File#to_path is also an alias to File#path. These have been backported.
 
 * File.binread (actually IO.binread)
 
@@ -353,13 +429,19 @@ File#to_path is also an alias to File#path. These have been backported.
 
 ## 1.8.4 - 2009-09-03
 
-Added Dir.mktmpdir for older version of 1.8.6
+### Added
+
+`Dir.mktmpdir` for older version of 1.8.6
 
 ## 1.8.1 - 2009-09-01
 
-Added the alias String#lines (Ruby 1.8.7)
+### Added
+
+The alias String#lines (Ruby 1.8.7)
 
 ## 1.8.0 - 2009-08-30
+
+### Added
 
 Backports can be required selectively:
 * backports/1.8.7
@@ -368,24 +450,34 @@ Backports can be required selectively:
 
 ## 1.7.1 - 2009-08-20
 
-Enumerable#take and Enumerable#first(n) are now returning as soon as possible.
-Previously, #each was yielding one element too many. See redmine issue #1554.
+### Fixed
+
+`Enumerable#take` and `Enumerable#first(n)` are now returning as soon as possible.
+Previously, `#each` was yielding one element too many. See redmine issue #1554.
 
 ## 1.7.0 - 2009-05-27
+
+### Fixed
 
 Porting all 1.8.7 features to rubinius was quite enlightening
 (http://blog.marc-andre.ca/2009/05/schizo-ruby-puzzle.html ). Many
 improvements were made to be consistent with MRI, e.g. converting arguments
 using to_int if needed, etc... The changes are now reflected in 'backports'.
 
+### Added
+
 Some IO and ARGF methods were missing and are now complete.
 
 ## 1.6.6 - 2009-04-30
 
-Important bug fix. String#gsub is left alone until I find a good way to modify
+### Fixed
+
+Important bug fix. `String#gsub` is left alone until I find a good way to modify
 it.
 
 ## 1.6.0 - 2009-04-29
+
+### Added
 
 Completed backport to 1.8.7.
 
@@ -466,6 +558,8 @@ Completed backport to 1.8.7.
 
 ## 1.5.0 - 2009-04-24
 
+### Added
+
 * Array (completed)
   * `combination`
   * `try_convert`
@@ -488,6 +582,8 @@ Completed backport to 1.8.7.
 
 ## 1.4.0 - 2009-04-21
 
+### Added
+
 * String
   * `rpartition`
 
@@ -495,6 +591,8 @@ Completed backport to 1.8.7.
   * `yield`
 
 ## 1.3.0 - 2009-04-17
+
+### Added
 
 * Enumerable
   * `none?`
@@ -509,6 +607,8 @@ Completed backport to 1.8.7.
 Tests and fixes for `String#start_with?` and `String#end_with?`
 
 ## 1.2.0 - 2009-04-12
+
+### Added
 
 * Array
   * `reverse_each`
@@ -526,6 +626,8 @@ Tests and fixes for `String#start_with?` and `String#end_with?`
 
 ## 1.1.0 - 2009-04-11
 
+### Added
+
 * Array
   * `flatten`, `flatten!`
   * `find_index`, `index`
@@ -535,4 +637,13 @@ Tests and fixes for `String#start_with?` and `String#end_with?`
 
 ## 1.0.0 - 2009-04-2
 
+### Added
+
 * Initial release.
+
+## Notes
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+[Unreleased]: https://github.com/marcandre/backports/compare/v3.16.0...HEAD
+[3.16.0]: https://github.com/marcandre/backports/compare/v3.15.0...v3.16.0
