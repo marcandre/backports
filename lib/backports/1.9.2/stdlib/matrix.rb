@@ -11,7 +11,10 @@
 # Original Documentation:: Gavin Sinclair (sourced from <i>Ruby in a Nutshell</i> (Matsumoto, O'Reilly))
 ##
 
+begin
 require "e2mmap.rb"
+rescue LoadError
+else
 
 module ExceptionForMatrix # :nodoc:
   def_e2message(TypeError, "wrong argument type %s (expected %s)")
@@ -1869,4 +1872,6 @@ class Vector
     "Vector" + @elements.inspect
   end
 end
+end
+
 end
