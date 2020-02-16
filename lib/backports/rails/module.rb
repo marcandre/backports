@@ -1,3 +1,7 @@
+require 'backports/tools/deprecation'
+
+Backports.deprecate :rails, 'Rails backports are deprecated.'
+
 class Module
   # Standard in rails... See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Module.html]
   def alias_method_chain(target, feature, &block)

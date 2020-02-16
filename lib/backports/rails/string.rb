@@ -1,3 +1,7 @@
+require 'backports/tools/deprecation'
+
+Backports.deprecate :rails, 'Rails backports are deprecated.'
+
 class String
   # Standard in rails. See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/String/Inflections.html]
   def camelize(first_letter = :upper)

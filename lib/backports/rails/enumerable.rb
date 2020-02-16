@@ -1,3 +1,7 @@
+require 'backports/tools/deprecation'
+
+Backports.deprecate :rails, 'Rails backports are deprecated.'
+
 module Enumerable
   # Standard in rails... See official documentation[http://api.rubyonrails.org/classes/Enumerable.html]
   # Modified from rails 2.3 to not rely on size

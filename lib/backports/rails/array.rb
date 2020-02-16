@@ -1,3 +1,7 @@
+require 'backports/tools/deprecation'
+
+Backports.deprecate :rails, 'Rails backports are deprecated.'
+
 class Array
   # See official documentation[http://api.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Array/ExtractOptions.html]
   def extract_options!

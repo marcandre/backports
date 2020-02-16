@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require 'backports/tools/deprecation'
+
+Backports.deprecate :rails, 'Rails backports are deprecated.'
+
 # From ActiveSupport
 unless Object.method_defined? :try
   class Object
