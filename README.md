@@ -35,9 +35,10 @@ Class:
 This will make sure that Hash responds to dig, fetch_values, <, <=, >, >= and
 to_proc
 
-### Up to a specific Ruby version
+### Up to a specific Ruby version (deprecated)
 
-You can load all backports up to a specific version. For example, to bring any
+Although this is deprecated, you can load all backports up to a specific version.
+For example, to bring any
 version of Ruby mostly up to Ruby 2.4.0's standards:
 
     require 'backports/2.4.0'
@@ -444,13 +445,9 @@ Only exceptions:
 
 ## Libraries
 
-Libraries are slowly being backported. You simply require them as usual after
-requiring 'backports/std_lib'. Requiring 'backports/std_lib' after the
-standard libraries is also supported.
+Libraries were slowly being backported, but they are now available as separate gems.
 
-    require "backports/std_lib"
-    require "prime"
-    42.prime? # => false, even in Ruby 1.8.x
+The backports would be automatically used after requiring 'backports/std_lib' but this is now deprecated and discouraged.
 
 The following libraries are up to date with Ruby 1.9.3:
 

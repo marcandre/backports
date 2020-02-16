@@ -98,6 +98,8 @@ class AAA_TestBackportGuards < Test::Unit::TestCase
       unless File.exist?(File.expand_path("../../lib/backports/#{main_version}.rb", __FILE__))
         main_version = main_version.sub(/\.\d+$/, '.0')
       end
+      require 'backports/tools/deprecation'
+      Backports.deprecation_warned = Hash.new(true)
       require "backports/#{main_version}"
       after = digest
       assert_nil digest_delta(before, after)
