@@ -14,6 +14,12 @@ group :test do
   gem 'test-unit', '~>2.1.1.0'
 end
 
+if RUBY_VERSION >= '2.3.0'
+  group :development do
+    gem 'rubocop', '~> 0.80.0'
+  end
+end
+
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing

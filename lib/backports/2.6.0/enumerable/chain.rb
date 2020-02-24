@@ -11,7 +11,10 @@ unless Enumerable.method_defined? :chain
     def initialize(*enums)
       @enums = enums
       @rewindable = -1
-      self
+      # This self is necessary to pass RubySpec,
+      # See rubyspec/core/enumerator/chain/initialize_spec.rb
+      # ...it checks what call of #initialize on non-initalized object returns
+      self # rubocop:disable Lint/Void
     end
 
     def each(*args, &block)

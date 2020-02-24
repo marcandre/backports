@@ -1,6 +1,6 @@
 class Hash
   def transform_keys
-    return to_enum(:transform_keys){ size } unless block_given?
+    return to_enum(:transform_keys) { size } unless block_given?
     h = {}
     each do |key, value|
       h[yield key] = value

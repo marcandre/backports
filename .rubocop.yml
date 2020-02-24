@@ -1,0 +1,144 @@
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'frozen_old_spec/**/*'
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'tools/**/*'
+    - 'Rakefile'
+    - 'Gemfile'
+    - '*.gemspec'
+    - 'default.mspec'
+    - 'set_version/setter.rb'
+    - 'lib/backports/1.*/**/*'
+    - 'lib/backports/1.*.rb'
+    - 'lib/backports/2.{0,1}.*/**/*'
+    - 'lib/backports/random/*'
+    - 'lib/backports/force/*'
+    - 'lib/backports/rails/*'
+    - 'lib/backports/rails.rb'
+    - 'lib/backports/tools/*'
+    - 'lib/backports/basic_object.rb'
+    - 'lib/backports/std_lib.rb'
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 150
+
+Layout/SpaceBeforeBlockBraces:
+  EnforcedStyleForEmptyBraces: no_space
+
+# In current checked codebase, there is ~70 occurences of blocks
+# with spaces before last brace, and ~50 of blocks without.
+Layout/SpaceInsideBlockBraces:
+  Enabled: false
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Lint/EmptyWhen:
+  Enabled: false
+
+Lint/UnifiedInteger:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Naming:
+  Enabled: false
+
+Security/Eval:
+  Exclude:
+    - 'lib/backports/2.5.0/string/undump.rb'
+
+Style/AccessModifierDeclarations:
+  Enabled: false
+
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+Style/AndOr:
+  EnforcedStyle: conditionals
+
+Style/CaseEquality:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyElse:
+  Enabled: false
+
+Style/EvalWithLocation:
+  Exclude:
+    - 'lib/backports/2.5.0/string/undump.rb'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/MultilineIfModifier:
+  Enabled: false
+
+Style/MultipleComparison:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/NilComparison:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/RescueModifier:
+  Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/HashTransformValues:
+  Enabled: false
+
+
+# TODO: Can be changed after 1.8 support will be dropped
+
+# 1.8 doesn't support leading comma style (which is currently preferred in
+# community and default in Rubocop)
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Style/ExpandPathArguments:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
+Style/Lambda:
+  EnforcedStyle: lambda
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/SymbolProc:
+  Enabled: false
+

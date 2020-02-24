@@ -6,14 +6,10 @@ unless String.method_defined? :undump
       raise 'string contains null byte' if string["\0"]
       raise 'non-ASCII character detected' unless string.ascii_only?
 
-      #raise '.force_encoding("...") format is not supported by backports' if string.match(/\A".*"\.force_encoding\("[^"]*"\)\z/)
-      match = string.match(/\A(".*?"?)(?:\.force_encoding\("([^"]*)"\))?\z/)
-      if match
-        string = match[1]
-        encoding = match[2]
-      else
+      match = string.match(/\A(".*?"?)(?:\.force_encoding\("([^"]*)"\))?\z/) or
         raise %(invalid dumped string; not wrapped with '"' nor '"...".force_encoding("...")' form)
-      end
+      string = match[1]
+      encoding = match[2]
 
       # Ruby 1.9.3 does weird things to encoding during gsub
       encoding ||= string.encoding.to_s

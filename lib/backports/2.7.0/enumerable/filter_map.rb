@@ -5,10 +5,10 @@ unless Enumerable.method_defined? :filter_map
     def filter_map
       return to_enum(:filter_map) unless block_given?
 
-      each_with_object([]) { |item, res|
+      each_with_object([]) do |item, res|
         processed = yield(item)
         res << processed if processed
-      }
+      end
     end
   end
 end
