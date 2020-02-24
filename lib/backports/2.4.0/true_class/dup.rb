@@ -3,4 +3,3 @@ class TrueClass
     self
   end
 end unless (true.dup rescue false)
-

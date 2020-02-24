@@ -90,7 +90,13 @@ task :spec_tag, :path do |t, args|
   Rake::Task[:spec].invoke(args[:path], 'tag -G fails')
 end
 
-task :default => [:test, :all_spec]
+if RUBY_VERSION >= '2.3.0'
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+  task :default => [:rubocop, :test, :all_spec]
+else
+  task :default => [:test, :all_spec]
+end
 
 DEPENDENCIES = Hash.new([]).merge!(
   '1.8.7/argf/chars'     => 'backports/1.8.7/string/each_char',

@@ -5,7 +5,7 @@ unless Array.method_defined? :bsearch_index
       from = 0
       to   = size - 1
       satisfied = nil
-      while from <= to do
+      while from <= to
         midpoint = (from + to).div(2)
         result = yield(self[midpoint])
         case result
