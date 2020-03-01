@@ -1,4 +1,6 @@
 unless Range.method_defined? :size
+  require 'backports/1.9.2/float/infinity'
+
   class Range
     def size
       return nil unless self.begin.is_a?(Numeric) && self.end.is_a?(Numeric)
