@@ -8,11 +8,26 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/issues/139) will drop support for Ruby < 2.2.
 
+## [3.17.0](https://github.com/marcandre/backports/compare/v3.16.1...v3.16.2) - 2020-03-06
+
+### Added
+
+* Ruby 2.6 backports
+
+  * Range
+    * `cover?` (with `Range` argument)
+
+### Changed
+
+Requiring features for a particular version of Ruby or `latest` is un-deprecated but
+instead simply warned in verbose mode.
+
 ## [3.16.1](https://github.com/marcandre/backports/compare/v3.16.0...v3.16.1) - 2020-02-16
 
 ### Deprecated
 
-Officially deprecate requiring features for a particular version of Ruby, `latest`, `std_lib` or `rails` backports
+Officially deprecate requiring features for a particular version of Ruby, `latest`, `std_lib` or `rails` backports.
+Partly un-deprecated in 3.17.0!
 
 ### Fixed
 
