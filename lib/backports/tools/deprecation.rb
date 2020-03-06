@@ -1,12 +1,19 @@
 module Backports
   class << self
-    attr_accessor :deprecation_warned
-    Backports.deprecation_warned = {}
+    attr_accessor :warned # private
+    Backports.warned = {}
 
-    def deprecate kind, msg
-      return if deprecation_warned[kind]
-      warn msg
-      deprecation_warned[kind] = msg
+    def frown_upon kind, msg
+      warn kind, msg if $VERBOSE
     end
+
+    def warn kind, msg
+      return if warned[kind]
+      super msg
+      warned[kind] = msg
+    end
+
+    alias_method :deprecate, :warn
+
   end
 end

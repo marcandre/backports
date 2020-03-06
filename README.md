@@ -35,20 +35,22 @@ Class:
 This will make sure that Hash responds to dig, fetch_values, <, <=, >, >= and
 to_proc
 
-### Up to a specific Ruby version (deprecated)
+### Up to a specific Ruby version (for quick coding)
 
-Although this is deprecated, you can load all backports up to a specific version.
+You can load all backports up to a specific version.
 For example, to bring any
-version of Ruby mostly up to Ruby 2.4.0's standards:
+version of Ruby mostly up to Ruby 2.7.0's standards:
 
-    require 'backports/2.4.0'
+    require 'backports/2.7.0'
 
 This will bring in all the features of 1.8.7 and many features of Ruby 1.9.x
-all the way up to Ruby 2.4.0 (for all versions of Ruby)!
+all the way up to Ruby 2.7.0 (for all versions of Ruby)!
 
-While it is not recommended, you may `require 'backports/latest'` as a
-shortcut to the latest Ruby version supported. This is equivalent to the
-deprecated `require 'backports'`.
+You may `require 'backports/latest'` as a
+shortcut to the latest Ruby version supported.
+
+*Note*: For production / public gems, it is highly recommended you only require
+the backports you need explicitly.
 
 *Note*: Although I am a Ruby committer, this gem is a personal project and is
 not endorsed by ruby-core.

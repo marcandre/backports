@@ -2,10 +2,10 @@
 require "backports/tools/require_relative_dir"
 require "backports/tools/deprecation"
 
-Backports.deprecate :require_version,
-  'Requiring backports/<ruby version> is deprecated. Require just the needed backports instead'
+Backports.frown_upon :require_version,
+  'Requiring backports/<ruby version> is not recommended in production. Require just the needed backports instead.'
 
-Backports.deprecation_warned[:require_std_lib] = true
+Backports.warned[:require_std_lib] = true
 require "backports/std_lib"
 
 Backports.require_relative_dir
