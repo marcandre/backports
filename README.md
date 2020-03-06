@@ -153,6 +153,9 @@ itself, JRuby and Rubinius.
 *  Proc
   * +<<+, +>>+
 
+*  Range
+  * `cover?` (with `Range` argument)
+
 ## Ruby 2.5 backports
 
 *  Array
