@@ -65,13 +65,13 @@ Goals for backported features:
 Let's be a bit more precise about the "breaking code" business. It is of
 course entirely possible that code will break. In particular, you may be
 distinguishing parameters with duck typing, but a builtin class may, in the
-future, be responding to a particular call. Here's {an exemple from
-Rails}(https://github.com/rails/rails/blob/a4b55827721a5967299f3c1531afb3d6d81
-e4ac0/activerecord/lib/active_record/associations/association.rb#L155-L159)
+future, be responding to a particular call. Here's [an example from Rails][]
 that is relying on the fact that Proc and Method respond to :to_proc and Hash
 isn't. That is, until Ruby 2.3... This old version of Rails therefore won't
 work on Ruby 2.3, or on older Rubies with that the `2.3.0/hash/to_proc`
 loaded...
+
+[an example from rails]: https://github.com/rails/rails/blob/a4b55827721a5967299f3c1531afb3d6d81e4ac0/activerecord/lib/active_record/associations/association.rb#L155-L159
 
 For Ruby < 2.0, there are some real incompatibilities. For example,
 `Module::instance_methods` which returns strings in 1.8 and symbols in 1.9. No
