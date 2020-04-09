@@ -111,242 +111,242 @@ itself, JRuby and Rubinius.
 
 ## Ruby 2.7 backports
 
-*  Array
-  * `intersection`
+#### Array
+  - `intersection`
 
-*  Comparable
-  * `clamp` (with range)
+#### Comparable
+  - `clamp` (with range)
 
-*  Complex
-  * +<=>+
+#### Complex
+  - +<=>+
 
-*  Enumerable
-  * `filter_map`
-  * `tally`
+#### Enumerable
+  - `filter_map`
+  - `tally`
 
-*  Enumerator
-  * `produce` (class method)
+#### Enumerator
+  - `produce` (class method)
 
-*  Time
-  * `floor`, `ceil`
+#### Time
+  - `floor`, `ceil`
 
 ## Ruby 2.6 backports
 
-*  Array
-  * `difference`, `union`
-  * `to_h` (with block)
+#### Array
+  - `difference`, `union`
+  - `to_h` (with block)
 
-*  Enumerable
-  * `chain`
-  * `to_h` (with block)
+#### Enumerable
+  - `chain`
+  - `to_h` (with block)
 
-*  Enumerator::Chain (use Enumerable#chain)
+#### Enumerator::Chain (use Enumerable#chain)
 
-*  Hash
-  * `merge`, `merge!`/`update` (with multiple arguments)
-  * `to_h` (with block)
+#### Hash
+  - `merge`, `merge!`/`update` (with multiple arguments)
+  - `to_h` (with block)
 
-*  Kernel
-  * `then`
+#### Kernel
+  - `then`
 
-*  Method
-  * +<<+, +>>+
+#### Method
+  - +<<+, +>>+
 
-*  Proc
-  * +<<+, +>>+
+#### Proc
+  - +<<+, +>>+
 
-*  Range
-  * `cover?` (with `Range` argument)
+#### Range
+  - `cover?` (with `Range` argument)
 
 ## Ruby 2.5 backports
 
-*  Array
-  * `append`, `prepend`
+#### Array
+  - `append`, `prepend`
 
-*  Dir
-  * `children`, `each_child`
+#### Dir
+  - `children`, `each_child`
 
-*  Enumerable
-  * `any?`, `all?`, `none?`, `one?` (with pattern argument)
+#### Enumerable
+  - `any?`, `all?`, `none?`, `one?` (with pattern argument)
 
-*  Hash
-  * `slice`
-  * `transform_keys`
+#### Hash
+  - `slice`
+  - `transform_keys`
 
-*  Integer
-  * `sqrt`
-  * `allbits?`, `anybits?` and `nobits?`
+#### Integer
+  - `sqrt`
+  - `allbits?`, `anybits?` and `nobits?`
 
-*  Kernel
-  * `yield_self`
+#### Kernel
+  - `yield_self`
 
-*  Module
-  * `attr`, `attr_accessor`, `attr_reader`, `attr_writer` (now public)
-  * `define_method`, `alias_method`, `undef_method`, `remove_method` (now
+#### Module
+  - `attr`, `attr_accessor`, `attr_reader`, `attr_writer` (now public)
+  - `define_method`, `alias_method`, `undef_method`, `remove_method` (now
         public)
 
-*  String
-  * `delete_prefix`, `delete_prefix!`
-  * `delete_suffix`, `delete_suffix!`
-  * `undump`
+#### String
+  - `delete_prefix`, `delete_prefix!`
+  - `delete_suffix`, `delete_suffix!`
+  - `undump`
 
-*  Struct
-  * `new` (with `keyword_init: true`)
+#### Struct
+  - `new` (with `keyword_init: true`)
 
 ## Ruby 2.4 backports
 
-*  Comparable
-  * `clamp`
+#### Comparable
+  - `clamp`
 
-*  Enumerable
-  * `sum`
-  * `uniq`
+#### Enumerable
+  - `sum`
+  - `uniq`
 
-*  Hash
-  * `compact`, `compact!`
-  * `transform_values`, `transform_values!`
+#### Hash
+  - `compact`, `compact!`
+  - `transform_values`, `transform_values!`
 
-*  Regexp
-  * `match?`
+#### Regexp
+  - `match?`
 
-*  String
-  * `match?`
+#### String
+  - `match?`
 
-*  FalseClass, Fixnum, Float, NilClass, TrueClass
-  * `dup`
+#### FalseClass, Fixnum, Float, NilClass, TrueClass
+  - `dup`
 
 ## Ruby 2.3 backports
 
-*  Array
-  * `bsearch_index`
-  * `dig`
+#### Array
+  - `bsearch_index`
+  - `dig`
 
-*  Enumerable
-  * `chunk_while`
-  * `grep_v`
+#### Enumerable
+  - `chunk_while`
+  - `grep_v`
 
-*  Hash
-  * `dig`
-  * `fetch_values`
-  * `to_proc`
-  * <=, <, >=, >
+#### Hash
+  - `dig`
+  - `fetch_values`
+  - `to_proc`
+  - <=, <, >=, >
 
-*  Numeric
-  * `negative?`
-  * `positive?`
+#### Numeric
+  - `negative?`
+  - `positive?`
 
-*  String
-  * unary + and -
+#### String
+  - unary + and -
 
-*  Struct
-  * `dig`
+#### Struct
+  - `dig`
 
 ## Ruby 2.2 backports
 
-*  Enumerable
-  * `slice_after`
-  * `slice_when`
+#### Enumerable
+  - `slice_after`
+  - `slice_when`
 
-*  Float
-  * `prev_float`
-  * `next_float`
+#### Float
+  - `prev_float`
+  - `next_float`
 
-*  Kernel
-  * `itself`
+#### Kernel
+  - `itself`
 
-*  Method
-  * `curry`
-  * `super_method`
+#### Method
+  - `curry`
+  - `super_method`
 
-*  String
-  * `unicode_normalize`
-  * `unicode_normalize!`
-  * `unicode_normalize?`
+#### String
+  - `unicode_normalize`
+  - `unicode_normalize!`
+  - `unicode_normalize?`
 
 ## Ruby 2.1 backports
 
-*  Array
-  * `to_h`
+#### Array
+  - `to_h`
 
-*  Bignum
-  * `bit_length`
+#### Bignum
+  - `bit_length`
 
-*  Enumerable
-  * `to_h`
+#### Enumerable
+  - `to_h`
 
-*  Fixnum
-  * `bit_length`
+#### Fixnum
+  - `bit_length`
 
-*  Module
-  * `include` (now public)
+#### Module
+  - `include` (now public)
 
 ## Ruby 2.0 backports
 
-*  Array
-  * `bsearch`
+#### Array
+  - `bsearch`
 
-*  Enumerable
-  * `lazy`
+#### Enumerable
+  - `lazy`
 
-*  Enumerator::Lazy
-  * all methods
+#### Enumerator::Lazy
+  - all methods
 
-*  Hash
-  * `default_proc=` (with nil argument)
-  * `to_h`
+#### Hash
+  - `default_proc=` (with nil argument)
+  - `to_h`
 
-*  `nil.to_h`
+#### `nil.to_h`
 
-*  Range
-  * `bsearch`
+#### Range
+  - `bsearch`
 
-*  Struct
-  * `to_h`
+#### Struct
+  - `to_h`
 
 ## Ruby 1.9.3 backports
 
-*  File
-  * `NULL`
+#### File
+  - `NULL`
 
-*  IO
-  * `advise` (acts as a noop)
-  * `write`, `binwrite`
+#### IO
+  - `advise` (acts as a noop)
+  - `write`, `binwrite`
 
-*  String
-  * `byteslice`
-  * `prepend`
+#### String
+  - `byteslice`
+  - `prepend`
 
 ## Ruby 1.9.2 backports
 
-*  Array
-  * `rotate, rotate!`
-  * `keep_if, select!`
-  * `product` (with block)
-  * `repeated_combination`, `repeated_permutation`
-  * `sort_by!`
-  * `uniq, uniq!` (with block)
+#### Array
+  - `rotate, rotate!`
+  - `keep_if, select!`
+  - `product` (with block)
+  - `repeated_combination`, `repeated_permutation`
+  - `sort_by!`
+  - `uniq, uniq!` (with block)
 
-*  Complex
-  * `to_r`
+#### Complex
+  - `to_r`
 
-*  Dir
-  * `home`
+#### Dir
+  - `home`
 
-*  Enumerable
-  * `chunk`
-  * `flat_map`, `collect_concat`
-  * `join`
-  * `slice_before`
+#### Enumerable
+  - `chunk`
+  - `flat_map`, `collect_concat`
+  - `join`
+  - `slice_before`
 
-*  Float::INFINITY, NAN
+#### Float::INFINITY, NAN
 
-*  Hash
-  * `keep_if`, `select!`
+#### Hash
+  - `keep_if`, `select!`
 
-*  Object
-  * `singleton_class`
+#### Object
+  - `singleton_class`
 
-*  Random (new class)
+#### Random (new class)
 
 *Note*: The methods of `Random` can't be required individually; the class
 can only be required whole with `require 'backports/1.9.2/random'`.
@@ -354,78 +354,78 @@ can only be required whole with `require 'backports/1.9.2/random'`.
 ## Ruby 1.9.1 backports
 
 Additionally, the following Ruby 1.9 features have been backported:
-*  Array
-  * `try_convert`
-  * `sample`
+#### Array
+  - `try_convert`
+  - `sample`
 
-*  Enumerable
-  * `each_with_object`
-  * `each_with_index` (with arguments)
+#### Enumerable
+  - `each_with_object`
+  - `each_with_index` (with arguments)
 
-*  Enumerator
-  * `new` (with block)
+#### Enumerator
+  - `new` (with block)
 
-*  File
-  * `binread`
-  * `to_path`
-  * All class methods accepting filenames will accept files or anything
+#### File
+  - `binread`
+  - `to_path`
+  - All class methods accepting filenames will accept files or anything
         with a `#to_path` method.
-  * `File.open` accepts an options hash.
+  - `File.open` accepts an options hash.
 
-*  Float
-  * `round`
+#### Float
+  - `round`
 
-*  Hash
-  * `assoc`, `rassoc`
-  * `key`
-  * `try_convert`
-  * `default_proc=`
+#### Hash
+  - `assoc`, `rassoc`
+  - `key`
+  - `try_convert`
+  - `default_proc=`
 
-*  Integer
-  * `magnitude`
-  * `round`
+#### Integer
+  - `magnitude`
+  - `round`
 
-*  IO
-  * `bin_read`
-  * `try_convert`
-  * `ungetbyte`
-  * `IO.open` accepts an options hash.
+#### IO
+  - `bin_read`
+  - `try_convert`
+  - `ungetbyte`
+  - `IO.open` accepts an options hash.
 
-*  Kernel
-  * `require_relative`
+#### Kernel
+  - `require_relative`
 
-*  Math
-  * `log` (with base)
-  * `log2`
+#### Math
+  - `log` (with base)
+  - `log2`
 
-*  Numeric
-  * `round`
+#### Numeric
+  - `round`
 
-*  Object
-  * `define_singleton_method`
-  * `public_method`
-  * `public_send`
+#### Object
+  - `define_singleton_method`
+  - `public_method`
+  - `public_send`
 
-*  Proc
-  * `yield`
-  * `lambda?`
-  * `curry`
-  * `===`
+#### Proc
+  - `yield`
+  - `lambda?`
+  - `curry`
+  - `===`
 
-*  Range
-  * `cover?`
+#### Range
+  - `cover?`
 
-*  Regexp
-  * `try_convert`
+#### Regexp
+  - `try_convert`
 
-*  String
-  * `ascii_only?`
-  * `chr`
-  * `clear`
-  * `codepoints`, `each_codepoint`
-  * `get_byte`, `set_byte`
-  * `ord`
-  * `try_convert`
+#### String
+  - `ascii_only?`
+  - `chr`
+  - `clear`
+  - `codepoints`, `each_codepoint`
+  - `get_byte`, `set_byte`
+  - `ord`
+  - `try_convert`
 
 `Enumerator` can be accessed directly (instead of `Enumerable::Enumerator`)
 
@@ -444,9 +444,9 @@ Complete Ruby 1.8.7 backporting (core language). Refer to the official list of
 backports!
 
 Only exceptions:
-*  String#gsub (the form returning an enumerator)
-*  GC.stress=  (not implemented)
-*  Array#choice (removed in 1.9, use 1.9.1's Array#sample instead)
+#### String#gsub (the form returning an enumerator)
+#### GC.stress=  (not implemented)
+#### Array#choice (removed in 1.9, use 1.9.1's Array#sample instead)
 
 ## Libraries
 
@@ -456,18 +456,18 @@ The backports would be automatically used after requiring 'backports/std_lib' bu
 
 The following libraries are up to date with Ruby 1.9.3:
 
-*  Matrix
-*  Prime
-*  Set
+#### Matrix
+#### Prime
+#### Set
 
 The following library is to date with Ruby 2.0.0:
 
-*  OpenStruct (ostruct)
+#### OpenStruct (ostruct)
 
 I am aware of the following backport gem, which probably won't make it into
 this gem:
 
-*  Net::SMTP for Ruby 1.8.6:
+#### Net::SMTP for Ruby 1.8.6:
     [smtp_tls](http://seattlerb.rubyforge.org/smtp_tls/)
 
 Requiring backports for a given version of Ruby will also load
@@ -479,14 +479,14 @@ Some backports would create incompatibilities in their current Ruby version
 but could be useful in some projects. It is possible to request such
 incompatible changes. Backports currently supports the following:
 
-*  Hash
-  * `select` (returns a Hash instead of an Array)
+#### Hash
+  - `select` (returns a Hash instead of an Array)
 
-*  Enumerable / Array
-  * `map` (returns an enumerator when called without a block)
+#### Enumerable / Array
+  - `map` (returns an enumerator when called without a block)
 
-*  String
-  * `length`, `size` (for UTF-8 support)
+#### String
+  - `length`, `size` (for UTF-8 support)
 
 These must be imported in addition to the backports gem, for example:
 
@@ -497,10 +497,10 @@ These must be imported in addition to the backports gem, for example:
 
 Thanks for the bug reports and patches, in particular the repeat offenders:
 
-*  Arto Bendiken ( [bendiken](http://github.com/bendiken) )
-*  Konstantin Haase ( [rkh](https://github.com/rkh) )
-*  Roger Pack ( [rdp](http://github.com/rdp) )
-*  Victor Shepelev ( [zverok](http://github.com/zverok) )
+#### Arto Bendiken ( [bendiken](http://github.com/bendiken) )
+#### Konstantin Haase ( [rkh](https://github.com/rkh) )
+#### Roger Pack ( [rdp](http://github.com/rdp) )
+#### Victor Shepelev ( [zverok](http://github.com/zverok) )
 
 ## Contributing
 
