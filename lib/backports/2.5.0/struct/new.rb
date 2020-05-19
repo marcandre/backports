@@ -19,5 +19,5 @@ if RUBY_VERSION >= '2.0.0' && (Struct.new(:a, :keyword_init => true) && false re
     end
     Backports.alias_method_chain(self, :new, :keyword_init)
   end
-  ], __FILE__, __LINE__
+  ], nil, __FILE__, __LINE__
 end
