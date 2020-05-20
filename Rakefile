@@ -27,7 +27,7 @@ class SpecRunner
       puts "*** mspec returned with unexpected results:"
       puts result
       puts "Command was:", cmd
-      exit
+      exit 1
     end
     _, ex, p, f, e = data = match.captures.map{|x| x.to_i}
     not_found << path if ex == 0
