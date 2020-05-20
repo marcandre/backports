@@ -8,6 +8,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/issues/139) will drop support for Ruby < 2.2.
 
+## [3.17.2](https://github.com/marcandre/backports/compare/v3.17.1...v3.17.2) - 2020-04-09
+
+### Fixed
+
+Fix Range#cover (Ruby 2.6.0) [#148]
+
 ## [3.17.1](https://github.com/marcandre/backports/compare/v3.17.0...v3.17.1) - 2020-04-09
 
 ### Fixed
