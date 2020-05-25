@@ -5,7 +5,8 @@ require "backports/tools/deprecation"
 Backports.frown_upon :require_version,
   'Requiring backports/<ruby version> is not recommended in production. Require just the needed backports instead.'
 
-Backports.warned[:require_std_lib] = true
-require "backports/std_lib"
-
-Backports.require_relative_dir
+if RUBY_VERSION < '1.8.7'
+  Backports.warned[:require_std_lib] = true
+  require "backports/std_lib"
+  Backports.require_relative_dir
+end
