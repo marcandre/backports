@@ -8,4 +8,4 @@ Backports.frown_upon :require_version,
 Backports.warned[:require_std_lib] = true
 require "backports/std_lib"
 
-Backports.require_relative_dir
+Backports.require_relative_dir if RUBY_VERSION < '1.8.7'
