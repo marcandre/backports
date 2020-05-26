@@ -7,7 +7,12 @@ module Backports
         compact.
         sort.
         each do |f|
-          require short_path + f
+          path = '../../' + short_path + f
+          if Kernel.private_method_defined?(:require_relative)
+            require_relative path
+          else
+            require File.expand_path(path)
+          end
         end
   end
 end
