@@ -6,7 +6,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
-Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/issues/139) will drop support for Ruby < 2.2.
+Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/issues/139) might drop support for Ruby < 2.2, please comment.
+
+## [3.18.0](https://github.com/marcandre/backports/compare/v3.17.2...v3.18.0) - 2020-06-22
+
+### Changed
+
+Require per ruby version / all requires now check `RUBY_VERSION` to be more efficient [#149]
 
 ## [3.17.2](https://github.com/marcandre/backports/compare/v3.17.1...v3.17.2) - 2020-04-09
 
