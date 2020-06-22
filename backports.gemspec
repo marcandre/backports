@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   if gem.respond_to?(:metadata)
-    gem.metadata['changelog_uri'] = 'https://github.com/marcandre/backports/blob/master/CHANGELOG.rdoc'
+    gem.metadata['changelog_uri'] = 'https://github.com/marcandre/backports/blob/master/CHANGELOG.md'
     gem.metadata['source_code_uri'] = 'https://github.com/marcandre/backports'
     gem.metadata['bug_tracker_uri'] = 'https://github.com/marcandre/backports/issues'
   end
