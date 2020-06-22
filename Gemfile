@@ -10,8 +10,8 @@ group :test do
   gem "rake"
   gem 'mspec'
   gem 'activesupport', '~>3.2.0'
-  gem 'minitest', '< 5.0.0', :require => false
-  gem 'test-unit', '~>2.1.1.0'
+  #gem 'minitest', '< 5.0.0', :require => false
+  gem 'test-unit'
 end
 
 if RUBY_VERSION >= '2.3.0'
