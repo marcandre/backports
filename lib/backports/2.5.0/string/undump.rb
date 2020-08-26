@@ -39,7 +39,7 @@ unless String.method_defined? :undump
       #   * only allowing the first character after the \\ to not be alpha/num/space, so \\\\#@inst_var_access is ignored
       # To reduce the number of calls to eval a little, we wrap everything in a (...)+ so that consecutive escapes are
       # handled at the same time.
-      result = string.gsub(/(\\+(u\{[\w ]+\}|[^cCM][\w]*))+/) do |s|
+      result = string.gsub(/(\\+(u\{[\w ]+\}|[^cCM]\w*))+/) do |s|
         begin
           eval("\"#{s}\"")
         rescue SyntaxError => e

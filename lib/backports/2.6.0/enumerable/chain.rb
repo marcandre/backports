@@ -8,6 +8,7 @@ unless Enumerable.method_defined? :chain
   Enumerator = Enumerable::Enumerator unless Object.const_defined? :Enumerator # For 1.8.x
 
   class Enumerator::Chain < Enumerator
+    # rubocop:disable Lint/MissingSuper
     def initialize(*enums)
       @enums = enums
       @rewindable = -1
@@ -16,6 +17,7 @@ unless Enumerable.method_defined? :chain
       # ...it checks what call of #initialize on non-initalized object returns
       self # rubocop:disable Lint/Void
     end
+    # rubocop:enable Lint/MissingSuper
 
     def each(*args, &block)
       @enums.each_with_index do |enum, i|

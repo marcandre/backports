@@ -9,8 +9,8 @@ group :test do
   gem 'test-unit'
 end
 
-if RUBY_VERSION >= '2.3.0'
+if RUBY_VERSION >= '2.4.0'
   group :development do
-    gem 'rubocop', '~> 0.80.0'
+    gem 'rubocop', '~> 0.89.0'
   end
 end

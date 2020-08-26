@@ -90,7 +90,7 @@ task :spec_tag, :path do |t, args|
   Rake::Task[:spec].invoke(args[:path], 'tag -G fails')
 end
 
-if RUBY_VERSION >= '2.3.0'
+if RUBY_VERSION >= '2.4.0'
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new
   task :default => [:rubocop, :test, :all_spec]

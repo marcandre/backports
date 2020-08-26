@@ -1,6 +1,6 @@
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
   Exclude:
     - 'frozen_old_spec/**/*'
     - 'spec/**/*'
@@ -21,6 +21,8 @@ AllCops:
     - 'lib/backports/tools/*'
     - 'lib/backports/basic_object.rb'
     - 'lib/backports/std_lib.rb'
+  NewCops: enable
+
 
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
