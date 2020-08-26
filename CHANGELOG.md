@@ -8,6 +8,18 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/issues/139) might drop support for Ruby < 2.2, please comment.
 
+## [3.18.2](https://github.com/marcandre/backports/compare/v3.18.0...v3.18.2) - 2020-08-26
+
+### Fixed
+
+Require per ruby version now properly requiring 2.3.0 backports for `String` [#152]
+
+## [3.18.2](https://github.com/marcandre/backports/compare/v3.18.1...v3.18.2) - 2020-08-26
+
+### Fixed
+
+Fixed Changelog URI in gem manifest
+
 ## [3.18.0](https://github.com/marcandre/backports/compare/v3.17.2...v3.18.0) - 2020-06-22
 
 ### Changed
