@@ -118,6 +118,12 @@ itself, JRuby and Rubinius.
   - `except`
   - `transform_keys`, `transform_keys!` (with hash argument)
 
+#### Ractor
+  - complete, with the caveats:
+    - uses `Thread` internally, so performance will (of course) comparable to `Ractor`
+    - will not raise some errors when `Ractor` would (in particular Ractor::IsolationError)
+    - Ruby 1.x not supported
+
 #### Symbol
   - `name`
 

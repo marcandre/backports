@@ -134,6 +134,8 @@ Style/HashEachMethods:
 
 Style/HashSyntax:
   EnforcedStyle: hash_rockets
+  Exclude:
+    - 'lib/backports/ractor/*.rb'
 
 Style/Lambda:
   EnforcedStyle: lambda
@@ -150,8 +152,17 @@ Style/SoleNestedConditional:
 Lint/ToEnumArguments:
   Enabled: false
 
-Style/OptionalBooleanParameter:
-  Enabled: false
+Layout/CommentIndentation:
+  Enabled: false # buggy
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
 
 Style/RedundantBegin:
+  Enabled: false # targetting older Ruby
+
+Style/OptionalBooleanParameter:
+  Enabled: false # ok for private methods
+
+Lint/DuplicateBranch:
   Enabled: false

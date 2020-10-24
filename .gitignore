@@ -7,3 +7,4 @@ pkg
 assets
 rs
 Gemfile.lock
+.ruby-version
