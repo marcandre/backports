@@ -1,6 +1,7 @@
 # Backports Library [<img src="https://travis-ci.org/marcandre/backports.svg?branch=master">](https://travis-ci.org/marcandre/backports) [<img src="https://badge.fury.io/rb/backports.svg" alt="Gem Version" />](http://badge.fury.io/rb/backports) [![Tidelift](https://tidelift.com/badges/package/rubygems/backports)](https://tidelift.com/subscription/pkg/rubygems-backports?utm_source=rubygems-backports&utm_medium=referral&utm_campaign=readme)
 
-Yearning to use some of the new cool features in Ruby 2.7 while using 2.3.x?
+Yearning to use write a gem using some new cool features in Ruby 3.0 while
+still supporting Ruby 2.5.x?
 Have some legacy code in Ruby 1.8 but can't live without `flat_map`?
 
 This gem is for you!
@@ -16,13 +17,13 @@ for Ruby < 2.2.
 
 ### Explicitly (recommended)
 
-For example, if you want to use transform_values and transform_keys, even in
+For example, if you want to use `transform_values` and `transform_keys`, even in
 Ruby implementations that don't include it:
 
     require 'backports/2.4.0/hash/transform_values'
     require 'backports/2.5.0/hash/transform_keys'
 
-This will enable Hash#transform_values and Hash#transform_keys, using the
+This will enable `Hash#transform_values` and `Hash#transform_keys`, using the
 native versions if available or otherwise provide a pure Ruby version.
 
 ### By Module
@@ -32,19 +33,17 @@ Class:
 
     require 'backports/2.3.0/hash'
 
-This will make sure that Hash responds to dig, fetch_values, <, <=, >, >= and
-to_proc
+This will make sure that Hash responds to `dig`, `fetch_values`, `to_proc` and comparisons.
 
 ### Up to a specific Ruby version (for quick coding)
 
 You can load all backports up to a specific version.
-For example, to bring any
-version of Ruby mostly up to Ruby 2.7.0's standards:
+For example, to bring any version of Ruby mostly up to Ruby 3.0.0's standards:
 
-    require 'backports/2.7.0'
+    require 'backports/3.0.0'
 
 This will bring in all the features of 1.8.7 and many features of Ruby 1.9.x
-all the way up to Ruby 2.7.0 (for all versions of Ruby)!
+all the way up to Ruby 3.0.0 (for all versions of Ruby)!
 
 You may `require 'backports/latest'` as a
 shortcut to the latest Ruby version supported.
@@ -117,6 +116,12 @@ itself, JRuby and Rubinius.
 #### Hash
   - `except`
   - `transform_keys`, `transform_keys!` (with hash argument)
+
+#### Ractor
+  - All methods, with the caveats:
+    - uses Ruby's `Thread` internally
+    - will not raise some errors when `Ractor` would (in particular `Ractor::IsolationError`)
+    - supported in Ruby 2.0+ only
 
 #### Symbol
   - `name`
