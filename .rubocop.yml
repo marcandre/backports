@@ -144,3 +144,5 @@ Style/SymbolArray:
 Style/SymbolProc:
   Enabled: false
 
+Style/SoleNestedConditional:
+  Enabled: false
