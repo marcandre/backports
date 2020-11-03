@@ -206,6 +206,9 @@ itself, JRuby and Rubinius.
   - `compact`, `compact!`
   - `transform_values`, `transform_values!`
 
+#### Queue
+  - `close`, `closed?`
+
 #### Regexp
   - `match?`
 
