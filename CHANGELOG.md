@@ -8,6 +8,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/issues/139) might drop support for Ruby < 2.2, please comment.
 
+### Added
+
+* Ruby 2.3 backports
+
+  * Queue
+    * `close`, `closed?`
+
 ## [3.18.2](https://github.com/marcandre/backports/compare/v3.18.0...v3.18.2) - 2020-08-26
 
 ### Fixed

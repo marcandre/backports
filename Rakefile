@@ -169,6 +169,7 @@ CLASS_MAP = Hash.new{|k, v| k[v] = v}.merge!(
 )
 
 EXTRA_SPECS = {
+  'queue/close' => %w[queue/pop queue/push queue/closed],
   'enumerable/chain' => %w[enumerator/chain/*]
 }
 
