@@ -41,7 +41,7 @@ unless String.method_defined? :undump
       # handled at the same time.
       result = string.gsub(/(\\+(u\{[\w ]+\}|[^cCM]\w*))+/) do |s|
         begin
-          eval("\"#{s}\"")
+          eval("\"#{s}\"")  # "body"
         rescue SyntaxError => e
           raise RuntimeError, e.message, e.backtrace
         end
