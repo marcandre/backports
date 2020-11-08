@@ -27,7 +27,7 @@ jobs:
       - name: install specs
         run: git submodule update --init --recursive
       - name: spec
-        run:  bundle exec rake
+        run:  bundle exec rake test all_spec
   internal_investigation:
     name: >-
       Coding Style
