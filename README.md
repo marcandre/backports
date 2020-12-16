@@ -118,6 +118,9 @@ itself, JRuby and Rubinius.
   - `except`
   - `transform_keys`, `transform_keys!` (with hash argument)
 
+#### Symbol
+  - `name`
+
 ## Ruby 2.7 backports
 
 #### Array
