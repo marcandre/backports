@@ -10,9 +10,16 @@ class Hash
 
   def transform_keys!
     return enum_for(:transform_keys!) { size } unless block_given?
-    merge!({}) if frozen?
-    keys.each do |key|
-      self[yield(key)] = delete(key)
+
+    self[:trigger_error] = :immediately if frozen?
+
+    h = {}
+    begin
+      each do |key, value|
+        h[yield key] = value
+      end
+    ensure
+      replace(h)
     end
     self
   end unless method_defined? :transform_keys!
