@@ -4,3 +4,6 @@
 [submodule "frozen_old_spec/rubyspec"]
 	path = frozen_old_spec/rubyspec
 	url = git://github.com/ruby/spec.git
+[submodule "spec/mspec"]
+	path = spec/mspec
+	url = git://github.com/ruby/mspec.git
