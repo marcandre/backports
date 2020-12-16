@@ -172,7 +172,28 @@ EXTRA_SPECS = {
   'enumerable/chain' => %w[enumerator/chain/*]
 }
 
+# RUBYSPEC_COMMIT = {
+#   2.0.0 => '245862558761d5abc676843ef74f86c9bcc8ea8d',
+#   2.1.0 => 'f029e65241374386077ac500add557ae65069b55',
+#   2.2.0 => 'cbaa0e412270c944df0c2532fc500c920dba0e92',
+#   2.3.0 => 'dc733114d8ae66a3368ba3a98422c50147a76ba5',
+#   2.4.0 => 'bce4f2b81d6c31db67cf4d023a0625ceadde59bd',
+# }.freeze
+
+MSPEC_COMMIT = {
+  2.0 => 'f90efa068791064f955de7a843e96e2d7d3041c2',
+  2.1 => '55568ea3918c6380e64db8c567d732fa5781efed',
+  2.2 => 'd84d7668449e96856c5f6bac8cb1526b6d357ce3',
+  2.3 => '4599bc195fb109f2a482a01c32a7d659518369ea',
+  2.4 => 'e7eb8aa4c26495b7b461e687d950b96eb08b3ff2',
+}.freeze
+
+USE_MSPEC_GEM = RUBY_VERSION < '2.1'
+
 def mspec_cmds(pattern, spec_folder, action='ci')
+  # unless USE_MSPEC_GEM
+  #   `cd spec/mspec && git reset --hard #{MSPEC_COMMIT.fetch(RUBY_VERSION[0..2].to_f, 'master')}`
+  # end
   pattern = "lib/backports/*.*.*/#{pattern}.rb"
   Dir.glob(pattern) do |lib_path|
     _match, version, path = lib_path.match(/backports\/(\d\.\d\.\d)\/(.*)\.rb/).to_a
@@ -188,13 +209,27 @@ def mspec_cmds(pattern, spec_folder, action='ci')
     deps = [*DEPENDENCIES[version_path]].map{|p| "-r #{p}"}.join(' ')
     klass, method = path.split('/')
     path = [CLASS_MAP[klass], method].join('/')
-    spec_paths = [path, *EXTRA_SPECS[path]].map {|p| "#{spec_folder}/rubyspec/core/#{p}_spec.rb" }
-    yield %W[mspec #{action}
+    spec_paths = [path, *EXTRA_SPECS[path]].map do |p|
+      p.gsub! /fixnum|bignum/, 'integer'
+      "#{spec_folder}/rubyspec/core/#{p}_spec.rb"
+    end
+    if USE_MSPEC_GEM
+      cmd = "mspec #{action}"
+    else
+      cmd = 'ruby'
+      main = "spec/mspec/bin/mspec-#{action}"
+    end
+
+    yield %W[ #{cmd}
               -I lib
               -r ./set_version/#{version}
               #{deps}
               -r backports/#{version_path}
-              #{spec_paths.join(' ')}
+              #{main}
+               #{spec_paths.join(' ')}
             ].join(' '), path
   end
+  # unless USE_MSPEC_GEM
+  #   `cd spec/mspec && git reset --hard origin/master`
+  # end
 end

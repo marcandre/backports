@@ -1,4 +1,6 @@
 if (Backports::TARGET_VERSION rescue false) # Conf loaded at different times, not sure why
+  FrozenError ||= RuntimeError
+
   class MSpecScript
     # The set of substitutions to transform a spec filename
     # into a tag filename.
@@ -10,5 +12,14 @@ if (Backports::TARGET_VERSION rescue false) # Conf loaded at different times, no
     set :tags_patterns, [ [%r(rubyspec/), "tags/#{main_version}/"] ]
   end
 
-  SpecGuard.ruby_version_override = Backports::TARGET_VERSION if Backports::TARGET_VERSION > RUBY_VERSION
+  if Backports::TARGET_VERSION > RUBY_VERSION
+    if SpecGuard.respond_to? :ruby_version_override=
+     SpecGuard.ruby_version_override = Backports::TARGET_VERSION
+    else
+      class VersionGuard
+        remove_const :FULL_RUBY_VERSION
+        FULL_RUBY_VERSION = SpecVersion.new Backports::TARGET_VERSION
+      end
+    end
+  end
 end
