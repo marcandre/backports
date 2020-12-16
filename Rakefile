@@ -163,6 +163,7 @@ IGNORE_IN_200 = %w[
 
 IGNORE = %w[
   3.0.0/env/except
+  3.0.0/symbol/name
 ]
 
 CLASS_MAP = Hash.new{|k, v| k[v] = v}.merge!(
