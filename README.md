@@ -212,7 +212,7 @@ itself, JRuby and Rubinius.
 #### String
   - `match?`
 
-#### FalseClass, Fixnum, Float, NilClass, TrueClass
+#### FalseClass, Fixnum, Bignum, Float, NilClass, TrueClass
   - `dup`
 
 ## Ruby 2.3 backports
