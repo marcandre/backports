@@ -118,6 +118,8 @@ DEPENDENCIES = Hash.new([]).merge!(
   '2.3.0/array/dig' => ['backports/2.3.0/hash/dig', 'backports/2.3.0/struct/dig'],
   '2.3.0/hash/dig' => ['backports/2.3.0/array/dig', 'backports/2.3.0/struct/dig'],
   '2.3.0/struct/dig' => ['backports/2.3.0/array/dig', 'backports/2.3.0/hash/dig'],
+  '2.4.0/fixnum/dup' => ['backports/2.4.0/bignum/dup'],
+  '2.4.0/bignum/dup' => ['backports/2.4.0/fixnum/dup'],
   '2.7.0/enumerable/tally' => ['backports/2.4.0/hash/transform_values', 'backports/2.2.0/kernel/itself'],
 )
 {
