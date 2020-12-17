@@ -146,3 +146,12 @@ Style/SymbolProc:
 
 Style/SoleNestedConditional:
   Enabled: false
+
+Lint/ToEnumArguments:
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+Style/RedundantBegin:
+  Enabled: false
