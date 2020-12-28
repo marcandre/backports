@@ -9,7 +9,7 @@ The goal of 'backports' is to make it easier to write ruby code that runs
 across different versions of Ruby.
 
 Note: [Next major version (X-mas
-2020)](https://github.com/marcandre/backports/issues/139) will drop support
+2021?)](https://github.com/marcandre/backports/issues/139) may drop support
 for Ruby < 2.2.
 
 ## Loading backports

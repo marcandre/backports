@@ -6,14 +6,28 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
-Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/issues/139) might drop support for Ruby < 2.2, please comment.
+Note: [Next major version (X-mas 2021?)](https://github.com/marcandre/backports/issues/139) may drop support for Ruby < 2.2, please comment.
+
+## [3.19.0](https://github.com/marcandre/backports/compare/v3.19.0...v3.18.2) - 2020-12-28
 
 ### Added
+
+* Ruby 3.0 backports
+
+  * Env
+    * `except`
+
+  * Hash
+    * `except`
+    * `transform_keys`, `transform_keys!` (with hash argument)
+
+  * Symbol
+    * `name`
 
 * Ruby 2.3 backports
 
   * Queue
-    * `close`, `closed?`
+    * `close`, `closed?` (affects `push`, `pop` and aliases)
 
 ## [3.18.2](https://github.com/marcandre/backports/compare/v3.18.0...v3.18.2) - 2020-08-26
 
@@ -21,7 +35,7 @@ Note: [Next major version (X-mas 2020)](https://github.com/marcandre/backports/i
 
 Require per ruby version now properly requiring 2.3.0 backports for `String` [#152]
 
-## [3.18.2](https://github.com/marcandre/backports/compare/v3.18.1...v3.18.2) - 2020-08-26
+## [3.18.1](https://github.com/marcandre/backports/compare/v3.18.1...v3.18.2) - 2020-66-22
 
 ### Fixed
 
