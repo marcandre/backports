@@ -8,7 +8,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Note: [Next major version (X-mas 2021?)](https://github.com/marcandre/backports/issues/139) may drop support for Ruby < 2.2, please comment.
 
-## [3.19.0](https://github.com/marcandre/backports/compare/v3.19.0...v3.18.2) - 2020-12-28
+## [3.20.0](https://github.com/marcandre/backports/compare/v3.19.0...v3.20.0) - 2020-12-30
+
+### Added
+
+Ractor backport (all methods)
+
+## [3.19.0](https://github.com/marcandre/backports/compare/v3.18.2...v3.19.0) - 2020-12-28
 
 ### Added
 
@@ -35,7 +41,7 @@ Note: [Next major version (X-mas 2021?)](https://github.com/marcandre/backports/
 
 Require per ruby version now properly requiring 2.3.0 backports for `String` [#152]
 
-## [3.18.1](https://github.com/marcandre/backports/compare/v3.18.1...v3.18.2) - 2020-66-22
+## [3.18.1](https://github.com/marcandre/backports/compare/v3.18.1...v3.18.2) - 2020-06-22
 
 ### Fixed
 
