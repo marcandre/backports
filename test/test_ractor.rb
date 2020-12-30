@@ -3,6 +3,28 @@
 # - remove endless ranges
 # - wrap a rescue between `begin` `else` ~1246
 
+# Ractor.count
+assert_equal '[1, 4, 3, 2, 1]', %q{
+  counts = []
+  counts << Ractor.count
+  ractors = (1..3).map { Ractor.new { Ractor.receive } }
+  counts << Ractor.count
+
+  ractors[0].send('End 0').take
+  sleep 0.1 until ractors[0].inspect =~ /terminated/
+  counts << Ractor.count
+
+  ractors[1].send('End 1').take
+  sleep 0.1 until ractors[1].inspect =~ /terminated/
+  counts << Ractor.count
+
+  ractors[2].send('End 2').take
+  sleep 0.1 until ractors[2].inspect =~ /terminated/
+  counts << Ractor.count
+
+  counts.inspect
+}
+
 # Ractor.current returns a current ractor
 assert_equal 'Ractor', %q{
   Ractor.current.class
@@ -1002,28 +1024,6 @@ assert_equal '[1000, 3]', %q{
   H = {a: 1, b: 2, c: 3}.freeze
 
   Ractor.new{ [A.size, H.size] }.take
-}
-
-# Ractor.count
-assert_equal '[1, 4, 3, 2, 1]', %q{
-  counts = []
-  counts << Ractor.count
-  ractors = (1..3).map { Ractor.new { Ractor.receive } }
-  counts << Ractor.count
-
-  ractors[0].send('End 0').take
-  sleep 0.1 until ractors[0].inspect =~ /terminated/
-  counts << Ractor.count
-
-  ractors[1].send('End 1').take
-  sleep 0.1 until ractors[1].inspect =~ /terminated/
-  counts << Ractor.count
-
-  ractors[2].send('End 2').take
-  sleep 0.1 until ractors[2].inspect =~ /terminated/
-  counts << Ractor.count
-
-  counts.inspect
 }
 
 # ObjectSpace.each_object can not handle unshareable objects with Ractors
