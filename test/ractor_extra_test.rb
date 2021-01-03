@@ -7,6 +7,12 @@ def thread_eval
   r
 end
 
+def storage_change(to, key: :foo)
+  current = Ractor.current[key]
+  Ractor.current[key] = to
+  {current => Ractor.current[key]}
+end
+
 class ExtraRactorTest < Test::Unit::TestCase
   def assert_shareable(*objects)
     check_shareability(objects, true)
@@ -69,5 +75,26 @@ class ExtraRactorTest < Test::Unit::TestCase
     assert_same(r, current2)
     assert_same(main, Ractor.main)
     assert_same(main2, Ractor.main)
+  end
+
+  def assert_storage(to, from: nil, key: :foo)
+    assert_equal from, Ractor.current[key]
+    Ractor.current[key] = to
+    assert_equal to, Ractor.current[key]
+  end
+
+  def test_local_storage
+    assert_equal({nil => :first}, storage_change(:first))
+    ractor = Ractor.new {
+      [storage_change(:in_ractor), thread_eval { storage_change(:in_ractor_thread) }]
+    }
+    a, b = ractor.take
+    assert_equal({nil => :in_ractor}, a)
+    assert_equal({in_ractor: :in_ractor_thread}, b)
+
+    assert_equal({first: :in_thread}, thread_eval { storage_change(:in_thread) })
+    assert_equal({nil => :different}, storage_change(:different, key: :other))
+    assert_equal(:in_thread, Ractor.current[:foo])
+    assert_equal(:in_thread, ractor[:foo])
   end
 end
