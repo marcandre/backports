@@ -8,6 +8,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Note: [Next major version (X-mas 2021?)](https://github.com/marcandre/backports/issues/139) may drop support for Ruby < 2.2, please comment.
 
+### Fixed
+
+* `Ractor.current` fixed from threads [#161]
+
 ## [3.20.0](https://github.com/marcandre/backports/compare/v3.19.0...v3.20.0) - 2020-12-30
 
 ### Added

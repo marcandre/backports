@@ -8,6 +8,8 @@ class Ractor
   require_relative 'queues'
   require_relative 'sharing'
 
+  RactorThreadGroups = ::ObjectSpace::WeakMap.new # ThreadGroup => Ractor
+  private_constant :RactorThreadGroups
   # Implementation notes
   #
   # Uses one `Thread` for each `Ractor`, as well as queues for communication
@@ -37,7 +39,7 @@ class Ractor
     if Ractor.main == nil # then initializing main Ractor
       @ractor_thread = ::Thread.current
       @ractor_origin = nil
-      @ractor_thread.thread_variable_set(:ractor, self)
+      @ractor_thread.thread_variable_set(:backports_ractor, self)
     else
       @ractor_origin = caller(1, 1).first.split(':in `').first
 
@@ -47,10 +49,12 @@ class Ractor
   end
 
   private def ractor_thread_start(args, block)
-    Thread.new do
+    ::Thread.new do
       @ractor_thread = Thread.current
-      @ractor_thread_group = ThreadGroup.new.add(@ractor_thread)
-      ::Thread.current.thread_variable_set(:ractor, self)
+      @ractor_thread_group = ThreadGroup.new
+      RactorThreadGroups[@ractor_thread_group] = self
+      @ractor_thread_group.add(@ractor_thread)
+      ::Thread.current.thread_variable_set(:backports_ractor, self)
       result = nil
       begin
         result = instance_exec(*args, &block)
@@ -198,7 +202,8 @@ class Ractor
     end
 
     def current
-      Thread.current.thread_variable_get(:ractor)
+      Thread.current.thread_variable_get(:backports_ractor) ||
+        Thread.current.thread_variable_set(:backports_ractor, ractor_find_current)
     end
 
     def count
@@ -222,6 +227,11 @@ class Ractor
     private def ractor_init
       @ractor_shareable = ::ObjectSpace::WeakMap.new
       @main = Ractor.new { nil }
+      RactorThreadGroups[::ThreadGroup::Default] = @main
+    end
+
+    private def ractor_find_current
+      RactorThreadGroups[Thread.current.group]
     end
   end
 
