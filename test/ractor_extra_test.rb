@@ -1,6 +1,12 @@
 require './test/test_helper'
 require './lib/backports/3.0.0/ractor.rb'
 
+def thread_eval
+  r = nil
+  Thread.new { r = yield }.join
+  r
+end
+
 class ExtraRactorTest < Test::Unit::TestCase
   def assert_shareable(*objects)
     check_shareability(objects, true)
@@ -51,9 +57,17 @@ class ExtraRactorTest < Test::Unit::TestCase
 
   def test_main
     assert_same(Ractor.current, Ractor.main)
-    r = Ractor.new { [Ractor.main, Ractor.current] }
-    main, current = r.take
+    assert_same(Ractor.current, thread_eval { Ractor.main })
+    assert_same(thread_eval{ Ractor.current }, Ractor.main)
+
+    r = Ractor.new do
+      [ Ractor.main, thread_eval{ Ractor.main },
+        Ractor.current, thread_eval{ Ractor.current }]
+    end
+    main, main2, current, current2 = r.take
     assert_same(r, current)
+    assert_same(r, current2)
     assert_same(main, Ractor.main)
+    assert_same(main2, Ractor.main)
   end
 end
