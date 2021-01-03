@@ -10,6 +10,7 @@ Note: [Next major version (X-mas 2021?)](https://github.com/marcandre/backports/
 
 ### Fixed
 
+* Added `Ractor.[]` and `[]=` [#161]
 * `Ractor.current` fixed from threads [#161]
 
 ## [3.20.0](https://github.com/marcandre/backports/compare/v3.19.0...v3.20.0) - 2020-12-30

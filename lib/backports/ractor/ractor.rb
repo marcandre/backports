@@ -143,6 +143,19 @@ class Ractor
     ractor_incoming_queue.pop(&block)
   end
 
+  def [](key)
+    Ractor.current.ractor_locals[key]
+  end
+
+  def []=(key, value)
+    Ractor.current.ractor_locals[key] = value
+  end
+
+  # @api private
+  def ractor_locals
+    @ractor_locals ||= {}.compare_by_identity
+  end
+
   class << self
     def yield(value, move: false)
       value = ractor_isolate(value, move)
