@@ -135,7 +135,7 @@ itself, JRuby and Rubinius.
   - `clamp` (with range)
 
 #### Complex
-  - +<=>+
+  - `<=>`
 
 #### Enumerable
   - `filter_map`
@@ -167,10 +167,10 @@ itself, JRuby and Rubinius.
   - `then`
 
 #### Method
-  - +<<+, +>>+
+  - `<<`, `>>`
 
 #### Proc
-  - +<<+, +>>+
+  - `<<`, `>>`
 
 #### Range
   - `cover?` (with `Range` argument)
