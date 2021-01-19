@@ -1,6 +1,6 @@
 # Backports Library [<img src="https://travis-ci.org/marcandre/backports.svg?branch=master">](https://travis-ci.org/marcandre/backports) [<img src="https://badge.fury.io/rb/backports.svg" alt="Gem Version" />](http://badge.fury.io/rb/backports) [![Tidelift](https://tidelift.com/badges/package/rubygems/backports)](https://tidelift.com/subscription/pkg/rubygems-backports?utm_source=rubygems-backports&utm_medium=referral&utm_campaign=readme)
 
-Yearning to use write a gem using some new cool features in Ruby 3.0 while
+Yearning to write a gem using some new cool features in Ruby 3.0 while
 still supporting Ruby 2.5.x?
 Have some legacy code in Ruby 1.8 but can't live without `flat_map`?
 
