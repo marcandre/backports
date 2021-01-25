@@ -27,10 +27,10 @@ class Ractor
   def initialize(*args, &block)
     @ractor_incoming_queue = IncomingQueue.new
     @ractor_outgoing_queue = OutgoingQueue.new
-    raise ArgumentError, 'must be called with a block' unless block
+    raise ::ArgumentError, 'must be called with a block' unless block
 
     kw = args.last
-    if kw.is_a?(Hash) && kw.size == 1 && kw.key?(:name)
+    if kw.is_a?(::Hash) && kw.size == 1 && kw.key?(:name)
       args.pop
       name = kw[:name]
     end
@@ -50,8 +50,8 @@ class Ractor
 
   private def ractor_thread_start(args, block)
     ::Thread.new do
-      @ractor_thread = Thread.current
-      @ractor_thread_group = ThreadGroup.new
+      @ractor_thread = ::Thread.current
+      @ractor_thread_group = ::ThreadGroup.new
       RactorThreadGroups[@ractor_thread_group] = self
       @ractor_thread_group.add(@ractor_thread)
       ::Thread.current.thread_variable_set(:backports_ractor, self)
@@ -73,7 +73,7 @@ class Ractor
   private def ractor_thread_terminate(result)
     begin
       ractor_outgoing_queue.push(result, ack: false) unless ractor_outgoing_queue.closed?
-    rescue ClosedQueueError
+    rescue ::ClosedQueueError
       return # ignore
     end
     ractor_incoming_queue.close
@@ -139,7 +139,7 @@ class Ractor
   end
 
   private def receive_if(&block)
-    raise ArgumentError, 'no block given' unless block
+    raise ::ArgumentError, 'no block given' unless block
     ractor_incoming_queue.pop(&block)
   end
 
@@ -160,7 +160,7 @@ class Ractor
     def yield(value, move: false)
       value = ractor_isolate(value, move)
       current.ractor_outgoing_queue.push(value, ack: true)
-    rescue ClosedQueueError
+    rescue ::ClosedQueueError
       raise ClosedError, 'The outgoing-port is already closed'
     end
 
@@ -182,7 +182,7 @@ class Ractor
         out = current.ractor_outgoing_queue
         yield_value = ractor_isolate(yield_value, move)
       elsif ractors.empty?
-        raise ArgumentError, 'specify at least one ractor or `yield_value`'
+        raise ::ArgumentError, 'specify at least one ractor or `yield_value`'
       end
 
       while true # rubocop:disable Style/InfiniteLoop
@@ -215,17 +215,17 @@ class Ractor
     end
 
     def current
-      Thread.current.thread_variable_get(:backports_ractor) ||
-        Thread.current.thread_variable_set(:backports_ractor, ractor_find_current)
+      ::Thread.current.thread_variable_get(:backports_ractor) ||
+        ::Thread.current.thread_variable_set(:backports_ractor, ractor_find_current)
     end
 
     def count
-      ObjectSpace.each_object(Ractor).count(&:ractor_live?)
+      ::ObjectSpace.each_object(Ractor).count(&:ractor_live?)
     end
 
     # @api private
     def ractor_reset
-      ObjectSpace.each_object(Ractor).each do |r|
+      ::ObjectSpace.each_object(Ractor).each do |r|
         next if r == Ractor.current
         next unless (th = r.ractor_thread)
 

@@ -3,7 +3,7 @@ require_relative '../tools/filtered_queue'
 class Ractor
   # Standard ::Queue but raises if popping and closed
   class BaseQueue < ::Backports::FilteredQueue
-    ClosedQueueError = ::Ractor::ClosedError
+    ClosedQueueError = Ractor::ClosedError
 
     # yields message (if any)
     def pop_non_blocking
@@ -17,7 +17,7 @@ class Ractor
     TYPE = :incoming
 
     protected def reenter
-      raise ::Ractor::Error, 'Can not reenter'
+      raise Ractor::Error, 'Can not reenter'
     end
   end
 

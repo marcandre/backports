@@ -77,7 +77,7 @@ class Ractor
 
     private def ractor_shareable_by_nature?(obj, freeze_all)
       case obj
-      when ::Module, ::Ractor
+      when ::Module, Ractor
         true
       when ::Regexp, ::Range, ::Numeric
         !freeze_all # Assume that these are literals that would have been frozen in 3.0
