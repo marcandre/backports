@@ -9,7 +9,7 @@ class Integer
     bits_shift = n.bit_length / 2 + 1
     bitn_mask = root = 1 << bits_shift
     loop do
-      root ^= bitn_mask if (root * root) > n # rubocop:disable Lint/BinaryOperatorWithIdenticalOperands
+      root ^= bitn_mask if (root * root) > n
       bitn_mask >>= 1
       return root if bitn_mask == 0
       root |= bitn_mask

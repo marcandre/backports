@@ -103,4 +103,11 @@ class ExtraRactorTest < Test::Unit::TestCase
     assert_match(/#<Ractor:#\d+ #{__FILE__}:#{__LINE__} (blocking|running)>/, ::Ractor.new{ sleep(0.01) }.inspect)
     assert_equal('Ractor', ::Ractor.name)
   end
+
+  def test_namespaced_include
+    cmd = "ruby -r #{__dir__}/../lib/backports/ractor/ractor -e 'p [defined?(Ractor), Backports::Ractor.new { 42 }.take]'"
+    puts cmd
+    r = `#{cmd}`.chomp
+    assert_equal '[nil, 42]', r
+  end if RUBY_VERSION < '3' && RUBY_VERSION >= '2.3'
 end
