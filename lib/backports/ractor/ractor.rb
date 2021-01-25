@@ -36,6 +36,7 @@ class Ractor
     end
     @ractor_name = name && Backports.coerce_to_str(name)
 
+    @id = Ractor.ractor_next_id
     if Ractor.main == nil # then initializing main Ractor
       @ractor_thread = ::Thread.current
       @ractor_origin = nil
@@ -113,10 +114,10 @@ class Ractor
   def inspect
     state = RACTOR_STATE[@ractor_thread ? @ractor_thread.status : 'run']
     info = [
-      'Ractor:#1',
+      "Ractor:##{@id}",
       name,
       @ractor_origin,
-      state
+      state,
     ].compact.join(' ')
 
     "#<#{info}>"
@@ -233,6 +234,12 @@ class Ractor
         th.join
       end
       Ractor.current.ractor_incoming_queue.clear
+    end
+
+    # @api private
+    def ractor_next_id
+      @id ||= 0
+      @id += 1
     end
 
     attr_reader :main

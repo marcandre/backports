@@ -97,4 +97,10 @@ class ExtraRactorTest < Test::Unit::TestCase
     assert_equal(:in_thread, Ractor.current[:foo])
     assert_equal(:in_thread, ractor[:foo])
   end
+
+  def test_name
+    #<Ractor:#2 (irb):1 blocking>
+    assert_match(/#<Ractor:#\d+ #{__FILE__}:#{__LINE__} (blocking|running)>/, ::Ractor.new{ sleep(0.01) }.inspect)
+    assert_equal('Ractor', ::Ractor.name)
+  end
 end
