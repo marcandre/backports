@@ -1,16 +1,18 @@
-class Ractor
-  class ClosedError < ::StopIteration
-  end
+module Backports
+  class Ractor
+    class ClosedError < ::StopIteration
+    end
 
-  class Error < ::StandardError
-  end
+    class Error < ::StandardError
+    end
 
-  class RemoteError < Error
-    attr_reader :ractor
+    class RemoteError < Error
+      attr_reader :ractor
 
-    def initialize(message = nil)
-      @ractor = Ractor.current
-      super
+      def initialize(message = nil)
+        @ractor = Ractor.current
+        super
+      end
     end
   end
 end

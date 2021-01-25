@@ -1,6 +1,6 @@
 module Backports
   class FilteredQueue
-    require 'backports/2.3.0/queue/close'
+    require_relative '../2.3.0/queue/close'
     CONSUME_ON_ESCAPE = true
 
     class ClosedQueueError < ::ClosedQueueError

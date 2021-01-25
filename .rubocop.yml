@@ -157,6 +157,8 @@ Layout/CommentIndentation:
 
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
 
 Style/RedundantBegin:
   Enabled: false # targetting older Ruby
@@ -165,4 +167,7 @@ Style/OptionalBooleanParameter:
   Enabled: false # ok for private methods
 
 Lint/DuplicateBranch:
+  Enabled: false
+
+Lint/EmptyClass:
   Enabled: false
