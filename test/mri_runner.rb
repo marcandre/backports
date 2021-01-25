@@ -160,7 +160,7 @@ def exec_test(pathes)
     else
       $stderr.puts "#{@passed}PASS#{@reset} all #{@count} tests"
     end
-    exit true
+    #exit true
   else
     $stderr.puts "#{@failed}FAIL#{@reset} #{@error}/#{@count} tests failed"
     exit false
