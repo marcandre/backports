@@ -36,7 +36,7 @@ class ExtraRactorTest < Test::Unit::TestCase
     r = Ractor.new {}
     assert_shareable(r, 42, 4.2, 2..4, false, true, nil, 'abc'.freeze)
 
-    assert_not_shareable(+'abc', [], {})
+    assert_not_shareable('abc'.dup, [], {})
 
     a = []; b = [a].freeze; c = [a].freeze; a << c
     assert_not_shareable(a, b, c)
