@@ -171,3 +171,10 @@ Lint/DuplicateBranch:
 
 Lint/EmptyClass:
   Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
