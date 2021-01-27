@@ -1,3 +1,5 @@
+# shareable_constant_value: literal
+
 # Ruby 2.0+ backport of `Ractor` class
 # Extra private methods and instance variables all start with `ractor_`
 module Backports
