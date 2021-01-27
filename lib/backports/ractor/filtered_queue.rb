@@ -12,6 +12,7 @@ module Backports
 
     class ClosedQueueError < ::ClosedQueueError
     end
+
     class TimeoutError < ::ThreadError
     end
 
@@ -71,7 +72,7 @@ module Backports
       msg = nil
       exclude = [] if block # exclusion list of messages rejected by this call
       timeout_time = timeout + Time.now.to_f if timeout
-      while true do
+      while true do # rubocop:disable Style/InfiniteLoop, Style/WhileUntilDo
         @mutex.synchronize do
           reenter if reentrant?
           msg = acquire!(timeout_time, exclude)
@@ -169,7 +170,7 @@ module Backports
     # private methods assume @mutex synchonized
     # adds to exclude list
     private def acquire!(timeout_time, exclude = nil)
-      while true do
+      while true do # rubocop:disable Style/InfiniteLoop, Style/WhileUntilDo
         if (msg = available!(exclude))
           msg.reserved = true
           exclude << msg if exclude
