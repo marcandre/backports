@@ -1,4 +1,5 @@
 require './test/test_helper'
+require 'backports/2.3.0/queue/close'
 require 'backports/ractor/filtered_queue'
 
 class FilteredQueueTest < Test::Unit::TestCase
