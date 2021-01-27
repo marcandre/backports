@@ -1,5 +1,5 @@
 require './test/test_helper'
-require 'backports/tools/filtered_queue'
+require 'backports/ractor/filtered_queue'
 
 class FilteredQueueTest < Test::Unit::TestCase
   def setup

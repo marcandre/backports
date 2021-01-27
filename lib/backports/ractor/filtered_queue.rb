@@ -1,6 +1,13 @@
+require_relative '../2.3.0/queue/close'
+
 module Backports
+  # Like ::Queue, but with
+  # - filtering
+  # - timeout
+  # - raises on closed queues
+  #
+  # Independent from other Ractor related backports.
   class FilteredQueue
-    require_relative '../2.3.0/queue/close'
     CONSUME_ON_ESCAPE = true
 
     class ClosedQueueError < ::ClosedQueueError
@@ -19,11 +26,6 @@ module Backports
       end
     end
     private_constant :Message
-
-    # Like ::Queue, but with
-    # - filtering
-    # - timeout
-    # - raises on closed queues
 
     attr_reader :num_waiting
 

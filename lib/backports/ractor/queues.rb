@@ -1,9 +1,9 @@
-require_relative '../tools/filtered_queue'
+require_relative 'filtered_queue'
 
 module Backports
   class Ractor
     # Standard ::Queue but raises if popping and closed
-    class BaseQueue < ::Backports::FilteredQueue
+    class BaseQueue < FilteredQueue
       ClosedQueueError = Ractor::ClosedError
 
       # yields message (if any)
