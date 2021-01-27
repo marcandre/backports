@@ -1,3 +1,5 @@
+# shareable_constant_value: literal
+
 require_relative '../2.3.0/queue/close'
 
 module Backports

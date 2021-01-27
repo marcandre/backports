@@ -1,3 +1,5 @@
+# shareable_constant_value: literal
+
 module Backports
   class Ractor
     class << self

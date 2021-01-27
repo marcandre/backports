@@ -1,3 +1,5 @@
+# shareable_constant_value: literal
+
 require_relative '../2.4.0/hash/transform_values'
 require_relative '../2.5.0/hash/transform_keys'
 

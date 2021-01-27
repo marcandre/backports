@@ -1,3 +1,5 @@
+# shareable_constant_value: literal
+
 require_relative 'filtered_queue'
 
 module Backports
