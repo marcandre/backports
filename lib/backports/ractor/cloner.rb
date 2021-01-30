@@ -4,14 +4,23 @@ using ::RubyNext if defined?(::RubyNext)
 
 module Backports
   class Ractor
-    module Cloner
-      extend self
+    class Cloner
+      class << self
+        def deep_clone(obj)
+          return obj if Ractor.ractor_shareable_self?(obj, false) { false }
 
-      def deep_clone(obj)
-        return obj if Ractor.ractor_shareable_self?(obj, false) { false }
+          new.deep_clone(obj)
+        end
 
+        private :new
+      end
+
+      def initialize
         @processed = {}.compare_by_identity
         @changed = nil
+      end
+
+      def deep_clone(obj)
         result = process(obj) do |r|
           copy_contents(r)
         end
