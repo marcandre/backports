@@ -231,6 +231,7 @@ itself, JRuby and Rubinius.
 
 #### String
   - `match?`
+  - `unpack1`
 
 #### FalseClass, Fixnum, Bignum, Float, NilClass, TrueClass
   - `dup`
