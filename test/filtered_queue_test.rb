@@ -50,6 +50,14 @@ class FilteredQueueTest < Test::Unit::TestCase
     assert_equal(:done, @q.pop(timeout: 0.2))
   end
 
+  def assert_eventually_equal(value)
+    100.times do
+      return true if value == yield
+      sleep(0.01)
+    end
+    assert value == yield
+  end
+
   def test_filter
     # send 0 to 7 to queue, with filters for 0 to 2.
     # start queue with `before` elements already present
@@ -64,12 +72,10 @@ class FilteredQueueTest < Test::Unit::TestCase
       end
       Thread.pass
       other.each { |i| @q << i }
-      sleep(0.1)
-      assert_equal 3, @q.num_waiting
-      assert_equal 3 * 4, calls
+      assert_eventually_equal(3) {@q.num_waiting}
+      assert_eventually_equal(3 * 4) {calls}
       @q << :extra
-      sleep(0.1)
-      assert_equal 3 * 5, calls
+      assert_eventually_equal(3 * 5) {calls}
       @q << 0 << 1 << 2 << 3
       t.each(&:join)
       assert_equal 0, @q.num_waiting
