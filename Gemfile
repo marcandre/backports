@@ -11,6 +11,6 @@ end
 
 if RUBY_VERSION >= '2.4.0'
   group :development do
-    gem 'rubocop'
+    gem 'rubocop', '<1.13.0'
   end
 end
