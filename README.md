@@ -144,6 +144,9 @@ itself, JRuby and Rubinius.
 #### Enumerator
   - `produce` (class method)
 
+#### Symbol
+  - `end_with?`
+
 #### Time
   - `floor`, `ceil`
 
