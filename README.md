@@ -183,6 +183,9 @@ itself, JRuby and Rubinius.
 
 - `produce` (class method)
 
+#### Symbol
+  - `end_with?`
+
 #### Time
 
 - `floor`, `ceil`
