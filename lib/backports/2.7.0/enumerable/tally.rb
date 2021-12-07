@@ -1,10 +1,11 @@
-require 'backports/1.9.1/enumerable/each_with_object' unless Enumerable.method_defined? :each_with_object
-
 unless Enumerable.method_defined? :tally
   module Enumerable
     def tally
+      h = {}
       # NB: By spec, tally should return default-less hash
-      each_with_object(Hash.new(0)) { |item, res| res[item] += 1 }.tap { |h| h.default = nil }
+      each_entry { |item| h[item] = h.fetch(item, 0) + 1 }
+
+      h
     end
   end
 end

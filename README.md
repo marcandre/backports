@@ -123,6 +123,7 @@ itself, JRuby and Rubinius.
 #### Enumerable
 
 - `compact`
+- `tally` (with hash argument)
 
 ## Ruby 3.0 backports
 
