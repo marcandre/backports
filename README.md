@@ -1,6 +1,6 @@
 # Backports Library [<img src="https://travis-ci.org/marcandre/backports.svg?branch=master">](https://travis-ci.org/marcandre/backports) [<img src="https://badge.fury.io/rb/backports.svg" alt="Gem Version" />](http://badge.fury.io/rb/backports) [![Tidelift](https://tidelift.com/badges/package/rubygems/backports)](https://tidelift.com/subscription/pkg/rubygems-backports?utm_source=rubygems-backports&utm_medium=referral&utm_campaign=readme)
 
-Yearning to write a gem using some new cool features in Ruby 3.0 while
+Yearning to write a gem using some new cool features in Ruby 3.1 while
 still supporting Ruby 2.5.x?
 Have some legacy code in Ruby 1.8 but can't live without `flat_map`?
 
@@ -38,12 +38,12 @@ This will make sure that Hash responds to `dig`, `fetch_values`, `to_proc` and c
 ### Up to a specific Ruby version (for quick coding)
 
 You can load all backports up to a specific version.
-For example, to bring any version of Ruby mostly up to Ruby 3.0.0's standards:
+For example, to bring any version of Ruby mostly up to Ruby 3.1.0's standards:
 
-    require 'backports/3.0.0'
+    require 'backports/3.1.0'
 
 This will bring in all the features of 1.8.7 and many features of Ruby 1.9.x
-all the way up to Ruby 3.0.0 (for all versions of Ruby)!
+all the way up to Ruby 3.1.0 (for all versions of Ruby)!
 
 You may `require 'backports/latest'` as a
 shortcut to the latest Ruby version supported.

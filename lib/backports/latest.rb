@@ -1,4 +1,4 @@
 # require this file to load all the backports
 # NOTE: This is NOT recommended.
 # Best to require the specific backports you need
-require 'backports/2.7.0'
+require 'backports/3.1.0'
