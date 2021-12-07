@@ -350,6 +350,7 @@ itself, JRuby and Rubinius.
 #### Module
 
 - `include` (now public)
+- `singleton_class?`
 
 ## Ruby 2.0 backports
 
