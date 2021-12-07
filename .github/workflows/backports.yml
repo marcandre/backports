@@ -13,8 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu ]
-        ruby: [ 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, head ]
+        os: [ubuntu]
+        ruby: [2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 3.0, head]
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -27,7 +27,7 @@ jobs:
       - name: install specs
         run: git submodule update --init --recursive
       - name: spec
-        run:  bundle exec rake test all_spec
+        run: bundle exec rake test all_spec
   internal_investigation:
     name: >-
       Coding Style
@@ -37,8 +37,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu ]
-        ruby: [ 2.7 ]
+        os: [ubuntu]
+        ruby: [2.7]
     steps:
       - name: checkout
         uses: actions/checkout@v2
