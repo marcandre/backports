@@ -118,6 +118,7 @@ itself, JRuby and Rubinius.
 #### Class
 
 - `descendants`
+- `subclasses`
 
 ## Ruby 3.0 backports
 
