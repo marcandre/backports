@@ -109,6 +109,12 @@ itself, JRuby and Rubinius.
 
 # Complete List of backports
 
+## Ruby 3.1 backports
+
+#### Array
+
+- `intersect?`
+
 ## Ruby 3.0 backports
 
 #### Env
