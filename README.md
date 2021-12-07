@@ -125,6 +125,10 @@ itself, JRuby and Rubinius.
 - `compact`
 - `tally` (with hash argument)
 
+### File
+
+- `dirname` (with depth argument)
+
 #### Integer
 
 - `try_convert`
