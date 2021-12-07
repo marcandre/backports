@@ -3,4 +3,8 @@ class Dir
   def self.children(*args)
     entries(*args) - Backports::EXCLUDED_CHILDREN
   end
+
+  def children
+    self.class.children(path)
+  end
 end unless Dir.respond_to? :children
