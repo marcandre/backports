@@ -120,6 +120,10 @@ itself, JRuby and Rubinius.
 - `descendants`
 - `subclasses`
 
+#### Enumerable
+
+- `compact`
+
 ## Ruby 3.0 backports
 
 #### Env
