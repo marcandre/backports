@@ -127,6 +127,7 @@ itself, JRuby and Rubinius.
 
 #### MatchData
 
+- `match`
 - `match_length`
 
 ## Ruby 3.0 backports
