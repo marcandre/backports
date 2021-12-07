@@ -125,6 +125,10 @@ itself, JRuby and Rubinius.
 - `compact`
 - `tally` (with hash argument)
 
+#### MatchData
+
+- `match_length`
+
 ## Ruby 3.0 backports
 
 #### Env
