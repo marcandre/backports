@@ -115,6 +115,10 @@ itself, JRuby and Rubinius.
 
 - `intersect?`
 
+#### Class
+
+- `descendants`
+
 ## Ruby 3.0 backports
 
 #### Env
