@@ -138,6 +138,10 @@ itself, JRuby and Rubinius.
 - `match`
 - `match_length`
 
+#### Struct
+
+- `keyword_init?`
+
 ## Ruby 3.0 backports
 
 #### Env
