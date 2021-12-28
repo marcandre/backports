@@ -162,7 +162,6 @@ IGNORE_IN_200 = %w[
 ]
 
 IGNORE = %w[
-  3.0.0/symbol/name
   3.0.0/ractor/ractor
   3.1.0/enumerable/compact
   3.1.0/struct/keyword_init
