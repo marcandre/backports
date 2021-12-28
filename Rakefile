@@ -166,7 +166,6 @@ IGNORE = %w[
   3.0.0/symbol/name
   3.0.0/ractor/ractor
   3.1.0/enumerable/compact
-  3.1.0/integer/try_convert
   3.1.0/struct/keyword_init
 ]
 
