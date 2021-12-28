@@ -8,6 +8,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Note: [Next major version (X-mas 2021?)](https://github.com/marcandre/backports/issues/139) may drop support for Ruby < 2.2, please comment.
 
+## [3.23.0](https://github.com/marcandre/backports/compare/v3.22.1...v3.23.0) - 2021-12-28
+
+### Added
+
+- `Integer.try_convert` (Ruby 3.1)
+- `Symbol.end_with?` (Ruby 2.7) [#171]
+
 ## [3.22.1](https://github.com/marcandre/backports/compare/v3.21.0...v3.22.1) - 2021-12-27
 
 ### Added
