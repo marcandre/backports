@@ -129,6 +129,10 @@ itself, JRuby and Rubinius.
 
 - `dirname` (with depth argument)
 
+#### Integer
+
+- `try_convert`
+
 #### MatchData
 
 - `match`
