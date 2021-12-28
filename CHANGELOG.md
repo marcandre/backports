@@ -8,6 +8,39 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Note: [Next major version (X-mas 2021?)](https://github.com/marcandre/backports/issues/139) may drop support for Ruby < 2.2, please comment.
 
+## [3.22.1](https://github.com/marcandre/backports/compare/v3.21.0...v3.22.1) - 2021-12-27
+
+### Added
+
+Ruby 3.1 backports:
+
+#### Array
+
+- `intersect?`
+
+#### Class
+
+- `descendants`
+- `subclasses`
+
+#### Enumerable
+
+- `compact`
+- `tally` (with hash argument)
+
+### File
+
+- `dirname` (with depth argument)
+
+#### MatchData
+
+- `match`
+- `match_length`
+
+#### Struct
+
+- `keyword_init?`
+
 ## [3.21.0](https://github.com/marcandre/backports/compare/v3.20.1...v3.21.0) - 2021-03-31
 
 ### Added
