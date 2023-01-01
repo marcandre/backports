@@ -115,6 +115,10 @@ itself, JRuby and Rubinius.
 
 - `attached_object`
 
+#### Data
+
+- Complete class
+
 ## Ruby 3.1 backports
 
 #### Array
