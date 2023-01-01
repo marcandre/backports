@@ -115,6 +115,10 @@ itself, JRuby and Rubinius.
 
 - `attached_object`
 
+#### Data
+
+- Complete class
+
 #### Enumerator
 
 - `Enumerator.product` and `Enumerator::Product`
