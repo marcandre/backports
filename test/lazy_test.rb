@@ -209,7 +209,7 @@ class TestLazyEnumerator < Test::Unit::TestCase
   def test_zip_short_arg
     a = Step.new(1..5)
     assert_equal([5, nil], a.zip("a".."c").last)
-    enum = [42].to_enum.next
+    _enum = [42].to_enum.next
     assert_equal([5, nil], a.lazy.zip("a".."d").force.last)  ### Backport: modified to avoid fact that 1.8.x's Enumerator auto-rewind
   end
 
@@ -301,7 +301,7 @@ class TestLazyEnumerator < Test::Unit::TestCase
   end
 
   def test_take_rewound
-    bug7696 = '[ruby-core:51470]'
+    _bug7696 = '[ruby-core:51470]'
     e=(1..42).lazy.take(2)
     assert_equal 1, e.next
     assert_equal 2, e.next
