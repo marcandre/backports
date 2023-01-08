@@ -141,6 +141,7 @@ IGNORE = %w[
   3.1.0/struct/keyword_init
   3.2.0/enumerator/product
   3.2.0/hash/shift
+  3.2.0/integer/ceildiv
 ]
 
 CLASS_MAP = Hash.new{|k, v| k[v] = v}.merge!(
