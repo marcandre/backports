@@ -139,6 +139,7 @@ IGNORE = %w[
   3.0.0/ractor/ractor
   3.1.0/enumerable/compact
   3.1.0/struct/keyword_init
+  3.2.0/enumerator/product
 ]
 
 CLASS_MAP = Hash.new{|k, v| k[v] = v}.merge!(

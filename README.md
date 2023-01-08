@@ -115,6 +115,10 @@ itself, JRuby and Rubinius.
 
 - `attached_object`
 
+#### Enumerator
+
+- `Enumerator.product` and `Enumerator::Product`
+
 ## Ruby 3.1 backports
 
 #### Array
