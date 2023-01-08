@@ -127,6 +127,10 @@ itself, JRuby and Rubinius.
 
 - `shift` (with correct behavior when empty)
 
+#### Integer
+
+- `ceildiv`
+
 ## Ruby 3.1 backports
 
 #### Array
