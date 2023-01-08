@@ -117,7 +117,6 @@ itself, JRuby and Rubinius.
 
 #### Class
 
-- `descendants`
 - `subclasses`
 
 #### Enumerable
