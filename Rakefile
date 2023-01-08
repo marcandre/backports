@@ -142,6 +142,7 @@ IGNORE = %w[
   3.2.0/enumerator/product
   3.2.0/hash/shift
   3.2.0/integer/ceildiv
+  3.2.0/match_data/byteoffset
 ]
 
 CLASS_MAP = Hash.new{|k, v| k[v] = v}.merge!(
