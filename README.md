@@ -119,6 +119,10 @@ itself, JRuby and Rubinius.
 
 - Complete class
 
+#### Enumerator
+
+- `Enumerator.product` and `Enumerator::Product`
+
 ## Ruby 3.1 backports
 
 #### Array
