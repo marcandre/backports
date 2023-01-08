@@ -131,6 +131,10 @@ itself, JRuby and Rubinius.
 
 - `ceildiv`
 
+#### MatchData
+
+- `byteoffset`
+
 ## Ruby 3.1 backports
 
 #### Array
