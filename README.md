@@ -119,6 +119,10 @@ itself, JRuby and Rubinius.
 
 - `Enumerator.product` and `Enumerator::Product`
 
+#### Hash
+
+- `shift` (with correct behavior when empty)
+
 ## Ruby 3.1 backports
 
 #### Array
