@@ -181,8 +181,26 @@ EXTRA_SPECS = {
 
 USE_MSPEC_GEM = RUBY_VERSION < '2.1'
 
+SUBMODULE_DROP_SUPPORT_COMMITS = {
+  'spec/mspec' => {
+    '2.1' => '55568ea^',
+    '2.2' => 'b5b13de^',
+    '2.3' => 'ca2bc42^',
+    '2.4' => '3e7e991^',
+    :current => '92c27b8',
+  },
+}
+
+def prep_submodule(submodule)
+  commit = SUBMODULE_DROP_SUPPORT_COMMITS[submodule][RUBY_VERSION[0..2]] || SUBMODULE_DROP_SUPPORT_COMMITS[submodule][:current]
+  cmd = "git -C #{submodule} checkout #{commit}"
+  puts cmd
+  system cmd
+end
+
 def mspec_cmds(pattern, spec_folder, action='ci')
   pattern = "lib/backports/*.*.*/#{pattern}.rb"
+  prep_submodule('spec/mspec')
   Dir.glob(pattern) do |lib_path|
     _match, version, path = lib_path.match(/backports\/(\d\.\d\.\d)\/(.*)\.rb/).to_a
     next if path =~ /stdlib/
