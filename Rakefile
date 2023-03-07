@@ -129,37 +129,11 @@ DEPENDENCIES = Hash.new([]).merge!(
   libs.each{|l| DEPENDENCIES["1.8.7/#{l}"] = "backports/1.8.7/enumerable/#{req}" }
 end
 
-# These **old** specs cause actual errors while loading in 1.8:
-OLD_IGNORE_IN_18 = %w[
-  1.9.1/symbol/length
-  1.9.1/symbol/size
-  1.9.3/string/byteslice
-  1.8.7/proc/yield
-  1.9.1/proc/case_compare
-  2.4.0/string/match
-  2.4.0/regexp/match
-  2.5.0/module/define_method
-]
-# These **new** specs cause actual errors while loading in 1.9:
-IGNORE_IN_19 = %w[
-  2.1.0/enumerable/to_h
-  2.1.0/array/to_h
-  2.1.0/module/include
-  2.2.0/kernel/itself
-  2.5.0/module/define_method
-  2.5.0/module/alias_method
-  2.5.0/module/undef_method
-  2.5.0/module/remove_method
-  2.5.0/module/attr
-  2.5.0/module/attr_reader
-  2.5.0/module/attr_writer
-  2.5.0/module/attr_accessor
-  2.5.0/struct/new
-]
-# These **new** specs cause actual errors while loading in 2.0.0:
-IGNORE_IN_200 = %w[
-  2.4.0/enumerable/sum
-]
+IGNORE_IN_VERSIONS = {
+  '2.3' => %w[
+    2.7.0/comparable/clamp
+  ],
+}
 
 IGNORE = %w[
   3.0.0/ractor/ractor
@@ -207,6 +181,16 @@ def prep_submodule(submodule)
   system cmd
 end
 
+def ignore?(version_path)
+  return true if IGNORE.include?(version_path)
+
+  IGNORE_IN_VERSIONS.each do |version, paths|
+    return false if RUBY_VERSION[0..2] > version
+    return true if paths.include? version_path
+  end
+  false
+end
+
 def mspec_cmds(pattern, spec_folder, action='ci')
   pattern = "lib/backports/*.*.*/#{pattern}.rb"
   prep_submodule('spec/mspec')
@@ -216,13 +200,7 @@ def mspec_cmds(pattern, spec_folder, action='ci')
     next if path =~ /stdlib/
     next if version <= RUBY_VERSION
     version_path = "#{version}/#{path}"
-    if RUBY_VERSION < '2.0.0'
-      next if OLD_IGNORE_IN_18.include? version_path if RUBY_VERSION < '1.9'
-      next if IGNORE_IN_19.include? version_path
-      next if spec_folder != 'frozen_old_spec' && version <= '2.0.0'  # Don't run new specs for pre 2.0 features & ruby
-    end
-    next if RUBY_VERSION < '2.1.0' && IGNORE_IN_200.include?(version_path)
-    next if IGNORE.include?(version_path)
+    next if ignore?(version_path)
     deps = [*DEPENDENCIES[version_path]].map{|p| "-r #{p}"}.join(' ')
     klass, method = path.split('/')
     path = [CLASS_MAP[klass], method].join('/')
