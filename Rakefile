@@ -230,6 +230,10 @@ def mspec_cmds(pattern, spec_folder, action='ci')
       p.gsub! /fixnum|bignum/, 'integer'
       "#{spec_folder}/rubyspec/core/#{p}_spec.rb"
     end
+    if !File.exist?(spec_paths.first)
+      puts "NOT FOUND: No spec found for #{path}"
+      next
+    end
     if USE_MSPEC_GEM
       cmd = "mspec #{action}"
     else
