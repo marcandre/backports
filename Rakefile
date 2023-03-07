@@ -189,6 +189,15 @@ SUBMODULE_DROP_SUPPORT_COMMITS = {
     '2.4' => '3e7e991^',
     :current => '92c27b8',
   },
+  'spec/rubyspec' => {
+    '2.1' => '63676e680^',
+    '2.2' => '63676e680^',
+    '2.3' => '63676e680^',
+    '2.4' => '0fff6dc19^',
+    '2.5' => '2c444ac19^',
+    '2.6' => '055d83c54^',
+    :current => '55e1223',
+  },
 }
 
 def prep_submodule(submodule)
@@ -201,6 +210,7 @@ end
 def mspec_cmds(pattern, spec_folder, action='ci')
   pattern = "lib/backports/*.*.*/#{pattern}.rb"
   prep_submodule('spec/mspec')
+  prep_submodule('spec/rubyspec')
   Dir.glob(pattern) do |lib_path|
     _match, version, path = lib_path.match(/backports\/(\d\.\d\.\d)\/(.*)\.rb/).to_a
     next if path =~ /stdlib/
