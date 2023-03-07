@@ -4,9 +4,21 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [3.24.0](https://github.com/marcandre/backports/compare/v3.23.0...v3.24.0) - 2023-03-07
 
-Note: [Next major version (X-mas 2021?)](https://github.com/marcandre/backports/issues/139) may drop support for Ruby < 2.2, please comment.
+## Added
+
+- `Class#attached_object` (Ruby 3.2)
+- `Data` (Ruby 3.2)
+- `Enumerator.product` and `Enumerator::Product` (Ruby 3.2)
+- `Hash#shift` (with correct behavior when empty) (Ruby 3.2)
+- `Integer#ceildiv` (Ruby 3.2)
+- `MatchData#byteoffset` (Ruby 3.2)
+- `Symbol#start_with?` (Ruby 2.7)
+
+## Fixed
+
+- `Class#descendants` (removed, as it was not actually added in Ruby 3.1, sorry)
 
 ## [3.23.0](https://github.com/marcandre/backports/compare/v3.22.1...v3.23.0) - 2021-12-28
 
