@@ -199,6 +199,7 @@ itself, JRuby and Rubinius.
 #### Symbol
 
 - `end_with?`
+- `start_with?`
 
 #### Time
 
