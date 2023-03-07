@@ -46,7 +46,7 @@ class ProductTest < Test::Unit::TestCase
     # Reject keyword arguments
     assert_raise(ArgumentError) {
       Enumerator::Product.new(1..3, foo: 1, bar: 2)
-    }
+    } unless RUBY_VERSION < '2.7'
 
     ##
     ## Enumerator.product
@@ -64,12 +64,12 @@ class ProductTest < Test::Unit::TestCase
     assert_equal elts, Enumerator.product(1..3).to_a
 
     # an infinite enumerator and a finite enumerable
-    e = Enumerator.product(1.., 'a'..'c')
+    e = Enumerator.product(1..Float::INFINITY, 'a'..'c')
     assert_equal(Float::INFINITY, e.size)
     assert_equal [[1, "a"], [1, "b"], [1, "c"], [2, "a"]], e.take(4)
 
     # an infinite enumerator and an unknown enumerator
-    e = Enumerator.product(1.., Enumerator.new { |y| y << 'a' << 'b' })
+    e = Enumerator.product(1..Float::INFINITY, Enumerator.new { |y| y << 'a' << 'b' })
     assert_equal(Float::INFINITY, e.size)
     assert_equal [[1, "a"], [1, "b"], [2, "a"], [2, "b"]], e.take(4)
 
@@ -81,6 +81,6 @@ class ProductTest < Test::Unit::TestCase
     # Reject keyword arguments
     assert_raise(ArgumentError) {
       Enumerator.product(1..3, foo: 1, bar: 2)
-    }
+    } unless RUBY_VERSION < '2.7'
   end
 end
