@@ -50,15 +50,10 @@ unless ::Backports::Data.respond_to?(:define)
       class << klass
         def new(*values, **named_values)
           if named_values.empty?
-            case values.size <=> members.size
-            when -1
-              missing = members[values.size..-1].map(:inspect).join(", ")
-              raise ArgumentError, "Missing keywords: #{missing}"
-            when +1
+            if values.size > members.size
               raise ArgumentError, "wrong number of arguments (given #{values.size}, expected 0..#{members.size})"
-            when 0
-              super(**members.zip(values).to_h)
             end
+            super(**members.first(values.size).zip(values).to_h)
           else
             unless values.empty?
               raise ArgumentError, "wrong number of arguments (given #{values.size}, expected 0)"
