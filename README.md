@@ -107,6 +107,10 @@ itself, JRuby and Rubinius.
 
 ## Ruby 3.3 backports
 
+#### MatchData
+
+- `named_captures` (with `symbolize_keys` option)
+
 ## Ruby 3.2 backports
 
 #### Class
