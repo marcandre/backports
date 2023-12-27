@@ -130,6 +130,9 @@ DEPENDENCIES = Hash.new([]).merge!(
 end
 
 IGNORE_IN_VERSIONS = {
+  '2.1' => %w[
+    3.3.0/range/reverse_each
+  ],
   '2.3' => %w[
     2.7.0/comparable/clamp
     3.3.0/match_data/named_captures
