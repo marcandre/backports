@@ -111,6 +111,10 @@ itself, JRuby and Rubinius.
 
 - `named_captures` (with `symbolize_keys` option)
 
+#### Range
+
+- `reverse_each` (with correct handling of endless Ranges)
+
 ## Ruby 3.2 backports
 
 #### Class
