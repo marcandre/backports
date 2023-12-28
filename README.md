@@ -111,6 +111,14 @@ itself, JRuby and Rubinius.
 
 - `named_captures` (with `symbolize_keys` option)
 
+<<<<<<< HEAD
+=======
+#### Range
+
+- `reverse_each` (with correct handling of endless Ranges)
+- `overlap?`
+
+>>>>>>> a8a3545 (Add `Range#overlap?`)
 ## Ruby 3.2 backports
 
 #### Class
