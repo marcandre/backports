@@ -114,6 +114,7 @@ itself, JRuby and Rubinius.
 #### Range
 
 - `reverse_each` (with correct handling of endless Ranges)
+- `overlap?`
 
 ## Ruby 3.2 backports
 
