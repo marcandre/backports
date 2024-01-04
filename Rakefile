@@ -188,7 +188,7 @@ end
 def ignore?(version_path)
   return true if IGNORE.include?(version_path)
 
-  IGNORE_IN_VERSIONS.each do |version, paths|
+  IGNORE_IN_VERSIONS.reverse_each do |version, paths|
     return false if RUBY_VERSION[0..2] > version
     return true if paths.include? version_path
   end
