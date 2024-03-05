@@ -3,7 +3,7 @@ unless Enumerator.method_defined? :product
     instance_eval <<-'EOT', __FILE__, __LINE__ + 1
       def Enumerator.product(*enums, **kwargs, &block)
         if kwargs && !kwargs.empty?
-          raise ArgumentError, "unknown keywords: #{kwargs.keys.map(&:inspect).join(", ")}"
+          raise ArgumentError, "unknown keywords: #{kwargs.keys.map(&:inspect).join(', ')}"
         end
         Enumerator::Product.new(*enums).each(&block)
       end
@@ -12,7 +12,7 @@ unless Enumerator.method_defined? :product
     def Enumerator.product(*enums, &block)
       kwargs = enums[-1]
       if kwargs.is_a?(Hash) && !kwargs.empty?
-        raise ArgumentError, "unknown keywords: #{kwargs.keys.map(&:inspect).join(", ")}"
+        raise ArgumentError, "unknown keywords: #{kwargs.keys.map(&:inspect).join(', ')}"
       end
       Enumerator::Product.new(*enums).each(&block)
     end
