@@ -56,7 +56,7 @@ unless Enumerator.method_defined? :product
       @__enums.each do |enum|
         return nil unless enum.respond_to?(:size)
         size = enum.size
-        return size if size == nil || size == Float::INFINITY
+        return size if size == nil || size == Float::INFINITY || size == 0
         return nil unless size.is_a?(Integer)
         total_size *= size
       end
