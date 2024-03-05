@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.25.0](https://github.com/marcandre/backports/compare/v3.24.0...v3.25.0) - 2024-03-05
+
+## Added
+
+- `MatchData#named_captures` (with `symbolize_keys` option, Ruby 3.3)
+- `Range.reverse_each` (Ruby 3.3)
+- `Range#overlap?` (Ruby 3.3)
+
 ## [3.24.0](https://github.com/marcandre/backports/compare/v3.23.0...v3.24.0) - 2023-03-07
 
 ## Added
