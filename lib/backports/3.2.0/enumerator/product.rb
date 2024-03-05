@@ -1,12 +1,19 @@
 unless Enumerator.method_defined? :product
   if RUBY_VERSION >= '2.7'
-    instance_eval <<-EOT, __FILE__, __LINE__ + 1
-      def Enumerator.product(*enums, **nil, &block)
+    instance_eval <<-'EOT', __FILE__, __LINE__ + 1
+      def Enumerator.product(*enums, **kwargs, &block)
+        if kwargs && !kwargs.empty?
+          raise ArgumentError, "unknown keywords: #{kwargs.keys.map(&:inspect).join(', ')}"
+        end
         Enumerator::Product.new(*enums).each(&block)
       end
     EOT
   else
     def Enumerator.product(*enums, &block)
+      kwargs = enums[-1]
+      if kwargs.is_a?(Hash) && !kwargs.empty?
+        raise ArgumentError, "unknown keywords: #{kwargs.keys.map(&:inspect).join(', ')}"
+      end
       Enumerator::Product.new(*enums).each(&block)
     end
   end
@@ -47,15 +54,17 @@ unless Enumerator.method_defined? :product
     def size
       total_size = 1
       @__enums.each do |enum|
+        return nil unless enum.respond_to?(:size)
         size = enum.size
         return size if size == nil || size == Float::INFINITY
+        return nil unless size.is_a?(Integer)
         total_size *= size
       end
       total_size
     end
 
     def rewind
-      @__enums.reverse_each do |enum|
+      @__enums.each do |enum|
         enum.rewind if enum.respond_to?(:rewind)
       end
       self
