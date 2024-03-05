@@ -12,7 +12,7 @@ unless Enumerator.method_defined? :product
     def Enumerator.product(*enums, &block)
       kwargs = enums[-1]
       if kwargs.is_a?(Hash) && !kwargs.empty?
-        raise ArgumentError.new("unknown keywords: " + kwargs.keys.map(&:inspect).join(", "))
+        raise ArgumentError, "unknown keywords: #{kwargs.keys.map(&:inspect).join(", ")}"
       end
       Enumerator::Product.new(*enums).each(&block)
     end
