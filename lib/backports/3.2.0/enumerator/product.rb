@@ -5,7 +5,14 @@ unless Enumerator.method_defined? :product
         if kwargs && !kwargs.empty?
           raise ArgumentError, "unknown keywords: #{kwargs.keys.map(&:inspect).join(', ')}"
         end
-        Enumerator::Product.new(*enums).each(&block)
+        product = Enumerator::Product.new(*enums)
+
+        if block_given?
+          product.each(&block)
+          return nil
+        end
+      
+        product
       end
     EOT
   else
@@ -14,7 +21,14 @@ unless Enumerator.method_defined? :product
       if kwargs.is_a?(Hash) && !kwargs.empty?
         raise ArgumentError, "unknown keywords: #{kwargs.keys.map(&:inspect).join(', ')}"
       end
-      Enumerator::Product.new(*enums).each(&block)
+      product = Enumerator::Product.new(*enums)
+
+        if block_given?
+          product.each(&block)
+          return nil
+        end
+      
+        product
     end
   end
 
@@ -29,6 +43,7 @@ unless Enumerator.method_defined? :product
       # rubocop:disable Lint/MissingSuper
       def initialize(*enums)
         @__enums = enums
+        self
       end
       # rubocop:enable Lint/MissingSuper
     end
@@ -36,6 +51,7 @@ unless Enumerator.method_defined? :product
     def each(&block)
       return self unless block
       __execute(block, [], @__enums)
+      self
     end
 
     def __execute(block, values, enums)
@@ -56,7 +72,7 @@ unless Enumerator.method_defined? :product
       @__enums.each do |enum|
         return nil unless enum.respond_to?(:size)
         size = enum.size
-        return size if size == nil || size == Float::INFINITY || size == 0
+        return size if size == 0 || size == nil || size == Float::INFINITY || size == -Float::INFINITY
         return nil unless size.is_a?(Integer)
         total_size *= size
       end
@@ -67,6 +83,22 @@ unless Enumerator.method_defined? :product
       @__enums.each do |enum|
         enum.rewind if enum.respond_to?(:rewind)
       end
+      self
+    end
+
+    private def initialize_copy(other)
+      return self if self.equal?(other)
+  
+      raise TypeError if !(Product === other)
+  
+      super(other)
+  
+      other_enums = other.instance_variable_get(:@__enums)
+  
+      raise ArgumentError.new("uninitialized product") unless other_enums
+  
+      @__enums = other_enums
+  
       self
     end
   end
