@@ -11,7 +11,7 @@ unless Enumerator.method_defined? :product
           product.each(&block)
           return nil
         end
-      
+
         product
       end
     EOT
@@ -23,12 +23,12 @@ unless Enumerator.method_defined? :product
       end
       product = Enumerator::Product.new(*enums)
 
-        if block_given?
-          product.each(&block)
-          return nil
-        end
-      
-        product
+      if block_given?
+        product.each(&block)
+        return nil
+      end
+
+      product
     end
   end
 
@@ -43,7 +43,6 @@ unless Enumerator.method_defined? :product
       # rubocop:disable Lint/MissingSuper
       def initialize(*enums)
         @__enums = enums
-        self
       end
       # rubocop:enable Lint/MissingSuper
     end
@@ -87,18 +86,18 @@ unless Enumerator.method_defined? :product
     end
 
     private def initialize_copy(other)
-      return self if self.equal?(other)
-  
-      raise TypeError if !(Product === other)
-  
+      return self if equal?(other)
+
+      raise TypeError unless Product === other
+
       super(other)
-  
+
       other_enums = other.instance_variable_get(:@__enums)
-  
-      raise ArgumentError.new("uninitialized product") unless other_enums
-  
+
+      raise ArgumentError, "uninitialized product" unless other_enums
+
       @__enums = other_enums
-  
+
       self
     end
   end
