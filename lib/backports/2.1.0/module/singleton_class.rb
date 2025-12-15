@@ -1,4 +1,4 @@
-if Module.method_defined? :singleton_class?
+unless Module.method_defined? :singleton_class?
   class Module
     def singleton_class?
       # Hacky...
